@@ -1,4 +1,4 @@
-# CODE.md – Skript Coding Referenz
+# Skript Coding Referenz
 
 ---
 
