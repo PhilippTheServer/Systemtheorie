@@ -1,0 +1,71 @@
+% ============================================================
+%  Mathematik 2 – Wahrscheinlichkeit in der Informatik
+%  Persönliches Skript
+% ============================================================
+\documentclass[
+  12pt,
+  a4paper,
+  twoside=false,
+  headings=normal,
+  parskip=half
+]{scrreprt}
+
+\input{preamble}
+
+% ═════════════════════════════════════════════════════════════
+%  DOKUMENT
+% ═════════════════════════════════════════════════════════════
+\begin{document}
+
+% ── Deckblatt ────────────────────────────────────────────────
+\pagenumbering{alph}% avoids page.1 duplicate with ToC/content
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+  \vspace*{3cm}
+
+  {\color{accent}\rule{\linewidth}{1.5pt}}\vspace{0.5em}
+
+  {\fontsize{28}{34}\selectfont\bfseries Modul}\\[0.4em]
+  {\Large\bfseries Kurs Name}
+
+  \vspace{0.4em}
+  {\color{accent}\rule{\linewidth}{1.5pt}}
+
+  \vspace{2.5cm}
+  \vfill
+
+  \begin{tabular}{@{}rl@{}}
+    \textbf{Autor:}    & Philipp Lehmann \\[0.5em]
+    \textbf{Semester:} & Sommersemester 2026 \\[0.5em]
+    \textbf{Stand:}    & \today
+  \end{tabular}
+
+  \vspace{2.5cm}
+  {\color{accent}\rule{\linewidth}{0.5pt}}
+\end{titlepage}
+
+% ── Inhaltsverzeichnis ───────────────────────────────────────
+\pagenumbering{roman}
+\pagestyle{plain}
+\tableofcontents
+\clearpage
+
+% ── Hauptinhalt ──────────────────────────────────────────────
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{main}
+
+% ── Vorlesungen ──────────────────────────────────────────────
+\include{skript/Vorlesung1}
+% \include{skript/Vorlesung2}
+% ...
+
+% ── Zusätzliches Wissen ──────────────────────────────────────
+% \include{knowledge/Thema1}
+% ...
+
+% ── Formelsammlung ───────────────────────────────────────────
+\include{formelsammlung}
+
+\end{document}
