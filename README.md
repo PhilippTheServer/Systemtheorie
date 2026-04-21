@@ -1,4 +1,8 @@
-# LateX Skript Template
+# Systemtheorie Skript
+
+Das Systemtheorie Skript ist eine umfassende Mathematische Sammlung, aller Inhalte in Bezug auf ihre mathematischen Grundlagen. 
+
+---
 
 # About 
 
