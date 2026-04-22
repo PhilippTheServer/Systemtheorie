@@ -5,12 +5,12 @@
 
 Je nach Zeitbasis und Wertemenge des Signals unterscheidet man in:
 
-\begin{enumerate}
+\begin{description}
     \item[Analoge Signale]: Zeit- und Wertekontinuierliche Signale
     \item[Zeitdiskrete Signale]: Zeitdiskret, aber Wertekontinuierliche Signale
     \item[Wertdiskrete Signale]: Wertediskret, aber Zeitkontinuierliche Signale
     \item[Diskrete Signale]: Zeit- und Wertediskrete Signale. \textit{Digitale Signale}.   
-\end{enumerate}
+\end{description}
 
 % ###################################################
 %              Graphen der Signalarten
@@ -105,4 +105,192 @@ x_I(t) = & \sqrt{x_R^2(t) + x_I^2(t)} = \sqrt{|x(t)x*(t)|}\\
 \Phi(t) =& arg\{x(t)\}\\
 \end{array}
 $$
+
+\section{Elementare analoge Signale}
+
+\textbf{Gleichsignal}: $x(t) = A \forall t$ $T$: Zeitliches Bezugsintervall
+
+\begin{definition}[Gleichsignal]
+$x(t) = A \forall t$
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm, height=3cm,
+  xmin=-1.5, xmax=3.2, ymin=-0.3, ymax=1.5,
+  axis lines=center,
+  xtick=\empty, ytick={1}, yticklabels={$A$},
+  xlabel={$t$},
+  tick style={color=black, thin}, tick label style={font=\small},
+]
+\addplot[blue, very thick, domain=-1.5:3.2, samples=2] {1};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Sinussignal}: $x(t) = A sin(\omega t + \phi)$
+
+\begin{definition}[Sinussignal]
+  $$
+  x(t) = A sin(\omega t+ \phi) = A cos(\omega t + \phi - \frac{\pi}{2})
+  $$
+
+  \begin{itemize}
+    \item $A$ die Amplitude 
+    \item $\omega = 2 \pi f$ die Kreisfrequenz (gemessen in $1/s$)
+    \item $f = \frac{1}{T}$ die Frequenz (Schwingungen pro Sekunde in Hertz, $Hz = 1/s$)
+    \item $T$ die Periodendauer (gemessen in s)
+    \item $\phi$ den Phasenwinkel (gemessen in rad)
+  \end{itemize}
+
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm, height=3cm,
+  xmin=-0.3, xmax=4.3, ymin=-1.5, ymax=1.5,
+  axis lines=center,
+  xtick={2,4}, xticklabels={$T$, $2T$},
+  ytick={1,-1}, yticklabels={$A$, $-A$},
+  xlabel={$t$},
+  tick style={color=black, thin}, tick label style={font=\small},
+]
+\addplot[blue, very thick, smooth, domain=0:4, samples=300] {sin(180*x)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Einheitssprung}:
+
+\begin{definition}[Einheitssprung]
+$$
+  x(t) = \epsilon(t) =
+  \begin{cases}
+    0 & t < 0 \\
+    1 & t \geq 0
+  \end{cases}
+$$
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm, height=3cm,
+  xmin=-1.8, xmax=3.0, ymin=-0.4, ymax=1.5,
+  axis lines=center,
+  xtick=\empty, ytick={1}, yticklabels={$1$},
+  xlabel={$t$},
+  tick style={color=black, thin}, tick label style={font=\small},
+]
+\addplot[blue, very thick] coordinates {(-1.8,0) (0,0)};
+\addplot[blue, very thick] coordinates {(0,1) (3.0,1)};
+\draw[blue, very thick] (axis cs:0,0) -- (axis cs:0,1);
+\addplot[only marks, mark=*, mark options={fill=blue,  draw=blue},  mark size=2pt] coordinates {(0,1)};
+\addplot[only marks, mark=*, mark options={fill=white, draw=blue},  mark size=2pt] coordinates {(0,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Rechteckimpuls}:
+
+\begin{definition}[Rechteckimpuls]
+$$
+  x(t) =
+  \begin{cases}
+    0 & t < 0 \\
+    1 & 0 \leq t < T \\
+    0 & t \geq T
+  \end{cases}
+  \qquad \Leftrightarrow \qquad
+  x(t) = \operatorname{rect}\ \left(\frac{t}{T}\right)
+$$
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm, height=3cm,
+  xmin=-0.8, xmax=2.5, ymin=-0.4, ymax=1.5,
+  axis lines=center,
+  xtick={1}, xticklabels={$T$},
+  ytick={1}, yticklabels={$1$},
+  xlabel={$t$},
+  tick style={color=black, thin}, tick label style={font=\small},
+]
+\addplot[blue, very thick] coordinates {(-0.8,0) (0,0)};
+\draw[blue, very thick] (axis cs:0,0) -- (axis cs:0,1);
+\addplot[blue, very thick] coordinates {(0,1) (1,1)};
+\draw[blue, very thick] (axis cs:1,1) -- (axis cs:1,0);
+\addplot[blue, very thick] coordinates {(1,0) (2.5,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Exponentialsignal}:
+
+\begin{definition}[Exponentialsignal]
+$$
+  x(t) =
+  \begin{cases}
+    0             & t < 0 \\
+    A e^{-t/\tau} & t \geq 0
+  \end{cases}
+$$
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm, height=3cm,
+  xmin=-0.8, xmax=4.5, ymin=-0.2, ymax=1.4,
+  axis lines=center,
+  xtick={1}, xticklabels={$\tau$},
+  ytick={1}, yticklabels={$A$},
+  xlabel={$t$},
+  tick style={color=black, thin}, tick label style={font=\small},
+]
+\addplot[blue, very thick] coordinates {(-0.8,0) (0,0)};
+\draw[blue, very thick] (axis cs:0,0) -- (axis cs:0,1);
+\addplot[blue, very thick, smooth, domain=0:4.5, samples=200] {exp(-x)};
+\draw[gray, dashed, thin] (axis cs:0,0.368) -- (axis cs:1,0.368);
+\draw[gray, dashed, thin] (axis cs:1,0)     -- (axis cs:1,0.368);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{si-Funktion}:
+
+\begin{definition}[si-Funktion]
+$$
+  x(t) =
+  \begin{cases}
+    A\,\dfrac{\sin(\pi t/T)}{\pi t/T} & t \neq 0 \\[6pt]
+    A                                  & t = 0
+  \end{cases}
+  \qquad \Leftrightarrow \qquad
+  x(t) = A\,\operatorname{si}\ \left(\frac{t}{T}\right)
+$$
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=6.5cm, height=3cm,
+  xmin=-3.5, xmax=3.5, ymin=-0.35, ymax=1.3,
+  axis lines=center,
+  xtick={-3,-2,-1,1,2,3},
+  xticklabels={$-3T$,$-2T$,$-T$,$T$,$2T$,$3T$},
+  ytick={1}, yticklabels={$A$},
+  xlabel={$t$},
+  tick style={color=black, thin}, tick label style={font=\tiny},
+]
+\addplot[blue, very thick, smooth, domain=-3.5:-0.05, samples=200] {sin(180*x)/(pi*x)};
+\addplot[blue, very thick, smooth, domain= 0.05: 3.5, samples=200] {sin(180*x)/(pi*x)};
+\addplot[only marks, mark=*, mark options={fill=blue, draw=blue}, mark size=2pt]
+  coordinates {(0,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
