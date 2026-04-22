@@ -12,6 +12,10 @@ Je nach Zeitbasis und Wertemenge des Signals unterscheidet man in:
     \item[Diskrete Signale]: Zeit- und Wertediskrete Signale. \textit{Digitale Signale}.   
 \end{enumerate}
 
+% ###################################################
+%              Graphen der Signalarten
+% ###################################################
+
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}
@@ -73,4 +77,32 @@ Je nach Zeitbasis und Wertemenge des Signals unterscheidet man in:
 
 Das Zeitdiskrete Signal entsteht durch \textit{Abtastung} des analogen Signals.
 Das Wertdiskrete Signal durch \textit{Quantisierung}.
+
+
+\subsection{Komplexwertige und Reellwertige Signale}
+
+Signale können reellwertig $(x: \mathbb{R} \rightarrow \mathbb{R})$ oder komplexwertig 
+$(x: \mathbb{R} \rightarrow \mathbb{C})$ sein.
+
+\subsubsection{Komplexwertige Signale}
+
+Ein komplexwertiges Signal kann über reellwertige Real- und Imaginärteilsignale oder über Amplitude
+und Phasensignal formuliert werden. Wir schreiben vortan für dei Phase: $j = \sqrt{-1}$.
+
+$$
+\begin{array}{rl}
+x(t) = x_R(t) + jx_I(t) = & Re\{x(t)\} + jIm\{x(t)\}\\
+= & |x(t)|e^{j \phi(t)}
+\end{array}
+$$
+
+Mit der Definition des zu $x(t)$ konjugierten Signals $x*(t) = x_R(t) - jx_I(t)$ gilt:
+
+$$
+\begin{array}{rl}
+x_R(t) = & \frac{1}{2} (x(t) + x*(t))\\
+x_I(t) = & \sqrt{x_R^2(t) + x_I^2(t)} = \sqrt{|x(t)x*(t)|}\\
+\Phi(t) =& arg\{x(t)\}\\
+\end{array}
+$$
 
