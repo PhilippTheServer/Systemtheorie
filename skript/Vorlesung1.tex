@@ -296,3 +296,106 @@ $$
 \end{tikzpicture}
 \end{center}
 
+\subsection{Komplexe Exponentialsignale}
+
+Im Zusammenhang mit linearen Netzwerken und Systemen im eingeschwungenen Zustand
+wird häufig auch das komplexe Exponentialsignal verwendet,
+
+\begin{align*}
+  \underline{x}(t)
+    &= A e^{j(\omega t + \varphi)}
+     = A\bigl(\cos(\omega t + \varphi) + j\sin(\omega t + \varphi)\bigr) \\
+    &= A e^{j\varphi} \cdot e^{j\omega t}
+     = \underline{A}\, e^{j\omega t},
+\end{align*}
+
+wobei $\underline{A} = A e^{j\varphi}$ die \textit{komplexe Amplitude} bezeichnet.
+Der Realteil und der Imaginärteil ergeben sich wie folgt,
+
+\begin{align*}
+  \operatorname{Re}\bigl\{\underline{x}(t)\bigr\} &= A\cos(\omega t + \varphi) \\
+  \operatorname{Im}\bigl\{\underline{x}(t)\bigr\} &= A\sin(\omega t + \varphi).
+\end{align*}
+
+\medskip
+Erzeugung des Sinus- oder Cosinussignals durch einen in der komplexen
+Zahlenebene rotierenden Zeiger:
+
+\begin{center}
+\begin{tikzpicture}[font=\small, >=stealth]
+
+%% φ = 40°, ωt₀ = φ = 40° → total phasor angle = 80°
+\def\R{2.0}
+\def\phideg{40}
+\def\totaldeg{80}
+
+%% ── LEFT: Phasor in the complex plane ───────────────────────
+\draw[->] (-2.7,0) -- (2.7,0);
+\draw[->] (0,-2.7) -- (0,3.1);
+\draw[thick] (0,0) circle (\R);
+
+%% Phasor arrow
+\draw[->, very thick]
+  (0,0) -- ({\R*cos(\totaldeg)},{\R*sin(\totaldeg)});
+\node[above left] at ({0.58*\R*cos(\totaldeg)},{0.52*\R*sin(\totaldeg)}) {$A$};
+
+%% φ inner arc
+\draw[->] (0.55,0) arc (0:\phideg:0.55);
+\node at ({0.90*cos(\phideg/2)},{0.42*sin(\phideg/2)}) {$\varphi$};
+
+%% ωt₀+φ outer arc
+\draw[->] (1.1,0) arc (0:\totaldeg:1.1);
+\node[right, font=\scriptsize]
+  at ({1.45*cos(\totaldeg/2)},{1.25*sin(\totaldeg/2)})
+  {$\omega t_0{+}\varphi$};
+
+%% Dashed projection lines
+\draw[dashed, gray]
+  ({\R*cos(\totaldeg)},{\R*sin(\totaldeg)}) -- (0,{\R*sin(\totaldeg)});
+\draw[dashed, gray]
+  ({\R*cos(\totaldeg)},{\R*sin(\totaldeg)}) -- ({\R*cos(\totaldeg)},0);
+
+%% Projection labels
+\node[left, font=\scriptsize]
+  at (-0.1,{\R*sin(\totaldeg)}) {$A\sin(\omega t_0{+}\varphi)$};
+\node[below, font=\scriptsize]
+  at ({\R*cos(\totaldeg)},-0.2) {$A\cos(\omega t_0{+}\varphi)$};
+
+%% ω rotation indicator
+\draw[->, thick]
+  ({2.3*cos(88)},{2.3*sin(88)}) arc(88:108:2.3);
+\node[font=\scriptsize] at ({2.58*cos(99)},{2.6*sin(99)}) {$\omega$};
+
+%% ── RIGHT: Sine wave (pgfplots) ──────────────────────────────
+%% φ_rad = 0.698, sin value at ωt₀: 2·sin(80°) ≈ 1.970
+%% zero crossings: π−φ ≈ 2.443, 2π−φ ≈ 5.585
+\begin{axis}[
+  at={(5.2cm,-2.2cm)}, anchor=south west,
+  width=6.5cm, height=4.8cm,
+  xmin=-0.1, xmax=6.8, ymin=-2.5, ymax=2.7,
+  axis lines=center,
+  xtick={0.698, 2.443, 5.585},
+  xticklabels={$\omega t_0$, $\pi{-}\varphi$, $2\pi{-}\varphi$},
+  ytick={2,-2}, yticklabels={$A$,$-A$},
+  xlabel={$\omega t$},
+  ylabel={$\operatorname{Im}\bigl\{\underline{x}(t)\bigr\}$},
+  ylabel style={at={(axis description cs:0.18,1.06)}, anchor=south},
+  tick style={color=black, thin},
+  tick label style={font=\scriptsize},
+  clip=false,
+]
+\addplot[very thick, smooth, domain=0:6.5, samples=400]
+  {2*sin(deg(x)+40)};
+\node[font=\scriptsize] at (axis cs:3.6,2.15) {$A\sin(\omega t{+}\varphi)$};
+
+%% Dashed lines at ωt₀ = 0.698 (value 1.970)
+\draw[dashed,gray,thin] (axis cs:0.698,0)     -- (axis cs:0.698,1.970);
+\draw[dashed,gray,thin] (axis cs:0,1.970)     -- (axis cs:0.698,1.970);
+
+%% φ phase indicator
+\draw[<->] (axis cs:0,-0.55) -- (axis cs:0.698,-0.55)
+  node[midway,below,font=\scriptsize] {$\varphi$};
+\end{axis}
+
+\end{tikzpicture}
+\end{center}
