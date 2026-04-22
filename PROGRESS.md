@@ -12,9 +12,9 @@
 ## Block 1 · Signale und Systeme
 
 ### 1.1 Grundbegriffe und Klassifikation von Signalen
-- [ ] Definition: Signal, Determinismus vs. Stochastik
-- [ ] Klassifikation nach Wertebereich (kontinuierlich / diskret / digital)
-- [ ] Klassifikation nach Zeitbereich (zeitkontinuierlich / zeitdiskret)
+- [x] Definition: Signal, Determinismus vs. Stochastik
+- [x] Klassifikation nach Wertebereich (kontinuierlich / diskret / digital)
+- [x] Klassifikation nach Zeitbereich (zeitkontinuierlich / zeitdiskret)
 - [ ] Energie und Leistung eines Signals
   - [ ] Energie-Definition und Berechnung
   - [ ] Leistungs-Definition und Berechnung
