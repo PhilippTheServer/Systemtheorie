@@ -399,3 +399,144 @@ Zahlenebene rotierenden Zeiger:
 
 \end{tikzpicture}
 \end{center}
+
+\subsection{Dirac-Impuls}
+
+Sei $f:\mathbb{R} \rightarrow \mathbb{R}$ eine beliebige stetige Funktion. Der Dirac-Impuls ist
+dann durch den folgenden Zusammenhang definiert:
+
+\begin{definition}[Siebeigenschaft des Dirac-Impulses]
+$$
+  \int_{-\infty}^{\infty} f(\xi)\,\delta(\xi - a)\,\mathrm{d}\xi = f(a)
+$$
+\end{definition}
+
+Der Dirac-Impuls liefert somit den Funktionswert $f(\xi)$ an der Stelle $\xi = a$
+(\textit{Siebeigenschaft}).
+
+
+Im Spezialfall $f(\xi) = 1$ folgt:
+$$
+  \int_{-\infty}^{\infty} \delta(\xi)\,\mathrm{d}\xi = 1\,.
+$$
+
+Ein analoges Signal $x(t)$ kann somit auch wie folgt dargestellt werden:
+$$
+  x(t) = \int_{-\infty}^{\infty} x(\xi)\,\delta(\xi - t)\,\mathrm{d}\xi
+        = \int_{-\infty}^{\infty} x(\xi)\,\delta(t - \xi)\,\mathrm{d}\xi\,.
+$$
+
+Aufgrund der Siebeigenschaft wird der Dirac-Impuls häufig zur Beschreibung von
+Abtastvorgängen eingesetzt. Dabei wird der Dirac-Impuls $\delta(t-a)$ wie ein
+Signal visualisiert, wobei das Signal für $t \neq a$ Null ist.
+
+\begin{center}
+\begin{tikzpicture}[>=stealth, font=\small]
+\begin{axis}[
+  width=9cm, height=5.5cm,
+  xmin=-5, xmax=8,
+  ymin=-0.75, ymax=1.2,
+  axis lines=center,
+  xtick={3.5}, xticklabels={$a$},
+  ytick=\empty,
+  xlabel={$t$},
+  tick style={color=black, thin},
+  tick label style={font=\small},
+  clip=false,
+]
+%% f(t): left hump, dip near origin, main peak at a=3.5
+\addplot[blue, very thick, smooth, domain=-5:8, samples=500]
+  {0.5*exp(-0.8*(x+3)^2) - 0.55*exp(-1.2*x^2) + 0.9*exp(-0.7*(x-3.5)^2)};
+
+%% y-axis label
+\node[above right, font=\small] at (axis cs:0.1, 1.1) {$f(t)$};
+
+%% dashed vertical reference at t=a (peak ≈ 0.9)
+\draw[dashed, gray, thin] (axis cs:3.5,0) -- (axis cs:3.5,0.9);
+
+%% f(a) annotation
+\draw[->, thin] (axis cs:4.4,0.78)
+  node[right, font=\small] {$f(a)$}
+  -- (axis cs:3.56,0.893);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Elementare Operationen}
+
+Ein Signal kann beliebig verändert werden. Dazu gehört die Veränderung der Amplitude,
+also wie hoch oder tief ein Signal ausschlägt. Das Stauchen oder Strecken eines Signals,
+um die Phase zu verkürzen oder zu verlängern. Und die Zeitliche Verzögerung, also der 
+Verschiebung auf der X-Achse nach links oder Rechts.
+
+\textbf{Amplituden Veränderung}
+
+Das normale Sinussignal $x(t) = sin(\omega t)$, kann höher oder niedriger ausschlagen wenn
+die Amplitude verändert wird. Hier ist die Amplitude indirekt sichtbar als $1$, dann
+$x(t) = sin(\omega t) = 1 \cdot sin(\omega t)$. Mit der Konstanten Multiplikation wird die 
+Amplitude vergrößtert oder verkleinert, also: $x(t) = A \cdot sin(\omega t)$. Es gilt für
+$\forall x \in A > 1$ die Amplitude wird größer. Für $\forall x \in A < 1$ wird die 
+Amplitude kleiner.
+
+
+\textbf{Stauchen und Strecken}
+
+Die Veränderung in der Phase staucht, oder streckt das Signal. Hier gilt:
+$x(t) = sin{\omega t \cdot A}$ wobei für $\forall x \in A > 1$ das Signal gestreckt wird
+und für $\forall x \in A < 1$ wird das Signal gestaucht.
+
+\textbf{Verschiebung auf der X-Achse}
+
+Besonders gut zu sehen ist dieses Verhalten am Einheitssprung, Dirac-Impuls und Rechteckimpuls.
+Es funktioniert aber für alle Signale. Im Kontext der Systemtheorie wird die Verschiebung auf
+der X-Achse auch Zeitverzögerung genannt, da $x(t)$ $t$ die Zeit repräsentiert durch den $x$ wert
+ist. $x(t) = x(t-T)$ kann durch $\forall t \in T < 0$ als rechts verschiebung gelesen werden 
+und $\forall t \in T > 0$ als links verschiebung. Das heißt negative werte verschieben das Signal
+nach rechts, und positive Werte nach Links.
+
+\textbf{Summe zweier Signale}
+
+$$
+\begin{array}{rl}
+  y(t) = & x_1(t) + x_2(t)\\
+  x_1(t) = & sin(\omega t)\\
+  x_2(t) = & \frac{1}{3} sin(3 \omega t)\\
+\end{array}
+$$
+
+\textbf{Produkt zweier Signale}
+
+$$
+\begin{array}{rl}
+  y(t) = & x_1(t) \cdot x_2(t) \\
+  x_1(t) = & 
+    \begin{cases}
+      0             & t < 0 \\
+      A e^{-t/\tau} & t \geq 0
+    \end{cases}\\
+  x_2(t) = sin(\omega t)
+\end{array}
+$$
+
+Auf diese Weise können z.B. Sinussignale mit exponentiellem Amplituden Verhalten erzeugt werden.
+
+
+Summe und Produktion werden später erneut wichtig, wenn Faltung und Korrellation behandelt werden.
+
+
+
+\textbf{Zeitliche Spiegelung}
+
+$$
+y(t) = x(-t)
+$$
+
+\textbf{Zeitliche Skallierung}
+
+$$
+y(t) = x(at)
+$$
+
+
+\subsection{Diskrete Signale}
+
