@@ -167,3 +167,130 @@ $$
 \langle \underline{x}[k], \underline{y}[k] \rangle = \frac{1}{N} \sum_{k=k_0}^{k_0+N-1} \underline{x}^*[k]\underline{y}[k].
 $$
 
+\section{Kreuzkorrelation}
+
+Für zwei Energiesignale $\underline{x}$ und $\underline{y}$ wird die Ähnlichkeit (Kreuzkorrelation) wie folgt definiert:
+
+$$
+\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} \underline{x}^*(t)\,\underline{y}(t+\tau)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} \underline{x}^*[k]\,\underline{y}[k+\varkappa].
+$$
+
+Das Integral bzw. die Summe wird für alle zeitlichen Verschiebungen $\tau$ bzw. $\varkappa$ des Signals $\underline{y}$ ausgeführt.
+
+Im Allgemeinen ist die KKF eine komplexwertige Funktion bzw. Folge. Im Fall reellwertiger Signale vereinfacht sich die Schreibweise zu
+
+$$
+\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} x(t)\,y(t+\tau)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\varkappa].
+$$
+
+\subsection{Rechenbeispiele}
+
+\textbf{Beispiel 1: Diskrete Kreuzkorrelation}
+
+Gegeben seien die Folgen
+$$
+x[k] = \begin{cases} 1 & k=0 \\ 2 & k=1 \\ 1 & k=2 \\ 0 & \text{sonst} \end{cases}
+\qquad \text{und} \qquad
+y[k] = \begin{cases} 1 & k=0 \\ 1 & k=1 \\ 0 & \text{sonst} \end{cases}
+$$
+
+Gesucht ist $\varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\varkappa]$ für alle $\varkappa$.
+
+\begin{enumerate}
+  \item \textbf{$\varkappa = -2$:} $y[k+(-2)]$ ist ungleich null bei $k = 2, 3$.
+  $$\varphi_{xy}[-2] = x[2]\cdot y[0] + x[3]\cdot y[1] = 1\cdot 1 + 0\cdot 1 = 1$$
+
+  \item \textbf{$\varkappa = -1$:} $y[k-1]$ ist ungleich null bei $k = 1, 2$.
+  $$\varphi_{xy}[-1] = x[1]\cdot y[0] + x[2]\cdot y[1] = 2\cdot 1 + 1\cdot 1 = 3$$
+
+  \item \textbf{$\varkappa = 0$:} $y[k]$ ist ungleich null bei $k = 0, 1$.
+  $$\varphi_{xy}[0] = x[0]\cdot y[0] + x[1]\cdot y[1] = 1\cdot 1 + 2\cdot 1 = 3$$
+
+  \item \textbf{$\varkappa = 1$:} $y[k+1]$ ist ungleich null bei $k = -1, 0$.
+  $$\varphi_{xy}[1] = x[-1]\cdot y[0] + x[0]\cdot y[1] = 0\cdot 1 + 1\cdot 1 = 1$$
+
+  \item \textbf{Ergebnis:}
+  $$\varphi_{xy}[\varkappa] = \{\ldots,\, 0,\, \underset{\varkappa=-2}{1},\, 3,\, 3,\, 1,\, 0,\, \ldots\}$$
+\end{enumerate}
+
+\textbf{Beispiel 2: Kontinuierliche Autokorrelation}
+
+Gegeben sei $x(t) = e^{-t}\,u(t)$, wobei $u(t)$ die Sprungfunktion bezeichnet. Gesucht ist die Autokorrelationsfunktion $\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(t)\,x(t+\tau)\,\mathrm{d}t$.
+
+\begin{enumerate}
+  \item \textbf{Fall $\tau \geq 0$:} Das Produkt $x(t)\,x(t+\tau) = e^{-t}\,e^{-(t+\tau)}$ ist für $t \geq 0$ ungleich null.
+  $$\varphi_{xx}(\tau) = \int_0^{\infty} e^{-t}\,e^{-(t+\tau)}\,\mathrm{d}t
+  = e^{-\tau}\int_0^{\infty} e^{-2t}\,\mathrm{d}t
+  = e^{-\tau}\cdot\frac{1}{2} = \frac{1}{2}\,e^{-\tau}$$
+
+  \item \textbf{Fall $\tau < 0$:} Das Produkt $x(t)\,x(t+\tau)$ ist für $t \geq -\tau > 0$ ungleich null.
+  $$\varphi_{xx}(\tau) = \int_{-\tau}^{\infty} e^{-t}\,e^{-(t+\tau)}\,\mathrm{d}t
+  = e^{-\tau}\int_{-\tau}^{\infty} e^{-2t}\,\mathrm{d}t
+  = e^{-\tau}\cdot\frac{e^{2\tau}}{2} = \frac{1}{2}\,e^{\tau}$$
+
+  \item \textbf{Ergebnis:}
+  $$\varphi_{xx}(\tau) = \frac{1}{2}\,e^{-|\tau|}$$
+  Die Autokorrelationsfunktion ist reell und gerade symmetrisch: $\varphi_{xx}(\tau) = \varphi_{xx}(-\tau)$.
+\end{enumerate}
+
+\subsection{Grafisches Beispiel: Diskrete Kreuzkorrelation}
+
+Die folgende Abbildung zeigt die Folgen $x[k]$ und $y[k]$ aus Beispiel~1 sowie die resultierende Kreuzkorrelationsfolge $\varphi_{xy}[\varkappa]$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.9]
+
+  % --- x[k] ---
+  \begin{scope}[yshift=7.5cm]
+    \draw[->] (-1,0) -- (5,0) node[right] {$k$};
+    \draw[->] (0,-0.3) -- (0,2.8) node[above] {$x[k]$};
+    \foreach \k/\v in {0/1, 1/2, 2/1} {
+      \draw[very thick, blue] (\k,0) -- (\k,\v);
+      \filldraw[blue] (\k,\v) circle (2.5pt);
+    }
+    \foreach \k in {-0.5, 3, 4} { \filldraw[blue] (\k,0) circle (2.5pt); }
+    \foreach \k/\l in {0/{$0$}, 1/{$1$}, 2/{$2$}, 3/{$3$}}
+      { \node[below] at (\k,-0.1) {\small\l}; }
+    \node[left] at (0,1) {\small$1$};
+    \node[left] at (0,2) {\small$2$};
+  \end{scope}
+
+  % --- y[k] ---
+  \begin{scope}[yshift=4cm]
+    \draw[->] (-1,0) -- (5,0) node[right] {$k$};
+    \draw[->] (0,-0.3) -- (0,1.8) node[above] {$y[k]$};
+    \foreach \k/\v in {0/1, 1/1} {
+      \draw[very thick, red] (\k,0) -- (\k,\v);
+      \filldraw[red] (\k,\v) circle (2.5pt);
+    }
+    \foreach \k in {-0.5, 2, 3, 4} { \filldraw[red] (\k,0) circle (2.5pt); }
+    \foreach \k/\l in {0/{$0$}, 1/{$1$}, 2/{$2$}, 3/{$3$}}
+      { \node[below] at (\k,-0.1) {\small\l}; }
+    \node[left] at (0,1) {\small$1$};
+  \end{scope}
+
+  % --- phi_xy[kappa] ---
+  \begin{scope}[yshift=0cm]
+    \draw[->] (-3.5,0) -- (4,0) node[right] {$\varkappa$};
+    \draw[->] (0,-0.3) -- (0,3.8) node[above] {$\varphi_{xy}[\varkappa]$};
+    \foreach \k/\v in {-2/1, -1/3, 0/3, 1/1} {
+      \draw[very thick, black] (\k,0) -- (\k,\v);
+      \filldraw[black] (\k,\v) circle (2.5pt);
+    }
+    \foreach \k in {-3, 2, 3} { \filldraw[black] (\k,0) circle (2.5pt); }
+    \foreach \k/\l in {-2/{$-2$}, -1/{$-1$}, 0/{$0$}, 1/{$1$}, 2/{$2$}}
+      { \node[below] at (\k,-0.1) {\small\l}; }
+    \node[left] at (0,1) {\small$1$};
+    \node[left] at (0,3) {\small$3$};
+  \end{scope}
+
+\end{tikzpicture}
+\caption{Kreuzkorrelation von $x[k]$ (blau) und $y[k]$ (rot) liefert $\varphi_{xy}[\varkappa]$ (schwarz).
+Die KKF verschiebt das Maximum dorthin, wo die Überlappung der Folgen am größten ist.}
+\end{figure}
+
