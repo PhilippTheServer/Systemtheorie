@@ -188,6 +188,70 @@ $$
 $$
 
 \newpage
+\textbf{Schema zur Kreuzkorrelation (zeitdiskret und zeitkontinuierlich)}
+
+Das Schema gilt für beide Signalklassen. In der Tabelle steht jeweils die diskrete
+Variante links und die kontinuierliche rechts.
+
+\begin{enumerate}
+
+  \item \textbf{Träger bestimmen.}
+  Finde den Bereich, in dem jedes Signal ungleich null ist:
+  \begin{center}
+  \begin{tabular}{ll}
+    \textit{diskret} & \textit{kontinuierlich} \\[4pt]
+    $\mathrm{supp}(x) = \{k : x[k] \neq 0\}$ & $\mathrm{supp}(x) = \{t \in \mathbb{R} : x(t) \neq 0\}$ \\
+    $\mathrm{supp}(y) = \{k : y[k] \neq 0\}$ & $\mathrm{supp}(y) = \{t \in \mathbb{R} : y(t) \neq 0\}$
+  \end{tabular}
+  \end{center}
+  Im kontinuierlichen Fall ist der Träger meist ein Intervall $[a, b]$.
+
+  \item \textbf{Verschiebebereich einschränken.}
+  $\varphi_{xy}$ ist nur dort ungleich null, wo sich die Träger von $x$ und dem
+  verschobenen $y(\cdot + \tau)$ überlappen.
+  Der relevante Bereich ist in beiden Fällen:
+  $$
+    \tau\ (\text{bzw.}\ \varkappa) \;\in\;
+    \bigl[\min\mathrm{supp}(y) - \max\mathrm{supp}(x),\;
+          \max\mathrm{supp}(y) - \min\mathrm{supp}(x)\bigr].
+  $$
+  Außerhalb gilt $\varphi_{xy} = 0$.
+
+  \item \textbf{Verschiebung skizzieren (optional).}
+  Zeichne $x$ fest und schiebe $y$ um $\tau$ bzw.\ $\varkappa$.
+  Markiere das Überlappungsintervall — nur dort leistet das Produkt
+  $x \cdot y(\cdot + \tau)$ einen Beitrag.
+
+  \item \textbf{Integral bzw.\ Summe auswerten.}
+  Berechne $\varphi_{xy}$ für jeden relevanten Verschiebewert:
+  \begin{center}
+  \begin{tabular}{ll}
+    \textit{diskret} & \textit{kontinuierlich} \\[4pt]
+    $\displaystyle\varphi_{xy}[\varkappa] = \sum_{k} x[k]\, y[k+\varkappa]$
+    &
+    $\displaystyle\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} x(t)\, y(t+\tau)\,\mathrm{d}t$
+  \end{tabular}
+  \end{center}
+  Im kontinuierlichen Fall werden die Integrationsgrenzen durch das
+  Überlappungsintervall aus Schritt~2 und~3 bestimmt; das Integral wird
+  abschnittsweise ausgewertet, falls sich die Grenzen mit $\tau$ ändern.
+
+  \item \textbf{Ergebnis zusammenstellen und prüfen.}
+  \begin{itemize}
+    \item \textit{diskret:} Die KKF-Folge hat
+          $|\mathrm{supp}(x)| + |\mathrm{supp}(y)| - 1$ Elemente.
+    \item \textit{kontinuierlich:} Die KKF ist eine stückweise definierte Funktion
+          von $\tau$; typischerweise ein Polynom oder eine Exponentialfunktion
+          je Abschnitt.
+    \item In beiden Fällen gilt für reellwertige Signale:
+          $\varphi_{yx}(\tau) = \varphi_{xy}(-\tau)$.
+    \item Das Maximum von $|\varphi_{xy}|$ zeigt die Verschiebung,
+          bei der $y$ $x$ am ähnlichsten ist.
+  \end{itemize}
+
+\end{enumerate}
+
+\newpage
 \subsection{Rechenbeispiele}
 
 \textbf{Beispiel 1: Diskrete Kreuzkorrelation}
