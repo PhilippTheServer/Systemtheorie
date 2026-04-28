@@ -252,7 +252,7 @@ Variante links und die kontinuierliche rechts.
 \end{enumerate}
 
 \newpage
-\subsection{Rechenbeispiele}
+\subsection*{Rechenbeispiele}
 
 \textbf{Beispiel 1: Diskrete Kreuzkorrelation}
 
@@ -282,7 +282,67 @@ Gesucht ist $\varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\vark
   $$\varphi_{xy}[\varkappa] = \{\ldots,\, 0,\, \underset{\varkappa=-2}{1},\, 3,\, 3,\, 1,\, 0,\, \ldots\}$$
 \end{enumerate}
 
-\subsection{Grafisches Beispiel: Diskrete Kreuzkorrelation}
+\textbf{Beispiel 2: Kontinuierliche Kreuzkorrelation zweier Rechteckimpulse}
+
+Gegeben seien
+$$
+x(t) = \begin{cases} 1 & 0 \leq t \leq 1 \\ 0 & \text{sonst} \end{cases}
+\qquad \text{und} \qquad
+y(t) = \begin{cases} 1 & 0 \leq t \leq 2 \\ 0 & \text{sonst.} \end{cases}
+$$
+Gesucht ist $\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} x(t)\,y(t+\tau)\,\mathrm{d}t$.
+
+\begin{enumerate}
+  \item \textbf{Träger bestimmen.}
+  $$\mathrm{supp}(x) = [0,\,1], \qquad \mathrm{supp}(y) = [0,\,2].$$
+
+  \item \textbf{Verschiebebereich einschränken.}
+  $$\tau \in [\min\mathrm{supp}(y) - \max\mathrm{supp}(x),\;
+              \max\mathrm{supp}(y) - \min\mathrm{supp}(x)]
+         = [0-1,\; 2-0] = [-1,\,2].$$
+  Außerhalb gilt $\varphi_{xy}(\tau) = 0$.
+
+  \item \textbf{Überlappungsintervall je Abschnitt bestimmen.}
+  $y(t+\tau)$ ist ungleich null für $t \in [-\tau,\, 2-\tau]$.
+  Der Schnitt mit $\mathrm{supp}(x) = [0,1]$ ergibt drei Abschnitte:
+
+  \begin{center}
+  \begin{tabular}{cll}
+    Abschnitt & Überlappung & Begründung \\[3pt]
+    $\tau \in [-1,\,0]$ & $[-\tau,\;1]$ & $-\tau\in[0,1]$, $2{-}\tau \geq 2 > 1$ \\
+    $\tau \in [\phantom{-}0,\,1]$ & $[0,\;1]$    & $-\tau\leq 0$, $2{-}\tau \geq 1$ \\
+    $\tau \in [\phantom{-}1,\,2]$ & $[0,\;2{-}\tau]$ & $-\tau\leq 0$, $2{-}\tau\in[0,1]$
+  \end{tabular}
+  \end{center}
+
+  \item \textbf{Integral abschnittsweise auswerten.}
+  Da $x(t) = y(t) = 1$ auf dem jeweiligen Überlappungsintervall, vereinfacht sich
+  das Integral zur Länge des Überlappungsintervalls:
+  \begin{align*}
+    \tau \in [-1,\,0]\colon\quad
+      \varphi_{xy}(\tau) &= \int_{-\tau}^{1} 1\,\mathrm{d}t = 1 - (-\tau) = 1+\tau, \\
+    \tau \in [\phantom{-}0,\,1]\colon\quad
+      \varphi_{xy}(\tau) &= \int_{0}^{1} 1\,\mathrm{d}t = 1, \\
+    \tau \in [\phantom{-}1,\,2]\colon\quad
+      \varphi_{xy}(\tau) &= \int_{0}^{2-\tau} 1\,\mathrm{d}t = 2-\tau.
+  \end{align*}
+
+  \item \textbf{Ergebnis:}
+  $$
+  \varphi_{xy}(\tau) = \begin{cases}
+    1+\tau & -1 \leq \tau \leq 0 \\
+    1      & \phantom{-}0 \leq \tau \leq 1 \\
+    2-\tau & \phantom{-}1 \leq \tau \leq 2 \\
+    0      & \text{sonst.}
+  \end{cases}
+  $$
+  Die KKF hat Trapezform: linearer Anstieg, Plateau, linearer Abfall.
+  Das Plateau bei $\tau \in [0,1]$ entspricht dem Bereich, in dem $x$ vollständig
+  im Träger von $y$ liegt.
+\end{enumerate}
+
+\newpage
+\subsection*{Grafisches Beispiel: Diskrete Kreuzkorrelation}
 
 Die folgende Abbildung zeigt die Folgen $x[k]$ und $y[k]$ aus Beispiel~1 sowie die resultierende Kreuzkorrelationsfolge $\varphi_{xy}[\varkappa]$.
 
@@ -341,4 +401,110 @@ Die folgende Abbildung zeigt die Folgen $x[k]$ und $y[k]$ aus Beispiel~1 sowie d
 \caption{Kreuzkorrelation von $x[k]$ (blau) und $y[k]$ (rot) liefert $\varphi_{xy}[\varkappa]$ (schwarz).
 Die KKF verschiebt das Maximum dorthin, wo die Überlappung der Folgen am größten ist.}
 \end{figure}
+
+\newpage
+\section{Selbstähnlichkeit (Autokorrelation)}
+
+Die \textbf{Autokorrelationsfunktion (AKF)} ergibt sich als Spezialfall der KKF
+mit $y = x$. Für ein \textbf{Energiesignal} gilt:
+$$
+\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x^*(t)\,x(t+\tau)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\varphi_{xx}[\varkappa] = \sum_{k=-\infty}^{\infty} x^*[k]\,x[k+\varkappa].
+$$
+
+\textbf{Eigenschaften der AKF:}
+\begin{itemize}
+  \item \textbf{Maximum bei $\tau = 0$:}
+  $$
+    \varphi_{xx}(0) = \int_{-\infty}^{\infty} |x(t)|^2\,\mathrm{d}t
+    \qquad \text{bzw.} \qquad
+    \varphi_{xx}[0] = \sum_{k=-\infty}^{\infty} |x[k]|^2.
+  $$
+  Der Maximalwert entspricht der \textbf{Energie} von $x$.
+  \item \textbf{Konjugiert gerade Symmetrie:}
+  $\varphi_{xx}(\tau) = \varphi_{xx}^*(-\tau)$; für reellwertige Signale gilt
+  $\varphi_{xx}(\tau) = \varphi_{xx}(-\tau)$.
+\end{itemize}
+
+Für \textbf{Leistungssignale} wird die AKF analog zur KKF über einen Grenzwert definiert:
+$$
+\varphi_{xx}^{L}(\tau) = \lim_{T \to \infty} \frac{1}{T}
+  \int_{-T/2}^{T/2} x^*(t)\,x(t+\tau)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\varphi_{xx}^{L}[\varkappa] = \lim_{K \to \infty} \frac{1}{2K+1}
+  \sum_{k=-K}^{K} x^*[k]\,x[k+\varkappa].
+$$
+
+Für \textbf{periodische Signale} der Periode $T$ bzw.\ $N$ wird nur über eine Periode
+gemittelt:
+$$
+\tilde{\varphi}_{xx}(\tau) = \frac{1}{T}\int_{t_0}^{t_0+T} x^*(t)\,x(t+\tau)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\tilde{\varphi}_{xx}[\varkappa] = \frac{1}{N}\sum_{k=k_0}^{k_0+N-1} x^*[k]\,x[k+\varkappa].
+$$
+Die AKF eines periodischen Signals ist selbst periodisch mit derselben Periode $T$
+bzw.\ $N$. Maxima treten bei $\tau = n \cdot T$ mit $n \in \mathbb{Z}$ auf.
+
+\subsection*{Allgemeines Vorgehen}
+
+Das Schema für die AKF folgt dem der KKF mit $y = x$. Der einzige Unterschied:
+da beide Signale identisch sind, vereinfacht sich Schritt~1 — es gibt nur einen
+Träger $\mathrm{supp}(x)$. Der Verschiebebereich (Schritt~2) ist daher stets
+$$
+\tau\ (\text{bzw.}\ \varkappa) \in
+\bigl[\min\mathrm{supp}(x) - \max\mathrm{supp}(x),\;
+      \max\mathrm{supp}(x) - \min\mathrm{supp}(x)\bigr].
+$$
+Das Ergebnis ist immer eine \textbf{gerade} Funktion bzw.\ Folge.
+
+\subsection*{Rechenbeispiel: AKF des Rechteckimpulses}
+
+Gegeben sei
+$$
+x(t) = \begin{cases} A & 0 \leq t \leq T_1 \\ 0 & \text{sonst.} \end{cases}
+$$
+Gesucht ist $\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(t)\,x(t+\tau)\,\mathrm{d}t$.
+
+\begin{enumerate}
+  \item \textbf{Träger bestimmen.}
+  $\mathrm{supp}(x) = [0,\,T_1]$.
+
+  \item \textbf{Verschiebebereich einschränken.}
+  $$\tau \in [0 - T_1,\; T_1 - 0] = [-T_1,\; T_1].$$
+
+  \item \textbf{Überlappungsintervall je Abschnitt.}
+  $x(t+\tau)$ ist ungleich null für $t \in [-\tau,\, T_1-\tau]$.
+  Schnitt mit $[0, T_1]$:
+
+  \begin{center}
+  \begin{tabular}{cll}
+    Abschnitt & Überlappung & Begründung \\[3pt]
+    $\tau \in [-T_1, 0]$ & $[-\tau,\; T_1]$       & $-\tau \in [0,T_1]$,\; $T_1{-}\tau \geq T_1$ \\
+    $\tau \in [\phantom{-}0, T_1]$ & $[0,\; T_1{-}\tau]$ & $-\tau \leq 0$,\; $T_1{-}\tau \in [0,T_1]$
+  \end{tabular}
+  \end{center}
+
+  \item \textbf{Integral auswerten.}
+  \begin{align*}
+    \tau \in [-T_1,\, 0]\colon\quad
+      \varphi_{xx}(\tau) &= \int_{-\tau}^{T_1} A^2\,\mathrm{d}t
+        = A^2\,(T_1 + \tau), \\
+    \tau \in [\phantom{-}0,\, T_1]\colon\quad
+      \varphi_{xx}(\tau) &= \int_{0}^{T_1-\tau} A^2\,\mathrm{d}t
+        = A^2\,(T_1 - \tau).
+  \end{align*}
+
+  \item \textbf{Ergebnis.}
+  $$
+  \varphi_{xx}(\tau) = \begin{cases}
+    A^2\,(T_1 + \tau) & -T_1 \leq \tau \leq 0 \\
+    A^2\,(T_1 - \tau) & \phantom{-}0 \leq \tau \leq T_1 \\
+    0 & \text{sonst.}
+  \end{cases}
+  $$
+  Die AKF ist ein \textbf{Dreieckimpuls} (Plateau entfällt, da $x$ und $y$ gleich lang
+  sind). Das Maximum liegt bei $\tau = 0$ mit $\varphi_{xx}(0) = A^2 T_1$, was der
+  Energie von $x$ entspricht.
+\end{enumerate}
 
