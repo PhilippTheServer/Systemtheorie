@@ -187,6 +187,7 @@ $$
 \varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\varkappa].
 $$
 
+\newpage
 \subsection{Rechenbeispiele}
 
 \textbf{Beispiel 1: Diskrete Kreuzkorrelation}
@@ -245,46 +246,49 @@ Die folgende Abbildung zeigt die Folgen $x[k]$ und $y[k]$ aus Beispiel~1 sowie d
 \centering
 \begin{tikzpicture}[scale=0.9]
 
-  % --- x[k] ---
-  \begin{scope}[yshift=7.5cm]
-    \draw[->] (-1,0) -- (5,0) node[right] {$k$};
-    \draw[->] (0,-0.3) -- (0,2.8) node[above] {$x[k]$};
+  % --- x[k] (oben links) ---
+  \begin{scope}[xshift=0cm, yshift=5.5cm]
+    \draw[->] (-1,0) -- (4.5,0) node[right] {$k$};
+    \draw[->] (0,-0.4) -- (0,2.8) node[above] {$x[k]$};
     \foreach \k/\v in {0/1, 1/2, 2/1} {
       \draw[very thick, blue] (\k,0) -- (\k,\v);
       \filldraw[blue] (\k,\v) circle (2.5pt);
+      \filldraw[blue] (\k,0)  circle (2.5pt);
     }
     \foreach \k in {-0.5, 3, 4} { \filldraw[blue] (\k,0) circle (2.5pt); }
     \foreach \k/\l in {0/{$0$}, 1/{$1$}, 2/{$2$}, 3/{$3$}}
-      { \node[below] at (\k,-0.1) {\small\l}; }
+      { \node[below] at (\k,-0.15) {\small\l}; }
     \node[left] at (0,1) {\small$1$};
     \node[left] at (0,2) {\small$2$};
   \end{scope}
 
-  % --- y[k] ---
-  \begin{scope}[yshift=4cm]
-    \draw[->] (-1,0) -- (5,0) node[right] {$k$};
-    \draw[->] (0,-0.3) -- (0,1.8) node[above] {$y[k]$};
+  % --- y[k] (oben rechts) ---
+  \begin{scope}[xshift=6.5cm, yshift=5.5cm]
+    \draw[->] (-1,0) -- (4.5,0) node[right] {$k$};
+    \draw[->] (0,-0.4) -- (0,2.8) node[above] {$y[k]$};
     \foreach \k/\v in {0/1, 1/1} {
       \draw[very thick, red] (\k,0) -- (\k,\v);
       \filldraw[red] (\k,\v) circle (2.5pt);
+      \filldraw[red] (\k,0)  circle (2.5pt);
     }
     \foreach \k in {-0.5, 2, 3, 4} { \filldraw[red] (\k,0) circle (2.5pt); }
     \foreach \k/\l in {0/{$0$}, 1/{$1$}, 2/{$2$}, 3/{$3$}}
-      { \node[below] at (\k,-0.1) {\small\l}; }
+      { \node[below] at (\k,-0.15) {\small\l}; }
     \node[left] at (0,1) {\small$1$};
   \end{scope}
 
-  % --- phi_xy[kappa] ---
-  \begin{scope}[yshift=0cm]
+  % --- phi_xy[kappa] (unten zentriert) ---
+  \begin{scope}[xshift=4.75cm, yshift=0cm]
     \draw[->] (-3.5,0) -- (4,0) node[right] {$\varkappa$};
-    \draw[->] (0,-0.3) -- (0,3.8) node[above] {$\varphi_{xy}[\varkappa]$};
+    \draw[->] (0,-0.4) -- (0,3.8) node[above] {$\varphi_{xy}[\varkappa]$};
     \foreach \k/\v in {-2/1, -1/3, 0/3, 1/1} {
       \draw[very thick, black] (\k,0) -- (\k,\v);
       \filldraw[black] (\k,\v) circle (2.5pt);
+      \filldraw[black] (\k,0)  circle (2.5pt);
     }
     \foreach \k in {-3, 2, 3} { \filldraw[black] (\k,0) circle (2.5pt); }
     \foreach \k/\l in {-2/{$-2$}, -1/{$-1$}, 0/{$0$}, 1/{$1$}, 2/{$2$}}
-      { \node[below] at (\k,-0.1) {\small\l}; }
+      { \node[below] at (\k,-0.15) {\small\l}; }
     \node[left] at (0,1) {\small$1$};
     \node[left] at (0,3) {\small$3$};
   \end{scope}
