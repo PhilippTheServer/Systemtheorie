@@ -591,11 +591,9 @@ Im\{y(t)\} = & 2A cos(\delta \omega t) sin(\omega_0 t)
 $$
 
 
-
-
-
-
-
-
-
-
+Die Schwebung äußert sich in einer Modulation durch die nun zeitvariante
+Amplitude $2A cos(\delta \omega t)$. Dieser (zunächst zeitkontinuierlich motivierte) Effekt
+wird nun wie folgt zeitdiskret implementiert:
+$x1[k] = sin((\omega_0 − \delta \omega)k T_A)$
+$x2[k] = sin((\omega_0 + \delta \omega)k T_A)$
+und dem Summensignal $z(k T_A) = \frac{1}{2} (x_1[k] + _x2[k]) = \frac{1}{2} Im\{y(k T_A)\}$.
