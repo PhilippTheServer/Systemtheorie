@@ -143,3 +143,27 @@ wobei der Startpunkt $t_0$ bzw. $k_0$ beliebig, also auch $t_0 = 0$ bzw. $k_0 = 
 gewählt werden kann. Falls der Grenzwert mit $P > 0$ existiert, wird
 das Signal als \textbf{Leistungssignal} bezeichnet.
 
+\chapter{Inneres Produkt (Skalarprodukt)}
+
+Das innere Produkt wird für zwei \textbf{Energiesignale} $\underline{x}$ und $\underline{y}$ wie folgt definiert:
+
+$$
+\langle \underline{x}(t), \underline{y}(t) \rangle = \int_{-\infty}^{\infty} \underline{x}^*(t)\underline{y}(t)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\langle \underline{x}[k], \underline{y}[k] \rangle = \sum_{k=-\infty}^{\infty} \underline{x}^*[k]\underline{y}[k]
+$$
+
+Dabei muss das Integral bzw. die Summe einen endlichen Wert ergeben.
+
+Wenn das innere Produkt Null ist, werden die Signale $\underline{x}$ und $\underline{y}$ \textbf{orthogonal}
+genannt. Zwei Signale, die bis auf einen Skalierungsfaktor identisch sind,
+werden \textbf{kollinear} genannt.
+
+Für \textbf{periodische Signale} der Periode $T$ bzw. $N$ gilt entsprechend
+
+$$
+\langle \underline{x}(t), \underline{y}(t) \rangle = \frac{1}{T} \int_{t_0}^{t_0+T} \underline{x}^*(t)\underline{y}(t)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\langle \underline{x}[k], \underline{y}[k] \rangle = \frac{1}{N} \sum_{k=k_0}^{k_0+N-1} \underline{x}^*[k]\underline{y}[k].
+$$
+
