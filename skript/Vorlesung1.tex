@@ -574,16 +574,20 @@ Eine Schwebung entsteht durch die Addition zweier Sinussignale mit gleicher
 Amplitude und geringem Frequenzunterschied $2 \delta \omega$:
 
 $$
-\begin{array}{rl}
-array
-\end{array}
+\begin{aligned}
+y(t) &= A e^{j(\omega_0+\Delta\omega)t} + A e^{j(\omega_0-\Delta\omega)t} \\
+     &= A e^{j\omega_0 t} \left( e^{j\Delta\omega t} + e^{-j\Delta\omega t} \right) \\
+     &= 2A \cos(\Delta\omega\, t)\, e^{j\omega_0 t}
+\end{aligned}
 $$
 
 wobei $\omega_0 = 2 \pi f_0$ die mittlere Frequenz angibt. Die Real- und Imaginärteile sind:
 
 $$
-Re\{y(t)\} = 2A cos(\delta \omega t) cos(\omega_0 t)\\
-Im\{y(t)\} = 2A cos(\delta \omega t) sin(\omega_0 t)
+\begin{array}{rl}
+Re\{y(t)\} = & 2A cos(\delta \omega t) cos(\omega_0 t)\\
+Im\{y(t)\} = & 2A cos(\delta \omega t) sin(\omega_0 t)
+\end{array}
 $$
 
 
