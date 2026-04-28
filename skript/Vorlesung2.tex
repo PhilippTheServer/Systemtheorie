@@ -1,1 +1,145 @@
-\section{}
+\chapter{Signaleigenschaften und Kenngrößen}
+
+\section{Symmetrie reellwertiger Signale}
+
+\begin{definition}[gerade symmetrisch]
+$$
+x(t) = x(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = x[-k]\ \forall k \in \mathbb{Z}\
+$$
+\end{definition}
+
+\begin{definition}[ungerade symmetrisch]
+$$
+x(t) = -x(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = -x[-k]\ \forall k \in \mathbb{Z}\
+$$
+\end{definition}
+
+Analog dazu ergänzen sich symmetrie Eigenschaften für komplexwertige Signale.
+
+\begin{definition}[konjugiert gerade symmetrisch]
+$$
+x(t) = x*(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = x*[-k]\ \forall k \in \mathbb{Z}\
+$$
+\end{definition}
+Hierbei ist der Realteil von x eine gerade symmetrische Funktion und
+der Imaginärteil eine ungerade symmetrische Funktion.
+
+\begin{definition}[konjugiert ungerade symmetrisch]
+$$
+x(t) = -x*(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = -x*[-k]\ \forall k \in \mathbb{Z}\
+$$
+\end{definition}
+
+Hierbei ist der Realteil von x eine ungerade symmetrische Funktion
+und der Imaginärteil eine gerade symmetrische Funktion.
+
+\section{Periodische Signale}
+
+Ein analoges Signal $x(t)$ heißt periodisch, falls es eine Periodendauer
+$T > 0$ gibt, so dass
+$$
+x(t) = x(t + nT)
+$$
+für alle $t \in R$ und $n \in Z$ gilt.
+Die kleinste Periodendauer $T$ wird Grundperiode und deren Kehrwert $f_0 = \frac{1}{T}$ wird 
+Grundfrequenz genannt.
+
+Ein zeitdiskretes Signal $x[k]$ heißt periodisch, falls es eine diskrete
+Periode $N \in \mathbb{N}$ gibt, so dass
+$$
+x[k] = x[k + n \cdot N]
+$$
+für alle $k \in \mathbb{Z}$ und $n \in \mathbb{Z}$ gilt.
+Die Abtastung eines periodischen analogen Signals ergibt nicht notwendigerweise auch
+ ein periodisches zeitdiskretes Signal.
+
+\section{Mittelwert}
+
+\subsection{Mittelwert diskreter Signale}
+
+\textbf{Mittelwert} $\bar{x}$ des zeitkontinuierlichen Signals $x(t)$ im Zeitintervall $[t_1, t_2]$
+bzw. eines zeitdiskreten Signals $x[k]$ im Bereich $k = k_1, \ldots, k_2$:
+
+$$
+\bar{x} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} x(t)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\bar{x} = \frac{1}{k_2 - k_1 + 1} \sum_{k=k_1}^{k_2} x[k]
+$$
+
+Ein Signal $x$ heißt mittelwertfrei, falls $\bar{x} = 0$ gilt.
+
+Für \textbf{komplexwertige Signale} $\underline{x}$ für den Mittelwert eines zeitkontinuierlichen
+Signals im Intervall $[t_1, t_2]$
+
+$$
+\bar{\underline{x}} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} \underline{x}(t)\,\mathrm{d}t
+= \overline{\operatorname{Re}\{\underline{x}(t)\}} + j\,\overline{\operatorname{Im}\{\underline{x}(t)\}}.
+$$
+
+\subsection{Mittelwert periodischer Signale}
+
+Für \textbf{periodische Signale} $x(t)$ bzw. $x[k]$ wird der Mittelwert über die
+Dauer einer Grundperiode $T$ bzw. $N$ berechnet:
+
+$$
+\bar{x} = \frac{1}{T} \int_{-T/2}^{T/2} x(t)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\bar{x} = \frac{1}{N} \sum_{k=0}^{N-1} x[k].
+$$
+
+bzw. für komplexwertige, periodische Signale:
+
+$$
+\bar{\underline{x}} = \frac{1}{T} \int_{-T/2}^{T/2} \underline{x}(t)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\bar{\underline{x}} = \frac{1}{N} \sum_{k=0}^{N-1} \underline{x}[k].
+$$
+
+\section{Energie}
+
+Die \textbf{Energie} $E$ des Signals $\underline{x}$ im Zeitintervall $[t_1, t_2]$ bzw. eines zeitdiskreten
+Signals $\underline{x}[k]$ im Bereich $k = k_1, \ldots, k_2$:
+
+$$
+E = \int_{t_1}^{t_2} |\underline{x}(t)|^2\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+E = \sum_{k=k_1}^{k_2} |\underline{x}[k]|^2
+$$
+
+gegeben. Falls das Integral bzw. die Summe
+
+$$
+E = \int_{-\infty}^{\infty} |\underline{x}(t)|^2\,\mathrm{d}t < \infty
+\qquad \text{bzw.} \qquad
+E = \sum_{k=-\infty}^{\infty} |\underline{x}[k]|^2 < \infty
+$$
+
+existiert, wird $\underline{x}$ als \textbf{Energiesignal} bezeichnet.
+Ferner halten wir fest, dass für reellwertige Signale $|\underline{x}(t)|^2 = x^2(t) = x(t)x(t)$
+und für komplexwertige Signale $|\underline{x}(t)|^2 = x(t)x^*(t)$ gilt, wobei $\underline{x}^*(t)$ das zu $\underline{x}(t)$
+konjugiert komplexe Signal bezeichnet.
+
+\section{Leistung}
+
+Einige wichtige Elementarsignale (Sprungfunktion, Sinussignal) sind
+keine Energiesignale. Daher wird die Leistung eingeführt.
+\textbf{Leistung} (mittlere Energie pro Zeitintervall) des Signals $\underline{x}$:
+
+$$
+P = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} |\underline{x}(t)|^2\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+P = \lim_{K \to \infty} \frac{1}{2K+1} \sum_{k=-K}^{K} |\underline{x}[k]|^2
+$$
+
+\textbf{Leistung} des periodischen Signals $\underline{x}$:
+
+$$
+P = \frac{1}{T} \int_{t_0}^{t_0+T} |\underline{x}(t)|^2\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+P = \frac{1}{N} \sum_{k=k_0}^{k_0+N-1} |\underline{x}[k]|^2,
+$$
+
+wobei der Startpunkt $t_0$ bzw. $k_0$ beliebig, also auch $t_0 = 0$ bzw. $k_0 = 0$,
+gewählt werden kann. Falls der Grenzwert mit $P > 0$ existiert, wird
+das Signal als \textbf{Leistungssignal} bezeichnet.
+
