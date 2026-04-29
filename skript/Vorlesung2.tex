@@ -21,8 +21,10 @@ $$
 x(t) = x*(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = x*[-k]\ \forall k \in \mathbb{Z}\
 $$
 \end{definition}
+
 Hierbei ist der Realteil von x eine gerade symmetrische Funktion und
 der Imaginärteil eine ungerade symmetrische Funktion.
+
 
 \begin{definition}[konjugiert ungerade symmetrisch]
 $$
@@ -33,30 +35,39 @@ $$
 Hierbei ist der Realteil von x eine ungerade symmetrische Funktion
 und der Imaginärteil eine gerade symmetrische Funktion.
 
+
 \section{Periodische Signale}
 
+\begin{definition}[Periodisches analoges Signal]
 Ein analoges Signal $x(t)$ heißt periodisch, falls es eine Periodendauer
 $T > 0$ gibt, so dass
 $$
 x(t) = x(t + nT)
 $$
 für alle $t \in R$ und $n \in Z$ gilt.
-Die kleinste Periodendauer $T$ wird Grundperiode und deren Kehrwert $f_0 = \frac{1}{T}$ wird 
+Die kleinste Periodendauer $T$ wird Grundperiode und deren Kehrwert $f_0 = \frac{1}{T}$ wird
 Grundfrequenz genannt.
+\end{definition}
 
+\begin{definition}[Periodisches zeitdiskretes Signal]
 Ein zeitdiskretes Signal $x[k]$ heißt periodisch, falls es eine diskrete
 Periode $N \in \mathbb{N}$ gibt, so dass
 $$
 x[k] = x[k + n \cdot N]
 $$
 für alle $k \in \mathbb{Z}$ und $n \in \mathbb{Z}$ gilt.
+\end{definition}
+
+
 Die Abtastung eines periodischen analogen Signals ergibt nicht notwendigerweise auch
- ein periodisches zeitdiskretes Signal.
+ein periodisches zeitdiskretes Signal.
+
 
 \section{Mittelwert}
 
 \subsection{Mittelwert diskreter Signale}
 
+\begin{definition}[Mittelwert]
 \textbf{Mittelwert} $\bar{x}$ des zeitkontinuierlichen Signals $x(t)$ im Zeitintervall $[t_1, t_2]$
 bzw. eines zeitdiskreten Signals $x[k]$ im Bereich $k = k_1, \ldots, k_2$:
 
@@ -68,6 +79,7 @@ $$
 
 Ein Signal $x$ heißt mittelwertfrei, falls $\bar{x} = 0$ gilt.
 
+
 Für \textbf{komplexwertige Signale} $\underline{x}$ für den Mittelwert eines zeitkontinuierlichen
 Signals im Intervall $[t_1, t_2]$
 
@@ -75,9 +87,11 @@ $$
 \bar{\underline{x}} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} \underline{x}(t)\,\mathrm{d}t
 = \overline{\operatorname{Re}\{\underline{x}(t)\}} + j\,\overline{\operatorname{Im}\{\underline{x}(t)\}}.
 $$
+\end{definition}
 
 \subsection{Mittelwert periodischer Signale}
 
+\begin{definition}[Mittelwert periodischer Signale]
 Für \textbf{periodische Signale} $x(t)$ bzw. $x[k]$ wird der Mittelwert über die
 Dauer einer Grundperiode $T$ bzw. $N$ berechnet:
 
@@ -94,9 +108,11 @@ $$
 \qquad \text{bzw.} \qquad
 \bar{\underline{x}} = \frac{1}{N} \sum_{k=0}^{N-1} \underline{x}[k].
 $$
+\end{definition}
 
 \section{Energie}
 
+\begin{definition}[Energie und Energiesignal]
 Die \textbf{Energie} $E$ des Signals $\underline{x}$ im Zeitintervall $[t_1, t_2]$ bzw. eines zeitdiskreten
 Signals $\underline{x}[k]$ im Bereich $k = k_1, \ldots, k_2$:
 
@@ -115,14 +131,22 @@ E = \sum_{k=-\infty}^{\infty} |\underline{x}[k]|^2 < \infty
 $$
 
 existiert, wird $\underline{x}$ als \textbf{Energiesignal} bezeichnet.
+\end{definition}
+
+
 Ferner halten wir fest, dass für reellwertige Signale $|\underline{x}(t)|^2 = x^2(t) = x(t)x(t)$
 und für komplexwertige Signale $|\underline{x}(t)|^2 = x(t)x^*(t)$ gilt, wobei $\underline{x}^*(t)$ das zu $\underline{x}(t)$
 konjugiert komplexe Signal bezeichnet.
 
+
 \section{Leistung}
+
 
 Einige wichtige Elementarsignale (Sprungfunktion, Sinussignal) sind
 keine Energiesignale. Daher wird die Leistung eingeführt.
+
+
+\begin{definition}[Leistung und Leistungssignal]
 \textbf{Leistung} (mittlere Energie pro Zeitintervall) des Signals $\underline{x}$:
 
 $$
@@ -142,9 +166,11 @@ $$
 wobei der Startpunkt $t_0$ bzw. $k_0$ beliebig, also auch $t_0 = 0$ bzw. $k_0 = 0$,
 gewählt werden kann. Falls der Grenzwert mit $P > 0$ existiert, wird
 das Signal als \textbf{Leistungssignal} bezeichnet.
+\end{definition}
 
 \chapter{Inneres Produkt (Skalarprodukt)}
 
+\begin{definition}[Inneres Produkt]
 Das innere Produkt wird für zwei \textbf{Energiesignale} $\underline{x}$ und $\underline{y}$ wie folgt definiert:
 
 $$
@@ -154,10 +180,14 @@ $$
 $$
 
 Dabei muss das Integral bzw. die Summe einen endlichen Wert ergeben.
+\end{definition}
 
+\begin{definition}[Orthogonalität und Kollinearität]
 Wenn das innere Produkt Null ist, werden die Signale $\underline{x}$ und $\underline{y}$ \textbf{orthogonal}
 genannt. Zwei Signale, die bis auf einen Skalierungsfaktor identisch sind,
 werden \textbf{kollinear} genannt.
+\end{definition}
+
 
 Für \textbf{periodische Signale} der Periode $T$ bzw. $N$ gilt entsprechend
 
@@ -167,8 +197,10 @@ $$
 \langle \underline{x}[k], \underline{y}[k] \rangle = \frac{1}{N} \sum_{k=k_0}^{k_0+N-1} \underline{x}^*[k]\underline{y}[k].
 $$
 
+
 \section{Kreuzkorrelation}
 
+\begin{definition}[Kreuzkorrelationsfunktion (KKF)]
 Für zwei Energiesignale $\underline{x}$ und $\underline{y}$ wird die Ähnlichkeit (Kreuzkorrelation) wie folgt definiert:
 
 $$
@@ -178,6 +210,8 @@ $$
 $$
 
 Das Integral bzw. die Summe wird für alle zeitlichen Verschiebungen $\tau$ bzw. $\varkappa$ des Signals $\underline{y}$ ausgeführt.
+\end{definition}
+
 
 Im Allgemeinen ist die KKF eine komplexwertige Funktion bzw. Folge. Im Fall reellwertiger Signale vereinfacht sich die Schreibweise zu
 
@@ -186,6 +220,7 @@ $$
 \qquad \text{bzw.} \qquad
 \varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\varkappa].
 $$
+
 
 \newpage
 \textbf{Schema zur Kreuzkorrelation (zeitdiskret und zeitkontinuierlich)}
@@ -254,7 +289,7 @@ Variante links und die kontinuierliche rechts.
 \newpage
 \subsection*{Rechenbeispiele}
 
-\textbf{Beispiel 1: Diskrete Kreuzkorrelation}
+\begin{beispiel}[Diskrete Kreuzkorrelation]
 
 Gegeben seien die Folgen
 $$
@@ -282,7 +317,9 @@ Gesucht ist $\varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\vark
   $$\varphi_{xy}[\varkappa] = \{\ldots,\, 0,\, \underset{\varkappa=-2}{1},\, 3,\, 3,\, 1,\, 0,\, \ldots\}$$
 \end{enumerate}
 
-\textbf{Beispiel 2: Kontinuierliche Kreuzkorrelation zweier Rechteckimpulse}
+\end{beispiel}
+
+\begin{beispiel}[Kontinuierliche Kreuzkorrelation zweier Rechteckimpulse]
 
 Gegeben seien
 $$
@@ -340,6 +377,8 @@ Gesucht ist $\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} x(t)\,y(t+\tau)\,\math
   Das Plateau bei $\tau \in [0,1]$ entspricht dem Bereich, in dem $x$ vollständig
   im Träger von $y$ liegt.
 \end{enumerate}
+
+\end{beispiel}
 
 \newpage
 \subsection*{Grafisches Beispiel: Diskrete Kreuzkorrelation}
@@ -405,6 +444,7 @@ Die KKF verschiebt das Maximum dorthin, wo die Überlappung der Folgen am größ
 \newpage
 \section{Selbstähnlichkeit (Autokorrelation)}
 
+\begin{definition}[Autokorrelationsfunktion (AKF)]
 Die \textbf{Autokorrelationsfunktion (AKF)} ergibt sich als Spezialfall der KKF
 mit $y = x$. Für ein \textbf{Energiesignal} gilt:
 $$
@@ -412,8 +452,9 @@ $$
 \qquad \text{bzw.} \qquad
 \varphi_{xx}[\varkappa] = \sum_{k=-\infty}^{\infty} x^*[k]\,x[k+\varkappa].
 $$
+\end{definition}
 
-\textbf{Eigenschaften der AKF:}
+\begin{satz}[Eigenschaften der AKF]
 \begin{itemize}
   \item \textbf{Maximum bei $\tau = 0$:}
   $$
@@ -426,7 +467,9 @@ $$
   $\varphi_{xx}(\tau) = \varphi_{xx}^*(-\tau)$; für reellwertige Signale gilt
   $\varphi_{xx}(\tau) = \varphi_{xx}(-\tau)$.
 \end{itemize}
+\end{satz}
 
+\begin{definition}[AKF für Leistungs- und periodische Signale]
 Für \textbf{Leistungssignale} wird die AKF analog zur KKF über einen Grenzwert definiert:
 $$
 \varphi_{xx}^{L}(\tau) = \lim_{T \to \infty} \frac{1}{T}
@@ -443,8 +486,12 @@ $$
 \qquad \text{bzw.} \qquad
 \tilde{\varphi}_{xx}[\varkappa] = \frac{1}{N}\sum_{k=k_0}^{k_0+N-1} x^*[k]\,x[k+\varkappa].
 $$
+\end{definition}
+
+
 Die AKF eines periodischen Signals ist selbst periodisch mit derselben Periode $T$
 bzw.\ $N$. Maxima treten bei $\tau = n \cdot T$ mit $n \in \mathbb{Z}$ auf.
+
 
 \subsection*{Allgemeines Vorgehen}
 
@@ -459,6 +506,8 @@ $$
 Das Ergebnis ist immer eine \textbf{gerade} Funktion bzw.\ Folge.
 
 \subsection*{Rechenbeispiel: AKF des Rechteckimpulses}
+
+\begin{beispiel}[AKF des Rechteckimpulses]
 
 Gegeben sei
 $$
@@ -507,6 +556,8 @@ Gesucht ist $\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(t)\,x(t+\tau)\,\math
   sind). Das Maximum liegt bei $\tau = 0$ mit $\varphi_{xx}(0) = A^2 T_1$, was der
   Energie von $x$ entspricht.
 \end{enumerate}
+
+\end{beispiel}
 
 
 % Folie 58 (Orthogonalsysteme)
