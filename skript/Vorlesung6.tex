@@ -1,0 +1,411 @@
+\section{Lineare und zeitinvariante Systeme}
+
+\subsection{Lineare verschiebungsinvariante Systeme}
+
+Ein LTI/LSI System wird durch seine \textit{Impulsantwort} charakterisiert:
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=1.2cm]
+  \node (d1) {$\delta(t)$};
+  \node [draw, rectangle, right=1cm of d1] (S1) {$\mathcal{S}_{\mathrm{LTI}}[\bullet]$};
+  \node [right=1cm of S1] (h1) {$h(t)$};
+  \draw[->] (d1) -- (S1);
+  \draw[->] (S1) -- (h1);
+
+  \node [below=0.8cm of d1] (d2) {$\delta[k]$};
+  \node [draw, rectangle, right=1cm of d2] (S2) {$\mathcal{S}_{\mathrm{LSI}}[\bullet]$};
+  \node [right=1cm of S2] (h2) {$h[k]$};
+  \draw[->] (d2) -- (S2);
+  \draw[->] (S2) -- (h2);
+\end{tikzpicture}
+\end{center}
+
+Voraussetzung hierfür ist, dass das System vor der Anregung mit dem Impuls in Ruhe ist, d.\,h.\ dass alle inneren Zustände Null sind.
+
+\subsection{Das Faltungsintegral (engl. Convolution)}
+
+Mit der Impulsantwort $h(t) = \mathcal{S}[\delta(t)]$ eines LTI-Systems $\mathcal{S}$ und mit
+
+$$
+x(t) = \int_{-\infty}^{\infty} x(\xi)\,\delta(\xi - t)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} x(\xi)\,\delta(t - \xi)\,\mathrm{d}\xi
+$$
+
+erhalten wir für ein beliebiges Eingangssignal $x(t)$
+
+\begin{align*}
+y(t) = \mathcal{S}\left[x(t)\right] &= \mathcal{S}\left[\int_{-\infty}^{\infty} x(\xi)\,\delta(t-\xi)\,\mathrm{d}\xi\right] \\
+&= \int_{-\infty}^{\infty} x(\xi)\,\mathcal{S}\left[\delta(t-\xi)\right]\mathrm{d}\xi \\
+&= \int_{-\infty}^{\infty} x(\xi)\,h(t-\xi)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi \\
+&= x(t) * h(t)
+\end{align*}
+
+\begin{beispiel}[RC-Netz: Berechnung des Ausgangssignals]
+Die Eingangs-Ausgangsbeziehung des RC-Netzes ist wie folgt gegeben:
+
+$$
+y(t) = z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t} x(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathrm{d}\xi
+$$
+
+Für $z(t_0) = 0$ und $t_0 = -\infty$ erhält man ein Faltungsintegral:
+
+\begin{align*}
+y(t) &= \frac{1}{\tau}\int_{-\infty}^{t} x(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathrm{d}\xi \\
+     &= \int_{-\infty}^{\infty} x(\xi)\,\frac{1}{\tau}\,e^{-\frac{t-\xi}{\tau}}\,\epsilon(t-\xi)\,\mathrm{d}\xi \\
+     &= \int_{-\infty}^{\infty} x(\xi)\,h(t-\xi)\,\mathrm{d}\xi
+\end{align*}
+
+$\Rightarrow$ Kausales System mit der Impulsantwort $h(t) = \epsilon(t)\,\dfrac{1}{\tau}\,e^{-\frac{t}{\tau}}$.
+\end{beispiel}
+
+\subsection{Berechnung der Faltung}
+
+% Grafik: x(t) Rechteckimpuls [0, t₂]; h(t) Rechteckimpuls [0, t₁] und [t₁, t₂]; gespiegeltes/verschobenes x(ξ); Ausgangssignal y(t) als Trapez mit Eckpunkten bei 0, t₁, t₂
+
+\subsection{BIBO-Stabilitätskriterium für LTI-Systeme}
+
+$$
+y(t) = \int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi
+$$
+
+Das System ist BIBO-stabil, wenn für $|x(t)| < x_{\max}$ auch $|y(t)| < \infty$ gilt:
+
+\begin{align*}
+|y(t)| &= \left|\int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi\right| \leq \int_{-\infty}^{\infty} |h(\xi)\,x(t-\xi)|\,\mathrm{d}\xi \\
+       &= \int_{-\infty}^{\infty} |h(\xi)|\,|x(t-\xi)|\,\mathrm{d}\xi \leq \int_{-\infty}^{\infty} |h(\xi)|\,x_{\max}\,\mathrm{d}\xi \\
+       &= x_{\max}\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty
+\end{align*}
+
+Das System ist BIBO-stabil, wenn $\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty$ gilt (hinreichende und notwendige Bedingung für BIBO-Stabilität).
+
+\subsection{Die zeitdiskrete Faltung}
+
+In gleicher Weise erhält man für ein LSI-System
+
+\begin{align*}
+y[k] = \mathcal{S}\left[x[k]\right] &= \mathcal{S}\left[\sum_{l=-\infty}^{\infty} x[l]\,\delta[k-l]\right] \\
+&= \sum_{l=-\infty}^{\infty} x[l]\,\mathcal{S}\left[\delta[k-l]\right] \\
+&= \sum_{l=-\infty}^{\infty} x[l]\,h[k-l] = x[k] * h[k]\,,
+\end{align*}
+
+die zeitdiskrete Faltung, so dass auch hier das Ausgangssignal $y[k]$ allein aus dem Eingangssignal $x[k]$ und der Impulsantwort $h[k]$ berechnet wird.
+
+\subsection{Eigenschaften von LTI/LSI Systemen}
+
+\textbf{Symmetrie} von Eingangssignal und Impulsantwort:
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=1cm]
+  \node (x1) {$x[k]$};
+  \node [draw, rectangle, right=0.8cm of x1] (h1) {$h[k]$};
+  \node [right=0.8cm of h1] (y1) {$y[k]$};
+  \draw[->] (x1) -- (h1); \draw[->] (h1) -- (y1);
+
+  \node [right=1.5cm of y1] (eq) {$\equiv$};
+
+  \node [right=1cm of eq] (x2) {$h[k]$};
+  \node [draw, rectangle, right=0.8cm of x2] (h2) {$x[k]$};
+  \node [right=0.8cm of h2] (y2) {$y[k]$};
+  \draw[->] (x2) -- (h2); \draw[->] (h2) -- (y2);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Kaskadierte} Systeme sind vertauschbar:
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=0.8cm]
+  \node (x1) {$x[k]$};
+  \node [draw, rectangle, right=0.6cm of x1] (h11) {$h_1[k]$};
+  \node [draw, rectangle, right=0.6cm of h11] (h12) {$h_2[k]$};
+  \node [right=0.6cm of h12] (y1) {$y[k]$};
+  \draw[->] (x1) -- (h11); \draw[->] (h11) -- (h12); \draw[->] (h12) -- (y1);
+
+  \node [right=1cm of y1] (eq) {$\equiv$};
+
+  \node [right=0.8cm of eq] (x2) {$x[k]$};
+  \node [draw, rectangle, right=0.6cm of x2] (h21) {$h_2[k]$};
+  \node [draw, rectangle, right=0.6cm of h21] (h22) {$h_1[k]$};
+  \node [right=0.6cm of h22] (y2) {$y[k]$};
+  \draw[->] (x2) -- (h21); \draw[->] (h21) -- (h22); \draw[->] (h22) -- (y2);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Parallele} Systeme lassen sich zusammenfassen:
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=0.8cm]
+  \node (x) {$x[k]$};
+  \node [draw, circle, right=0.6cm of x, inner sep=1pt] (sp) {$\bullet$};
+  \node [draw, rectangle, above right=0.4cm and 0.6cm of sp] (h1) {$h_1[k]$};
+  \node [draw, rectangle, below right=0.4cm and 0.6cm of sp] (h2) {$h_2[k]$};
+  \node [draw, circle, right=2cm of sp] (sum) {$+$};
+  \node [right=0.6cm of sum] (y) {$y[k]$};
+  \draw[->] (x) -- (sp);
+  \draw[->] (sp.north east) |- (h1); \draw[->] (h1) -| (sum);
+  \draw[->] (sp.south east) |- (h2); \draw[->] (h2) -| (sum);
+  \draw[->] (sum) -- (y);
+
+  \node [right=1cm of y] (eq) {$\equiv$};
+
+  \node [right=0.8cm of eq] (x2) {$x[k]$};
+  \node [draw, rectangle, right=0.6cm of x2] (hsum) {$h_1[k]+h_2[k]$};
+  \node [right=0.6cm of hsum] (y2) {$y[k]$};
+  \draw[->] (x2) -- (hsum); \draw[->] (hsum) -- (y2);
+\end{tikzpicture}
+\end{center}
+
+\begin{beispiel}[Schallausbreitung in halligen Räumen]
+% Grafik: Raum mit Sprecher, Mikrofon y[k]; Direktschall (Freifeld), Reflexionen 1. und 2. Ordnung
+
+\subsubsection*{Zeitdiskretes Modell der Schallausbreitung}
+
+In einem halligen Raum gelangt der Schall nicht nur auf direktem Weg sondern auch über \textbf{Rückwürfe von den Wänden} zum Mikrofon. Auch diese verzögert eintreffenden Schallsignale werden linear überlagert. Für den Direktschall und eine Reflexion erhält man:
+
+$$
+y[k] = a_0\,x[k-k_0] + a_1\,x[k-k_1] = \sum_{l=0}^{\infty} h[l]\,x[k-l]
+$$
+
+mit
+
+$$
+h[l] = \begin{cases} a_0 & l = k_0 \\ a_1 & l = k_1 \\ 0 & \text{sonst} \end{cases}
+$$
+
+% Grafik: h[l] als zwei Impulse bei k₀ und k₁
+
+Bei vielen und mehrfachen Reflexionen:
+
+$$
+y[k] = a_0\,x[k-k_0] + a_1\,x[k-k_1] + a_2\,x[k-k_2] + a_3\,x[k-k_3] + \ldots = \sum_{l=0}^{\infty} h[l]\,x[k-l]
+$$
+
+mit
+
+$$
+h[l] = \begin{cases} a_0 & l = k_0 \\ a_1 & l = k_1 \\ a_2 & l = k_2 \\ a_3 & l = k_3 \\ \vdots \end{cases}
+$$
+
+wobei die Überlagerung der verschiedenen Ausbreitungswege auch zu einer auslöschenden Dämpfung und damit zu negativen Koeffizienten $a_i$ führen kann.
+
+% Grafik: h[l] mit mehreren Impulsen unterschiedlicher Vorzeichen
+
+\subsubsection*{Raumimpulsantwort und diskrete Faltung}
+
+\begin{itemize}
+  \item Die Berücksichtigung sämtlicher Rückwürfe führt dann zur \textbf{Raumimpulsantwort} $h[l]$ mit vielen hundert von Null verschiedenen Koeffizienten.
+  \item Die Impulsantwort $h[l]$ kann mit einer Impulsanregung des Raums gemessen werden.
+\end{itemize}
+
+% Grafik: Raumimpulsantwort h[l], Abtastindex l von 0 bis 2500, Amplitude −0.5 bis 0.5
+\end{beispiel}
+
+\section{Parametrische Systeme}
+
+\subsection{Signalflussdiagramme}
+
+\begin{center}
+\begin{tabular}{lcc}
+  & \textbf{Kontinuierlich} & \textbf{Diskret} \\[6pt]
+  Addition: &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x1) {$x_1(t)$};
+    \node [draw, circle, right=0.6cm of x1] (s) {$+$};
+    \node [right=0.6cm of s] (y) {$y(t)$};
+    \node [below=0.5cm of s] (x2) {$x_2(t)$};
+    \draw[->] (x1) -- (s); \draw[->] (s) -- (y); \draw[->] (x2) -- (s);
+  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x1) {$x_1[k]$};
+    \node [draw, circle, right=0.6cm of x1] (s) {$+$};
+    \node [right=0.6cm of s] (y) {$y[k]$};
+    \node [below=0.5cm of s] (x2) {$x_2[k]$};
+    \draw[->] (x1) -- (s); \draw[->] (s) -- (y); \draw[->] (x2) -- (s);
+  \end{tikzpicture}
+  \\[18pt]
+  \parbox{3cm}{Multiplikation mit\\einer Konstanten:} &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x) {$x(t)$};
+    \node [draw, circle, right=0.6cm of x] (s) {$\otimes$};
+    \node [right=0.6cm of s] (y) {$y(t)$};
+    \node [below=0.5cm of s] (a) {$a$};
+    \draw[->] (x) -- (s); \draw[->] (s) -- (y); \draw[->] (a) -- (s);
+  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x) {$x[k]$};
+    \node [draw, circle, right=0.6cm of x] (s) {$\otimes$};
+    \node [right=0.6cm of s] (y) {$y[k]$};
+    \node [below=0.5cm of s] (a) {$a$};
+    \draw[->] (x) -- (s); \draw[->] (s) -- (y); \draw[->] (a) -- (s);
+  \end{tikzpicture}
+  \\[18pt]
+  \parbox{3cm}{Multiplikation mit\\einem Signal:} &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x1) {$x_1(t)$};
+    \node [draw, circle, right=0.6cm of x1] (s) {$\otimes$};
+    \node [right=0.6cm of s] (y) {$y(t)$};
+    \node [below=0.5cm of s] (x2) {$x_2(t)$};
+    \draw[->] (x1) -- (s); \draw[->] (s) -- (y); \draw[->] (x2) -- (s);
+  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x1) {$x_1[k]$};
+    \node [draw, circle, right=0.6cm of x1] (s) {$\otimes$};
+    \node [right=0.6cm of s] (y) {$y[k]$};
+    \node [below=0.5cm of s] (x2) {$x_2[k]$};
+    \draw[->] (x1) -- (s); \draw[->] (s) -- (y); \draw[->] (x2) -- (s);
+  \end{tikzpicture}
+  \\[18pt]
+  Verzögerung: &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x) {$x(t)$};
+    \node [draw, rectangle, right=0.6cm of x] (T) {$T$};
+    \node [right=0.6cm of T] (y) {$y(t)$};
+    \draw[->] (x) -- (T); \draw[->] (T) -- (y);
+  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x) {$x[k]$};
+    \node [draw, rectangle, right=0.6cm of x] (T) {$T_A$};
+    \node [right=0.6cm of T] (y) {$y[k]$};
+    \draw[->] (x) -- (T); \draw[->] (T) -- (y);
+  \end{tikzpicture}
+  \\[18pt]
+  Funktion: &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x) {$x(t)$};
+    \node [draw, rectangle, right=0.6cm of x] (f) {$f(x)$};
+    \node [right=0.6cm of f] (y) {$y(t)$};
+    \draw[->] (x) -- (f); \draw[->] (f) -- (y);
+  \end{tikzpicture}
+  &
+  \begin{tikzpicture}[>=latex, baseline=-0.5ex]
+    \node (x) {$x[k]$};
+    \node [draw, rectangle, right=0.6cm of x] (f) {$f(x)$};
+    \node [right=0.6cm of f] (y) {$y[k]$};
+    \draw[->] (x) -- (f); \draw[->] (f) -- (y);
+  \end{tikzpicture}
+\end{tabular}
+\end{center}
+
+\subsection{Parametrische LSI Systeme}
+
+% Grafik: Vollständiges parametrisches LSI-Blockdiagramm: Vorwärtspfad x[k]→T_A→...→T_A gewichtet b₀,...,b_N; Rückkopplungspfad y[k]→T_A→...→T_A gewichtet a₁,...,a_M; alle in einer Summe
+
+\subsection{Nichtrekursives Parametrisches LSI System (FIR)}
+
+% Grafik: x[k] → T_A → T_A → ... → T_A, Abgriffe b₀,b₁,b₂,...,b_N, Summe → y[k]
+
+Dieses System hat eine endliche ausgedehnte Impulsantwort und wird daher auch als ,,finite impulse-response (FIR)'' System bezeichnet.
+
+\subsection{Rekursives Parametrisches LSI System (IIR)}
+
+% Grafik: x[k] → b₀⊗ → (+) → y[k]; Rückkopplungspfad y[k] → T_A → T_A → ... → T_A, gewichtet a₁,a₂,a₃,...,a_M, zurück zur Summe
+
+Dieses System hat im Allgemeinen eine unendliche ausgedehnte Impulsantwort und wird als ,,infinite impulse-response (IIR)'' System bezeichnet.
+
+\section{Weitere Beispiele}
+
+\begin{beispiel}[2-D Faltung in Neuronalen Netzen (CNN)]
+Das Bild zeigt die grundlegende Funktion eines neuronalen Faltungsnetzes für zweidimensionale (Bild-)Daten, die durch Kreise auf der linken Seite symbolisiert sind. Die Größe des 2-D Faltungskerns (hier $M = N = 3$) ist durch das gestrichelte Quadrat angedeutet. Zur Erzeugung der Ausgangsdaten (indiziert durch $u$ und $v$) wird dann durch Verschieben des Faltungskerns eine 2-D Faltung implementiert
+
+$$
+y[u,v] = f\!\left(\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} w[m,n]\,x[u-m,\,v-n] + b\right)\,,
+$$
+
+und durch einen Bias $b$ und eine nichtlineare Aktivierungsfunktion $f$ ergänzt.
+
+% Grafik: 2-D CNN – Eingabegitter x(m,n), gestricheltes 3×3-Faltungskernelement w(m,n), Summierglied (+), Aktivierungsfunktion f → Ausgabe y(u,v)
+\end{beispiel}
+
+\begin{beispiel}[Signalübertragung mit PCM und DPCM]
+Für jeden Abtastwert wird, entsprechend seiner Amplituden und der daraus resultierenden Quantisierungsstufe, ein digitaler Code übertragen. Dieses Verfahren wird deshalb \textit{pulse code modulation} (PCM) genannt.
+
+Um die Abhängigkeit aufeinander folgender Abtastwerte für die effiziente Quantisierung zu nutzen, werden häufig differentielle Verfahren eingesetzt. Im einfachsten Fall wird vom Sender die Differenz $d(kT_A) = x(kT_A) - x((k-1)T_A)$ quantisiert, codiert und übertragen. Der Empfänger muss dann durch eine laufende Summation die Abtastwerte des Signals $x(kT_A)$ aus den Differenzwerten rekonstruieren. Mit diesem Verfahren, das als \textit{differential pulse code modulation} (DPCM) bezeichnet wird, kann Abtastrate gegen Wortbreite abgetauscht werden.
+
+\subsubsection*{DPCM Sender}
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=1cm]
+  \node (xt) {$x(t)$};
+  \node [draw, rectangle, right=0.8cm of xt] (abt) {Abtastung};
+  \node [draw, circle, right=0.8cm of abt] (sum) {$+$};
+  \node [right=0.8cm of sum] (dk) {$d[k]$};
+  \node [draw, rectangle, below=1cm of sum, text width=1.4cm, align=center] (zsp) {Zwischen\-speicher};
+  \node [below=0.5cm of xt] (TA) {$T_A$};
+
+  \draw[->] (xt) -- (abt);
+  \draw[->] (abt) -- node[above] {$x[k]$} (sum);
+  \draw[->] (sum) -- (dk);
+  \draw[->] (TA) -- (abt);
+  \draw[->] (sum.south) -- (zsp.north);
+  \draw[->] (zsp.west) -| node[left, near end] {$z_s[k]$} (sum.south west);
+\end{tikzpicture}
+\end{center}
+
+Berechnung der zeitdiskreten Ausgangssignale für $k \geq 0$ mit Differenzengleichungen. Für den Sender erhält man:
+
+$$
+d[k] = x[k] - z_s[k] = \begin{cases} x[0] - z_s[0] & k = 0 \\ x[k] - x[k-1] & k \geq 1 \end{cases}
+$$
+
+\subsubsection*{DPCM Empfänger}
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=1cm]
+  \node (dk) {$d[k]$};
+  \node [draw, circle, right=0.8cm of dk] (sum) {$+$};
+  \node [right=0.8cm of sum] (xhk) {$\widehat{x}[k]$};
+  \node [draw, rectangle, right=1cm of xhk] (rek) {Rekonstruktion};
+  \node [right=0.8cm of rek] (xht) {$\widehat{x}(t)$};
+  \node [draw, rectangle, below=1cm of sum, text width=1.4cm, align=center] (zsp) {Zwischen\-speicher};
+  \node [below=0.5cm of rek] (TA) {$T_A$};
+
+  \draw[->] (dk) -- (sum);
+  \draw[->] (sum) -- (xhk);
+  \draw[->] (xhk) -- (rek);
+  \draw[->] (rek) -- (xht);
+  \draw[->] (TA) -- (rek);
+  \draw[->] (xhk.south) |- (zsp.east);
+  \draw[->] (zsp.west) -| node[left, near end] {$z_E[k]$} (sum.south west);
+\end{tikzpicture}
+\end{center}
+
+Für den Empfänger erhält man:
+
+$$
+\widehat{x}[k] = d[k] + z_E[k] = z_E[0] + \sum_{n=0}^{k} d[n]
+$$
+
+Für $z_S[0] = z_E[0]$ gilt $\widehat{x}[k] = x[k]\ \forall\ k \geq 0$. Sender und Empfänger enthalten Speicher für einen Abtastwert bzw.\ die laufende Summe. Diese stellen die inneren Zustände dar.
+
+\subsubsection*{Differenzsignale}
+
+% Grafik: Zwei Plots bei f_A = 16 kHz; oben x(kT_A) (Originalsignal), unten d(kT_A) (Differenzsignal), t/s von 0 bis 6
+
+% Grafik: Zwei Plots bei f_A = 64 kHz; oben x(kT_A), unten d(kT_A), t/s von 0 bis 6
+
+\subsubsection*{Original und Differenzsignal}
+
+% Grafik (4 Plots): Vergleich f_A = 16 kHz und f_A = 64 kHz, jeweils x(kT_A) und d(kT_A) im Ausschnitt kT_A von 0.156562 bis ~0.1578
+
+\subsubsection*{Differenzsignal und rekonstruiertes Signal}
+
+% Grafik (4 Plots): f_A = 16 kHz und f_A = 64 kHz – oben d(kT_A), unten x̂(kT_A), Ausschnitt kT_A ≈ 0.156562–0.1578
+
+\subsubsection*{Quantisiertes (2 Bit) und rekonstruiertes Signal}
+
+% Grafik (6 Plots): f_A = 16 kHz und f_A = 64 kHz – oben Q_q(d(kT_A)) (2-Bit-quantisiertes Differenzsignal), Mitte x̂(kT_A) (rekonstruiert), unten e²(kT_A) (quadratischer Fehler, Skala ×10⁻³)
+\end{beispiel}
+
+\section*{Zusammenfassung}
+
+\begin{itemize}
+  \item Systeme bilden Eingangssignale auf Ausgangssignale ab.
+  \item Hierbei spielen die inneren Zustandvariablen des Systems eine große Rolle.
+  \item Wichtige Systemeigenschaften sind die Linearität, die Zeitinvarianz oder Verschiebungsinvarianz und die Stabilität.
+  \item LTI bzw.\ LSI Systeme werden durch ihre Impulsantwort beschrieben.
+  \item Zeitinvariante und zeitvariante Systeme können mit einem Zustandsraummodell beschrieben und berechnet werden.
+\end{itemize}
+
+
