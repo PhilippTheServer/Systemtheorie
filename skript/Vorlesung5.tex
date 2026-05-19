@@ -1,0 +1,442 @@
+\chapter{Systeme und ihre Eigenschaften}
+
+\section*{Überblick}
+
+\begin{itemize}
+  \item[3.1] Mathematische Systemdefinition
+  \item[3.2] Systemeigenschaften
+  \item[3.3] Lineare und zeitinvariante Systeme
+  \item[3.4] Parametrische Systeme
+  \item[3.5] Weitere Beispiele
+\end{itemize}
+
+\section{Mathematische Systemdefinition}
+
+\subsection{Systeme}
+
+\begin{itemize}
+  \item Ein System ist die Abstraktion eines Teils der physikalischen oder technischen Welt.
+  \item Ein System ist von seiner Umwelt abgrenzbar. Die Wechselwirkungen der Komponenten des Systems untereinander überwiegen im Allgemeinen die Wechselwirkungen mit der Umgebung.
+  \item Die Festlegung der Systemgrenzen hängt von der zu behandelnden Fragestellung ab.
+  \item Das Systemverhalten wird im Allgemeinen durch Eingangs- und Ausgangssignale charakterisiert (,,black box'').
+\end{itemize}
+
+\subsection{Mathematische Systemdefinition}
+
+Ein System $\mathbb{S}$ wird durch eine bezüglich der Komposition abgeschlossene Menge von geordneten Signalpaaren
+
+$$
+\mathbb{S} := \{(x(t), y(t)) \mid t_0 \leq t < t_1;\, t_0, t_1 \in \mathbb{R}\}
+$$
+
+charakterisiert. Hierbei ist $x(t)$ das Eingangssignal und $y(t)$ das Ausgangssignal des Systems.
+
+Die Menge $\mathbb{S}$ heißt bezüglich der Komposition abgeschlossen, falls für alle Signalpaare $\{(x(t), y(t)) \mid t_0 \leq t < t_1\}$ und $\{(x(t), y(t)) \mid t_1 \leq t < t_2\}$ auch $\{(x(t), y(t)) \mid t_0 \leq t < t_2\}$ in $\mathbb{S}$ enthalten ist.
+
+Die Abgeschlossenheit der Menge $\mathbb{S}$ bezüglich der Komposition garantiert, dass zwei aneinander angrenzende Eingangs-Ausgangssignalpaare, die in einem Experiment hintereinander beobachtet wurden, prinzipiell in einem weiteren Experiment auch an einem Stück beobachtet werden können.
+
+Die Definition des Systems als Menge geordneter Signal- oder Datenpaare ist sowohl auf \textbf{reale Systeme} als auch auf \textbf{Systemmodelle} anwendbar.
+
+\subsection{Single/Multiple Input/Output Systeme}
+
+Die obige Systemdefinition lässt sich sinngemäß auch auf Systeme mit mehreren Eingangs- und Ausgangssignalen erweitern.
+
+\begin{center}
+\begin{tabular}{lcc}
+  & \textbf{Single Input} & \textbf{Multiple Input} \\[4pt]
+  \textbf{Single Output}   & SISO & MISO \\[4pt]
+  \textbf{Multiple Output} & SIMO & MIMO \\
+\end{tabular}
+\end{center}
+
+\begin{beispiel}[Drahtlose Gigabit Netzwerke]
+  % Grafik: Internet → Router → Desktop Computer (MIMO-System)
+\end{beispiel}
+
+\subsection{Systeme und innere Zustände}
+
+Die Definition der Menge $\mathbb{S}$ schließt nicht aus, dass es zu einem Eingangssignal $x(t)$ mehr als nur ein Ausgangssignal $y(t)$ gibt. Diese Mehrdeutigkeit ist Ausdruck der Abhängigkeit der Ausgangssignale von ``inneren'' Variablen des Systems. Diese werden als Zustände $z_1(t), z_2(t), \ldots, z_K(t)$ des Systems bezeichnet. Das Systemverhalten kann dann durch einen eindeutigen funktionalen Zusammenhang
+
+$$
+y(t) = S[z_1(t), \ldots, z_K(t), x(t)]
+$$
+
+bestimmt werden. In Abhängigkeit von der Zeitvariablen (kontinuierlich oder diskret) kann dieser Zusammenhang z.\,B.\ durch eine Differentialgleichung oder durch eine Differenzengleichung beschrieben werden.
+
+% Grafik: Blockdiagramm x(t) → [S mit z_1(t)...z_K(t)] → y(t)
+
+\subsection{Kontinuierliche Zustandsraummodelle}
+
+Das allgemeine, zeitvariante MIMO Zustandsraummodell:
+
+$$
+\frac{d\vec{z}(t)}{dt} = \mathbf{A}(t)\,\vec{z}(t) + \mathbf{B}(t)\,\vec{x}(t)
+$$
+
+$$
+\vec{y}(t) = \mathbf{C}(t)\,\vec{z}(t) + \mathbf{D}(t)\,\vec{x}(t)
+$$
+
+beschreibt das dynamische Systemverhalten. Hierbei ist
+
+\begin{itemize}
+  \item $\vec{z}(t)$ \quad der Zustandsvektor der Dimension $K$
+  \item $\vec{x}(t)$ \quad der Vektor der Eingangssignale der Dimension $L$
+  \item $\vec{y}(t)$ \quad der Vektor der Ausgangssignale der Dimension $M$
+  \item $\mathbf{A}(t)$ \quad die Systemmatrix der Dimension $K \times K$
+  \item $\mathbf{B}(t)$ \quad die Eingangsmatrix der Dimension $K \times L$
+  \item $\mathbf{C}(t)$ \quad die Beobachtungsmatrix der Dimension $M \times K$
+  \item $\mathbf{D}(t)$ \quad die Durchgangsmatrix der Dimension $M \times L$
+  \item $\vec{z}(t_0)$ \quad der Anfangszustandsvektor der Dimension $K$ zum Zeitpunkt $t_0$
+\end{itemize}
+
+\subsection{MIMO Zustandsraummodell}
+
+Das MIMO Systemmodell für $t \geq t_0$:
+
+\begin{center}
+\begin{tikzpicture}[auto, node distance=1.5cm, >=latex]
+  \node (x) {$\vec{x}(t)$};
+  \node [draw, rectangle, right=1cm of x] (B) {$\mathbf{B}(t)$};
+  \node [draw, circle, right=1cm of B] (sum1) {$+$};
+  \node [draw, rectangle, right=1cm of sum1, label=above:{$\frac{d\vec{z}(t)}{dt}$}] (int) {$\int$};
+  \node [draw, circle, right=1cm of int] (sum2) {$+$};
+  \node [draw, rectangle, right=1cm of sum2] (C) {$\mathbf{C}(t)$};
+  \node [draw, circle, right=1cm of C] (sum3) {$+$};
+  \node [right=1cm of sum3] (y) {$\vec{y}(t)$};
+  \node [draw, rectangle, above=1.5cm of sum1] (A) {$\mathbf{A}(t)$};
+  \node [draw, rectangle, below=1.5cm of int] (z0) {$\vec{z}_0\delta(t-t_0)$};
+  \node [draw, rectangle, below=2cm of sum1] (D) {$\mathbf{D}(t)$};
+
+  \draw[->] (x) -- (B);
+  \draw[->] (B) -- (sum1);
+  \draw[->] (sum1) -- (int);
+  \draw[->] (int) -- node[above] {$\vec{z}(t)$} (sum2);
+  \draw[->] (sum2) -- (C);
+  \draw[->] (C) -- (sum3);
+  \draw[->] (sum3) -- (y);
+  \draw[->] (z0) -- (sum2);
+  \draw[->] (sum2.north) -- ++(0,0.7) -| (A.south);
+  \draw[->] (A.west) -- ++(-0.5,0) |- (sum1.north);
+  \draw[->] (x.south) -- ++(0,-2) -- (D.west);
+  \draw[->] (D.east) -- ++(0.5,0) |- (sum3.south);
+\end{tikzpicture}
+\end{center}
+
+Die Systembeobachtung startet bei $t_0$ mit dem Anfangszustand $\vec{z}_0$. Wenn der Anfangszustand $\vec{z}_0$ Null ist, handelt es sich um ein lineares Systemmodell.
+
+\begin{beispiel}[Elektrisches RC Zweitor]
+
+\begin{center}
+\begin{tikzpicture}
+  % Input port
+  \draw (0,0) -- (0,-2);
+  \draw (0,0) -- (1.5,0);
+  \draw (0,-2) -- (3,-2);
+  % Resistor
+  \draw (1.5,0) rectangle (2.5,0.4);
+  \draw (2.5,0.2) -- (3,0.2) -- (3,0);
+  % Current arrow
+  \draw[->] (2.8,0.5) -- node[above] {$i(t)$} (3.5,0.5);
+  % Node
+  \draw (3,0) -- (5,0);
+  % Capacitor
+  \draw (3.8,-0.5) -- (4.2,-0.5);
+  \draw (3.8,-1) -- (4.2,-1);
+  \draw (4,-0.5) -- (4,0);
+  \draw (4,-1) -- (4,-2);
+  \draw (3,-2) -- (5,-2);
+  % Output port
+  \draw (5,0) -- (5,-2);
+  % Labels
+  \node[left] at (0,-1) {$x(t)$};
+  \node[right] at (5,-1) {$y(t)$};
+  % Port dots
+  \filldraw (0,0) circle (2pt);
+  \filldraw (0,-2) circle (2pt);
+  \filldraw (5,0) circle (2pt);
+  \filldraw (5,-2) circle (2pt);
+\end{tikzpicture}
+\end{center}
+
+Hier soll zunächst nicht der ,,eingeschwungene'' Zustand, sondern das dynamische Verhalten untersucht werden.
+
+Die Reaktion des Systems auf das Sprungsignal $x(t) = A\epsilon(t)$ ist mit $y(t) = A(1 - e^{-\frac{t}{\tau}})$ gegeben, wobei $\tau = RC$ eine Zeitkonstante ist.
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{groupplot}[
+    group style={group size=2 by 1, horizontal sep=2cm},
+    width=5cm, height=4cm,
+    axis lines=left,
+    xlabel=$t$,
+    xmin=-0.5, xmax=4,
+    ymin=0, ymax=1.4,
+    ytick={1}, yticklabels={$A$},
+    xtick=\empty,
+  ]
+  \nextgroupplot[title={$x(t)$}]
+    \addplot[thick] coordinates {(-0.5,0)(0,0)(0,1)(4,1)};
+  \nextgroupplot[title={$y(t)$}]
+    \addplot[thick, domain=0:4, samples=100] {1 - exp(-x)};
+    \addplot[dashed] coordinates {(0,1)(4,1)};
+    \node at (axis cs:0,1) [above right] {$A$};
+  \end{groupplot}
+\end{tikzpicture}
+\end{center}
+
+Das Ausgangssignal $y(t)$ des RC-Systems ist allgemein für $t \geq t_0$ und beliebige Eingangssignale $x(t)$:
+
+$$
+y(t) = z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi
+$$
+
+Hierbei ist $\tau$ eine Zeitkonstante und $z(t_0)$ der Zustand des Systems (Spannung am Kondensator) zum Zeitpunkt $t_0$.
+
+Offenbar hängt das Ausgangssignal nicht nur vom Eingangssignal, sondern auch von dem Wert der Zustandsvariablen ab.
+
+\subsubsection*{Zustandsrekursion}
+
+Die Zustandsvariable $z(t)$ ist unmittelbar am Ausgang beobachtbar:
+
+$$
+y(t_0) = z(t_0)\,e^{-\frac{t_0 - t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t_0} e^{-\frac{t_0-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi = z(t_0)\,.
+$$
+
+Somit können wir für beliebige $t \geq t_0$ schreiben
+
+$$
+z(t) = z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi
+$$
+
+$$
+y(t) = z(t)\,.
+$$
+
+Dies ist eine einfache Form eines \textit{Zustandsraummodells} in Integralform.
+
+\subsubsection*{Zustandsraummodell des RC Zweitors}
+
+Durch Differenzieren der Zustandsgleichung und mit Hilfe der Leibniz-Regel und dem Grenzübergang $t_0 \to t$ erhalten wir:
+
+$$
+\frac{dz(t)}{dt} = z(t_0)\cdot\frac{-1}{\tau}\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\,x(t) + \frac{1}{\tau}\int_{t_0}^{t}\frac{-1}{\tau}\,e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi
+\;\xrightarrow{t_0 \to t}\; \frac{-1}{\tau}\,z(t) + \frac{1}{\tau}\,x(t)
+$$
+
+Mit $A = -1/\tau$, $B = 1/\tau$, $C = 1$ und $D = 0$ erhalten wir die Zustandsraumformulierung für das RC System (ein System erster Ordnung):
+
+$$
+\frac{dz(t)}{dt} = A\,z(t) + B\,x(t)
+$$
+
+$$
+y(t) = C\,z(t) + D\,x(t)\,.
+$$
+
+\subsubsection*{Eigenschaft der Zustandsvariable}
+
+Wir zeigen nun, dass der Zustand $z(t_1)$ alle Informationen des Signals $x(t)$ bis zu einem gegebenen Zeitpunkt $t_1$ absorbiert. Bei Kenntnis von $z(t_1)$ und $x(t)$ für $t \geq t_1$ ist der weitere Verlauf von $z(t)$ und somit auch von $y(t)$ für $t \geq t_1$ eindeutig bestimmt:
+
+\begin{align*}
+z(t) &= z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t_1} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi + \frac{1}{\tau}\int_{t_1}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi \\
+&= \left[z(t_0)\,e^{-\frac{t_1-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t_1} e^{-\frac{t_1-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi\right] e^{-\frac{t-t_1}{\tau}} + \frac{1}{\tau}\int_{t_1}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi \\
+&= z(t_1)\,e^{-\frac{t-t_1}{\tau}} + \frac{1}{\tau}\int_{t_1}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi\,.
+\end{align*}
+\end{beispiel}
+
+\subsection{Die Impulsantwort}
+
+Ein weiteres interessantes Testsignal ist der Dirac-Impuls.
+
+% Grafik: Drei Signalpaare – rechteckige Impulse (1/ΔT, Breite ΔT) → Ausgänge; im Grenzwert ΔT → 0: δ(t) → Impulsantwort
+
+\subsubsection*{Impulsantwort des RC-Netzes}
+
+Für $x(t) = \delta(t)$ erhalten wir mit
+
+$$
+y(t) = z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi
+$$
+
+und der Siebeigenschaft des $\delta$-Impulses (implizit gilt hier $z(t_0) = 0$ für $t_0 = t_0$):
+
+\begin{align*}
+y(t) &= \frac{1}{\tau}\int \delta(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathrm{d}\xi
+      = \int_{-\infty}^{\infty} \delta(\xi)\,\frac{1}{\tau}\,e^{-\frac{1}{\tau}(t-\xi)}\,\mathrm{d}\xi \\
+     &= \frac{1}{\tau}\,e^{-\frac{t}{\tau}}\,\epsilon(t) \\
+     &= h(t)\,.
+\end{align*}
+
+Die \textit{Impulsantwort} des Systems ist durch $h(t) = \epsilon(t)\,\frac{1}{\tau}\,e^{-\frac{t}{\tau}}$ gegeben.
+
+\section{Diskrete Zustandsraummodelle}
+
+Allgemeines, zeitvariantes System:
+
+$$
+\vec{z}[k+1] = \mathbf{A}[k]\,\vec{z}[k] + \mathbf{B}[k]\,\vec{x}[k]
+$$
+
+$$
+\vec{y}[k] = \mathbf{C}[k]\,\vec{z}[k] + \mathbf{D}[k]\,\vec{x}[k]\,.
+$$
+
+Zeitinvariantes System:
+
+$$
+\vec{z}[k+1] = \mathbf{A}\,\vec{z}[k] + \mathbf{B}\,\vec{x}[k]
+$$
+
+$$
+\vec{y}[k] = \mathbf{C}\,\vec{z}[k] + \mathbf{D}\,\vec{x}[k]\,.
+$$
+
+Im Fall eines zeitinvarianten Systems, lassen sich die wiederholten Iterationen für $k > k_0$ in eine geschlossene Form überführen:
+
+$$
+\vec{z}[k] = \mathbf{A}^{k-k_0}\,\vec{z}[k_0] + \sum_{\kappa=1}^{k-k_0} \mathbf{A}^{k-k_0-\kappa}\cdot\mathbf{B}\cdot\vec{x}[k_0 + \kappa - 1]\,.
+$$
+
+Zeitvariant:
+
+\begin{center}
+\begin{tikzpicture}[auto, node distance=1.4cm, >=latex]
+  \node (x) {$\vec{x}[k]$};
+  \node [draw, rectangle, right=0.8cm of x] (B) {$\mathbf{B}[k]$};
+  \node [draw, circle, right=0.8cm of B] (sum1) {$+$};
+  \node [draw, rectangle, right=0.8cm of sum1, label=above:{$\vec{z}[k+1]$}] (T) {$T$};
+  \node [draw, rectangle, right=0.8cm of T] (C) {$\mathbf{C}[k]$};
+  \node [draw, circle, right=0.8cm of C] (sum2) {$+$};
+  \node [right=0.8cm of sum2] (y) {$\vec{y}[k]$};
+  \node [draw, rectangle, above=1.2cm of sum1] (A) {$\mathbf{A}[k]$};
+  \node [draw, rectangle, below=1.2cm of B] (D) {$\mathbf{D}[k]$};
+
+  \draw[->] (x) -- (B);
+  \draw[->] (B) -- (sum1);
+  \draw[->] (sum1) -- (T);
+  \draw[->] (T) -- node[above] {$\vec{z}[k]$} (C);
+  \draw[->] (C) -- (sum2);
+  \draw[->] (sum2) -- (y);
+  \draw[->] (T.north) -- ++(0,0.5) -| (A.south);
+  \draw[->] (A.west) -- ++(-0.4,0) |- (sum1.north);
+  \draw[->] (x.south) -- ++(0,-1.2) -- (D.west);
+  \draw[->] (D.east) -- ++(3.5,0) |- (sum2.south);
+\end{tikzpicture}
+\end{center}
+
+Zeitinvariant:
+
+\begin{center}
+\begin{tikzpicture}[auto, node distance=1.4cm, >=latex]
+  \node (x) {$\vec{x}[k]$};
+  \node [draw, rectangle, right=0.8cm of x] (B) {$\mathbf{B}$};
+  \node [draw, circle, right=0.8cm of B] (sum1) {$+$};
+  \node [draw, rectangle, right=0.8cm of sum1, label=above:{$\vec{z}[k+1]$}] (T) {$T$};
+  \node [draw, rectangle, right=0.8cm of T] (C) {$\mathbf{C}$};
+  \node [draw, circle, right=0.8cm of C] (sum2) {$+$};
+  \node [right=0.8cm of sum2] (y) {$\vec{y}[k]$};
+  \node [draw, rectangle, above=1.2cm of sum1] (A) {$\mathbf{A}$};
+  \node [draw, rectangle, below=1.2cm of B] (D) {$\mathbf{D}$};
+
+  \draw[->] (x) -- (B);
+  \draw[->] (B) -- (sum1);
+  \draw[->] (sum1) -- (T);
+  \draw[->] (T) -- node[above] {$\vec{z}[k]$} (C);
+  \draw[->] (C) -- (sum2);
+  \draw[->] (sum2) -- (y);
+  \draw[->] (T.north) -- ++(0,0.5) -| (A.south);
+  \draw[->] (A.west) -- ++(-0.4,0) |- (sum1.north);
+  \draw[->] (x.south) -- ++(0,-1.2) -- (D.west);
+  \draw[->] (D.east) -- ++(3.5,0) |- (sum2.south);
+\end{tikzpicture}
+\end{center}
+
+$T$ bezeichnet einen vektorwertigen Zustandsspeicher.
+
+\section{Systemeigenschaften}
+
+\subsection{Zeitinvarianz und Linearität}
+
+Ein System heißt \textbf{zeitinvariant}, wenn alle Paare $(x(t), y(t)) \in \mathbb{S}$ gegeben einer zeitlichen Verschiebung invariant sind, d.\,h.\ falls für eine Relation $y(t) = \mathcal{S}[x(t)]$ und beliebige Zeitverzögerungen $T_0$ gilt:
+
+$$
+y(t - T_0) = \mathcal{S}[x(t - T_0)]\,.
+$$
+
+Ein System ist \textbf{linear}, falls mit $y_1(t) = \mathcal{S}[x_1(t)]$ und $y_2(t) = \mathcal{S}[x_2(t)]$ und für beliebige Faktoren $a \in \mathbb{R}$ und $b \in \mathbb{R}$ gilt:
+
+$$
+a\,y_1(t) + b\,y_2(t) = \mathcal{S}[a\,x(t) + b\,x_2(t)]\,.
+$$
+
+Ein System, das linear und zeitinvariant ist, wird LTI System (,,linear time-invariant system'') genannt.
+
+\subsection{Verschiebungsinvarianz und Linearität}
+
+Ein zeitdiskretes System $y[k] = \mathcal{S}[x[k]]$ heißt \textbf{verschiebungsinvariant}, falls für ein beliebiges $k_0 \in \mathbb{Z}$ gilt:
+
+$$
+y[k - k_0] = \mathcal{S}[x[k - k_0]]\,.
+$$
+
+Ein zeitdiskretes System $y[k] = \mathcal{S}[x[k]]$ ist linear, falls mit $y_1[k] = \mathcal{S}[x_1[k]]$ und $y_2[k] = \mathcal{S}[x_2[k]]$ und für beliebige Faktoren $a \in \mathbb{R}$ und $b \in \mathbb{R}$ gilt:
+
+$$
+a\,y_1[k] + b\,y_2[k] = \mathcal{S}[a\,x_1[k] + b\,x_2[k]]\,.
+$$
+
+Ein System, das linear und verschiebungsinvariant ist, wird LSI System (,,linear shift-invariant system'') genannt.
+
+\subsection{Weitere Systemeigenschaften}
+
+\begin{itemize}
+  \item Ein zeitkontinuierliches System heißt \textbf{gedächtnislos}, falls für jedes Eingangssignal $x(t)$ und beliebiges $t_0 \in \mathbb{R}$ das Ausgangssignal $y(t = t_0)$ nur von $x(t = t_0)$ abhängt.
+  \item Ein zeitdiskretes System heißt \textbf{gedächtnislos}, falls für jedes Eingangssignal $x[k]$ und beliebiges $k_0 \in \mathbb{Z}$ das Ausgangssignal $y[k = k_0]$ nur von $x[k = k_0]$ abhängt.
+  \item Ein System ist \textbf{bounded input -- bounded output (BIBO) stabil}, falls jedes amplitudenbegrenzte Eingangssignal $x(t)$ bzw.\ $x[k]$ ein amplitudenbegrenzes Ausgangssignal $y(t)$ bzw.\ $y[k]$ zur Folge hat.
+  \item Ein System heißt \textbf{kausal}, wenn das Ausgangssignal zur Zeit $t_0$ nur von den Eingangssignalen und Zustandsvariablen für Zeiten $t \leq t_0$ abhängt.
+\end{itemize}
+
+\begin{beispiel}[Das Perzeptron -- ein nichtlineares System]
+Künstliche neuronale Netze beruhen auf Modellen biologischer Neuronen, die in einer einfachen Form als Perzeptron bezeichnet werden:
+
+% Grafik: Perzeptron mit Eingängen x₁[k],...,xₙ[k], Gewichten w₁,...,wₙ, Summierglied, Aktivierungsfunktion f(·) und Ausgang y[k]
+
+Damit ist ein funktionaler Zusammenhang
+
+$$
+y[k] = f(\vec{x}^{\,T}[k]\,\vec{w} + b)
+$$
+
+gegeben, wobei $\vec{x}^{\,T}[k] = (x_1[k], \ldots, x_N[k])$ und $\vec{w}^{\,T} = (w_1, \ldots, w_N)$ gilt.
+
+Die Funktion $f(z)$ kann z.\,B.\ wie folgt gewählt werden:
+
+\begin{itemize}
+  \item Lineare Transformation: $f(z) = z$
+  \item Halbwellengleichrichtung (,,rectified linear unit'', ReLU): $f(z) = \max(0, z)$
+  \item Logistische Kurve: $f(z) = \dfrac{1}{1 + \exp(-z)}$
+  \item Tangens Hyperbolikus: $f(z) = \tanh(z)$
+\end{itemize}
+\end{beispiel}
+
+\begin{beispiel}[Das Multi-Layer Perzeptron (MLP)]
+Beispiel eines vollständig vernetzten Netzwerks mit $M$ Schichten aus jeweils $N$ Neuronen (hier: $M = 3$):
+
+% Grafik: MLP mit Eingängen x₁[k], x₂[k], x₃[k], x₄[k], drei vollständig verbundenen Schichten und Ausgängen y₁^out[k],...,y₄^out[k]
+
+Jeder Knoten berechnet: $y = f(\vec{x}^{\,T}\vec{w} + b)$.
+
+Offensichtlich ist dies ein MIMO-System.
+
+\subsubsection*{Training des Neuronalen Netzes}
+
+\begin{itemize}
+  \item Die Gewichte des neuronalen Netzes werden durch Beispieldaten trainiert.
+  \item Hierfür wird eine Kostenfunktion spezifiziert, mit deren Hilfe die Abweichung zwischen dem von den Daten repräsentierten Verhalten und dem vom Netzwerk erzeugten Verhalten minimiert wird.
+  \item Die Adaptionsvorschrift wird durch Ableitung der Kostenfunktion nach den einzustellenden Gewichten $\vec{w}$ und Biaswerten $b$ ermittelt (,,Backpropagation'').
+  \item Netzwerke mit Millionen von Neuronen können heute (unter Verwendung von Parallelrechnern, z.\,B.\ GPUs) zielgerichtet trainiert werden.
+\end{itemize}
+\end{beispiel}
+
+\section{Lineare und zeitinvariante Systeme}
