@@ -1,0 +1,130 @@
+\chapter{Zufällige Signale}
+
+\section{Rauschsignale}
+
+Zufällige Signale (Rauschsignale) zeichnen sich dadurch aus, dass ihr zukünftiger Verlauf nicht exakt vorhersagbar ist. Zwei typische Rauschsignale $x_1(t)$ und $x_2(t)$ unterscheiden sich z.\,B.\ in Amplitude und spektraler Zusammensetzung.
+
+\subsection*{Realisationen zufälliger Signale}
+
+$\Rightarrow$ Jede Realisation eines Zufallssignals (Musterfunktion des Zufallsprozesses) hat einen anderen Amplitudenverlauf.
+
+\section{Verteilungsdichtefunktion}
+
+Die Verteilungsdichtefunktion (VDF) beschreibt die Wahrscheinlichkeit, mit der ein Zufallssignal bestimmte Amplitudenwerte annimmt. Sie ergibt sich als Grenzwert des normierten Histogramms bei wachsender Stichprobenzahl.
+
+\section{Kenngrößen diskreter zufälliger Signale}
+
+Kenngrößen zufälliger Signale lassen sich in \textbf{Lagemaße} (beschreiben den mittleren Amplitudenwert) und \textbf{Streumaße} (beschreiben die Streuung um den Mittelwert) unterteilen.
+
+\subsection{Lagemaße}
+
+Der \textbf{empirische Mittelwert} eines diskreten Signals mit $N$ Abtastwerten ist durch
+
+$$
+\bar{x} = \frac{1}{N} \sum_{k=0}^{N-1} x[k] = \frac{1}{N}\bigl(x[0] + \ldots + x[N-1]\bigr)
+$$
+
+gegeben.
+
+Der \textbf{Median} $\tilde{x}$ eines diskreten Signals teilt die Werte in zwei Hälften, so dass die eine Hälfte größer oder gleich $\tilde{x}$ ist und die andere Hälfte kleiner oder gleich $\tilde{x}$ ist.
+
+$\Rightarrow$ Der Median ist robust gegenüber Ausreißern. Oft ist er nicht eindeutig. Er kann dann innerhalb eines Intervalls frei gewählt werden.
+
+\subsection{Streumaße}
+
+Die \textbf{empirische Varianz} eines diskreten Signals $x[k]$ mit $N$ Abtastwerten ist durch
+
+$$
+\hat{\sigma}^2 = \frac{1}{N-1} \sum_{k=0}^{N-1} (x[k] - \hat{\bar{x}})^2
+$$
+
+definiert.
+
+Die \textbf{empirische Standardabweichung} ist durch
+
+$$
+\hat{\sigma} = \sqrt{\hat{\sigma}^2} = \sqrt{\frac{1}{N-1} \sum_{k=0}^{N-1} (x[k] - \hat{\bar{x}})^2}
+$$
+
+gegeben.
+
+\section{Die empirische Korrelationsfunktion}
+
+Die Kreuzkorrelationsfunktion zweier Signale $x[k]$ und $y[k]$, wobei $x[k]$ ausserhalb des Bereich $0 \ldots N$ Null ist, ist dann durch
+
+$$
+\hat{\varphi}_{xy}[\varkappa] = \sum_{k=0}^{N} x[k]\, y[k + \varkappa]
+$$
+
+gegeben. Für die Autokorrelation erhält man entsprechend
+
+$$
+\hat{\varphi}_{xx}[\varkappa] = \sum_{k=0}^{N} x[k]\, x[k + \varkappa].
+$$
+
+Man beachte, dass in der Literatur diese Funktionen mit (unterschiedlichen) Normierungen verwendet werden.
+
+\subsection*{Autokorrelationsfunktion eines Zufallssignals}
+
+Das Signal $x[k]$ weist 51 von Null verschiedene Werte auf. Die AKF hat ein klares Maximum für $\varkappa = 0$ und zeigt ansonsten kaum Korrelation an.
+
+\section{Signalentdeckung im Rauschen}
+
+Ein Terminal sendet ein Signal $x(t)$. An der Basisstation wird das empfangene Signal durch additives Rauschen $n(t)$ gestört:
+
+$$
+y(t) = x(t) + n(t)
+$$
+
+\subsection*{Beispiel: Signalentdeckung im Rauschen}
+
+Wir betrachten einen kurzen und einen langen Rechteckimpuls mit
+$t_1 = 380T$, $T_1 = 40T$, $t_2 = 220T$, $T_2 = 360T$,
+
+$$
+x_1(t) = A\,\operatorname{rect}\!\left(\frac{t - t_1}{T_1}\right)
+\qquad \text{und} \qquad
+x_2(t) = \frac{A}{3}\,\operatorname{rect}\!\left(\frac{t - t_2}{T_2}\right),
+$$
+
+wobei das Bezugsintervall $T$ z.\,B.\ für $T = 1\,\text{ms}$ gewählt wird und beide Signale die Energie $E_1 = E_2 = A^2 \cdot 40T$ aufweisen.
+
+Nun wird zu diesen Signalen Rauschen addiert:
+
+$$
+y_1(t) = x_1(t) + n_1(t) \qquad \text{und} \qquad y_2(t) = x_2(t) + n_2(t).
+$$
+
+$n_1(t)$ und $n_2(t)$ sind mittelwertfreie Rauchsignale.
+
+\subsection*{Rechteckimpulse im Rauschen}
+
+Ist eine Detektion durch eine einfache Schwellwertentscheidung möglich?
+
+\subsection*{Signalentdeckung durch Korrelation}
+
+\textbf{Berechnung der Kreuzkorrelation:}
+
+\begin{align*}
+\varphi_{y_1 x_1}(\tau)
+  &= \int_{-\infty}^{\infty} y_1(t)\, x_1(t+\tau)\,\mathrm{d}t \\
+  &= \int_{-\infty}^{\infty} (x_1(t) + n_1(t))\, x_1(t+\tau)\,\mathrm{d}t \\
+  &= \int_{-\infty}^{\infty} x_1(t)\, x_1(t+\tau)\,\mathrm{d}t
+     + \int_{-\infty}^{\infty} n_1(t)\, x_1(t+\tau)\,\mathrm{d}t \\
+  &= \varphi_{x_1 x_1}(\tau) + \varphi_{n_1 x_1}(\tau)
+\end{align*}
+
+Falls $x_1(t)$ und $n_1(t)$ keine Korrelationen aufweisen, gilt
+
+$$
+\varphi_{y_1 x_1}(\tau) \approx \varphi_{x_1 x_1}(\tau)
+$$
+
+\subsection*{Rechteckimpulse im Rauschen – weiteres Beispiel}
+
+Nun werden die folgenden Impulse betrachtet:
+
+$$
+x_1(t) = 0{,}4A\,\operatorname{rect}\!\left(\frac{t - t_1}{T_1}\right), \qquad
+x_2(t) = \frac{2}{15}\,A\,\operatorname{rect}\!\left(\frac{t - t_2}{T_2}\right)
+$$
