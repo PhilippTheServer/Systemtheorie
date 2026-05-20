@@ -1,0 +1,171 @@
+\section{Übung 4 – Abtastung und Quantisierung}
+
+\subsection*{Grundprinzip}
+
+Um ein wert- und zeitkontinuierliches Signal zu digitalisieren, wird es in zwei Schritten verarbeitet:
+
+\begin{enumerate}
+    \item \textbf{Abtastung:} Das Signal wird in gleichmäßigen Zeitabständen $T_A$ abgetastet.
+          Ergebnis: wertkontinuierliches, zeitdiskretes Signal $x[n] = x(n \cdot T_A)$.
+    \item \textbf{Quantisierung:} Die Abtastwerte werden einer von $N$ diskreten Stufen zugeordnet.
+          Ergebnis: vollständig diskretes Signal $\hat{x}[n]$.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm, height=4.5cm,
+    xlabel={$t$},
+    ylabel={Amplitude},
+    xmin=0, xmax=5.5,
+    ymin=-1.3, ymax=1.3,
+    axis x line=middle,
+    axis y line=left,
+    xtick={1,2,3,4,5},
+    xticklabels={$T_A$, $2T_A$, $3T_A$, $4T_A$, $5T_A$},
+    ytick={-1, 1},
+    yticklabels={$-A$, $A$},
+    tick align=outside,
+    legend style={at={(0.99,0.97)}, anchor=north east, font=\small},
+    every axis plot/.append style={line width=1.2pt},
+]
+\addplot[blue, smooth, domain=0:5.4, samples=200] {sin(deg(x*1.15))};
+\addlegendentry{Analogsignal $x(t)$}
+\addplot[red, ycomb, mark=*, mark size=2.8pt, mark options={fill=red}]
+    coordinates {
+        (1, {sin(deg(1.15))})
+        (2, {sin(deg(2.30))})
+        (3, {sin(deg(3.45))})
+        (4, {sin(deg(4.60))})
+        (5, {sin(deg(5.75))})
+    };
+\addlegendentry{Abtastwerte $x[n]$}
+\end{axis}
+\end{tikzpicture}
+\caption{Abtastung: Aus dem kontinuierlichen Signal (blau) werden in Abständen $T_A$ Werte entnommen (rot).}
+\end{figure}
+
+\subsection*{Beispiel: Abtastperiode und Stufenbreite}
+
+Gegeben sei die Abtastfrequenz $f_A = 10\,\text{kHz}$, wobei $\text{Hz} = \text{s}^{-1}$.
+Die Abtastperiode beträgt:
+
+$$
+T_A = \frac{1}{f_A} = \frac{1}{10\,000\,\text{s}^{-1}} = 0{,}1\,\text{ms}
+$$
+
+Für den Wertebereich $[-0{,}4,\; 0{,}4]$ (Gesamtbreite $x_{\max} - x_{\min} = 0{,}8$)
+und eine Stufenbreite $\delta x = 0{,}2$ ergibt sich die Stufenanzahl:
+
+$$
+N = \frac{x_{\max} - x_{\min}}{\delta x} = \frac{0{,}8}{0{,}2} = 4,
+\qquad
+\delta x = \frac{0{,}8}{N} = \frac{0{,}8}{4} = 0{,}2
+$$
+
+Der Rekonstruktionswert der untersten Stufe ergibt sich als Mittelpunkt des ersten Intervalls:
+
+$$
+x_1 = \frac{-0{,}4 + (-0{,}2)}{2} = -0{,}3
+$$
+
+\subsection*{Midrise-Kennlinie}
+
+Die \textbf{Midrise-Kennlinie} ist eine Treppenfunktion, bei der die steigende Flanke durch den
+Ursprung $(0,\,0)$ verläuft. Beim \textbf{Midtread-Quantisierer} liegt im Ursprung hingegen
+eine konstante Stufe – die Kurve verläuft dort flach.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=9cm, height=9cm,
+    xmin=-0.50, xmax=0.50,
+    ymin=-0.50, ymax=0.50,
+    axis lines=center,
+    xtick={-0.4,-0.2,0.2,0.4},
+    xticklabels={$-0{,}4$, $-0{,}2$, $0{,}2$, $0{,}4$},
+    ytick={-0.3,-0.1,0.1,0.3},
+    yticklabels={$-0{,}3$, $-0{,}1$, $0{,}1$, $0{,}3$},
+    x tick label style={anchor=north, yshift=-4pt, font=\small},
+    y tick label style={anchor=east, xshift=-4pt, font=\small},
+    grid=both,
+    grid style={dashed, gray!30},
+    tick align=outside,
+    every axis plot/.append style={line width=1.4pt},
+]
+% Horizontale Stufen
+\addplot[blue] coordinates {(-0.50,-0.3) (-0.20,-0.3)};
+\addplot[blue] coordinates {(-0.20,-0.1) ( 0.00,-0.1)};
+\addplot[blue] coordinates {( 0.00, 0.1) ( 0.20, 0.1)};
+\addplot[blue] coordinates {( 0.20, 0.3) ( 0.50, 0.3)};
+% Gestrichelte Übergänge
+\addplot[blue, dashed, line width=0.8pt] coordinates {(-0.2,-0.3) (-0.2,-0.1)};
+\addplot[blue, dashed, line width=0.8pt] coordinates {( 0.0,-0.1) ( 0.0, 0.1)};
+\addplot[blue, dashed, line width=0.8pt] coordinates {( 0.2, 0.1) ( 0.2, 0.3)};
+% Offene Kreise (nicht inbegriffen)
+\addplot[only marks, mark=o, mark size=3.5pt,
+         mark options={draw=blue, fill=white, line width=1.2pt}]
+    coordinates {(-0.2,-0.3) (0.0,-0.1) (0.2,0.1)};
+% Gefüllte Kreise (inbegriffen)
+\addplot[only marks, mark=*, mark size=3.5pt, mark options={fill=blue}]
+    coordinates {(-0.2,-0.1) (0.0,0.1) (0.2,0.3)};
+\end{axis}
+\end{tikzpicture}
+\caption{Midrise-Kennlinie: $N = 4$ Stufen, $\delta x = 0{,}2$, Wertebereich $[-0{,}4,\,0{,}4]$.
+Die Treppenfunktion steigt am Ursprung und erfüllt $Q(x) \neq 0$ für alle $x \neq 0$.}
+\end{figure}
+
+Für das Beispiel ($N = 4$, $\delta x = 0{,}2$, Midrise) ergeben sich folgende
+Quantisierungsintervalle und Rekonstruktionswerte $\hat{x}$:
+
+\begin{itemize}
+    \item $x \in [{-0{,}4},\; {-0{,}2})$ \quad$\Rightarrow$\quad $\hat{x} = {-0{,}3}$
+    \item $x \in [{-0{,}2},\; 0)$         \quad$\Rightarrow$\quad $\hat{x} = {-0{,}1}$
+    \item $x \in [0,\; 0{,}2)$            \quad$\Rightarrow$\quad $\hat{x} = 0{,}1$
+    \item $x \in [0{,}2,\; 0{,}4]$        \quad$\Rightarrow$\quad $\hat{x} = 0{,}3$
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm, height=5cm,
+    xlabel={Index $n$},
+    ylabel={Amplitude},
+    xmin=-0.5, xmax=9.5,
+    ymin=-0.48, ymax=0.52,
+    axis lines=left,
+    xtick={0,1,...,9},
+    ytick={-0.3,-0.1,0.1,0.3},
+    yticklabels={$-0{,}3$, $-0{,}1$, $0{,}1$, $0{,}3$},
+    ymajorgrids=true,
+    grid style={dashed, gray!40},
+    legend style={at={(0.99,0.98)}, anchor=north east, font=\small},
+    every axis plot/.append style={line width=1.2pt},
+]
+% Originale Abtastwerte
+\addplot[red, ycomb, mark=o, mark size=3pt,
+         mark options={draw=red, fill=white, line width=1.2pt}]
+    coordinates {
+        (0,  0.38) (1,  0.22) (2, -0.05) (3, -0.31) (4, -0.39)
+        (5, -0.17) (6,  0.08) (7,  0.28) (8,  0.39) (9,  0.15)
+    };
+\addlegendentry{Abtastwerte $x[n]$}
+% Quantisierte Werte (leicht versetzt zur besseren Lesbarkeit)
+\addplot[blue, ycomb, mark=*, mark size=3pt, mark options={fill=blue},
+         transform canvas={xshift=5pt}]
+    coordinates {
+        (0,  0.3) (1,  0.3) (2, -0.1) (3, -0.3) (4, -0.3)
+        (5, -0.1) (6,  0.1) (7,  0.3) (8,  0.3) (9,  0.1)
+    };
+\addlegendentry{Quantisierte Werte $\hat{x}[n]$}
+\end{axis}
+\end{tikzpicture}
+\caption{Quantisierung: Die Abtastwerte (rot) werden den nächstgelegenen Quantisierungsstufen
+(blau, gestrichelte Linien) zugeordnet. Jede Stufe entspricht dem Rekonstruktionswert $\hat{x}$.}
+\end{figure}
+
+Nach der Quantisierung aller Abtastwerte entsteht aus dem ursprünglich kontinuierlichen Signal
+ein vollständig diskretes, digitales Signal.
