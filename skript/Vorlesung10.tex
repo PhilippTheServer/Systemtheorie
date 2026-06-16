@@ -1,6 +1,8 @@
 \section{Zwei Zufallsvariablen}
 
-Wenn zwei Zufallsvariablen $X$ und $Y$ gegeben sind, ist die Verbundverteilungsfunktion durch
+In diesem Abschnitt sollen nun einige Ergebnisse auf den bivariaten Fall erweitert werden.
+
+Wenn zwei Zufallsvariablen $X$ und $Y$ gegeben sind, ist deren kumulative Verbundverteilungsfunktion durch
 
 $$
 F_{XY}(x,y) = P(X \leq x, Y \leq y)
@@ -21,7 +23,21 @@ $$
 gegeben. Somit gilt auch
 
 $$
-F_{XY}(x,y) = \int_{-\infty}^{x} \int_{-\infty}^{y} p_{XY}(\xi, \mu) \, \mathrm{d}\xi \, \mathrm{d}\mu.
+F_{XY}(x,y) = \int_{-\infty}^{x} \int_{-\infty}^{y} p_{XY}(u,v)\,\mathrm{d}u\,\mathrm{d}v.
+$$
+
+\subsection{Randverteilungen}
+
+Die univariaten Verteilungsdichtefunktionen der Zufallsvariablen $X$ und $Y$ lassen sich mit
+
+$$
+p_X(x) = \int_{-\infty}^{\infty} p_{XY}(x,y)\,\mathrm{d}y \quad \text{und} \quad p_Y(y) = \int_{-\infty}^{\infty} p_{XY}(x,y)\,\mathrm{d}x
+$$
+
+bestimmen. Diese werden Randverteilungen genannt. Für die Verteilungsfunktion ergibt sich entsprechend
+
+$$
+F_X(x) = F_{XY}(x, \infty) \quad \text{und} \quad F_Y(y) = F_{XY}(\infty, y).
 $$
 
 \subsection{Statistische Unabhängigkeit}
@@ -37,44 +53,6 @@ und
 $$
 p_{XY}(x,y) = p_X(x) \cdot p_Y(y).
 $$
-
-\subsection{Randverteilungen}
-
-Die univariate Verteilungsdichtefunktion der Zufallsvariablen $X$ und $Y$ lässt sich mit
-
-$$
-p_X(x) = \int_{-\infty}^{\infty} p_{XY}(x,y)\,\mathrm{d}y \quad \text{und} \quad p_Y(y) = \int_{-\infty}^{\infty} p_{XY}(x,y)\,\mathrm{d}x
-$$
-
-bestimmen. Diese werden Randverteilungen genannt. Für die Verteilungsfunktion ergibt sich
-
-$$
-F_X(x) = F_{XY}(x, \infty) \quad \text{und} \quad F_Y(y) = F_{XY}(\infty, y).
-$$
-
-\begin{beispiel}[Bivariate Normalverteilung]
-Zwei Zufallsvariablen $X$ und $Y$ sind gemeinsam normalverteilt, wenn ihre Verbundverteilungsdichtefunktion durch
-
-$$
-p_{XY}(x,y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-r_{XY}^2}} \exp\!\left(-\frac{1}{2(1-r_{XY}^2)}\left[\frac{(x-\mu_X)^2}{\sigma_X^2} - 2r_{XY}\frac{(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} + \frac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right)
-$$
-
-gegeben ist. Hierbei sind $\mu_X$ und $\mu_Y$ die Mittelwerte, $\sigma_X^2$ und $\sigma_Y^2$ die Varianz und $r_{XY}$ der Korrelationskoeffizient
-
-$$
-r_{XY} = \frac{\mathrm{E}\{(X-\mu_X)(Y-\mu_Y)\}}{\sigma_X\sigma_Y}
-$$
-
-der Zufallsvariablen $X$ und $Y$. Es gilt $|r_{XY}| \leq 1$.
-
-% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0
-
-% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=1, μ_Y=1, σ_X²=1, σ_Y²=1, r_XY=0
-
-% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=0.5, r_XY=0
-
-% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0.5
-\end{beispiel}
 
 \subsection{Momente der bivariaten Verteilungsdichte}
 
@@ -92,15 +70,7 @@ $$
 \mathrm{E}\{aX + bY\} = a\,\mathrm{E}\{X\} + b\,\mathrm{E}\{Y\}.
 $$
 
-Die Erwartungswertbildung ist eine lineare Operation.
-
-\subsection{Linearität des Erwartungswertes}
-
-Für zwei Zufallsvariablen $X$ und $Y$ gilt:
-
-$$
-\mathrm{E}\{aX + bY\} = a\,\mathrm{E}\{X\} + b\,\mathrm{E}\{Y\} \quad \text{für alle } a, b \in \mathbb{R}
-$$
+Hieraus folgern wir, dass die Berechnung des Erwartungswertes eine lineare Operation ist.
 
 \subsection{Kovarianz, Korrelation und Orthogonalität}
 
@@ -110,12 +80,12 @@ $$
 C = \mathrm{E}\{(X - \mu_X)(Y - \mu_Y)\}
 $$
 
-definiert. Es gilt $C = \mathrm{E}\{XY\} - \mu_X\mu_Y$.
+definiert.
 
 Der Korrelationskoeffizient ist zu
 
 $$
-r_{XY} = \frac{\mathrm{E}\{(X - \mu_X)(Y - \mu_Y)\}}{\sigma_X\sigma_Y}
+r_{XY} = \frac{\mathrm{E}\{(X - \mu_X)(Y - \mu_Y)\}}{\sigma_X \sigma_Y}
 $$
 
 definiert. Es gilt $|r_{XY}| \leq 1$.
@@ -123,10 +93,52 @@ definiert. Es gilt $|r_{XY}| \leq 1$.
 Zwei Zufallsvariablen werden orthogonal genannt, wenn
 
 $$
-\mathrm{E}\{XY\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x\,y\,p_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y = 0
+\mathrm{E}\{XY\} = 0 \quad \text{gilt.}
 $$
 
-gilt.
+Man beachte die Parallelität zu der entsprechenden Definition für determinierte Signale. Der Erwartungswert übernimmt hier die Rolle des inneren Produkts.
+
+\begin{beispiel}[Bivariate Normalverteilung]
+Zwei Zufallsvariablen $X$ und $Y$ sind gemeinsam normalverteilt, wenn ihre Verbundverteilungsdichtefunktion durch
+
+$$
+p_{XY}(x,y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-r_{XY}^2}} \exp\!\left(-\frac{1}{2(1-r_{XY}^2)}\left[\frac{(x-\mu_X)^2}{\sigma_X^2} - 2r_{XY}\frac{(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} + \frac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right)
+$$
+
+gegeben ist. Hierbei sind $\mu_X$ und $\mu_Y$ die Mittelwerte, $\sigma_X^2$ und $\sigma_Y^2$ die Varianzen und $r_{XY}$ der Korrelationskoeffizient
+
+$$
+r_{XY} = \frac{\mathrm{E}\{(X-\mu_X)(Y-\mu_Y)\}}{\sigma_X\sigma_Y}
+$$
+
+der Zufallsvariablen $X$ und $Y$. Es gilt $|r_{XY}| \leq 1$.
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=1, μ_Y=1, σ_X²=1, σ_Y²=1, r_XY=0
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=0{,}5, r_XY=0
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0{,}5
+\end{beispiel}
+
+Wir zeigen nun, dass zwei statistisch unabhängige Zufallsvariablen $X$ und $Y$ auch unkorreliert sind, d.\,h.
+
+$$
+\mathrm{E}\{(X-\mu_X)(Y-\mu_Y)\} = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} (x-\mu_X)(y-\mu_Y)\,p_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y
+$$
+
+$$
+= \int_{-\infty}^{\infty} (x-\mu_X)\,p_X(x)\,\mathrm{d}x \cdot \int_{-\infty}^{\infty} (y-\mu_Y)\,p_Y(y)\,\mathrm{d}y
+= (\mathrm{E}\{X\} - \mu_X)(\mathrm{E}\{Y\} - \mu_Y) = 0.
+$$
+
+Außerdem zeigen wir, dass für die Normalverteilung auch die Umkehrung gilt. Wenn zwei normalverteilte Zufallsvariablen $X$ und $Y$ unkorreliert sind, d.\,h.\ $r_{XY} = 0$, dann sind sie auch statistisch unabhängig. Für $r_{XY} = 0$ erhalten wir
+
+$$
+p_{XY}(x,y) = \frac{1}{2\pi\sigma_X\sigma_Y} \exp\!\left(-\frac{1}{2}\left[\frac{(x-\mu_X)^2}{\sigma_X^2} + \frac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right)
+= p_X(x) \cdot p_Y(y).
+$$
 
 \subsection{Eine Funktion von zwei Zufallsvariablen}
 
@@ -142,12 +154,12 @@ $$
 F_Z(z) = P(Z \leq z) = P(g(X,Y) \leq z) = \iint_{D_z} p_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y
 $$
 
-gegeben, wobei $D_z$ das nicht unbedingt zusammenhängende Gebiet in der $xy$-Ebene bezeichnet, für das $g(x, y) \leq z$ gilt.
+gegeben, wobei $D_z$ das nicht unbedingt zusammenhängende Gebiet in der $xy$-Ebene bezeichnet, für das $g(x,y) \leq z$ gilt.
 
-\begin{beispiel}
+\begin{beispiel}[Addition von zwei Zufallsvariablen]
 Für $Z = X + Y$ gilt:
 
-% Grafik: Gebiet z ≤ x+y in der xy-Ebene (Halbebene unterhalb der Linie y = z-x)
+% Grafik: Gebiet z ≤ x+y in der xy-Ebene
 
 $$
 F_Z(z) = \int_{-\infty}^{\infty} \int_{-\infty}^{z-x} p_{XY}(x,y)\,\mathrm{d}y\,\mathrm{d}x
@@ -160,8 +172,10 @@ $$
 und im Fall unabhängiger Zufallsvariablen $X$ und $Y$
 
 $$
-p_Z(z) = \int_{-\infty}^{\infty} p_X(x)\,p_Y(z-x)\,\mathrm{d}x
+p_Z(z) = \int_{-\infty}^{\infty} p_X(x)\,p_Y(z-x)\,\mathrm{d}x.
 $$
+
+Offenbar führt die Addition zweier unabhängiger Zufallsvariablen auf die Faltung der zugehörigen Verteilungsdichtefunktionen!
 \end{beispiel}
 
 \subsection{Zwei Funktionen von zwei Zufallsvariablen}
@@ -178,25 +192,31 @@ $$
 p_{ZW}(z,w) = \frac{p_{XY}(x_1, y_1)}{|\det(J(x_1, y_1))|} + \ldots + \frac{p_{XY}(x_n, y_n)}{|\det(J(x_n, y_n))|}
 $$
 
-gegeben, wobei die $x_i$ die Lösungen des Gleichungssystems $g(x_i, y_i) = z$, $h(x_i, y_i) = w$ sind und $J$ die Jakobi-Matrix
+gegeben, wobei die $(x_i, y_i)$ die Lösungen des Gleichungssystems $g(x_i, y_i) = z$, $h(x_i, y_i) = w$ sind und $J$ die Jakobi-Matrix
 
 $$
-J(x,y) = \begin{pmatrix} \dfrac{\partial g}{\partial x} & \dfrac{\partial g}{\partial y} \\[6pt] \dfrac{\partial h}{\partial x} & \dfrac{\partial h}{\partial y} \end{pmatrix}
+J(x,y) = \begin{pmatrix} \dfrac{\partial z}{\partial x} & \dfrac{\partial z}{\partial y} \\[6pt] \dfrac{\partial w}{\partial x} & \dfrac{\partial w}{\partial y} \end{pmatrix}
 $$
 
-bezeichnet. Hierbei ist $\det(J(x_i, y_i))$ die Determinante dieser Matrix.
-
-\subsection{Statistische Mittelwerte und Zeitmittelwerte}
-
-% Grafik: Drei diskrete Realisierungen X_1[k], X_2[k], X_3[k] eines Zufallsprozesses als Impulsfolgen
+bezeichnet. $\det(J(x_i, y_i))$ ist die Determinante dieser Matrix.
 
 \subsection{Ausblick: Zufallsprozesse}
 
-Zufällige diskrete Signale lassen sich nun als Folge von Zufallsvariablen $X[k]$ definieren. Dabei kann für jede Zufallsvariable eine Verteilungsdichtefunktion und entsprechende statistische Mittelwerte und Momente angegeben werden. Zudem wird die statistische Abhängigkeit der Zufallsvariablen mit Verbundverteilungsdichtefunktionen beschrieben. Für die Modellbildung sind besonders
+Zufällige diskrete Signale lassen sich nun als Folge von Zufallsvariablen $X[k]$ definieren, wobei $k \in \mathbb{Z}$ zum Beispiel einen Zeitindex bezeichnet. Dabei können für jede Zufallsvariable $X[k]$ eine Verteilungsdichtefunktion und entsprechende statistische Mittelwerte angegeben werden. Zudem wird die statistische Abhängigkeit der Zufallsvariablen $X[k]$ und $X[l]$ mit Verbundverteilungsdichtefunktionen beschrieben. Für die Modellbildung sind besonders
 
 \begin{itemize}
   \item stationäre Zufallsprozesse (alle $X[k]$ weisen die selbe Verteilungsdichtefunktion auf) und
-  \item ergodische Zufallsprozesse (die statistischen Mittelwerte entsprechen den durch Mittelung über eine Folge $X[k]$ gewonnenen empirischen Mittelwerten).
+  \item ergodische Zufallsprozesse (die statistischen Mittelwerte entsprechen den durch Mittelung über eine Folge $x_i[k]$ gewonnenen empirischen Mittelwerten).
 \end{itemize}
 
+von Interesse. Die Kenntnis der statistischen Größe ermöglicht dann eine an die Signaleigenschaften angepasste Verarbeitung. Dabei sind die oben genannten Annahmen in der Praxis fast nie erfüllt, so dass die Verarbeitung zum Beispiel von Audio- und Videosignalen häufig adaptiv ausgeführt wird. Die Verarbeitung wird an die aktuell geschätzte statistische Kenngröße angepasst.
 
+% Grafik: Drei diskrete Realisierungen x_1[k], x_2[k], x_3[k] eines Zufallsprozesses als Impulsfolgen
+
+\section{Abschließende Betrachtungen}
+
+Gegenüber einer Definition der Wahrscheinlichkeit als im Experiment beobachtbarer, relativer Häufigkeiten, hat die axiomatische Definition der Wahrscheinlichkeit große konzeptionelle Vorteile. Die axiomatische Definition beruht auf einer Menge sich nicht widersprechender, aber auch nicht beweisbarer Aussagen, aus denen alle weiteren Elemente der Theorie gefolgert werden können.
+
+Die axiomatische Definition erlaubt uns eine klare Trennung von \textit{Beobachtung} und \textit{Modell}. Im Fall des \textit{idealen} Würfels sind die Auftrittswahrscheinlichkeiten $P(A_i)$, $i = 1, \ldots, 6$, eines der sechs möglichen Ereignisse $A_i$ \textit{exakt} durch $1/6$ festgelegt. In einem zweiten Schritt kann nun durch die Beobachtung relativer Häufigkeiten an einem realen Würfel die Gültigkeit des Modells überprüft werden.
+
+In der Informationstechnik wird häufig mit statistischen Modellen gearbeitet, auf deren Grundlage dann technische Systeme entwickelt und optimiert werden. Die so entwickelten Systeme können aber nur dann effizient arbeiten, wenn ihre Berechnungsgrundlage, das Modell, mit den realen Verhältnissen übereinstimmt. Die Entwicklung statistischer Modelle und ihre Validierung ist daher ein wesentlicher Bestandteil der Informationstechnik.

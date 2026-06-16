@@ -289,10 +289,60 @@ $$
 p_X(x) = \begin{cases} \lambda e^{-\lambda x} & , \quad x \geq 0 \\ 0 & , \quad \text{sonst} \end{cases}
 $$
 
-definiert. Ferner gilt für eine exponentialverteilte ZV $X$:
+definiert. Ferner finden wir für eine exponentialverteilte ZV $X$ die folgenden Momente.
+
+Mittelwert:
+$$
+\mathrm{E}\{X\} = \frac{1}{\lambda}
+$$
+
+Leistung:
+$$
+\mathrm{E}\{X^2\} = \frac{2}{\lambda^2}
+$$
+
+Varianz:
+$$
+\mathrm{var}\{X\} = \frac{1}{\lambda^2}
+$$
+
+Diese werden wie folgt berechnet.
+
+Berechnung des Mittelwertes:
 
 $$
-\mathrm{E}\{X\} = \frac{1}{\lambda} \qquad \mathrm{E}\{X^2\} = \frac{2}{\lambda^2} \qquad \mathrm{var}\{X\} = \frac{1}{\lambda^2}
+\mathrm{E}\{X\} = \int_{-\infty}^{\infty} u\, p_X(u)\,\mathrm{d}u = \int_0^{\infty} u \lambda e^{-\lambda u}\,\mathrm{d}u
+$$
+
+Hier wird die Regel der partiellen Integration verwendet.
+
+$$
+\mathrm{E}\{X\} = \left[-u e^{-\lambda u}\right]_0^{\infty} + \int_0^{\infty} e^{-\lambda u}\,\mathrm{d}u
+= \left[-u e^{-\lambda u} - \frac{1}{\lambda} e^{-\lambda u}\right]_0^{\infty} = 0 - \frac{-1}{\lambda} = \frac{1}{\lambda}
+$$
+
+Berechnung der Leistung:
+
+$$
+\mathrm{E}\{X^2\} = \int_{-\infty}^{\infty} u^2\, p_X(u)\,\mathrm{d}u = \int_0^{\infty} u^2 \lambda e^{-\lambda u}\,\mathrm{d}u
+$$
+
+Hier wird die Regel der partiellen Integration verwendet.
+
+$$
+\mathrm{E}\{X^2\} = \left[-u^2 e^{-\lambda u}\right]_0^{\infty} + \int_0^{\infty} 2u\, e^{-\lambda u}\,\mathrm{d}u = \int_0^{\infty} 2u e^{-\lambda u}\,\mathrm{d}u
+$$
+
+Umformung, um das Ergebnis für den Mittelwert nutzen zu können.
+
+$$
+\mathrm{E}\{X^2\} = \frac{2}{\lambda} \int_0^{\infty} \lambda u e^{-\lambda u}\,\mathrm{d}u = \frac{2}{\lambda} \cdot \frac{1}{\lambda} = \frac{2}{\lambda^2}
+$$
+
+Berechnung der Varianz:
+
+$$
+\mathrm{var}\{X\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}
 $$
 
 % Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für λ=1 (links) und λ=1{,}5 (rechts), x von −2 bis 2
@@ -307,25 +357,138 @@ $$
 
 definiert. Ferner gilt für eine laplaceverteilte ZV $X$:
 
+Mittelwert: $\mathrm{E}\{X\} = \mu$
+
+Leistung: $\mathrm{E}\{X^2\} = 2\sigma^2 + \mu^2$
+
+Varianz: $\mathrm{var}\{X\} = 2\sigma^2$
+
+Wir berechnen wieder die Momente erster und zweiter Ordnung.
+
+Berechnung des Mittelwertes:
+
 $$
-\mathrm{E}\{X\} = \mu \qquad \mathrm{E}\{X^2\} = 2\sigma^2 + \mu^2 \qquad \mathrm{var}\{X\} = 2\sigma^2
+\mathrm{E}\{X\} = \int_{-\infty}^{\infty} \frac{u}{2\sigma} e^{-\frac{|u-\mu|}{\sigma}}\,\mathrm{d}u
+= \int_{-\infty}^{\mu} \frac{u}{2\sigma} e^{\frac{u-\mu}{\sigma}}\,\mathrm{d}u + \int_{\mu}^{\infty} \frac{u}{2\sigma} e^{-\frac{u-\mu}{\sigma}}\,\mathrm{d}u
+= \mu - \frac{\sigma}{2} + \frac{\sigma}{2} = \mu
+$$
+
+Berechnung der Leistung (mit partieller Integration):
+
+$$
+\mathrm{E}\{X^2\} = \int_{-\infty}^{\infty} \frac{u^2}{2\sigma} e^{-\frac{|u-\mu|}{\sigma}}\,\mathrm{d}u = \mu^2 + \sigma^2 + \sigma^2 = 2\sigma^2 + \mu^2
+$$
+
+Berechnung der Varianz:
+
+$$
+\mathrm{var}\{X\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2 = 2\sigma^2 + \mu^2 - \mu^2 = 2\sigma^2
 $$
 
 % Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für μ=0, σ=1 (links) und μ=1, σ=0{,}5 (rechts), x von −2 bis 2
 
-\begin{beispiel}[Quantisierung eines Audiosignals]
-Die Abtastwerte eines Audiosignals seien Laplace-verteilt mit $\mu = 0$ und $\sigma = 1$. Die Abtastwerte werden nun mit der folgenden Quantisierungskennlinie quantisiert.
+\begin{beispiel}[Quantisierung eines Laplace-verteilten Signals]
+Die Abtastwerte eines Audiosignals seien Laplace-verteilt mit $\mu = 0$ und $\sigma = 1$. Die Abtastwerte werden nun mit der in Abbildung 4.26 dargestellten Quantisierungskennlinie quantisiert.
 
 % Grafik: Midrise-Quantisierungskennlinie x_q über x, x und x_q von −1 bis 1
 
-Wie groß ist die Wahrscheinlichkeit, dass der Quantisierer übersteuert ($|x| > 1$) wird?
+Wie groß ist die Wahrscheinlichkeit, dass der Quantisierer bei Betrachtung eines einzelnen Abtastwerts übersteuert ($|x| > 1$) wird?
+
+Zunächst kann die Wahrscheinlichkeit $P(-1 \leq X \leq 1)$, dass der Quantisierer nicht übersteuert, berechnet werden. Aus dieser kann dann der gegenteilige Fall $P(|X| > 1)$ errechnet werden: Es gilt $P(|X| > 1) = 1 - P(-1 \leq X \leq 1)$.
+
+Die Laplaceverteilung ist durch die Verteilungsdichtefunktion
+
+$$
+p_X(x) = \frac{1}{2\sigma} e^{-\frac{|x-\mu|}{\sigma}}
+$$
+
+gegeben. Damit folgt für
+
+$$
+P(-1 \leq X \leq 1) = F_X(1) - F_X(-1) = \int_{-1}^{1} p_X(u)\,\mathrm{d}u
+$$
+
+und mit $\mu = 0$ und $\sigma = 1$
+
+$$
+P(-1 \leq X \leq 1) = \int_{-1}^{1} \frac{1}{2} e^{-|u|}\,\mathrm{d}u = 2\int_0^1 \frac{1}{2} e^{-u}\,\mathrm{d}u = \left[-e^{-u}\right]_0^1 = -e^{-1} + e^0 = 1 - \frac{1}{e} \approx 0{,}632.
+$$
+
+Die Wahrscheinlichkeit für eine Übersteuerung ergibt sich somit zu
+
+$$
+P(|X| > 1) = 1 - P(-1 \leq X \leq 1) = \frac{1}{e} \approx 0{,}368.
+$$
+
+Dieses Ergebnis gilt für einen einzelnen Abtastwert. Werden mehrere, aufeinanderfolgende Abtastwerte betrachtet, so muss deren Verbundstatistik berücksichtigt werden. Diese ist in diesem Beispiel allerdings nicht gegeben.
 \end{beispiel}
 
 \subsection{Transformation einer Zufallsvariablen}
 
-% Grafik: Transformationsprinzip – Funktion y = g(x) (nichtlinear, ansteigend), darunter p_X(x) (Gleichverteilung, 4 Blöcke à 25\%), links p_Y(y) (transformierte Verteilung)
+In vielen Anwendungen werden Zufallsvariablen mit einer vorgegebenen Verteilungsdichtefunktion einer Transformation unterzogen, zum Beispiel mit Hilfe einer Funktion auf eine neue Zufallsvariable abgebildet. Es entsteht dann die Aufgabe, die Verteilungsdichtefunktion der neuen Zufallsvariable zu berechnen.
 
-% Grafik: Infinitesimale Betrachtung – y = g(x), p_X(x)|dx| = p_Y(y)|dy|; p_Y(y)|dy| und p_X(x)|dx| als schattierte Streifen eingezeichnet
+Zur Einführung betrachten wir das folgende einfache Beispiel:
+
+\begin{beispiel}[Lineare Transformation einer Zufallsvariablen -- Celsius $\to$ Fahrenheit]
+Bei der Messung der höchsten Außentemperatur an 20 Tagen im August sind folgende Temperaturen, auf 5 Grad Celsius gerundet, aufgetreten. Die daraus resultierende relative Häufigkeit der Temperaturen wurde ebenfalls bestimmt und ist in der Tabelle angegeben.
+
+\begin{center}
+\begin{tabular}{l|cccccc}
+  \hline
+  Temperatur in Celsius & 10 & 15 & 20 & 25 & 30 & 35 \\
+  Häufigkeit & 1 & 2 & 4 & 6 & 5 & 2 \\
+  Relative Häufigkeit & 0{,}05 & 0{,}1 & 0{,}2 & 0{,}3 & 0{,}25 & 0{,}1 \\
+  \hline
+\end{tabular}
+\end{center}
+
+Nun sollen die Temperaturen in Fahrenheit statt in Grad Celsius angegeben werden. Die Temperatur $T_F$ in Grad Fahrenheit berechnet sich aus der Temperatur $T_C$ in Grad Celsius durch eine lineare Transformation:
+
+$$
+T_F = T_C \cdot \frac{9}{5} + 32.
+$$
+
+Offensichtlich werden die Celsius-Werte linear transformiert und die Häufigkeiten der diskreten Temperaturwerte entsprechen geordnet. Man kann nun die einzelnen Häufigkeiten der Temperatur Grad Fahrenheit zuordnen.
+
+\begin{center}
+\begin{tabular}{l|cccccc}
+  \hline
+  Temperatur in Fahrenheit & 50 & 59 & 68 & 77 & 86 & 95 \\
+  Relative Häufigkeit & 0{,}05 & 0{,}1 & 0{,}2 & 0{,}3 & 0{,}25 & 0{,}1 \\
+  Häufigkeit & 1 & 2 & 4 & 6 & 5 & 2 \\
+  Temperatur in Celsius & 10 & 15 & 20 & 25 & 30 & 35 \\
+  \hline
+\end{tabular}
+\end{center}
+\end{beispiel}
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- Nichtlineare Transformation]
+Eine Zufallsvariable $X$ ist auf dem Intervall $[0, 4]$ gleichverteilt. Zur Veranschaulichung wird diese Verteilung in vier gleich große Wahrscheinlichkeitsmassen aufgeteilt, mit einer Intervalllänge von jeweils 1. Für die Wahrscheinlichkeiten ergeben sich dann:
+
+$$
+P_X(0 \leq x < 1) = P_X(1 \leq x < 2) = P_X(2 \leq x < 3) = P_X(3 \leq x < 4) = \frac{1}{4}.
+$$
+
+Die Zufallsvariable $Y$ ist nun quadratisch mit $Y = X^2$ von $X$ abhängig. Die vier Wahrscheinlichkeitsmassen werden also nichtlinear auf die Zufallsvariable $Y$ übertragen. Dabei ergeben sich neue Intervallgrenzen:
+
+$$
+P_Y(0 \leq x < 1) = P_X(1 \leq x < 4) = P_X(4 \leq x < 9) = P_X(9 \leq x < 16) = \frac{1}{4}.
+$$
+
+% Grafik: Nichtlineare Transformation der Wahrscheinlichkeitsmassen einer Gleichverteilung
+
+Lässt man diese Intervalle nun infinitesimal klein werden, erhält man die infinitesimale Wahrscheinlichkeitsmasse mit $p_X(x)|\mathrm{d}x| = p_Y(y)|\mathrm{d}y|$. Es werden dann nicht mehr Wahrscheinlichkeitsmassen sondern Punkte der Wahrscheinlichkeitdichtefunktion transformiert.
+\end{beispiel}
+
+Die Lösung der oben beschriebenen Transformationsaufgabe wird nun im Folgenden in allgemeiner Form angegeben.
+
+Gegeben sei eine Funktion $Y = g(X)$ einer Zufallsvariablen $X$. Falls $g(\cdot)$ eine streng monotone Funktion ist, so dass die Umkehrfunktion
+
+$$
+X = g^{-1}(Y)
+$$
+
+existiert, dann gilt für die Lösung $x = g^{-1}(y)$
 
 \subsection{Streng monotone Funktion einer Zufallsvariablen}
 
@@ -335,19 +498,7 @@ $$
 p_Y(y) = p_X(x)\frac{|\mathrm{d}x|}{|\mathrm{d}y|} = p_X(g^{-1}(y))\left|\frac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y}\right| = \frac{p_X(g^{-1}(y))}{\left|\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right|} = \frac{p_X(g^{-1}(y))}{|g'(g^{-1}(y))|}
 $$
 
-wobei für das Differenzieren der Umkehrfunktion $\dfrac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y} = \left(\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right)^{-1}$ gilt.
-
-\begin{beispiel}[Mehrfaches Werfen einer Münze]
-Wie oft muss eine faire Münze im Mittel geworfen werden, bis zum ersten Mal „Kopf" erscheint?
-
-Lösungsansatz: Es wird der Erwartungswert
-
-$$
-\mathrm{E}\{I\} = \sum_{i=1}^{\infty} i\, 2^{-i}
-$$
-
-einer Zufallsvariable $I$, die die Werte $i \in \mathbb{N}$ annehmen kann, gesucht.
-\end{beispiel}
+wobei für das Differenzieren der Umkehrfunktion $\dfrac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y} = \left(\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right)^{-1}$ gilt und $g'(x)$ die Ableitung der Funktion $g(x)$ bezeichnet.
 
 \subsection{Transformation für nichtmonotone Funktionen}
 
@@ -359,8 +510,8 @@ $$
 
 wobei die $x_i$ die Lösungen der Gleichung $y = g(x_i)$ und $g'(x)$ die Ableitung der Funktion $g(x)$ bezeichnen.
 
-\begin{beispiel}[Beispiele zur Transformation von Zufallsvariablen]
-\textbf{a)} $Y = aX + b = g(X)$
+\begin{beispiel}[Lineare Transformation]
+$Y = aX + b = g(X)$
 
 Diese Gleichung hat genau eine Lösung
 
@@ -376,13 +527,28 @@ $$
 p_Y(y) = \frac{p_X\!\left(\dfrac{y-b}{a}\right)}{|a|}
 $$
 
-\textbf{b)} $Y = X^2 = g(X)$
-
-Diese Gleichung hat für $y \geq 0$ zwei Lösungen
+Wenn man für $p_X(x)$ eine Gleichverteilung ansetzt erhält man mit
 
 $$
-x_1 = +\sqrt{y} \quad \text{und} \quad x_2 = -\sqrt{y}.
+p_X(x) = \begin{cases} \dfrac{1}{25}, & x \in [10, 35] \\ 0, & \text{sonst} \end{cases}
 $$
+
+mit $Y = 1{,}8 \cdot X + 32$ und mit der Lösung $x = \dfrac{y - 32}{1{,}8}$ die transformierte Dichte zu
+
+$$
+p_Y(y) = \frac{p_X\!\left(\dfrac{y-32}{1{,}8}\right)}{1{,}8}.
+$$
+
+Entsprechend folgt mit $\tilde{a} = g(10) = 50$ und $\tilde{b} = g(35) = 95$ für die Verteilungsdichtefunktion von $Y$:
+
+$$
+p_Y(y) = \begin{cases} \dfrac{1}{\tilde{b} - \tilde{a}}, & y \in [\tilde{a}, \tilde{b}] \\ 0, & \text{sonst} \end{cases}
+= \begin{cases} \dfrac{1}{45}, & 50 \leq y \leq 95 \\ 0, & \text{sonst} \end{cases}
+$$
+\end{beispiel}
+
+\begin{beispiel}[Nichtlineare Transformation: $Y = X^2$]
+Wir betrachten nun die Transformationsvorschrift $Y = X^2 = g(X)$. Diese Gleichung hat für $y \geq 0$ zwei Lösungen $x_1 = +\sqrt{y}$ und $x_2 = -\sqrt{y}$.
 
 Für $y < 0$ existiert keine reellwertige Lösung.
 
@@ -392,23 +558,29 @@ Also gilt für die WS-Dichte $p_Y(y)$:
 
 $$
 p_Y(y) = \begin{cases}
-\dfrac{p_X(\sqrt{y})}{2\sqrt{y}} + \dfrac{p_X(-\sqrt{y})}{2\sqrt{y}} & , \quad y \geq 0 \\[6pt]
-0 & , \quad y < 0
+\dfrac{p_X(\sqrt{y})}{2\sqrt{y}} + \dfrac{p_X(-\sqrt{y})}{2\sqrt{y}}, & y \geq 0 \\[6pt]
+0, & y < 0
 \end{cases}
 = \left(\frac{p_X(\sqrt{y})}{2\sqrt{y}} + \frac{p_X(-\sqrt{y})}{2\sqrt{y}}\right) \cdot \varepsilon(y)
 $$
 \end{beispiel}
 
-\begin{beispiel}[Beispiel: Normalverteilung]
+\begin{beispiel}[Normalverteilung]
+Wir betrachten nun den Fall einer gaußschen Variable $X$,
+
 $$
-p_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}} \quad \text{mit } \mu = 0
+p_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}} \quad \text{mit } \mu = 0.
 $$
 
-$Y = X^2$ mit den Lösungen $x_1 = \sqrt{y}$ und $x_2 = -\sqrt{y}$
+Dies könnte zum Beispiel die Rauschspannung an einem ohmschen Widerstand sein. Wir interessieren uns für die Verteilungsdichtefunktion der quadrierten Werte. Es soll also gelten:
+
+$Y = X^2$ mit den Lösungen $x_1 = \sqrt{y}$ und $x_2 = -\sqrt{y}$. Damit folgt
 
 $$
 p_Y(y) = \frac{1}{2\sqrt{y}} \cdot \frac{1}{\sqrt{2\pi\sigma^2}} \left(e^{-\frac{(\sqrt{y})^2}{2\sigma^2}} + e^{-\frac{(-\sqrt{y})^2}{2\sigma^2}}\right) \cdot \varepsilon(y)
-= \frac{1}{\sqrt{2\pi\sigma^2 y}}\,e^{-\frac{y}{2\sigma^2}} \cdot \varepsilon(y)
+= \frac{1}{\sqrt{2\pi\sigma^2 y}}\,e^{-\frac{y}{2\sigma^2}} \cdot \varepsilon(y).
 $$
+
+Dies entspricht einer $\chi^2$-Verteilungsdichtefunktion mit einem Freiheitsgrad.
 \end{beispiel}
 

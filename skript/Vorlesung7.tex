@@ -2,59 +2,74 @@
 
 \section{Einführung und Definition}
 
-Experimente, deren Ergebnisse (uns) ungewiss erscheinen, werden Zufallsexperimente genannt und deren Ergebnisse Elementarereignisse $\xi$.
+Die Wahrscheinlichkeitsrechnung behandelt Experimente, deren Ergebnisse sich nicht mit beliebiger Präzision vorhersagen lassen. Diese Experimente werden Zufallsexperimente genannt und deren Ergebnisse Elementarereignisse $\xi$. Die Menge aller Elementarereignisse eines Experiments bezeichnen wir mit $\Omega$.
 
-Die Menge aller Elementarereignisse wird mit $\Omega$ bezeichnet.
+In der Wahrscheinlichkeitsrechnung werden den Ergebnissen von Experimenten Wahrscheinlichkeiten zugeordnet, so dass bei mehrfacher Ausführung des Zufallsexperiments aus den Wahrscheinlichkeiten auf die Häufigkeiten der Ergebnisse geschlossen werden kann. Damit wird es möglich, aus einer Vielzahl von Beobachtungen auch auf das zukünftige Verhalten von Systemen zu schließen. Diese \textit{Prädiktion} erfolgt anhand von Mittelwerten, die aus den beobachteten Ergebnissen berechnet werden.
 
-In der Wahrscheinlichkeitsrechnung werden den Ergebnissen von Experimenten Wahrscheinlichkeiten zugeordnet, so dass bei mehrfacher Ausführung des Zufallsexperiments aus den Wahrscheinlichkeiten auf die Häufigkeiten der Ergebnisse geschlossen werden kann.
+In der Wahrscheinlichkeitsrechnung spielen daher gemessene und im Modell postulierte Verteilungen über die Häufigkeit von Ergebnissen und die Berechnung von statistischen \textit{Mittelwerten} eine besondere Rolle. Mit diesen Mittelwerten lassen sich die Eigenschaften zufälliger Experimente in komprimierter Form darstellen. Im Kontext der Informationstechnik sind die Ergebnisse eines Zufallsexperiments häufig zufällige Signale, z.\,B. Sensorsignale oder Bitfolgen. Wir betrachten hierzu die folgenden Beispiele.
 
-Damit wird es möglich, aus einer Vielzahl von Beobachtungen auch auf das zukünftige Verhalten von Systemen zu schließen.
+\begin{beispiel}[Analyse von Videodaten]
+Abbildung 4.1 zeigt ein Einzelbild aus einem Video, das eine Szene mit Wolken und Blättern im Wind darstellt. Durch die Bewegung von Wolken und Blättern erhält die Farbinformation eines einzelnen Bildpunktes einen fast zufälligen Charakter. Außerdem besteht offenbar eine große (allerdings auch zeitabhängige) Abhängigkeit benachbarter Bildpunkte. Es bietet sich daher an, die Bildinformationen durch ein statistisches Modell zu beschreiben, um dann in Videoübertragungsverfahren oder Objektdetektionsverfahren die statistischen Abhängigkeiten zu nutzen.
 
-\subsection*{Analyse von Videodaten}
+% Grafik: Videobild (Baumkronen mit Wolken), Schaltfläche „play"
+\end{beispiel}
 
-% Grafik: Videobild (Baumkronen), Schaltfläche „play"
+\begin{beispiel}[Analyse von Audiodaten]
+In Abbildung 4.2 sind Signalformen des gesprochenen Wortes „one" dargestellt. Dieses Wort wurde von vier verschiedenen Sprechern gesprochen. Man erkennt, dass die Signalform von Sprecher zu Sprecher deutlich variiert. Die Modellierung des gesprochenen Wortes „one", zum Beispiel in einem Spracherkennungssystem, erfordert daher eine Beschreibung der Zufälligkeit dieser Ergebnisse.
 
-\subsection*{Analyse von Audiodaten}
-
-Signalform des Wortes „one", gesprochen von 4 verschiedenen Sprechern.
-
-% Grafik: 4 Zeitverläufe x(t) für speaker 1–4, t/s von 0 bis 1, Amplitude −0{,}2 bis 0{,}2
-
-$\to$ Um die Information „one" sicher zu erkennen, muss ein automatischer Spracherkenner auf die statistische Vielfalt der Audiodaten trainiert werden.
+% Grafik: 4 Zeitverläufe x(t) für Sprecher 1–4, t/s von 0 bis 1, Amplitude −0{,}2 bis 0{,}2
+\end{beispiel}
 
 \subsection{Mengen und Ereignisse}
 
+In der Wahrscheinlichkeitsrechnung werden Ereignisse mit Mengen gleichgesetzt. Dabei geht man zunächst von einer Menge $\Omega = \{\xi_1, \xi_2, \ldots, \xi_K\}$ von Elementen $\xi_i$ aus, die man \textit{Elementarereignisse} nennt.
+
 \begin{itemize}
-  \item Gegeben sei eine Menge $\Omega = \{\xi_1, \xi_2, \ldots, \xi_K\}$ von Elementen $\xi_i$, die man \textit{Elementarereignisse} nennt.
-  \item Ein Ereignis $A$ ist dann eine Teilmenge von $\Omega$, d.\,h.\ $A \subseteq \Omega$.
-  \item Wir sagen, dass ein Ereignis $A$ eintritt, wenn das Ergebnis eines Experiments einem Element der Menge $A$ entspricht.
+  \item Ein \textit{Ereignis} $A$ ist dann eine Teilmenge von $\Omega$, d.\,h.\ $A \subseteq \Omega$.
+  \item Wir sagen, dass ein Ereignis $A$ eintritt, wenn das Ergebnis eines Experiments einem Element der Teilmenge $A$ entspricht.
   \item Die Menge $\Omega$ enthält alle in einem Experiment möglichen Elementarereignisse. $\Omega$ wird deshalb als das sichere (stets eintretende) Ereignis bezeichnet.
   \item $\phi = \{\}$ bezeichnet die leere Menge, das nie eintretende (unmögliche) Ereignis.
-  \item Bei einer Beschränkung auf endlich viele Elementarereignisse kann dann jede Teilmenge ein Ereignis sein, dann $A = \{\xi_i\} \subseteq \Omega$.
+  \item Bei einer Beschränkung auf endlich viele Elementarereignisse kann jedes Elementarereignis auch ein Ereignis sein, denn $A_i = \{\xi_i\} \subseteq \Omega$.
 \end{itemize}
 
 \subsection{Endliche und unendliche Ereignismengen}
 
-Die Menge der Elementarereignisse $\Omega$ kann endlich viele Elemente, oder (abzählbar oder überabzählbar) unendlich viele Elemente aufweisen. Beispiele:
+Die Menge der Elementarereignisse $\Omega$ kann endlich viele Elemente, oder (abzählbar oder überabzählbar) unendlich viele Elemente aufweisen. Wir betrachten hierzu die folgenden Beispiele:
 
 \begin{enumerate}
-  \item Das Zufallsexperiment besteht aus dem Werfen einer Münze, $\Omega = \{\text{Kopf}, \text{Zahl}\}$.
-  \item Das Zufallsexperiment besteht aus dem Werfen eines Würfels, $\Omega = \{1,2,3,4,5,6\}$.
-  \item Das Zufallsexperiment besteht in der Detektion einer Zahl von Röntgenquanten in einem Röntgengerät, $\Omega = \mathbb{N}$.
-  \item Das Zufallsexperiment besteht in der Messung einer Spannung $U$, die durch Messfehler (Rauschen) gestört ist, $\Omega = \mathbb{R}$.
+  \item Das Zufallsexperiment besteht aus dem Werfen einer Münze. Hier kann die Münze nur auf eine ihrer beiden Seiten fallen. Die Menge der Elementarereignisse $\Omega$ beinhaltet also zwei Elemente,
+  $$\Omega = \{\text{Kopf}, \text{Zahl}\}.$$
+  Die Elementarereignisse schließen sich gegenseitig aus.
+
+  \item Das Zufallsexperiment besteht aus dem Werfen eines Würfels. Die Seiten des Würfels zeigen sechs verschiedene Symbole. Diese definieren die möglichen Elementarereignisse, wobei das nach einem Wurf oben liegende Symbol als Ergebnis eines Wurfs angesehen wird. Die Elementarereignisse schließen sich gegenseitig aus und $\Omega$ beinhaltet sechs Elemente,
+  $$\Omega = \{1,2,3,4,5,6\}.$$
+
+  \item Das Zufallsexperiment besteht in der Detektion einer Anzahl von Röntgenquanten in einem Röntgengerät. Die Anzahl der Quanten kann theoretisch unbegrenzt sein, muss aber im Bereich der natürlichen Zahlen liegen, da keine Teile von Quanten existieren. Also gilt
+  $$\Omega = \mathbb{N}.$$
+
+  \item Das Zufallsexperiment besteht in der Messung einer Spannung $U$, die durch Messfehler (Rauschen) gestört ist. Diese Messfehler sind im Allgemeinen nicht quantisiert und können daher die Messung um jeden beliebigen reellen Wert verändern. In diesem Fall enthält die Menge $\Omega$ eine nicht abzählbare Menge von Ereignissen,
+  $$\Omega = \mathbb{R}.$$
 \end{enumerate}
 
-\subsection{Ereignisse}
+\subsection{Das Ereignis als Teilmenge von $\Omega$}
 
-Ausgehend von der Grundmenge der Elementarereignisse können nun eine Vielzahl von speziellen, an eine Fragestellung angepassten Ereignisse formuliert werden. Diese werden durch Teilmengen $A \subseteq \Omega$ repräsentiert.
+Ausgehend von der Grundmenge der Elementarereignisse $\Omega$ können nun eine Vielzahl von speziellen, an eine Fragestellung angepassten Ereignisse konstruiert werden. Diese werden durch Teilmengen $A \subseteq \Omega$ repräsentiert.
 
-Beispielsweise kann ein Ereignis in dem Würfeln einer geraden Zahl bestehen. Es gilt dann:
+\begin{beispiel}[Teilmenge]
+Beispielsweise kann beim Würfeln ein Ereignis $A_g$ in dem Würfeln einer geraden Zahl bestehen. Die zugehörige Menge ist dann durch
 
 $$
-A_g = \{2, 4, 6\} \subset \{1, 2, 3, 4, 5, 6\} = \Omega
+A_g = \{2,4,6\} \subset \{1,2,3,4,5,6\} = \Omega
 $$
 
-\subsection{Die Vereinigungsmenge}
+gegeben.
+\end{beispiel}
+
+Jedes Elementarereignis kann eine Teilmenge von $\Omega$ bilden und kann daher auch Ereignis sein, d.\,h.\ $A_i = \{\xi_i\}$. Weiterhin können aus vorgegebenen Ereignissen durch Mengenoperationen neue Ereignisse definiert werden. Die wichtigsten Mengenoperationen werden im Folgenden behandelt.
+
+\subsection{Mengenoperationen}
+
+\textbf{Die Vereinigungsmenge}
 
 Die Vereinigungsmenge zweier Mengen $A$ und $B$ enthält alle Elemente dieser Mengen. Elemente, die sowohl in $A$ als auch in $B$ enthalten sind, werden nur einmal in der Vereinigungsmenge aufgenommen.
 
@@ -74,7 +89,15 @@ Für drei Mengen $A$, $B$ und $C$ sowie die leere Menge $\phi$ gelten die folgen
 
 % Grafik: Venn-Diagramm A ∪ B
 
-\subsection{Die Schnittmenge}
+\begin{beispiel}[Vereinigungsmenge]
+Das Ereignis besteht darin, dass eine gerade Zahl oder eine Fünf gewürfelt wird. Die zugehörigen Ergebnisse werden mit $A_g$ und $A_5$ bezeichnet. In der Mengennotation erhalten wir:
+
+$$
+A = A_g + A_5 = A_g \cup A_5 = \{2,4,6\} \cup \{5\} = \{2,4,5,6\}
+$$
+\end{beispiel}
+
+\textbf{Die Schnittmenge}
 
 Die Schnittmenge zweier Mengen $A$ und $B$ enthält nur die Elemente dieser Mengen, die sowohl in $A$ als auch in $B$ enthalten sind.
 
@@ -88,27 +111,31 @@ Für drei Mengen $A$, $B$ und $C$ sowie die leere Menge gelten die folgenden Ges
   \item $AB = BA$ \hfill (Kommutativgesetz)
   \item $(AB)C = A(BC)$ \hfill (Assoziativgesetz)
   \item $(A + B)C = AC + BC$ \hfill (Distributivgesetz)
-  \item Wenn die Mengen keine gemeinsamen Elemente aufweisen, gilt: $AB = \phi$, also auch $A\phi = \phi$.
+  \item Für Mengen, die keine gemeinsamen Elemente aufweisen, gilt: $AB = \phi$, also auch $A\phi = \phi$. Diese Mengen werden auch \textit{disjunkt} genannt.
   \item Wenn $A \subseteq B$, dann gilt $AB = A$.
 \end{itemize}
 
 % Grafik: Venn-Diagramm A ∩ B
 
-\subsection{Die Differenzmenge}
-
-Die Differenzmenge $A - B$ von zwei Mengen $A$ und $B$ erhält man, in dem man die in $A$ enthaltenen Elemente von $B$ aus $A$ entfernt.
-
-Beispiel: $A = \{1,2\}$; $B = \{2,3\}$
+\begin{beispiel}[Schnittmenge]
+Beim Würfeln wird eine Zahl als Ereignis definiert, die gerade und durch drei teilbar ist. In der Mengennotation erhalten wir für dieses Ereignis:
 
 $$
-A - B = \{1\}, \qquad B - A = \{3\}
+A = A_g A_3 = A_g \cap A_3 = \{2,4,6\} \cap \{3,6\} = \{6\}
 $$
+\end{beispiel}
 
-Für die Differenzbildung gilt weder das Kommutativgesetz noch das Assoziativgesetz.
+\textbf{Die Differenzmenge}
 
-% Grafik: Venn-Diagramm A − B (linke Halbmonde von A schattiert)
+Die Differenzmenge $A - B$ von zwei Mengen $A$ und $B$ erhält man, indem man die in $A$ enthaltenen Elemente von $B$ aus $A$ entfernt. Für die Differenzbildung gilt weder das Kommutativgesetz noch das Assoziativgesetz.
 
-\subsection{Das Mengenkomplement}
+% Grafik: Venn-Diagramm A − B
+
+\begin{beispiel}[Differenzmenge]
+Gegeben sind zwei Ereignisse $A = \{1,2\}$ und $B = \{2,3\}$. Die Differenzmengen ergeben sich nun zu $A - B = \{1\}$ und $B - A = \{3\}$.
+\end{beispiel}
+
+\textbf{Das Mengenkomplement}
 
 Das Komplement einer Menge $A$, die Teilmenge einer Grundmenge $\Omega$ ist, wird mit
 
@@ -116,17 +143,27 @@ $$
 \overline{A} = \Omega - A
 $$
 
-berechnet.
+berechnet. Es handelt sich also um alle Ereignisse der Menge $\Omega$, mit Ausnahme der in $A$ enthaltenen Ereignisse.
 
-Beispiel: $\Omega = \{1,2,3\}$; $A = \{2,3\}$
+% Grafik: Venn-Diagramm mit $\overline{A}$ schattiert
+
+\begin{beispiel}[Mengenkomplement]
+Die Grundmenge $\Omega$ sowie die Menge $A$ seien durch
 
 $$
-\overline{A} = \Omega - A = \{1\}
+\Omega = \{1,2,3\}; \quad A = \{2,3\}
 $$
 
-% Grafik: Venn-Diagramm mit Ā schattiert (Komplement von A in Ω)
+gegeben. Wir erhalten dann für das Mengenkomplement
+
+$$
+\overline{A} = \Omega - A = \{1\}.
+$$
+\end{beispiel}
 
 \subsection{Mengenalgebra}
+
+Werden nun alle Ereignisse eines Experiments betrachtet, so hat man es offensichtlich mit einer Menge von Mengen (jede Menge steht für ein Ereignis) zu tun. Dieses Konstrukt wird durch die Begriffe des Mengensystems und der Mengenalgebra formalisiert.
 
 \begin{itemize}
   \item Unter einem Mengensystem versteht man eine Menge, deren sämtliche Elemente selbst Mengen sind.
@@ -140,38 +177,62 @@ $$
     \end{enumerate}
 \end{itemize}
 
-\begin{beispiel}[Endliche Mengen]
-Es wird eine Quelle betrachtet, die einen Strom binärer Zeichen liefert. Wenn die Ausgabe eines einzelnen Symbols als Ereignis angesehen wird, ist die Menge der Elementarereignisse durch $\Omega = \{\xi_1, \xi_2\} = \{0, 1\}$ gegeben.
+\begin{beispiel}[Mengenkörper]
+Es wird eine Quelle betrachtet, die einen Strom binärer Zeichen liefert. Wenn die Ausgabe eines einzelnen Symbols als Ereignis angesehen wird, ist die Menge der Elementarereignisse durch $\Omega = \{\xi_1, \xi_2\} = \{0,1\}$ gegeben. Die Quelle sendet entweder $\xi_1 = 1$ oder $\xi_2 = 0$.
 
 % Grafik: Nachrichtenquelle → ... 0 0 1 0 1 0 1 1 ...
 
-Aus dieser Menge von Elementarereignissen $\Omega = \{0, 1\}$ lässt sich der Mengenkörper $\mathcal{F}$ mit den folgenden Elementen ableiten:
+Aus dieser Menge von Elementarereignissen $\Omega = \{0,1\}$ lässt sich der Mengenkörper $\mathcal{F}$ mit den folgenden vier Elementen ableiten:
 
 $$
-A_1 = \{\xi_1\} = \overline{A_2}, \qquad A_2 = \{\xi_2\} = \overline{A_1}
+A_1 = \{\xi_1\} = \overline{A_2} \qquad A_3 = \{\xi_1, \xi_2\} = A_1 \cup A_2 = \Omega
 $$
 $$
-A_3 = \{\xi_1, \xi_2\} = A_1 \cup A_2 = \Omega, \qquad A_4 = A_1 \cap A_2 = \phi
+A_2 = \{\xi_2\} = \overline{A_1} \qquad A_4 = A_1 \cap A_2 = \phi
 $$
+
+In diesem Fall ist die Konstruktion der $\sigma$-Algebra sehr einfach. Sie enthält nur vier Elemente.
 \end{beispiel}
 
 \subsection{Überabzählbare Mengen}
 
-Wenn die Menge der Elementarereignisse einem Intervall $[0,1] \in \mathbb{R}$ entspricht, erfordert die Definition eines Mengenkörpers zusätzliche Überlegungen. Man verwendet dann eine Borel-Algebra:
+Wenn die Menge der Elementarereignisse dem Intervall $[0,1] \in \mathbb{R}$ entspricht, erfordert die Definition eines Mengenkörpers zusätzliche Überlegungen. Man verwendet dann eine sogenannte Borel-Algebra:
 
-Die Borel-Algebra $\mathcal{B}$ ist die kleinste $\sigma$-Algebra auf $[0,1]$, die alle Intervalle $(a, b)$ mit $0 \leq a < b \leq 1$ enthält.
+Die Borel-Algebra $\mathcal{B}$ ist die kleinste $\sigma$-Algebra auf $[0,1]$, die alle Intervalle $(a,b)$ mit $0 \leq a < b \leq 1$ enthält.
 
-Im Fall kontinuierlicher Ereignisräume (z.\,B.\ $\Omega = \mathbb{R}$) muss also mit Intervallen gearbeitet werden. Den Elementarereignissen sind Intervalle zugeordnet.
+Im Fall \textit{kontinuierlicher Ereignisräume} (z.\,B.\ $\Omega = [0,1]$ oder $\Omega = \mathbb{R}$) werden Ereignisse also durch Intervalle repräsentiert.
 
-\subsection{Axiomatische Definition der Wahrscheinlichkeit}
+\subsection{Zusammenfassung der Terminologie}
+
+Abschließend folgt eine Gegenüberstellung von Begriffen der Mengenlehre und der Wahrscheinlichkeitsrechnung.
+
+\begin{center}
+\begin{tabular}{p{5.5cm}|p{7.5cm}}
+  \hline
+  Mengenlehre & Wahrscheinlichkeitsrechnung \\
+  \hline
+  $A_i$ ist Teilmenge von $\Omega$. & $A_i$ ist ein Ereignis. \\
+  $\xi_j \in A_i$ & Das Ereignis $A_i$ tritt ein, wenn $\xi_j$ eintritt. \\
+  Die Mengen $A_i$ und $B_j$ sind disjunkt. & Die Ereignisse $A_i$ und $B_j$ sind unvereinbar. \\
+  Die komplementäre Menge $\overline{A_i}$. & Das entgegengesetzte Ereignis. $\overline{A_i}$ besteht in dem Nichterscheinen von $A_i$. \\
+  Die leere Menge $A_i = \phi$. & Das Ereignis $A_i$ ist unmöglich. \\
+  $A_i = \Omega$. & Das Ereignis $A_i$ muss notwendig eintreten. \\
+  $A_i \subseteq B_i$ (Teilmenge) & Wenn das Ereignis $A_i$ eintritt, tritt auch das Ereignis $B_i$ ein. \\
+  \hline
+\end{tabular}
+\end{center}
+
+\section{Axiomatische Definition der Wahrscheinlichkeit}
 
 Die Wahrscheinlichkeit eines Ereignisses $A_i$ aus einem Mengenkörper $\mathcal{F} = \{A_1, \ldots, A_i, \ldots, A_N\}$, wobei $A_i$ Teilmengen von $\Omega$ bezeichnen und in $\mathcal{F}$ enthalten sind, ist eine reelle Zahl $P(A_i)$ mit den folgenden Eigenschaften:
 
-\begin{description}
-  \item[Axiom 1:] Die Wahrscheinlichkeit $P(A_i)$ ist nicht negativ, d.\,h.\ $P(A_i) \geq 0$.
-  \item[Axiom 2:] Die Wahrscheinlichkeit $P(\Omega)$ des sicheren Ereignisses ist Eins, d.\,h.\ $P(\Omega) = 1$.
-  \item[Axiom 3:] Die Wahrscheinlichkeit, dass eines von zwei sich gegenseitig ausschließenden Ereignissen $A_i$ und $A_j$, $A_i \cap A_j = A_i \cdot A_j = \phi$ auftritt, ist $P(A_i + A_j) = P(A_i) + P(A_j)$.
-\end{description}
+\begin{itemize}
+  \item Die Wahrscheinlichkeit $P(A_i)$ ist nicht negativ, d.\,h.\ $P(A_i) \geq 0$.
+  \item Die Wahrscheinlichkeit $P(\Omega)$ des sicheren Ereignisses ist Eins, d.\,h.\ $P(\Omega) = 1$.
+  \item Die Wahrscheinlichkeit, dass eines von zwei sich gegenseitig ausschließenden Ereignissen $A_i$ und $A_j$, $A_i \cap A_j = A_i \cdot A_j = \phi$ auftritt, ist $P(A_i + A_j) = P(A_i) + P(A_j)$.
+\end{itemize}
+
+Aus diesen drei Axiomen lassen sich alle weiteren Zusammenhänge der Wahrscheinlichkeitsrechnung widerspruchsfrei ableiten.
 
 \subsection{Wahrscheinlichkeitsraum}
 
@@ -179,18 +240,18 @@ Mit der Zuordnung von Wahrscheinlichkeiten zu Mengen wird ein Wahrscheinlichkeit
 
 Das Triple $(\Omega, \mathcal{F}, \mathbb{P})$ wird Wahrscheinlichkeitsraum genannt. Dabei ist $\Omega \neq \phi$ eine Menge, $\mathcal{F}$ eine $\sigma$-Algebra über $\Omega$ und $\mathbb{P}$ ein Wahrscheinlichkeitsmaß auf $\Omega$.
 
-\subsection{Konstruktion des Wahrscheinlichkeitsraums}
+Diese Konstruktion stellt sicher, dass widerspruchsfrei mit Mengen und den zugehörigen Wahrscheinlichkeiten gerechnet werden kann.
+
+Zum Beispiel soll, wenn ein Ereignis $A$ in $\mathcal{F}$ enthalten ist, auch das komplementäre Ereignis $\overline{A}$ in $\mathcal{F}$ enthalten sein und hierzu auch eine Wahrscheinlichkeit angegeben werden können.
 
 Im Fall von Experimenten mit endlich vielen Elementarereignissen werden der Mengenkörper $\mathcal{F}$ und die zugehörigen Wahrscheinlichkeiten $P$ wie folgt konstruiert. Man definiert
 
 \begin{itemize}
-  \item eine beliebige Menge aus sich ausschließender Elementarereignisse $\Omega = \{\xi_1, \xi_2, \ldots, \xi_N\}$ und
+  \item eine beliebige Menge sich ausschließender Elementarereignisse $\Omega = \{\xi_1, \xi_2, \ldots, \xi_N\}$ und
   \item eine beliebige Menge $\{P(\xi_1), \ldots, P(\xi_N)\}$ von nicht-negativen Zahlen mit der Summe $P(\xi_1) + \cdots + P(\xi_N) = 1$. Diese bezeichnen die Wahrscheinlichkeiten der elementaren Ereignisse $\xi_i$.
 \end{itemize}
 
 $\mathcal{F}$ wird dann aus der Gesamtheit aller Teilmengen von $\Omega$ gebildet, wobei man für ein Ereignis $A_i = \{\xi_{i_1}, \ldots, \xi_{i_k}\}$ die Wahrscheinlichkeit zu $P(A_i) = P(\xi_{i_1}) + \cdots + P(\xi_{i_k})$ setzt.
-
-\subsection{Laplace-Experimente}
 
 Treten alle Ergebnisse eines Experiments gleichwahrscheinlich auf, so wird das Experiment Laplace-Experiment genannt. Es gilt dann
 
@@ -200,8 +261,18 @@ $$
 
 wobei $|\Omega|$ die Mächtigkeit (Kardinalität, Anzahl der Elemente einer Menge) der Menge $\Omega$ bezeichnet.
 
-\begin{beispiel}[Idealer Würfel]
-Die Seiten des Würfels zeigen sechs verschiedene Symbole. Diese definieren die möglichen Elementarereignisse, wobei das nach einem Wurf oben liegende Symbol als Ergebnis eines Würfs angesehen wird. Die Elementarereignisse schließen sich gegenseitig aus. Der \textit{ideale} Würfel ist dadurch definiert, dass die sechs möglichen Elementarereignisse gleichwahrscheinlich auftreten.
+\begin{beispiel}[Laplace Experimente]
+Beim Wurf eines Würfels kann dieser auf einer seiner sechs Seiten liegen bleiben und zeigt oben eine der sechs Zahlen $\Omega = \{1,2,3,4,5,6\}$. Diese Elementarereignisse schließen sich gegenseitig aus. Der \textit{ideale} (oder faire) Würfel ist dadurch definiert, dass die sechs möglichen Elementarereignisse gleichwahrscheinlich auftreten.
+
+\begin{itemize}
+  \item Da es sich um ein Laplace Experiment handelt, folgt: $P(\xi_i) = \dfrac{1}{|\Omega|} = \dfrac{1}{6}$.
+  \item Die Menge $\Omega = \{1,2,3,4,5,6\}$ repräsentiert das sichere Ereignis. Es gilt
+$$
+P(\xi_1) + P(\xi_2) + P(\xi_3) + P(\xi_4) + P(\xi_5) + P(\xi_6) = 1.
+$$
+\end{itemize}
+
+Somit erhalten wir die folgende Zuordnung:
 
 \begin{center}
 \begin{tabular}{lcccccc}
@@ -212,56 +283,57 @@ Die Seiten des Würfels zeigen sechs verschiedene Symbole. Diese definieren die 
   \hline
 \end{tabular}
 \end{center}
-
-Die Menge $\Omega = \{1,2,3,4,5,6\}$ repräsentiert das sichere Ereignis. Es gilt
-
-$$
-P(\xi_1) + P(\xi_2) + P(\xi_3) + P(\xi_4) + P(\xi_5) + P(\xi_6) = 1
-$$
 \end{beispiel}
 
-\subsection{Abzählbare unendliche Mengen}
+Das Konstruktionsprinzip ist auch auf abzählbar unendliche Mengen, zum Beispiel für $|\Omega| = |\mathbb{N}|$, anwendbar. Auch hier muss sichergestellt werden, dass $\sum_{i=1}^{\infty} P(\xi_i) = 1$ gilt.
 
-Das Konstruktionsprinzip ist auch auf abzählbar unendliche Mengen, zum Beispiel für $|\Omega| = |\mathbb{N}|$, anwendbar. Auch hier muss sichergestellt werden, dass $\sum_{i=1}^{\infty} P(\xi_i) = 1$ gilt. Dies ist zum Beispiel für $P(\xi_i) = 2^{-i}$ gegeben, denn
+Dies ist zum Beispiel gegeben, wenn dem $i$-ten Ereignis die Wahrscheinlichkeit $P(\xi_i) = 2^{-i}$ zugeordnet wird, denn es gilt
 
 $$
-\sum_{i=1}^{\infty} 2^{-i} = \frac{1}{1 - 0.5} - 1 = 1
+\sum_{i=1}^{\infty} 2^{-i} = \sum_{i=0}^{\infty} \left(\frac{1}{2}\right)^i - 1 = \frac{1}{1-0{,}5} - 1 = 1.
 $$
 
-Für die Borel-Algebra $\mathcal{B}$ wird ein Wahrscheinlichkeitsmaß durch die Länge der Intervalle $(a, b)$, $0 \leq a \leq b \leq 1$, also durch $b - a$ definiert.
+Im Fall der überabzählbaren Menge $\mathbb{R}$ wird die Borel-Algebra verwendet. Für die Borel-Algebra $\mathcal{B}$ wird ein Wahrscheinlichkeitsmaß durch die Länge der Intervalle $(a,b)$, $0 \leq a < b \leq 1$, also durch $b - a$ definiert.
 
-\begin{beispiel}[Ampelphase]
-Sie fahren mit dem Auto durch eine Kurve und erblicken plötzlich eine Ampel.
+\begin{beispiel}[Überabzählbare Mengen]
+Sie fahren mit dem Auto durch eine Kurve und erblicken plötzlich eine Ampel, die zwischen den Ampelphasen rot und grün wechselt. Mit dem Ziel, den Kraftstoffverbrauch zu minimieren, müssen Sie nun entscheiden, ob Sie mit gleicher Geschwindigkeit weiterfahren, beschleunigen oder bremsen.
 
 % Grafik: Ampelphasen – Zeitleiste mit grün, rot, grün, t/min
 
-Wie groß ist die Wahrscheinlichkeit, dass die Ampel in weniger als 2 Sekunden die Farbe wechselt (Gelb-Phase wird vernachlässigt)?
+Wie groß ist die Wahrscheinlichkeit, dass die Ampel in weniger als 2 Sekunden die Farbe wechselt?
+
+Die Ampel kann entweder von rot zu grün wechseln oder von grün zu rot (Gelb-Phase wird vernachlässigt). Da die Verweildauer einer Ampelphase zeit-kontinuierlich ist, muss mit Intervallen und ihren Längen gerechnet werden. Im Intervall $[0, 30]$ ist die Ampel grün und im Intervall $(30, 60)$ ist sie rot. Danach wiederholt sich der Wechsel wieder mit der Periodendauer von 60 Sekunden. Wegen der Periodizität müssen nur die Wahrscheinlichkeiten in einem Intervall betrachtet werden.
+
+Die beiden Intervalle in denen die Ampel in weniger als zwei Sekunden die Farbe wechselt sind $[28, 30]$ und $[58, 60]$. Über das ganze Intervall $[0, 60]$ betrachtet ergibt sich die Wahrscheinlichkeit für einen Farbwechsel $P_W$ nach dem Erblicken der Ampel:
+
+$$
+P_W = \frac{30-28}{60} + \frac{60-58}{60} = \frac{4}{60} = \frac{1}{15}.
+$$
 \end{beispiel}
 
 \subsection{Kartesische Produktmengen}
 
 \begin{itemize}
-  \item Gegeben sind zwei Mengen $\Omega_1 = \{\xi_1, \ldots, \xi_L\}$ und $\Omega_N = \{\eta_1, \ldots, \eta_N\}$.
-  \item $(\xi_i, \eta_j)$ mit $\xi_i \in \Omega_1$ und $\eta_j \in \Omega_N$ bezeichnet ein geordnetes Paar von Elementarereignissen.
-  \item Unter dem kartesischen Produkt $\Omega_1 \times \Omega_N$ der Mengen $\Omega_1$ und $\Omega_N$ versteht man die Menge aller geordneten Paare $(\xi_i, \eta_j)$ mit $\xi_i \in \Omega_1$ und $\eta_j \in \Omega_N$.
+  \item Gegeben sind zwei Mengen $\Omega_\Xi = \{\xi_1, \ldots, \xi_K\}$ und $\Omega_E = \{\eta_1, \ldots, \eta_L\}$.
+  \item $(\xi_i, \eta_j)$ mit $\xi_i \in \Omega_\Xi$ und $\eta_j \in \Omega_E$ bezeichnet ein geordnetes Paar von Elementarereignissen.
+  \item Unter dem kartesischen Produkt $\Omega_\Xi \times \Omega_E$ der Mengen $\Omega_\Xi$ und $\Omega_E$ versteht man die Menge aller geordneten Paare $(\xi_i, \eta_j)$ mit $\xi_i \in \Omega_\Xi$ und $\eta_j \in \Omega_E$.
 \end{itemize}
 
 Anmerkungen:
 
 \begin{itemize}
-  \item Das kartesische Produkt erzeugt eine Menge geordneter Paare, wobei jeweils ein Element aus $\Omega_1$ mit einem Element aus $\Omega_N$ zu einem Paar kombiniert wird.
+  \item Das kartesische Produkt erzeugt eine Menge geordneter Paare, wobei jeweils ein Element aus $\Omega_\Xi$ mit einem Element aus $\Omega_E$ zu einem Paar kombiniert wird.
   \item Kartesische Produktmengen können aus beliebigen Ereignismengen konstruiert werden.
-  \item Für endliche Mengen $\Omega_1, \ldots, \Omega_L$ gilt $|\Omega_1 \times \cdots \times \Omega_L| = |\Omega_1| \cdot \ldots \cdot |\Omega_L| = \prod_{i=1}^{L} |\Omega_i|$.
 \end{itemize}
 
-\begin{beispiel}[Kartesische Produktmengen: Zweimaliger Würfelwurf]
+\begin{beispiel}[Kartesische Produktmengen]
 Für den idealen Würfel können wir die Menge der Elementarereignisse mit $\Omega_w = \{\xi_1, \xi_2, \xi_3, \xi_4, \xi_5, \xi_6\} = \{1,2,3,4,5,6\}$ angeben. Zur Beschreibung eines zweimaligen Wurfes wird das kartesische Produkt $\Omega_w \times \Omega_w$ gebildet. Beim zweimaligen Werfen eines idealen Würfels sind dann die folgenden Elementarereignisse möglich:
 
 $$
 \Omega = \Omega_w \times \Omega_w = \{(1,1),(1,2),(1,3),\ldots\}
 $$
 
-bzw. in zweidimensionaler Anordnung
+bzw. in zweidimensionaler Anordnung mit dem ersten Wurf $\xi_i$ und dem zweiten Wurf $\xi_j$:
 
 \begin{center}
 \begin{tabular}{c|cccccc}
@@ -279,54 +351,100 @@ bzw. in zweidimensionaler Anordnung
 
 \subsection{Mehrfache, unabhängige Versuche}
 
-Nun werden mehrere Experimente, die unabhängig voneinander unter gleichen Bedingungen wiederholt werden, gemeinsam betrachtet.
-
-Im allgemeinen Fall sind die Elementarereignisse des $L$-fach wiederholten ($L$-stufigen) Experiments durch die $L$-Tupel der kartesischen Produktmenge
+Nun werden mehrere Experimente, die unabhängig voneinander unter gleichen Bedingungen wiederholt werden, gemeinsam betrachtet. Wenn die Menge der Elementarereignisse des einzelnen Versuchs durch $\Omega_1$ gegeben ist, wird die Menge der Elementarereignisse zweier gleichartiger Experimente durch die kartesische Produktmenge $\Omega = \Omega_1 \times \Omega_1$ definiert. Im allgemeinen Fall sind die Elementarereignisse des $L$-fach wiederholten ($L$-stufigen) Experiments durch die $L$-Tupel der kartesischen Produktmenge
 
 $$
-\Omega = \Omega_1 \times \Omega_2 \times \cdots \times \Omega_L
+\Omega = \Omega_1 \times \Omega_1 \times \cdots \times \Omega_1
 $$
 
 repräsentiert.
 
-Wenn wir die Versuche als \textit{unabhängig} bezeichnen, ist im Fall $L = 2$
+Die Zuordnung von Wahrscheinlichkeiten zu den $L$-Tupeln erfordert jedoch zusätzliche Annahmen über die statistische Abhängigkeit der Experimente. Wenn wir die Versuche als \textit{unabhängig} bezeichnen, ist im Fall $L = 2$
 
 $$
 P\left((\xi_i, \xi_j)\right) = P(\xi_i) P(\xi_j) \qquad \forall\, i, j
 $$
 
-die einzige sinnvolle Zuordnung.
+die einzige sinnvolle Zuordnung. Bei statistischer Unabhängigkeit wird die Wahrscheinlichkeit des kombinierten Experiments als Produkt der Einzelwahrscheinlichkeiten berechnet!
 
-\begin{beispiel}[Mehrfaches Werfen einer Münze]
-\begin{enumerate}
-  \item Wie groß ist die Wahrscheinlichkeit, dass beim dritten Wurf einer fairen Münze „Kopf" erstmalig erscheint?
-  \item Wie groß ist die Wahrscheinlichkeit, dass auch nach $l$ Würfen kein „Kopf" aufgetreten ist?
-  \item Wie groß ist die Wahrscheinlichkeit, dass nach $l$ Würfen mindestens einmal „Kopf" aufgetreten ist?
-\end{enumerate}
+\begin{beispiel}[Mehrfaches Werfen einer fairen Münze]
+Wie hoch ist die Wahrscheinlichkeit, dass beim dritten Wurf einer fairen Münze „Kopf" erstmalig erscheint?
+
+Zur Lösung dieser Frage kann ein Baumdiagramm betrachtet werden. In diesem sind alle möglichen Ereignisse pro neuen Wurf der Münze enthalten. Zeigt erst der dritte Wurf „Kopf", muss Wurf 1 und Wurf 2 jeweils „Zahl" gewesen sein. Da diese Bedingung nur auf einen Pfad des Baumdiagrammes zutrifft, ergibt sich:
+
+$$
+P(\text{„erst dritter Wurf Kopf"}) = \frac{1}{2} \cdot \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{8}.
+$$
+
+% Grafik: Baumdiagramm für drei Würfe einer Münze
 \end{beispiel}
 
-\subsection{Kombinatorik}
+\begin{beispiel}[Mehrfache, unabhängige Versuche -- Münze]
+Wie oft muss eine faire Münze geworfen werden, bis zum ersten Mal „Kopf" mit Wahrscheinlichkeit 1 erscheint? Die Wahrscheinlichkeit, dass „Kopf" oder „Zahl" im $i$-ten Wurf erscheint, wird mit $P(K_i)$ bzw.\ $P(Z_i)$ bezeichnet. Diese sind jeweils 0{,}5. Die Wahrscheinlichkeit, dass „Kopf" erstmalig im $i$-ten Wurf erscheint, wird mit $P(K)$ bezeichnet.
 
-Der Wahrscheinlichkeitsrechnung liegen häufig kombinatorische Aufgaben zugrunde. Daher ist es sinnvoll, sich zunächst einige kombinatorische Formeln anzueigenen:
+Also ergibt sich für $P(K) \stackrel{!}{=} 1$ im $i$-ten Wurf
+
+$$
+P(K) = 1 - P(\overline{K}) = 1 - P(Z_1) \cdot P(Z_2) \cdots P(Z_i) = 1 - \frac{1}{2^i} \stackrel{!}{=} 1.
+$$
+
+Dies ist erfüllt für $i \to \infty$, denn $\lim_{i \to \infty} \frac{1}{2^i} = 0$.
+
+Tatsächlich kann bei einer endlichen Anzahl von Würfen nicht mit Bestimmtheit angenommen werden, dass „Kopf" erscheint.
+\end{beispiel}
+
+\subsection{Kombinatorik und Stichproben}
+
+Der Wahrscheinlichkeitsrechnung liegen häufig kombinatorische Aufgaben zugrunde. Die wichtigsten Fälle werden nachfolgend kurz behandelt:
 
 \begin{itemize}
   \item Die Anzahl der Permutationen von $n$ Elementen ohne Wiederholung (Aneinanderreihung) ist durch $n!$ gegeben.
-  \item Die Anzahl der Variationen von $s$ geordneten, voneinander verschiedenen Elementen einer $n$-elementigen Menge ist durch $\dfrac{n!}{(n-s)!}$ gegeben, wenn keine Wiederholung vorliegt.
-  \item Die Anzahl aller voneinander verschiedenen Kombinationen einer $s$-elementigen Teilmenge einer $n$-elementigen Menge ohne Wiederholung ist durch $\dfrac{n!}{s!(n-s)!} = \binom{n}{s}$ gegeben.
 \end{itemize}
 
-\subsection{Stichproben}
-
-Die Vielfalt der Ergebnisse eines mehrstufigen Experiments wird unter anderem durch die beiden folgenden Prinzipien bestimmt:
+\begin{beispiel}[Permutationen]
+Gegeben sind $n = 6$ durchnummerierte Kugeln. Die Anzahl der Kombinationsmöglichkeiten aller Kugeln berechnet sich dann zu $n! = 6! = 720$.
+\end{beispiel}
 
 \begin{itemize}
-  \item Auswahl der Ergebnisse
-  \item Anordnung der Ergebnisse
+  \item Die Anzahl der Variationen von $s$ geordneten, voneinander verschiedenen Elementen einer $n$-elementigen Menge ist durch $\dfrac{n!}{(n-s)!}$ gegeben, wenn keine Wiederholung vorliegt.
 \end{itemize}
 
-Im Folgenden wird dies anhand des $s$-fachen Ziehens aus einer Menge mit $n$ nummerierten Kugeln behandelt. In der Statistik wird dies auch als Stichprobe bezeichnet.
+\begin{beispiel}[Variationen]
+Gegeben sind $n = 6$ durchnummerierte Kugeln. Aus diesen werden nacheinander zufällig $s = 4$ Kugeln gezogen und die Reihenfolge beibehalten. Die Anzahl der möglichen gezogenen Variationen berechnet sich dann zu $\dfrac{n!}{(n-s)!} = \dfrac{6!}{(6-4)!} = 6 \cdot 5 \cdot 4 \cdot 3 = 360$.
+\end{beispiel}
 
-\subsection{Geordnete Stichproben}
+\begin{itemize}
+  \item Die Anzahl aller voneinander verschiedenen Kombinationen einer $s$-elementigen Teilmenge einer $n$-elementigen Menge ohne Wiederholung ist durch $\dfrac{n!}{s!(n-s)!} = \dbinom{n}{s}$ gegeben.
+\end{itemize}
+
+\begin{beispiel}[Kombinationen]
+Gegeben sind $n = 6$ durchnummerierte Kugeln. Aus diesen werden nacheinander zufällig vier Kugeln ($s = 4$) gezogen und wieder geordnet. Die Reihenfolge der gezogenen Kugeln ist demnach egal. Die Anzahl der möglich gezogenen Variationen berechnet sich zu $\dfrac{n!}{s!(n-s)!} = \dbinom{n}{s} = 15$.
+\end{beispiel}
+
+\begin{beispiel}[Lotto]
+Die Gewinnmöglichkeit beim Lottospielen ist bekanntlich nicht sehr groß. Aus $n = 49$ Kugeln werden durch Zufall $s = 6$ Kugeln ausgewählt und anschließend geordnet. Die Wahrscheinlichkeit $P$, alle sechs Kugeln richtig getippt zu haben, berechnet sich aus dem Kehrwert der Anzahl der verschiedenen Kombinationen $K$.
+
+$$
+K = \frac{n!}{s!(n-s)!} = 13\,983\,816 \qquad P = \frac{1}{K} = 7{,}15 \cdot 10^{-8}.
+$$
+
+Nimmt man an, man müsste nicht nur die $s = 6$ Zahlen richtig tippen, sondern auch die Reihenfolge, mit der sie gezogen wurden, dann würde sich die Wahrscheinlichkeit für einen Gewinn wie folgt berechnen:
+
+$$
+K = \frac{n!}{(n-s)!} = 10\,068\,347\,520 \qquad P = \frac{1}{K} = 9{,}93 \cdot 10^{-11}.
+$$
+\end{beispiel}
+
+Das Ziehen von Kugeln aus einer gegebenen Menge kann als mehrstufiges Experiment aufgefasst werden. Die Vielfalt der Ergebnisse eines mehrstufigen Experiments wird unter anderem durch die beiden folgenden Prinzipien bestimmt:
+
+\begin{itemize}
+  \item Auswahl der Ergebnisse und
+  \item Anordnung der Ergebnisse.
+\end{itemize}
+
+Im Folgenden wird dies anhand des $s$-fachen Ziehens aus einer Menge mit $n$ nummerierten Kugeln behandelt. Hierbei spricht man auch von einer Stichprobe.
+
+\textbf{Geordnete Stichproben}
 
 Es wird eine von $n$ Kugeln gezogen und nach dem Notieren der Nummer zurückgelegt. Das Experiment wird $s$-fach wiederholt. Da in jeder Stufe $n$ Ergebnisse möglich sind, enthält die Menge aller Ergebnisse $n^s$ Elemente.
 
@@ -336,11 +454,9 @@ $$
 n \cdot (n-1) \cdot \ldots \cdot (n-s+1) = \frac{n!}{(n-s)!}
 $$
 
-Variationen.
+Variationen. Daraus folgt auch, dass $n$ Elemente auf $n!$ verschiedene Arten angeordnet werden können.
 
-Daraus folgt auch, dass $n$ Elemente auf $n!$ verschiedene Arten angeordnet werden können. Es existieren $n!$ Permutationen.
-
-\subsection{Ungeordnete Stichproben}
+\textbf{Ungeordnete Stichproben}
 
 Wenn die Reihenfolge, mit der die Kugeln gezogen werden, keine Rolle spielt, wird die Menge aller möglichen Ergebnisse kleiner. Für das $s$-stufige Experiment erhalten wir dann
 
@@ -348,7 +464,7 @@ $$
 \binom{n}{s} = \frac{n!}{s!(n-s)!}
 $$
 
-Kombinationen, wenn die gezogenen Kugeln nicht zurückgelegt werden. Werden die gezogenen Kugeln zurückgelegt, erhält man
+Ergebnisse, wenn die gezogenen Kugeln nicht zurückgelegt werden. Werden die gezogenen Kugeln zurückgelegt, erhält man
 
 $$
 \binom{s + n - 1}{s}
@@ -356,15 +472,23 @@ $$
 
 mögliche Ergebnisse.
 
-\begin{beispiel}[Binäres Codewort]
-Eine Quelle sendet ein binäres Codewort mit 16 Bit, wobei das Ereignis $\xi_1 = 0$ mit der Wahrscheinlichkeit $P(0) = 0{,}6$ im Codewort auftritt. Die Bits des Codeworts sind statistisch unabhängig.
+\begin{beispiel}[Stichprobe]
+Eine Quelle sendet ein binäres Codewort mit $n = 16$ Bit, wobei das Ereignis $\xi_1 = 0$ mit der Wahrscheinlichkeit $P(\xi_1) = 0{,}6$ im Codewort auftritt. Die Bits des Codeworts sind statistisch unabhängig.
 
-Erläutern Sie im Zusammenhang mit diesem Beispiel die Anwendung der Axiome der Wahrscheinlichkeitsrechnung, der Definition der statistischen Unabhängigkeit und der kombinatorischen Theoreme.
+Wie groß ist die Wahrscheinlichkeit, dass genau $s = 6$ Bits mit $\xi_2 = 1$ im Codewort enthalten sind?
 
-Wie groß ist die Wahrscheinlichkeit, dass genau sechs Bits mit $\xi_2 = 1$ im Codewort enthalten sind?
+$$
+P(s \text{ mal } \xi_2) = \binom{n}{s} P(\xi_2)^s (1 - P(\xi_2))^{n-s}
+$$
+
+$$
+P(6 \text{ mal } \xi_2) = \binom{16}{6} (0{,}4)^6 \cdot (0{,}6)^{10} = 0{,}1983.
+$$
 \end{beispiel}
 
-\subsection{Verbundwahrscheinlichkeiten}
+\subsection{Verbundwahrscheinlichkeiten und Randwahrscheinlichkeiten}
+
+Der Wahrscheinlichkeitsraum für elementare Ereignisse mehrfacher Versuche kann mit Hilfe des kartesischen Produkts konstruiert werden. Dabei ist von Bedeutung, dass sich die Elementarereignisse gegenseitig ausschließen und eine vollständige Abdeckung des Raums erreicht wird. Darüber hinaus ist aber auch die gemeinsame Betrachtung beliebiger Ereignisse von Interesse. Diese Ereignisse müssen sich nicht unbedingt gegenseitig ausschließen.
 
 Generell wird die Wahrscheinlichkeit, dass zwei Ereignisse $A_i \in \mathcal{A}$ und $B_j \in \mathcal{B}$ gemeinsam auftreten, als Verbundwahrscheinlichkeit bezeichnet und mit $P(A_i, B_j) = P(B_j, A_i)$ angegeben. Im Fall, dass diese Ereignisse statistisch unabhängig sind (und nur dann), wird die Verbundwahrscheinlichkeit zu
 
@@ -372,9 +496,7 @@ $$
 P(A_i, B_j) = P(A_i) \cdot P(B_j)
 $$
 
-berechnet.
-
-\subsection{Partition von $\Omega$}
+berechnet. Zum Beispiel kann mit $A_i$ das Ergebnis eines ersten Wurfs und mit $B_j$ das Ergebnis eines zweiten Wurfs eines Würfels angegeben werden.
 
 Ein Mengensystem $\mathcal{B} = \{B_1, B_2, \ldots\}$ von Teilmengen einer Menge $\Omega$ heißt Partition von $\Omega$, falls
 
@@ -383,29 +505,48 @@ Ein Mengensystem $\mathcal{B} = \{B_1, B_2, \ldots\}$ von Teilmengen einer Menge
   \item $\Omega = B_1 + B_2 + \ldots$ \quad gilt.
 \end{enumerate}
 
-% Grafik: Tabelle mit ξ₁–ξ₃₂, zeilenweise angeordnet als Partition von Ω
-
-\subsection{Randwahrscheinlichkeiten}
-
-Die Wahrscheinlichkeiten für das Auftreten der einzelnen sich gegenseitig ausschließenden Ereignisse $A_i \in \mathcal{A}$ oder $B_j \in \mathcal{B}$ kann wieder aus den Verbundwahrscheinlichkeiten berechnet werden, indem man die Wahrscheinlichkeiten über die Ereignisse einer Partition summiert. Man erhält
+Die Wahrscheinlichkeiten für das Auftreten der einzelnen sich gegenseitig ausschließenden Ereignisse $A_i \in \mathcal{A}$ oder $B_j \in \mathcal{B}$ kann wieder aus den Verbundwahrscheinlichkeiten berechnet werden, indem man die Wahrscheinlichkeiten sämtlicher möglicher Ereignisse des jeweils anderen Experiments summiert. Man erhält für $N$ Ereignisse $A_1 \ldots A_N$ und $N$ Ereignisse $B_1 \ldots B_N$
 
 $$
-P(A_i) = \sum_{j=1}^{N} P(A_i, B_j) = P(A_i, \mathcal{B})
+P(A_i) = \sum_{j=1}^{N} P(A_i, B_j) = P(A_i, \Omega_B)
 $$
 
 $$
-P(B_j) = \sum_{i=1}^{N} P(A_i, B_j) = P(B_j, \mathcal{A})
+P(B_j) = \sum_{i=1}^{N} P(A_i, B_j) = P(B_j, \Omega_A).
 $$
 
 Wenn die Wahrscheinlichkeiten der einzelnen Ereignisse aus den Verbundwahrscheinlichkeiten $P(A_i, B_j)$ gewonnen werden, werden die Wahrscheinlichkeiten $P(A_i)$ und $P(B_j)$ als Randwahrscheinlichkeiten bezeichnet.
 
-\begin{beispiel}[Randwahrscheinlichkeiten]
+\begin{beispiel}[Randwahrscheinlichkeit]
+Zwei Würfel werden gleichzeitig geworfen. Alle möglichen Ergebnisse werden in folgender Tabelle dargestellt.
+
 \begin{center}
-\begin{tabular}{c|cc}
-  & $B_1$ & $B_2$ \\
+\begin{tabular}{c|cccccc}
+  & \multicolumn{6}{c}{2.\ Wurf $B_j$} \\
+  1.\ Wurf $A_i$ & 1 & 2 & 3 & 4 & 5 & 6 \\
   \hline
-  $A_1$ & $P(A_1, B_1)$ & $P(A_1, B_2)$ \\
-  $A_2$ & $P(A_2, B_1)$ & $P(A_2, B_2)$ \\
+  1 & 1,1 & 1,2 & 1,3 & 1,4 & 1,5 & 1,6 \\
+  2 & 2,1 & 2,2 & 2,3 & 2,4 & 2,5 & 2,6 \\
+  3 & 3,1 & 3,2 & 3,3 & 3,4 & 3,5 & 3,6 \\
+  4 & 4,1 & 4,2 & 4,3 & 4,4 & 4,5 & 4,6 \\
+  5 & 5,1 & 5,2 & 5,3 & 5,4 & 5,5 & 5,6 \\
+  6 & 6,1 & 6,2 & 6,3 & 6,4 & 6,5 & 6,6 \\
 \end{tabular}
 \end{center}
+
+Da beide Würfel unabhängig voneinander fallen, handelt es sich hier um ein Laplace-Experiment.
+
+$$
+P(A_i, B_j) = \frac{1}{|\Omega|} = \frac{1}{36}
+$$
+
+Für die Randwahrscheinlichkeiten ergeben sich somit:
+
+$$
+P(A_i) = \sum_{j=1}^{N} P(A_i, B_j) = \sum_{j=1}^{6} \frac{1}{36} = \frac{6}{36} = \frac{1}{6} \quad \forall i
+$$
+
+$$
+P(B_j) = \sum_{i=1}^{N} P(A_i, B_j) = \sum_{i=1}^{6} \frac{1}{36} = \frac{6}{36} = \frac{1}{6} \quad \forall j
+$$
 \end{beispiel}
