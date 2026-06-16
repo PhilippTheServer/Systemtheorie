@@ -2,7 +2,8 @@
 
 \subsection*{Grundprinzip}
 
-Um ein wert- und zeitkontinuierliches Signal zu digitalisieren, wird es in zwei Schritten verarbeitet:
+Um ein wert- und zeitkontinuierliches Signal zu digitalisieren, wird es in zwei Schritten 
+verarbeitet:
 
 \begin{enumerate}
     \item \textbf{Abtastung:} Das Signal wird in gleichmäßigen Zeitabständen $T_A$ abgetastet.
@@ -43,7 +44,8 @@ Um ein wert- und zeitkontinuierliches Signal zu digitalisieren, wird es in zwei 
 \addlegendentry{Abtastwerte $x[n]$}
 \end{axis}
 \end{tikzpicture}
-\caption{Abtastung: Aus dem kontinuierlichen Signal (blau) werden in Abständen $T_A$ Werte entnommen (rot).}
+\caption{Abtastung: Aus dem kontinuierlichen Signal (blau) werden in Abständen $T_A$ Werte 
+    entnommen (rot).}
 \end{figure}
 
 \subsection*{Beispiel: Abtastperiode und Stufenbreite}
@@ -169,3 +171,178 @@ Quantisierungsintervalle und Rekonstruktionswerte $\hat{x}$:
 
 Nach der Quantisierung aller Abtastwerte entsteht aus dem ursprünglich kontinuierlichen Signal
 ein vollständig diskretes, digitales Signal.
+
+
+
+
+% -------------------------------------------------- %
+%                    Tutorium 4                      %
+% -------------------------------------------------- %
+
+\subsection{Tutorium 4}
+
+\subsubsection*{Motivation: Warum abtasten und quantisieren?}
+
+Digitale Systeme können nur mit endlich vielen, diskreten Werten umgehen. Um ein physikalisches
+Signal – das in der Natur wert- und zeitkontinuierlich vorliegt – digital verarbeiten zu können,
+sind zwei Schritte nötig:
+
+\begin{enumerate}
+    \item \textbf{Abtastung} (zeitdiskret machen): Das Signal wird nur zu Zeitpunkten $n \cdot T_A$
+          ausgewertet. Ergebnis: wertkontinuierliches, zeitdiskretes Signal $x[n]$.
+    \item \textbf{Quantisierung} (wertdiskret machen): Die Abtastwerte werden auf $N$ diskrete
+          Stufen abgebildet. Ergebnis: vollständig diskretes Signal $\hat{x}[n]$.
+\end{enumerate}
+
+\subsubsection*{Midrise vs.\ Midtread}
+
+Beide Quantisierungskennlinien ordnen jedem Eingangswert $x$ einen diskreten Rekonstruktionswert
+$\hat{x}$ zu, unterscheiden sich aber im Verhalten am Ursprung:
+
+\begin{itemize}
+    \item \textbf{Midrise:} Die Stufengrenze liegt genau bei $x = 0$. Es gibt keine eigene Stufe
+          für den Nullpunkt – die Kennlinie steigt dort durch. Sinnvoll bei gleichmäßig verteilten
+          Signalen mit gerader Stufenanzahl $N$.
+    \item \textbf{Midtread:} Die Stufe liegt mittig über $x = 0$, d.\,h.\ $Q(0) = 0$. Vorteil:
+          Schwache Signale nahe Null werden exakt auf $0$ quantisiert – kein Rauschen bei Stille.
+          Sinnvoll bei Signalen, die häufig um die Null schwingen.
+\end{itemize}
+
+\subsubsection*{Rekonstruktion durch Interpolation}
+
+Um das zeitdiskrete Signal $x[n]$ wieder in ein zeitkontinuierliches Signal $x(t)$ umzuwandeln,
+werden gewichtete Basisfunktionen $g_k(t)$ übereinandergelegt:
+
+$$
+x(t) = \sum_{k=-\infty}^{\infty} x[k] \cdot g_k(t)
+$$
+
+Die Wahl der Basisfunktion $g_k(t)$ bestimmt Qualität und Glattheitsgrad der Rekonstruktion:
+
+\begin{itemize}
+    \item \textbf{0.\,Ordnung – Zero-Order Hold (ZOH):} $g_k(t)$ ist ein Rechteckimpuls. Der
+          Abtastwert wird bis zum nächsten Zeitpunkt konstant gehalten. Ergebnis: zeitkontinuierlich,
+          aber wertdiskret (Treppenfunktion).
+    \item \textbf{1.\,Ordnung – Lineare Interpolation:} $g_k(t)$ ist ein Dreieckimpuls. Benachbarte
+          Abtastwerte werden linear verbunden. Ergebnis: zeitkontinuierlich und stetig,
+          aber nicht differenzierbar (Knicke an den Abtastzeitpunkten).
+    \item \textbf{Ideale Interpolation – $\operatorname{si}$-Funktion:} Mit
+          $g_k(t) = \operatorname{si}\!\left(\tfrac{t - k T_A}{T_A}\right)$ wird bei Einhaltung
+          des Nyquist-Kriteriums das Originalsignal exakt rekonstruiert.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm, height=5cm,
+    xmin=-0.3, xmax=4.3,
+    ymin=-0.15, ymax=1.35,
+    axis x line=middle,
+    axis y line=left,
+    xtick={0,1,2,3,4},
+    xticklabels={$0$, $T_A$, $2T_A$, $3T_A$, $4T_A$},
+    ytick={0,1},
+    tick align=outside,
+    legend style={at={(0.99,0.97)}, anchor=north east, font=\small},
+    every axis plot/.append style={line width=1.2pt},
+]
+\addplot[blue, dashed, smooth, domain=0:4.2, samples=200] {0.5*sin(deg(x*1.8)) + 0.5};
+\addlegendentry{Original $x(t)$}
+\addplot[red, const plot, mark=*, mark size=2.5pt, mark options={fill=red}]
+    coordinates {(0,0.50) (1,0.99) (2,0.28) (3,0.11) (4,0.90) (4.3,0.90)};
+\addlegendentry{0.\,Ordnung (ZOH)}
+\addplot[orange!90!black, sharp plot, mark=*, mark size=2.5pt,
+         mark options={fill=orange!90!black}]
+    coordinates {(0,0.50) (1,0.99) (2,0.28) (3,0.11) (4,0.90)};
+\addlegendentry{1.\,Ordnung (linear)}
+\end{axis}
+\end{tikzpicture}
+\caption{Interpolationsvergleich: Original (blau, gestrichelt), Zero-Order Hold (rot) und lineare
+Interpolation (orange) anhand identischer Abtastwerte.}
+\end{figure}
+
+\subsubsection*{Die \texorpdfstring{$\operatorname{si}$}{si}-Funktion}
+
+Die $\operatorname{si}$-Funktion (normierter Sinc) ist definiert als:
+
+$$
+\operatorname{si}(x) = \frac{\sin(\pi x)}{\pi x} \quad (x \neq 0),
+\qquad \operatorname{si}(0) = 1
+$$
+
+Entscheidend ist die \textbf{Interpolationseigenschaft}: An ganzzahligen Argumenten gilt:
+
+$$
+\operatorname{si}(n) =
+\begin{cases}
+    1 & n = 0 \\
+    0 & n \in \mathbb{Z},\; n \neq 0
+\end{cases}
+$$
+
+Damit ist jede Basisfunktion $g_k(n \cdot T_A) = \operatorname{si}(n - k)$ genau an ihrem
+eigenen Abtastzeitpunkt gleich $1$ und an allen anderen gleich $0$ – die Abtastwerte stören
+sich gegenseitig nicht. Die vollständige Rekonstruktionsformel lautet:
+
+$$
+x(t) = \sum_{k=-\infty}^{\infty} x[k] \cdot \operatorname{si}\!\left(\frac{t - k T_A}{T_A}\right)
+$$
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm, height=4cm,
+    xmin=-3.5, xmax=3.5,
+    ymin=-0.30, ymax=1.2,
+    axis x line=middle,
+    axis y line=left,
+    xtick={-3,-2,-1,1,2,3},
+    xticklabels={$-3$, $-2$, $-1$, $1$, $2$, $3$},
+    ytick={1},
+    yticklabels={$1$},
+    tick align=outside,
+    every axis plot/.append style={line width=1.2pt},
+]
+\addplot[blue, smooth, domain=-3.4:-0.03, samples=150] {sin(deg(pi*x))/(pi*x)};
+\addplot[blue, smooth, domain= 0.03: 3.4, samples=150] {sin(deg(pi*x))/(pi*x)};
+\addplot[only marks, mark=*, mark size=3pt, mark options={fill=blue}] coordinates {(0,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{$\operatorname{si}$-Funktion: Maximum bei $(0,\,1)$, Nullstellen bei allen
+ganzzahligen $x \neq 0$.}
+\end{figure}
+
+\textbf{Beispiel Aufgabe}
+
+Substituion üben:
+
+Korrelation mit einem cos signal und einem rechtecksignal, wo substituiert werden muss.
+Höllisch schwierig.
+
+$$
+\begin{array}{rl}
+x_1(t) = & B \cdot rect(\frac{t+\frac{3}{2}T}{5T}) \\
+x_2(t) = & \pi \cdot cos(\frac{5 \pi t}{T}) \\
+=>  & \Phi_{x_1x_2}(\tau)
+\end{array}
+$$
+
+Die Lösung ist:
+$$
+- \frac{2}{5} BT \cdot cos(\frac{5 \pi \tau}{T})
+$$
+
+Additionstheorem vollständig erlernen.
+
+$$
+sin(a-b) + sin(a+b) = 2 \cdot sin(a) \cdot cos(b)
+$$
+
+$$
+\begin{array}{rl}
+    sin(t+n \cdot 2 \pi) = & sin(t) \\
+    sin(t) = & -sin(t)
+\end{array}
+$$
