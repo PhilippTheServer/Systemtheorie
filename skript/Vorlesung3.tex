@@ -2,113 +2,133 @@
 
 \section{Rauschsignale}
 
-Zufällige Signale (Rauschsignale) zeichnen sich dadurch aus, dass ihr zukünftiger Verlauf nicht exakt vorhersagbar ist. Zwei typische Rauschsignale $x_1(t)$ und $x_2(t)$ unterscheiden sich z.\,B.\ in Amplitude und spektraler Zusammensetzung.
+Signale $x(t)$ oder $x[k]$, deren Verlauf für alle $t \in \mathbb{R}$ bzw.\ $k \in \mathbb{Z}$ exakt bekannt ist, werden deterministische Signale genannt. Diese Signale lassen sich in der Regel durch einen analytischen Ausdruck beschreiben. Signale, deren Amplituden zufällig variieren, werden Zufallssignale oder stochastische Signale genannt. Viele natürliche Signale (Sprache, Musik, Video) sind Zufallssignale. Zufallssignale werden nicht durch ihren Amplitudenverlauf sondern durch ein Histogramm der Amplituden und durch statistische Kenngrößen beschrieben.
 
-\subsection*{Realisationen zufälliger Signale}
+Die Übertragung informationstragender Signale wird häufig durch störende Signale von zufälligem Charakter (,,Rauschen'', engl.\ ,,noise'') beeinträchtigt. Auch das Rauschen ist ein zufälliges Signal.
 
-$\Rightarrow$ Jede Realisation eines Zufallssignals (Musterfunktion des Zufallsprozesses) hat einen anderen Amplitudenverlauf.
+\begin{beispiel}[Rauschen]
+Die folgende Abbildung zeigt zwei zufällige Signale.
 
-\section{Verteilungsdichtefunktion}
+% Grafik: Abb. 2.56 – Oben: Verrauschtes Audiosignal x_1(t); unten: Weißes, gaußsches Rauschen x_2(t) (WGN), Zeitachse 0–0,5 s
+\end{beispiel}
 
-Die Verteilungsdichtefunktion (VDF) beschreibt die Wahrscheinlichkeit, mit der ein Zufallssignal bestimmte Amplitudenwerte annimmt. Sie ergibt sich als Grenzwert des normierten Histogramms bei wachsender Stichprobenzahl.
+Zufallssignale werden durch Zufallsprozesse erzeugt. Jede Realisation eines Zufallssignals (Musterfunktion des Zufallsprozesses) hat einen anderen Amplitudenverlauf.
 
-\section{Kenngrößen diskreter zufälliger Signale}
+% Grafik: Abb. 2.57 – Vier Realisationen (Musterfunktionen) x_1(t), x_2(t), x_3(t), x_4(t) eines weißen Gaußschen Rauschens
 
-Kenngrößen zufälliger Signale lassen sich in \textbf{Lagemaße} (beschreiben den mittleren Amplitudenwert) und \textbf{Streumaße} (beschreiben die Streuung um den Mittelwert) unterteilen.
+\section{Kenngrößen zufälliger Signale}
+
+Ein wichtiges Hilfsmittel zur empirischen Analyse zufälliger Signale ist das \textit{Histogramm} der Signalamplituden. Das Histogramm wird konstruiert, indem die Amplitudenwerte in $L$ Klassen (engl.\ bins) eingeteilt werden und die relative oder absolute Häufigkeit der zu einer Klasse gehörigen Daten aufgetragen wird. Die zu wählende Breite der Klassen ist von der Aufgabenstellung und der Datenmenge abhängig.
+
+\begin{beispiel}[Histogramm und Verteilungsdichtefunktion eines Rauschsignals]
+Für eines der in Abb.\ 2.57 gezeigten Rauschsignale ist das Histogramm dargestellt.
+
+% Grafik: Abb. 2.58 – Histogramm (links) und Verteilungsdichtefunktion VDF (rechts), Amplitudenachse –5 bis 5
+\end{beispiel}
+
+Im Allgemeinen müssen die Methoden der Wahrscheinlichkeitsrechnung angewandt werden (siehe Kapitel~4). Die im Histogramm dargestellte relative Häufigkeit der Amplitudenwerte kann dann mit einer \textbf{Verteilungsdichtefunktion} (VDF) modelliert werden. Die Verteilungsdichtefunktion ist dann das der beobachteten Häufigkeitsverteilung zugrunde liegende Modell.
+
+Wichtige Kenngrößen zufälliger Signale sind wieder der Mittelwert, die Varianz und die Leistung. Wenn diese unmittelbar aus nur einer Realisation des Zufallssignals berechnet werden, spricht man von \textbf{empirischen} Kenngrößen. Diese Kenngrößen werden häufig in ,,Lagemaße'' und ,,Streumaße'' eingeteilt.
 
 \subsection{Lagemaße}
 
 Der \textbf{empirische Mittelwert} eines diskreten Signals mit $N$ Abtastwerten ist durch
 
 $$
-\bar{x} = \frac{1}{N} \sum_{k=0}^{N-1} x[k] = \frac{1}{N}\bigl(x[0] + \ldots + x[N-1]\bigr)
+\hat{\bar{x}} = \frac{1}{N} \sum_{k=0}^{N-1} x[k] = \frac{1}{N}\bigl(x[0] + \ldots + x[N-1]\bigr)
 $$
 
 gegeben.
 
-Der \textbf{Median} $\tilde{x}$ eines diskreten Signals teilt die Werte in zwei Hälften, so dass die eine Hälfte größer oder gleich $\tilde{x}$ ist und die andere Hälfte kleiner oder gleich $\tilde{x}$ ist.
-
-$\Rightarrow$ Der Median ist robust gegenüber Ausreißern. Oft ist er nicht eindeutig. Er kann dann innerhalb eines Intervalls frei gewählt werden.
+Der \textbf{Median} $\tilde{x}$ eines diskreten Signals $x[k]$ teilt die Werte in zwei Hälften, so dass die eine Hälfte größer oder gleich $\tilde{x}$ ist und die andere Hälfte kleiner oder gleich $\tilde{x}$ ist.
+Der Median liegt also in der Mitte der geordneten Daten und ist robust gegenüber Ausreißern. Oft ist er durch die obige Definition nicht eindeutig bestimmt. Er kann dann innerhalb eines Intervalls frei gewählt werden.
 
 \subsection{Streumaße}
 
-Die \textbf{empirische Varianz} eines diskreten Signals $x[k]$ mit $N$ Abtastwerten ist durch
+Die \textbf{empirische Varianz} $\hat{\sigma}^2$ eines diskreten Signals $x[k]$ mit $N$ Abtastwerten ist durch
 
 $$
-\hat{\sigma}^2 = \frac{1}{N-1} \sum_{k=0}^{N-1} (x[k] - \hat{\bar{x}})^2
+\hat{\sigma}^2 = \frac{1}{N-1} \sum_{k=0}^{N-1} \bigl(x[k] - \hat{\bar{x}}\bigr)^2
 $$
 
-definiert.
-
-Die \textbf{empirische Standardabweichung} ist durch
+definiert. Die \textbf{empirische Standardabweichung} ist durch
 
 $$
-\hat{\sigma} = \sqrt{\hat{\sigma}^2} = \sqrt{\frac{1}{N-1} \sum_{k=0}^{N-1} (x[k] - \hat{\bar{x}})^2}
+\hat{\sigma} = \sqrt{\hat{\sigma}^2} = \sqrt{\frac{1}{N-1} \sum_{k=0}^{N-1} \bigl(x[k] - \hat{\bar{x}}\bigr)^2}
 $$
 
 gegeben.
 
 \section{Die empirische Korrelationsfunktion}
 
-Die Kreuzkorrelationsfunktion zweier Signale $x[k]$ und $y[k]$, wobei $x[k]$ ausserhalb des Bereich $0 \ldots N$ Null ist, ist dann durch
+Im Fall zufälliger Signale beschränken wir uns vorerst auf diskrete und zeitlich begrenzte Signale. Dazu behandeln wir das Zufallssignal (genauer: die Musterfunktion des Zufallsprozesses) wie ein determiniertes Signal. Die Kreuzkorrelationsfunktion zweier Signale $x[k]$ und $y[k]$, wobei $x[k]$ außerhalb des Bereichs $0 \ldots N$ zu Null gesetzt wird, ist dann durch
 
 $$
 \hat{\varphi}_{xy}[\varkappa] = \sum_{k=0}^{N} x[k]\, y[k + \varkappa]
 $$
 
-gegeben. Für die Autokorrelation erhält man entsprechend
+gegeben. Für die Autokorrelationsfunktion erhält man entsprechend
 
 $$
 \hat{\varphi}_{xx}[\varkappa] = \sum_{k=0}^{N} x[k]\, x[k + \varkappa].
 $$
 
-Man beachte, dass in der Literatur diese Funktionen mit (unterschiedlichen) Normierungen verwendet werden.
+Man beachte, dass in der Literatur diese Funktionen mit (unterschiedlichen) Normierungen verwendet werden. Die empirische Autokorrelationsfunktion ist für ein Rauschsignal dargestellt.
 
-\subsection*{Autokorrelationsfunktion eines Zufallssignals}
+\begin{beispiel}[Autokorrelationsfunktion eines Zufallssignals]
+Das Signal $x[k]$ weist 51 von Null verschiedene Werte auf. Die AKF ist symmetrisch. Sie hat ein Maximum für $\varkappa = 0$ und zeigt ansonsten kaum Korrelation an. Man erkennt, dass durch die Zufälligkeit des Signals für $\varkappa \neq 0$ nur kleine Werte entstehen. Die Selbstähnlichkeit des Signals ist gering.
 
-Das Signal $x[k]$ weist 51 von Null verschiedene Werte auf. Die AKF hat ein klares Maximum für $\varkappa = 0$ und zeigt ansonsten kaum Korrelation an.
+% Grafik: Abb. 2.59 – Signal x[k] (oben, k von 0 bis 50) und AKF φ̂_xx[ϰ] (unten, ϰ von –50 bis 50)
+\end{beispiel}
 
 \section{Signalentdeckung im Rauschen}
 
-Ein Terminal sendet ein Signal $x(t)$. An der Basisstation wird das empfangene Signal durch additives Rauschen $n(t)$ gestört:
+\begin{beispiel}[Signalentdeckung im Rauschen]
+Mit den bisher eingeführten Begriffen lassen sich bereits interessante systemtheoretische Aufgaben lösen. Mit dem nachfolgenden Beispiel zeigen wir, dass für die Entdeckung eines deterministischen Signals im Rauschen nicht etwa dessen Amplitude sondern die Energie des Signals maßgeblich ist.
 
-$$
-y(t) = x(t) + n(t)
-$$
-
-\subsection*{Beispiel: Signalentdeckung im Rauschen}
-
-Wir betrachten einen kurzen und einen langen Rechteckimpuls mit
-$t_1 = 380T$, $T_1 = 40T$, $t_2 = 220T$, $T_2 = 360T$,
+Wir betrachten einen kurzen Rechteckimpuls ($t_1 = 380T$, $T_1 = 40T$)
 
 $$
 x_1(t) = A\,\operatorname{rect}\!\left(\frac{t - t_1}{T_1}\right)
-\qquad \text{und} \qquad
+$$
+
+und einen langen Rechteckimpuls ($t_2 = 220T$, $T_2 = 360T$)
+
+$$
 x_2(t) = \frac{A}{3}\,\operatorname{rect}\!\left(\frac{t - t_2}{T_2}\right),
 $$
 
-wobei das Bezugsintervall $T$ z.\,B.\ für $T = 1\,\text{ms}$ gewählt wird und beide Signale die Energie $E_1 = E_2 = A^2 \cdot 40T$ aufweisen.
+wobei das Bezugsintervall $T$ z.\,B.\ zu $T = 1\,\text{ms}$ gewählt wird und beide Signale dieselbe Energie $E_1 = E_2 = A^2 \cdot 40T$ aufweisen. Zunächst lässt sich leicht überprüfen, dass beide Rechtecksignale die gleiche Energie aufweisen. Hierfür nutzen wir die Definition der Energie und finden
 
-Nun wird zu diesen Signalen Rauschen addiert:
+$$
+E_1 = \int_{t_0}^{t_n} |x_1(t)|^2\,\mathrm{d}t = \int_{t_1}^{t_1+T_1} A^2\,\mathrm{d}t = A^2 T_1 = A^2 \cdot 40T
+$$
 
+$$
+E_2 = \int_{t_0}^{t_n} |x_2(t)|^2\,\mathrm{d}t = \int_{t_2}^{t_2+T_2} \frac{A^2}{9}\,\mathrm{d}t = \frac{A^2 T_2}{9} = A^2 \cdot 40T
+$$
+
+Nun wird zu diesen Signalen mittelwertfreies Rauschen $n_1(t)$ und $n_2(t)$ addiert:
 $$
 y_1(t) = x_1(t) + n_1(t) \qquad \text{und} \qquad y_2(t) = x_2(t) + n_2(t).
 $$
 
-$n_1(t)$ und $n_2(t)$ sind mittelwertfreie Rauchsignale.
+% Grafik: Abb. 2.60 – x_1(t) und y_1(t) oben; x_2(t) und y_2(t) unten, Zeitachse 0–1000 ms
 
-\subsection*{Rechteckimpulse im Rauschen}
+\textbf{Signalentdeckung durch Schwellwertentscheidung}
 
-Ist eine Detektion durch eine einfache Schwellwertentscheidung möglich?
+Wenn die Detektion der Rechteckimpulse im verrauschten Signal mit Hilfe einer einfachen Schwellwertentscheidung durchgeführt wird, dann ist die Lage des Impulses $x_1(t)$ im Signal nur dann leicht zu erkennen, wenn die Signalamplitude deutlich größer als die Rausch\-amplituden ist. Wegen der geringeren Amplitude ist die Entdeckung des Signals $x_2(t)$ daher deutlich schwieriger.
 
-\subsection*{Signalentdeckung durch Korrelation}
+\textbf{Signalentdeckung durch Korrelation}
 
-\textbf{Berechnung der Kreuzkorrelation:}
+Berechnen wir nun die Autokorrelationsfunktion der Signale $x_1(t)$ und $x_2(t)$ sowie die Kreuzkorrelation zwischen $y_1(t)$ und $x_1(t)$ bzw.\ $y_2(t)$ und $x_2(t)$, erkennen wir, dass die Signaldetektion auch im verrauschten Signal zuverlässig ein zuverlässiges Ergebnis liefert. Der Maximalwert der Autokorrelationsfunktion ist in beiden Fällen gleich, da er der Energie der Signale entspricht. Dies ist das Prinzip eines Korrelationsdetektors, das in der Kommunikationstechnik und der Mustererkennung vielfältig eingesetzt wird.
+
+Die Kreuzkorrelationsfunktion soll jetzt für den Fall $\varphi_{y_1 x_1}(\tau)$ explizit ausgerechnet werden:
 
 \begin{align*}
 \varphi_{y_1 x_1}(\tau)
   &= \int_{-\infty}^{\infty} y_1(t)\, x_1(t+\tau)\,\mathrm{d}t \\
-  &= \int_{-\infty}^{\infty} (x_1(t) + n_1(t))\, x_1(t+\tau)\,\mathrm{d}t \\
+  &= \int_{-\infty}^{\infty} \bigl(x_1(t) + n_1(t)\bigr)\, x_1(t+\tau)\,\mathrm{d}t \\
   &= \int_{-\infty}^{\infty} x_1(t)\, x_1(t+\tau)\,\mathrm{d}t
      + \int_{-\infty}^{\infty} n_1(t)\, x_1(t+\tau)\,\mathrm{d}t \\
   &= \varphi_{x_1 x_1}(\tau) + \varphi_{n_1 x_1}(\tau)
@@ -120,11 +140,117 @@ $$
 \varphi_{y_1 x_1}(\tau) \approx \varphi_{x_1 x_1}(\tau)
 $$
 
-\subsection*{Rechteckimpulse im Rauschen – weiteres Beispiel}
+Die Kreuzkorrelation liefert näherungsweise die Autokorrelationsfunktion.
 
-Nun werden die folgenden Impulse betrachtet:
+% Grafik: Abb. 2.61 – Autokorrelationsfunktionen φ_{x1x1} und φ_{x2x2} (ohne Rauschen) sowie φ_{y1x1} und φ_{y2x2} (mit Rauschen)
+
+Wir wiederholen das obige Experiment nun mit Rechteckimpulsen $x_1(t)$ und $x_2(t)$, deren Amplituden auf $\tfrac{1}{3}$ des ursprünglichen Wertes reduziert sind:
 
 $$
 x_1(t) = 0{,}4A\,\operatorname{rect}\!\left(\frac{t - t_1}{T_1}\right), \qquad
 x_2(t) = \frac{2}{15}\,A\,\operatorname{rect}\!\left(\frac{t - t_2}{T_2}\right)
 $$
+
+\begin{itemize}
+  \item \textbf{Signalentdeckung durch Schwellwertentscheidung im Amplitudenbereich:} Wie in Abb.\ 2.62 zu sehen, scheint eine Detektion der Rechteckimpulse im Amplitudenbereich kaum noch möglich.
+  \item \textbf{Signalentdeckung durch Schwellwertentscheidung im Korrelationsbereich:} In Abb.\ 2.63 ist zu erkennen, dass eine Detektion des Signals durch Kreuzkorrelation auch in diesem Fall noch möglich ist.
+\end{itemize}
+
+% Grafik: Abb. 2.62 – Zwei Rechtecksignale (reduzierte Amplitude) und die zugehörigen verrauschten Signale y_1(t) und y_2(t)
+% Grafik: Abb. 2.63 – Autokorrelationsfunktionen der Signale aus Abb. 2.62
+\end{beispiel}
+
+\begin{beispiel}[Signalübertragung mit Code-division Multiple Access (CDMA)]
+In Abbildung~2.64 sehen wir eine Anordnung, bestehend aus zwei Sendern $m_j$, $j \in \{1,2\}$ und einem Empfänger. Die Signale $m_j[k]$ sind die Nachrichtensignale, $y_j[k]$ die Sendesignale. $n[k]$ bezeichnet das Rauschen. Dies könnte ein stark vereinfachtes Mobilfunksystem darstellen. Zur weiteren Vereinfachung betrachten wir hier nur diskrete Signale.
+
+% Grafik: Abb. 2.64 – Zwei mobile Endgeräte senden Signale m_1[k] und m_2[k] an einen gemeinsamen Empfänger; Rauschen n[k] addiert sich zum Empfangssignal L[k]
+
+Alle Teilnehmer senden zur gleichen Zeit im gleichen Frequenzband. Ihre Nachrichtensignale sind jedoch mit individuellen Codes moduliert, so dass die Sendesignale unterschiedlicher Teilnehmer im Empfänger getrennt werden können (,,code division multiple access'', CDMA). Die einzelnen Codes $c_1[k]$ und $c_2[k]$ sind orthogonale, diskrete Sequenzen, sogenannte ,,Spreizcodes'' der Länge $N$. Sie sind so gestaltet, dass die Codes unterschiedlicher Sender eine verschwindend kleine Kreuzkorrelation $\varphi_{c_1 c_2}[\varkappa]$ für alle $\varkappa$ aufweisen. Dabei soll die Autokorrelation eines jeden Codes für $\varkappa = 0$ jedoch möglichst groß sein. Die Nachrichtensignale $m_1[k]$ und $m_2[k]$ werden über Abschnitte der Länge $N$ als konstant angenommen.
+
+Für die Sendesignale erhält man somit
+$$
+y_1[k] = m_1[k]\,c_1[k] \quad \text{und} \quad y_2[k] = m_2[k]\,c_2[k].
+$$
+
+% Grafik: Abb. 2.65 – Nachrichtensignale m_1[k], m_2[k], Codesequenzen c_1[k], c_2[k] und Sendesignale y_1[k], y_2[k]
+
+Die Codesequenzen $c_1[k]$ und $c_2[k]$ können z.\,B.\ mit dem Walsh-Hadamard-Verfahren erzeugt werden. Bei dem Empfänger kommen zur gleichen Zeit die Signale verschiedener Sender an; diese ergeben sich für unser einfaches Beispiel zu:
+
+$$
+L[k] = y_1[k] + y_2[k] + n[k] = m_1[k]\,c_1[k] + m_2[k]\,c_2[k] + n[k]
+$$
+
+Wir berechnen nun die Kreuzkorrelation des empfangenen Signals $L[k]$ mit dem Code $c_1[k]$ auf einem zeitlich begrenzten Segment von $N$ Werten und mit $k_0 = n \cdot N$, $n \in \mathbb{Z}$:
+
+\begin{align*}
+\varphi_{Lc_1}[\varkappa]
+  &= \sum_{k=k_0}^{k_0+N-1} \bigl(y_1[k] + y_2[k] + n[k]\bigr)\,c_1[k+\varkappa] \\
+  &= \sum_{k=k_0}^{k_0+N-1} m_1[k]\,c_1[k]\,c_1[k+\varkappa]
+   + \sum_{k=k_0}^{k_0+N-1} m_2[k]\,c_2[k]\,c_1[k+\varkappa]
+   + \sum_{k=k_0}^{k_0+N-1} n[k]\,c_1[k+\varkappa] \\
+  &= m_1[k_0]\,E_{c_1,N} + m_2[k_0] \cdot 0 + \varphi_{nc_1}
+\end{align*}
+
+wobei $E_{c_1,N} > 0$ die Energie der Sequenz $c_1[k]$ für $N$ aufeinanderfolgende Werte darstellt. Die zweite Summe verschwindet, da $c_1[k]$ und $c_2[k]$ orthogonal sind. Ferner ist das Nachrichtensignal $m_1[k]$ im betrachteten Zeitraum konstant und kann deshalb mit $m_1[k_0]$ angegeben werden. Da nun das Rauschsignal $n[k]$ zufällig variiert, ist auch die dritte Summe relativ klein. Daher erhalten wir näherungsweise
+
+$$
+\varphi_{Lc_1}[\varkappa] \approx m_1[k_0] \cdot E_{c_1,N}
+$$
+
+Zum Beispiel erhalten wir für
+
+$$
+m_1[k_0] = \pm 1 \quad\Rightarrow\quad \varphi_{Lc_1}[0] = \pm E_{c_1,N}
+$$
+
+Wir können also durch eine einfache Schwellwertentscheidung die Informationen des Senders~1 aus dem Signalgemisch extrahieren. Das CDMA-Verfahren benötigt orthogonale Sequenzen, deren Konstruktion nachfolgend beschrieben wird.
+
+\subsection*{Walsh-Hadamard-Sequenzen}
+
+Ein einfaches Verfahren, um orthogonale Sequenzen für Spreizcodes zu erzeugen, kann wie folgt angegeben werden. Zunächst beginnt man mit Sequenzen der Länge~2,
+
+$$
+c_{11}[k] = \delta[k] + \delta[k-1]
+$$
+$$
+c_{12}[k] = \delta[k] - \delta[k-1]
+$$
+
+deren Koeffizienten alternativ auch in einer Matrix $c_1$ zusammengefasst werden können,
+
+$$
+c_1 = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},
+$$
+
+wobei jede Spalte eine Sequenz $c_{11}$ bzw.\ $c_{12}$ darstellt.
+
+Die Sequenzen $c_{11}[k]$ und $c_{12}[k]$ sind zueinander orthogonal und weisen die Energie $N$ auf:
+
+$$
+\sum_{k=0}^{1} c_{11}[k]\,c_{12}[k] = 1 \cdot 1 + 1 \cdot (-1) = 0
+$$
+
+$$
+\sum_{k=0}^{1} c_{11}[k]\,c_{11}[k] = \sum_{k=0}^{1} c_{22}[k]\,c_{22}[k] = 1 \cdot 1 + 1 \cdot 1 = 2 = N.
+$$
+
+Mit der Matrix $c_1$ lassen sich nun längere Sequenzen konstruieren:
+
+$$
+c_2 = \begin{pmatrix} c_1 & c_1 \\ c_1 & -c_1 \end{pmatrix}
+= \begin{pmatrix} 1 & 1 & 1 & 1 \\ 1 & -1 & 1 & -1 \\ 1 & 1 & -1 & -1 \\ 1 & -1 & -1 & 1 \end{pmatrix},
+$$
+
+wobei die vier neuen Sequenzen durch die Spalten $c_{21}$, $c_{22}$, $c_{23}$ und $c_{24}$ gegeben sind. Auch hier lässt sich die Orthogonalität der Sequenzen leicht nachweisen. Allgemein lässt sich die Matrix in einer rekursiven Form berechnen:
+
+$$
+c_{n+1} = \begin{pmatrix} c_n & c_n \\ c_n & -c_n \end{pmatrix}
+$$
+
+Wir erhalten also je nach Länge der Sequenz:
+\begin{itemize}
+  \item 2 orthogonale Folgen der Länge $N = 2$ oder
+  \item 4 orthogonale Folgen der Länge $N = 4$ oder
+  \item 8 orthogonale Folgen der Länge $N = 8$, etc.
+\end{itemize}
+\end{beispiel}
