@@ -1,8 +1,22 @@
 \section{Lineare und zeitinvariante Systeme}
 
-\subsection{Lineare verschiebungsinvariante Systeme}
+LTI- und LSI-Systeme nehmen in der Systemtheorie eine besondere Stellung ein, da für die Analyse und den Entwurf dieser Systeme umfangreiche mathematische Methoden zur Verfügung stehen. Wir führen hierfür zunächst das Konzept der Impulsantwort an einem Beispiel ein.
 
-Ein LTI/LSI System wird durch seine \textit{Impulsantwort} charakterisiert:
+\subsection{Die Impulsantwort}
+
+Die Reaktion eines Systems auf die Sprungfunktion $x(t) = A \cdot \epsilon(t)$ sei mit $y(t) = A \cdot (1 - e^{-\frac{t}{\tau}})$ gegeben, wobei $\tau$ eine Zeitkonstante ist. Dieses System kann durch das RC-Netzwerk realisiert werden, sofern zu Beginn der Kondensator entladen war.
+
+Unter der Annahme, dass das System linear und zeitinvariant ist, können wir auch das Ausgangssignal zu einem Rechteckimpuls
+
+$$
+x(t) = \frac{1}{\Delta T}\,\mathrm{rect}\!\left(\frac{t}{\Delta T}\right) = \frac{1}{\Delta T}\bigl(\epsilon(t) - \epsilon(t - \Delta T)\bigr)
+$$
+
+aus den Systemantworten für $x_1(t) = A\epsilon(t)$ und $x_2(t) = A\epsilon(t - \Delta T)$ konstruieren. Wenn wir nun mit zunehmend kürzeren Impulsen den Dirac-Impuls $\delta(t)$ approximieren, erhalten wir im Grenzwert die Impulsantwort des Systems.
+
+% Grafik: Abb. 3.10 – Übergang von Rechteckimpuls-Anregung zur Impulsantwort (drei Signalpaare)
+
+Die \textit{Impulsantwort} ist eine charakteristische Eigenschaft eines LTI/LSI-Systems, die mit $x(t) = \delta(t)$ bzw.\ $x[k] = \delta[k]$ am Systemausgang zur Verfügung steht.
 
 \begin{center}
 \begin{tikzpicture}[>=latex, node distance=1.2cm]
@@ -22,9 +36,9 @@ Ein LTI/LSI System wird durch seine \textit{Impulsantwort} charakterisiert:
 
 Voraussetzung hierfür ist, dass das System vor der Anregung mit dem Impuls in Ruhe ist, d.\,h.\ dass alle inneren Zustände Null sind.
 
-\subsection{Das Faltungsintegral (engl. Convolution)}
+\subsection{Das Faltungsintegral}
 
-Mit der Impulsantwort $h(t) = \mathcal{S}[\delta(t)]$ eines LTI-Systems $\mathcal{S}$ und mit
+Mit der Impulsantwort $h(t) = \mathcal{S}[\delta(t)]$ eines LTI-Systems $\mathcal{S}$ und mit der Siebeigenschaft des Dirac-Impulses
 
 $$
 x(t) = \int_{-\infty}^{\infty} x(\xi)\,\delta(\xi - t)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} x(\xi)\,\delta(t - \xi)\,\mathrm{d}\xi
@@ -33,20 +47,16 @@ $$
 erhalten wir für ein beliebiges Eingangssignal $x(t)$
 
 \begin{align*}
-y(t) = \mathcal{S}\left[x(t)\right] &= \mathcal{S}\left[\int_{-\infty}^{\infty} x(\xi)\,\delta(t-\xi)\,\mathrm{d}\xi\right] \\
-&= \int_{-\infty}^{\infty} x(\xi)\,\mathcal{S}\left[\delta(t-\xi)\right]\mathrm{d}\xi \\
+y(t) = \mathcal{S}\left[x(t)\right] &= \mathcal{S}\!\left[\int_{-\infty}^{\infty} x(\xi)\,\delta(t-\xi)\,\mathrm{d}\xi\right] \\
+&= \int_{-\infty}^{\infty} x(\xi)\,\mathcal{S}\!\left[\delta(t-\xi)\right]\mathrm{d}\xi \\
 &= \int_{-\infty}^{\infty} x(\xi)\,h(t-\xi)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi \\
-&= x(t) * h(t)
+&= x(t) * h(t),
 \end{align*}
 
+wobei im ersten Rechenschritt die Linearität und im zweiten Schritt die Zeitvarianz ausgenutzt wurde. Die Umformung in der dritten Zeile folgt aus einer einfachen Variablensubstitution $\xi \to t - \xi$. Diese Rechenoperation wird als \textit{Faltung} (engl.\ ,,convolution'') bezeichnet und mit dem Symbol $*$ dargestellt. Das Faltungsintegral ermöglicht somit die Berechnung des Ausgangssignals wenn das Eingangssignal und die Impulsantwort des Systems bekannt sind. Aus der Umformung in der dritten Zeile erkennen wir zudem, dass die Faltung kommutativ ist, d.\,h.\ die Rollen von Eingangssignal und Impulsantwort können vertauscht werden, ohne dass sich das Ergebnis ändert.
+
 \begin{beispiel}[RC-Netz: Berechnung des Ausgangssignals]
-Die Eingangs-Ausgangsbeziehung des RC-Netzes ist wie folgt gegeben:
-
-$$
-y(t) = z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t} x(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathrm{d}\xi
-$$
-
-Für $z(t_0) = 0$ und $t_0 = -\infty$ erhält man ein Faltungsintegral:
+Die Eingangs-Ausgangsbeziehung des RC-Netzes ist für $z(t_0) = 0$ und $t_0 = -\infty$:
 
 \begin{align*}
 y(t) &= \frac{1}{\tau}\int_{-\infty}^{t} x(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathrm{d}\xi \\
@@ -57,41 +67,278 @@ y(t) &= \frac{1}{\tau}\int_{-\infty}^{t} x(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathr
 $\Rightarrow$ Kausales System mit der Impulsantwort $h(t) = \epsilon(t)\,\dfrac{1}{\tau}\,e^{-\frac{t}{\tau}}$.
 \end{beispiel}
 
-\subsection{Berechnung der Faltung}
+\begin{beispiel}[Berechnung der Faltung zweier Rechteckimpulse]
+Wir betrachten die Faltung eines Rechteckimpulses $x(t)$ mit einer ebenso rechteckförmigen Impulsantwort $h(t)$. Das Ergebnis der Faltung ergibt sich aus (3.39) und ist in Abbildung 3.12 dargestellt. Man beachte dabei die formale Ähnlichkeit, aber auch die Unterschiede zur Berechnung der Kreuzkorrelationsfunktion.
 
-% Grafik: x(t) Rechteckimpuls [0, t₂]; h(t) Rechteckimpuls [0, t₁] und [t₁, t₂]; gespiegeltes/verschobenes x(ξ); Ausgangssignal y(t) als Trapez mit Eckpunkten bei 0, t₁, t₂
+% Grafik: Abb. 3.12 – x(t) Rechteck [0,t₂], h(t) Rechteck [t₁,t₂], y(t) Trapez
 
-\subsection{BIBO-Stabilitätskriterium für LTI-Systeme}
+Die Berechnung des Faltungsintegrals erfordert Fallunterscheidungen, die in den nachfolgenden Abbildungen 3.13–3.20 dargestellt sind. Die Fälle werden so gewählt, dass eine einfache Berechnung des Faltungsintegrals möglich wird. Wir gehen dabei auf der $t$-Achse von links nach rechts vor. Man erkennt bei der Ausführung dieses Beispiels, dass für ein fest gewähltes $t$ der Term $h(t - \xi)$ einer Zeitumkehr und Verschiebung der Impulsantwort $h(t)$ um $t$ entspricht. Mit fortschreitendem $t$ wird dann $h(t - \xi)$ gegenüber dem Signal $x(\xi)$ verschoben und das Produkt integriert.
+
+\begin{itemize}
+  \item $t < t_1$: Es gibt keine Überlappung der Signale, daher $y(t) = 0$.
+  % Grafik: Abb. 3.13 – t < t₁
+  \item $t = t_1$: Beginn der Überlappung.
+  % Grafik: Abb. 3.14 – t = t₁
+  \item $t_1 < t < t_2$: Die Signale überlappen zunehmend.
+  % Grafik: Abb. 3.15 – t₁ < t < t₂
+  \item $t = t_2$: Vollständige Überlappung.
+  % Grafik: Abb. 3.16 – t = t₂
+  \item $t_2 < t < 2t_2 - t_1$: Die Überlappung nimmt ab.
+  % Grafik: Abb. 3.17 – t₂ < t < 2t₂ − t₁
+  \item $t = t_2 + t_2 - t_1$: Ende der abnehmenden Überlappung.
+  % Grafik: Abb. 3.18 – t = t₂ + t₂ − t₁
+  \item $t = 2t_2$: Letzte Überlappung.
+  % Grafik: Abb. 3.19 – t = 2t₂
+  \item $t > 2t_2$: Keine Überlappung mehr, daher $y(t) = 0$.
+  % Grafik: Abb. 3.20 – t > 2t₂
+\end{itemize}
+\end{beispiel}
+
+Die für LTI-Systeme charakteristische Verwendung einer Impulsantwort, um daraus mit Hilfe des Eingangssignals und des Faltungsintegrals das Ausgangssignal des Systems zu berechnen, ist nur zulässig, wenn das System zuvor in Ruhe war, d.\,h.\ zu Beginn der Betrachtung alle inneren Zustände Null waren.
+
+\begin{beispiel}[Faltung eines Exponentialsignals mit einer Rechteckfunktion]
+Wir betrachten nun ein LTI-System mit einem Eingangssignal $x(t) = \epsilon(t)e^{-\frac{t}{\tau}}$ und einer Impulsantwort $h(t) = \mathrm{rect}\!\left(\tfrac{t}{T}\right)$. Für die Berechnung des Ausgangssignals wählen wir die Form
 
 $$
-y(t) = \int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi
+y(t) = \int_{-\infty}^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi.
 $$
 
-Das System ist BIBO-stabil, wenn für $|x(t)| < x_{\max}$ auch $|y(t)| < \infty$ gilt:
+Aus der Definition der Funktion $y(t)$ erkennen wir, dass $x(t)$ gespiegelt (,,umgeklappt'') und um den Wert $t$ verschoben wird. Das Rechtecksignal $h(t)$ bleibt unverändert, somit ist das Integral nur auf dem Intervall $[0, T]$ zu lösen. Durch die Verschiebung des Signals $x(t)$ benötigen wir zur Lösung des Faltungsintegrals dennoch drei Fälle (dem Leser wird empfohlen, hierfür Skizzen anzufertigen):
+
+\begin{itemize}
+  \item In dem ersten Abschnitt ($t < 0$) tritt keine Überlappung der von Null verschiedenen Anteile der Signale auf, daher ist das Produkt beider Signale Null,
+
+$$
+t < 0:\quad y(t) = 0\,.
+$$
+
+  \item Im zweiten Intervall überlappen die Signale, allerdings muss nur bis zu dem Wert $t$ integriert werden, da die gespiegelte Exponentialfunktion für alle Werte $\xi$ größer $t$ Null ist,
+
+$$
+0 \leq t \leq T:\quad y(t) = \int_0^T 1 \cdot e^{-\frac{t-\xi}{\tau}}\epsilon(t-\xi)\,\mathrm{d}\xi = e^{-\frac{t}{\tau}}\int_0^t e^{\frac{\xi}{\tau}}\,\mathrm{d}\xi = T\!\left(1 - e^{-\frac{t}{\tau}}\right).
+$$
+
+  \item In dem letzten Abschnitt wird das Integral über das Rechtecksignal begrenzt, da die Exponentialfunktion in diesem Bereich nie den Wert Null annimmt,
+
+$$
+t > T:\quad y(t) = \int_0^T 1 \cdot e^{-\frac{t-\xi}{\tau}}\epsilon(t-\xi)\,\mathrm{d}\xi = e^{-\frac{t}{\tau}}\int_0^T e^{\frac{\xi}{\tau}}\,\mathrm{d}\xi = T\,e^{-\frac{t}{\tau}}\!\left(e - 1\right).
+$$
+\end{itemize}
+\end{beispiel}
+
+\subsection{Eigenschaften von Faltung und LTI-Systemen}
+
+LTI-Systeme weisen einige grundlegende Eigenschaften auf, deren Kenntnis und Anwendung das Rechnen wesentlich erleichtern können.
+
+\subsubsection*{Rechengesetze der Faltung}
+
+Im Fall zeitkontinuierlicher Systeme erfüllt das Faltungsintegral die folgenden Rechengesetze:
+
+\begin{itemize}
+  \item $x(t) * \delta(t) = x(t)$ ($\delta(x)$ ist das neutrale Element der Faltung)
+  \item $x(t) * h(t) = h(t) * x(t)$ (Kommutativgesetz)
+  \item $(x(t) * y(t)) * z(t) = x(t) * (y(t) * z(t))$ (Assoziativgesetz)
+  \item $x(t) * (h_1(t) + h_2(t)) = x(t) * h_1(t) + x(t) * h_2(t)$ (Distributivgesetz)
+\end{itemize}
+
+Diese sind jeweils leicht, gegebenenfalls durch Substitution der Integrationsvariablen in den Faltungsintegralen, zu beweisen. Als Beispiel zeigen wir, dass das Assoziativgesetz auch für Faltungsoperationen der drei Signale $x(t)$, $y(t)$ und $z(t)$ gilt:
 
 \begin{align*}
-|y(t)| &= \left|\int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi\right| \leq \int_{-\infty}^{\infty} |h(\xi)\,x(t-\xi)|\,\mathrm{d}\xi \\
-       &= \int_{-\infty}^{\infty} |h(\xi)|\,|x(t-\xi)|\,\mathrm{d}\xi \leq \int_{-\infty}^{\infty} |h(\xi)|\,x_{\max}\,\mathrm{d}\xi \\
-       &= x_{\max}\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty
+f(t) * z(t) = (x(t) * y(t)) * z(t)
+&= \int_{-\infty}^{\infty} \!\left(\int_{-\infty}^{\infty} x(\xi)\cdot y(\eta - \xi)\,\mathrm{d}\xi\right) z(t - \eta)\,\mathrm{d}\eta
 \end{align*}
 
-Das System ist BIBO-stabil, wenn $\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty$ gilt (hinreichende und notwendige Bedingung für BIBO-Stabilität).
+mit $f(\eta) = x(\eta) * y(\eta)$. Mit der Substitution $\eta = t - u \Leftrightarrow t - \eta = u$:
+
+$$
+(x(t) * y(t)) * z(t) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} x(\xi)\cdot y(t - u - \xi)\cdot z(u)\,\mathrm{d}\xi\,\mathrm{d}u
+$$
+
+Mit der Substitution $\xi = t - v$:
+
+\begin{align*}
+(x(t) * y(t)) * z(t)
+&= \int_{-\infty}^{\infty} x(t - v) \left(\int_{-\infty}^{\infty} y(v - u)\cdot z(u)\,\mathrm{d}u\right)\mathrm{d}v \\
+&= \int_{-\infty}^{\infty} x(t - v)\,g(v)\,\mathrm{d}v \\
+&= x(t) * (y(t) * z(t)) = x(t) * g(t)
+\end{align*}
+
+mit $g(t) = y(t) * z(t)$.
+
+\subsubsection*{Kausalität}
+
+Weiterhin soll auch die Auswirkung der Kausalität auf die Berechnungsvorschrift untersucht werden. Für die Kausalität eines LTI-Systems ist $h(t) = 0\ \forall\, t < 0$ eine notwendige und hinreichende Bedingung. Das Faltungsintegral hängt in diesem Fall nicht von zukünftigen Werten des Eingangssignals $x(t)$ ab. Das Ausgangssignal ergibt sich zu
+
+$$
+y(t) = \int_0^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi\,.
+$$
+
+\subsubsection*{BIBO-Stabilität}
+
+Die BIBO-Stabilität fordert, dass für jedes amplitudenbeschränkte Eingangssignal mit $|x(t)| < x_{\max}$ auch das Ausgangssignal des Systems beschränkt ist, d.\,h.\ $|y(t)| < \infty$. Für ein zeitkontinuierliches System gilt:
+
+\begin{align*}
+|y(t)| &= \left|\int_{-\infty}^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi\right|
+\leq \int_{-\infty}^{\infty} |h(\xi)\,x(t - \xi)|\,\mathrm{d}\xi \\
+&= \int_{-\infty}^{\infty} |h(\xi)|\cdot|x(t - \xi)|\,\mathrm{d}\xi
+\leq \int_{-\infty}^{\infty} |h(\xi)|\cdot x_{\max}\,\mathrm{d}\xi \\
+&= x_{\max}\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi
+\end{align*}
+
+Das System ist also BIBO-stabil, wenn die hinreichende Bedingung
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty
+$$
+
+gilt. Diese Bedingung ist allerdings auch notwendig, siehe hierzu Abschnitt 3.3.5.
+
+\subsubsection*{Autokorrelationsfunktion des Ausgangssignals}
+
+Wir berechnen nun die AKF des Ausgangssignals eines linearen Systems und erhalten damit die sogn.\ Wiener-Lee Beziehung. Das lineare System sei durch eine Impulsantwort $h(t)$ charakterisiert. Das Ausgangssignal berechnet sich zu
+
+$$
+y(t) = \int_{-\infty}^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi\,.
+$$
+
+Wir erhalten für die AKF
+
+\begin{align*}
+\varphi_{yy}(\tau) &= \int_{-\infty}^{\infty} y(t)\cdot y(t + \tau)\,\mathrm{d}t \\
+&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(\xi)\cdot x(t - \xi)\,\mathrm{d}\xi \cdot \int_{-\infty}^{\infty} h(\beta)\cdot x(t + \tau - \beta)\,\mathrm{d}\beta\,\mathrm{d}t \\
+&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(\xi)\cdot h(\beta)\cdot \varphi_{xx}(\tau - \beta + \xi)\,\mathrm{d}\xi\,\mathrm{d}\beta\,.
+\end{align*}
+
+Mit der Substitution $\beta - \xi = u$, $\mathrm{d}u/\mathrm{d}\beta = 1$ folgt weiter
+
+\begin{align*}
+\varphi_{yy}(\tau) &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(\xi)\cdot h(\xi + u)\cdot \varphi_{xx}(\tau - u)\,\mathrm{d}\xi\,\mathrm{d}u \\
+&= \int_{-\infty}^{\infty} \varphi_{hh}(u)\cdot \varphi_{xx}(\tau - u)\,\mathrm{d}u = \varphi_{hh}(\tau) * \varphi_{xx}(\tau)\,.
+\end{align*}
+
+Es gilt also
+
+$$
+\varphi_{yy}(\tau) = \varphi_{hh}(\tau) * \varphi_{xx}(\tau)\,.
+$$
+
+Die AKF des Ausgangssignals $y(t)$ ergibt sich aus der Faltung der AKF des Eingangssignals mit der AKF der Impulsantwort.
+
+\subsubsection*{Messung von Impulsantworten}
+
+Für die Modellierung und Simulation eines realen Systems ist es wichtig dessen Impulsantwort zu kennen. Diese kann auf verschiedene Weisen gemessen werden.
+
+\begin{enumerate}
+  \item Wir regen das System mit einem Dirac-Impuls an, d.\,h.\ $\delta(t) * h(t) = h(t)$. Diese Methode ist zum Rechnen hilfreich, praktisch allerdings nur schwer zu realisieren, da der Impuls nur approximiert werden kann und er dann wegen seiner geringen Breite eine hohe Amplitude aufweist.
+
+  \item Messung mit einem Rauschsignal und der Kreuzkorrelationsfunktion. Diese Vorgehensweise ist in Abbildung 3.22 skizziert. $x(t)$ ist hierbei das Messsignal und $S$ das unbekannte System. Die Kreuzkorrelation von Eingangs- und Ausgangssignal ergibt
+
+$$
+\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} x(t)\,y(t + \tau)\,\mathrm{d}t = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(\xi)\,x(t + \tau - \xi)\,\mathrm{d}\xi\,x(t)\,\mathrm{d}t\,.
+$$
+
+  Da $h(\xi)$ nicht von $t$ abhängt, ist dieser Term bezüglich $t$ wie eine Konstante zu behandeln und kann somit vor das innere Integral geschrieben werden.
+
+$$
+\varphi_{xy}(\tau) = \int_{-\infty}^{\infty} h(\xi)\,\underbrace{\int_{-\infty}^{\infty} x(t)\,x(t - \xi + \tau)\,\mathrm{d}t}_{\mathrm{AKF}} \,\mathrm{d}\xi = \int_{-\infty}^{\infty} h(\xi)\,\varphi_{xx}(\tau - \xi)\,\mathrm{d}\xi = h(\tau) * \varphi_{xx}(\tau)
+$$
+
+  Für ein Signal, für das $\varphi_{xx}(\tau) = \delta(\tau)$ gilt, erhält man somit durch Messung der Kreuzkorrelationsfunktion die Impulsantwort.
+
+  % Grafik: Abb. 3.22 – x(t) → S → y(t) → KKF → φ_y(t)
+
+  \item Das System $\mathcal{S}$ wird mit speziellen Signalen vermessen, die mit Hilfe eines invertierbaren Systems erzeugt werden. Hierfür bieten sich sogenannte Sweep-Signale an, die eine impulsförmige $AKF$ besitzen. Wie in Abbildung 3.23 gezeigt, resultiert die Verkettung des Systems und des inversen Systems in einer Verzögerung des Eingangssignals.
+
+  % Grafik: Abb. 3.23 – Sweep → S (h(t)) → Sweep⁻¹ → h(t-T)
+\end{enumerate}
+
+\subsubsection*{Eigenfunktionen von LTI-Systemen und Frequenzgang}
+
+Eigenfunktionen eines Systems sind spezielle Signale bei denen die Eingangssignale und Ausgangssignale bis auf einen (komplexwertigen) Faktor identisch sind. Das Eingangssignal wird somit am Ausgang des Systems in seiner grundsätzlichen Form reproduziert. Die komplexe Exponentialfunktion ist die Eigenfunktion des LTI-Systems. Für eine gegebene Kreisfrequenz $\omega$ ist das Eingangssignal durch
+
+$$
+x(t) = A\,e^{j\omega t} = A\cos(\omega t) + jA\sin(\omega t)
+$$
+
+gegeben. Das Ausgangssignal berechnet sich zu
+
+\begin{align*}
+y(t) &= \int_{-\infty}^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} h(\xi)\cdot A\,e^{j\omega(t-\xi)}\,\mathrm{d}\xi \\
+&= \underbrace{A\,e^{j\omega t}}_{\text{Eingangssignal}}\underbrace{\int_{-\infty}^{\infty} h(\xi)\,e^{-j\omega\xi}\,\mathrm{d}\xi}_{\underline{H}(j\omega)\text{ komplexwertiger Faktor}}\,.
+\end{align*}
+
+Der komplexwertige Faktor $\underline{H}(j\omega)$ skaliert das Eingangssignal und wird als \textbf{Frequenzgang} des Systems bezeichnet. Er gibt an, wie das Eingangssignal durch das LTI-System in der Amplitude und Phase verändert wird. Dieser Faktor ist eine Funktion der Kreisfrequenz $\omega$. Daraus folgt auch, dass der Frequenzgang eines LTI-Systems mit Sinus/Cosinus-Funktionen vermessen werden kann. Ferner kann der Frequenzgang durch \textit{Fourier-Transformation} aus der Impulsantwort berechnet werden. Diese Transformation ist durch die Rechenvorschrift
+
+$$
+\underline{H}(j\omega) = \int_{-\infty}^{\infty} h(\xi)\,e^{-j\omega\xi}\,\mathrm{d}\xi
+$$
+
+gegeben.
 
 \subsection{Die zeitdiskrete Faltung}
 
-In gleicher Weise erhält man für ein LSI-System
+Für zeitdiskrete Systeme lassen sich die oben getroffenen Definitionen und Beobachtungen sinngemäß übertragen. Insbesondere erhält man auch hier unter Anwendung der Linearität und der Verschiebungsinvarianz das Ausgangssignal eines LSI-System,
 
 \begin{align*}
-y[k] = \mathcal{S}\left[x[k]\right] &= \mathcal{S}\left[\sum_{l=-\infty}^{\infty} x[l]\,\delta[k-l]\right] \\
-&= \sum_{l=-\infty}^{\infty} x[l]\,\mathcal{S}\left[\delta[k-l]\right] \\
-&= \sum_{l=-\infty}^{\infty} x[l]\,h[k-l] = x[k] * h[k]\,,
+y[k] &= \mathcal{S}\left[x[k]\right] \\
+&= \mathcal{S}\!\left[\sum_{l=-\infty}^{\infty} x[l]\,\delta[k-l]\right] = \sum_{l=-\infty}^{\infty} x[l]\,\mathcal{S}\!\left[\delta[k-l]\right] \\
+&= \sum_{l=-\infty}^{\infty} x[l]\,h[k-l] = \sum_{l=-\infty}^{\infty} h[l]\,x[k-l] = x[k] * h[k]
 \end{align*}
 
-die zeitdiskrete Faltung, so dass auch hier das Ausgangssignal $y[k]$ allein aus dem Eingangssignal $x[k]$ und der Impulsantwort $h[k]$ berechnet wird.
+durch die zeitdiskrete Faltung, so dass auch hier das Ausgangssignal $y[k]$ allein aus dem Eingangssignal $x[k]$ und der Impulsantwort $h[k]$ berechnet wird. Auch hier gilt die wichtige Bedingung, dass zu Beginn der Betrachtung das System $\mathcal{S}$ in Ruhe sein muss.
 
-\subsection{Eigenschaften von LTI/LSI Systemen}
+Im Folgenden wird ein Beispiel eines Systems mit einer im Prinzip diskreten Impulsantwort diskutiert.
 
-\textbf{Symmetrie} von Eingangssignal und Impulsantwort:
+\begin{beispiel}[Schallausbreitung in halligen Räumen]
+
+Wir betrachten ein vereinfachtes zeitdiskretes Modell der Schallausbreitung in einem halligen Raum. Dabei treffen wir die Annahme, dass alle zeitlichen Verzögerungen durch ganzzahlige Vielfache des Abtastintervalls $T_A$ angenähert werden können.
+
+% Grafik: Abb. 3.24 – Halliger Raum mit Sprecher und Mikrofon, Direktschallpfad
+
+In einem halligen Raum gelangt der Schall nicht nur auf direktem Weg sondern auch über \textbf{Rückwürfe von den Wänden} vom Sender (Sprecher) zum Empfänger (Mikrofon). Diese verzögert eintreffenden Schallsignale werden linear überlagert. Für den zum Zeitpunkt $k_0 T_A$ eintreffenden Direktschall und eine zum Zeitpunkt $k_1 T_A$ eintreffende Reflexion des Sprachsignals erhält man,
+
+$$
+y[k] = a_0\,x[k - k_0] + a_1\,x[k - k_1].
+$$
+
+Durch Vergleich mit der Faltungssumme $y[k] = \sum_{l=-\infty}^{\infty} h[l]\,x[k-l]$ erhalten wir die Koeffizienten der Impulsantwort zu
+
+$$
+h[l] = \begin{cases} a_0 & l = k_0 \\ a_1 & l = k_1 \\ 0 & \text{sonst.} \end{cases}
+$$
+
+Diese Impulsantwort ist in Abb.\ 3.27 für $k_0 = 4$ und $k_1 = 8$ dargestellt.
+
+% Grafik: Abb. 3.27 – h[l] Impulsantwort mit zwei Impulsen bei k₀=4 und k₁=8
+
+Bei vielfachen Rückwürfen folgt in gleicher Weise
+
+$$
+y[k] = a_0 x[k-k_0] + a_1 x[k-k_1] + a_2 x[k-k_2] + a_3 x[k-k_3] \ldots = \sum_{l=0}^{\infty} h[l]\,x[k-l]
+$$
+
+mit
+
+$$
+h[l] = \begin{cases} a_0 & l = k_0 \\ a_1 & l = k_1 \\ a_2 & l = k_2 \\ a_3 & l = k_3 \\ \cdots \\ 0 & \mathrm{sonst,} \end{cases}
+$$
+
+wobei die Überlagerung der verschiedenen Ausbreitungswege auch zu insgesamt auslöschendem Verhalten und damit zu negativen Koeffizienten $h[l]$ in der Impulsantwort führen kann.
+
+% Grafik: Abb. 3.28 – h[l] mit vielen Impulsen unterschiedlicher Vorzeichen
+
+Die Berücksichtigung sämtlicher Rückwürfe führt dann zur \textbf{Raumimpulsantwort} $h[l]$ mit vielen hundert von Null verschiedenen Koeffizienten. Die Impulsantwort $h[l]$ kann mit einer Impulsanregung des Raums gemessen werden. Es ist daher besser, für die Messung Rauschsignale längerer Dauer einzusetzen (siehe auch Abschnitt 3.3.3).
+
+% Grafik: Abb. 3.29 – Raumimpulsantwort h[l], Abtastindex l von 0 bis 2500, Amplitude −0.5 bis 0.5
+\end{beispiel}
+
+\subsection{Eigenschaften von diskreter Faltung und LSI-Systemen}
+
+Am Beispiel zeitdiskreter Signale sollen die Eigenschaften der Faltung in einigen Punkten weiter veranschaulicht werden.
+
+\subsubsection*{Kommutativität von Eingangssignal und Impulsantwort}
+
+Aufgrund des Kommutativgesetzes sind die Rollen von Eingangssignal und Impulsantwort vertauschbar.
 
 \begin{center}
 \begin{tikzpicture}[>=latex, node distance=1cm]
@@ -109,7 +356,27 @@ die zeitdiskrete Faltung, so dass auch hier das Ausgangssignal $y[k]$ allein aus
 \end{tikzpicture}
 \end{center}
 
-\textbf{Kaskadierte} Systeme sind vertauschbar:
+Die Symmetrieeigenschaft wird wie folgt nachgewiesen:
+
+$$
+y[k] = \sum_{l=-\infty}^{\infty} x[l]\cdot h[k-l]
+$$
+
+1. Substitution: $p = k - l$
+
+$$
+y[k] = \sum_{p=-\infty}^{\infty} x[k-p]\,h[p]
+$$
+
+2. Substitution: $p = l$
+
+$$
+y[k] = \sum_{l=-\infty}^{\infty} h[l]\,x[k-l]\,.
+$$
+
+\subsubsection*{Assoziativgesetz der diskreten Faltung}
+
+Die Kaskade zweier Systeme ist in Abb.\ 3.31 dargestellt. Bei der Vertauschung der Systeme mit den Impulsantworten $h_1[k]$ und $h_2[k]$ kommt das Assoziativgesetz zur Anwendung.
 
 \begin{center}
 \begin{tikzpicture}[>=latex, node distance=0.8cm]
@@ -129,7 +396,31 @@ die zeitdiskrete Faltung, so dass auch hier das Ausgangssignal $y[k]$ allein aus
 \end{tikzpicture}
 \end{center}
 
-\textbf{Parallele} Systeme lassen sich zusammenfassen:
+Wir zeigen nun auch für den diskreten Fall, dass zwei kaskadierte LSI-Systeme mit den Impulsantworten $h_1[k]$ und $h_2[k]$ kommutativ sind. Mit $x_1[k] = x[k] * h_1[k]$ folgt
+
+\begin{align*}
+y[k] &= (x[k] * h_1[k]) * h_2[k] = \sum_{m=-\infty}^{\infty} x_1[m]\,h_2[k-m] \\
+&= \sum_{m=-\infty}^{\infty} \left(\sum_{l=-\infty}^{\infty} h_1[l]\,x[m-l]\right) h_2[k-m] \\
+&= \sum_{l=-\infty}^{\infty} h_1[l] \sum_{m=-\infty}^{\infty} x[m-l]\,h_2[k-m]
+\end{align*}
+
+1. Substitution: $k - m = p \to m = k - p$
+
+$$
+y[k] = \sum_{l=-\infty}^{\infty} h_1[l] \sum_{p=-\infty}^{\infty} h_2[p]\,x[k - p - l]
+$$
+
+2. Substitution: $l = k - q \to k = l + q$
+
+$$
+y[k] = \sum_{q=-\infty}^{\infty} h_1[k-q] \left(\sum_{p=-\infty}^{\infty} h_2[p]\,x[q-p]\right) = (x[k] * h_2[k]) * h_1[k]
+$$
+
+Die Gleichung verdeutlicht die Vertauschbarkeit in offensichtlicher Weise: Es ist unerheblich, ob zuerst die Summation über $l$ oder $p$ ausgeführt wird.
+
+\subsubsection*{Distributivgesetz der diskreten Faltung}
+
+Parallele Systeme lassen sich zusammenfassen. Dies ist die Aussage des Distributivgesetzes.
 
 \begin{center}
 \begin{tikzpicture}[>=latex, node distance=0.8cm]
@@ -153,52 +444,87 @@ die zeitdiskrete Faltung, so dass auch hier das Ausgangssignal $y[k]$ allein aus
 \end{tikzpicture}
 \end{center}
 
-\begin{beispiel}[Schallausbreitung in halligen Räumen]
-% Grafik: Raum mit Sprecher, Mikrofon y[k]; Direktschall (Freifeld), Reflexionen 1. und 2. Ordnung
-
-\subsubsection*{Zeitdiskretes Modell der Schallausbreitung}
-
-In einem halligen Raum gelangt der Schall nicht nur auf direktem Weg sondern auch über \textbf{Rückwürfe von den Wänden} zum Mikrofon. Auch diese verzögert eintreffenden Schallsignale werden linear überlagert. Für den Direktschall und eine Reflexion erhält man:
-
 $$
-y[k] = a_0\,x[k-k_0] + a_1\,x[k-k_1] = \sum_{l=0}^{\infty} h[l]\,x[k-l]
+y[k] = x[k] * h_1[k] + x[k] * h_2[k] = x[k] * (h_1[k] + h_2[k])
 $$
 
-mit
+\subsubsection*{Kausalität}
+
+Für LSI-Systeme ist
 
 $$
-h[l] = \begin{cases} a_0 & l = k_0 \\ a_1 & l = k_1 \\ 0 & \text{sonst} \end{cases}
+h[k] = 0\ \forall\, k < 0
 $$
 
-% Grafik: h[l] als zwei Impulse bei k₀ und k₁
-
-Bei vielen und mehrfachen Reflexionen:
+eine notwendige und hinreichende Bedingung für die Kausalität des Systems. Die Faltungssumme hängt in diesem Fall nicht von zukünftigen Werten des Eingangssignals ab. Das Ausgangssignal ergibt sich zu
 
 $$
-y[k] = a_0\,x[k-k_0] + a_1\,x[k-k_1] + a_2\,x[k-k_2] + a_3\,x[k-k_3] + \ldots = \sum_{l=0}^{\infty} h[l]\,x[k-l]
+y[k] = \sum_{l=0}^{\infty} h[l]\,x[k-l]\,.
 $$
 
-mit
+\subsubsection*{BIBO-Stabilität für LSI-Systeme}
+
+Die BIBO-Stabilität fordert, dass für jedes beschränkte Eingangssignal mit $|x[k]| < x_{\max}$ auch das Ausgangssignal beschränkt ist, d.\,h.\ $|y[k]| < \infty$. Für ein zeitdiskretes System gilt:
+
+\begin{align*}
+|y[k]| &= \left|\sum_{l=-\infty}^{\infty} h[l]\,x[k-l]\right| \\
+&\leq \sum_{l=-\infty}^{\infty} |h[l]\,x[k-l]| \\
+&= \sum_{l=-\infty}^{\infty} |h[l]|\cdot|x[k-l]| \\
+&\leq \sum_{l=-\infty}^{\infty} |h[l]|\cdot x_{\max} \\
+&= x_{\max}\cdot\sum_{l=-\infty}^{\infty} |h[l]|
+\end{align*}
+
+Das System ist also BIBO-stabil, wenn die hinreichende Bedingung
 
 $$
-h[l] = \begin{cases} a_0 & l = k_0 \\ a_1 & l = k_1 \\ a_2 & l = k_2 \\ a_3 & l = k_3 \\ \vdots \end{cases}
+\sum_{l=-\infty}^{\infty} |h[l]| < \infty
 $$
 
-wobei die Überlagerung der verschiedenen Ausbreitungswege auch zu einer auslöschenden Dämpfung und damit zu negativen Koeffizienten $a_i$ führen kann.
+gilt.
 
-% Grafik: h[l] mit mehreren Impulsen unterschiedlicher Vorzeichen
+Diese Bedingung ist allerdings auch notwendig, denn es kann gezeigt werden, dass es auch für $\sum_{l=-\infty}^{\infty} |h[l]| = \infty$ amplitudenbeschränkte Eingangssignale gibt, die ein unbeschränktes Ausgangssignal hervorrufen. Das System kann in diesem Fall niemals BIBO-stabil sein. Ein solches Signal ist mit
 
-\subsubsection*{Raumimpulsantwort und diskrete Faltung}
+$$
+x[k] = \begin{cases} \dfrac{h^*[-k]}{|h[-k]|} & h[k] \neq 0 \\ 0 & h[k] = 0 \end{cases}
+$$
 
-\begin{itemize}
-  \item Die Berücksichtigung sämtlicher Rückwürfe führt dann zur \textbf{Raumimpulsantwort} $h[l]$ mit vielen hundert von Null verschiedenen Koeffizienten.
-  \item Die Impulsantwort $h[l]$ kann mit einer Impulsanregung des Raums gemessen werden.
-\end{itemize}
+gegeben, welches offensichtlich amplitudenbeschränkt ist. Es gilt somit
 
-% Grafik: Raumimpulsantwort h[l], Abtastindex l von 0 bis 2500, Amplitude −0.5 bis 0.5
+$$
+y[0] = \sum_{l=-\infty}^{\infty} h[l]\,x[-l] = \sum_{l=-\infty}^{\infty} \frac{|h[l]|^2}{|h[l]|} = \sum_{l=-\infty}^{\infty} |h[l]|\,.
+$$
+
+Für $\sum_{l=-\infty}^{\infty} |h[l]| = \infty$ wird somit zumindest der Ausgangswert $y[0]$ unendlich groß.
+
+\begin{beispiel}[Kaskade zweier einfacher Systeme]
+Wir betrachten hierzu das in Abb.\ 3.32 gezeigte einfache Beispiel mit zwei Systemen erster Ordnung. Hierbei wird ein erstes System mit der Impulsantwort $h_1[k]$ mit einem zweiten System mit der Impulsantwort $h_2[k]$ in Reihe angeordnet.
+
+% Grafik: Abb. 3.32 – Kaskade zweier einfacher Systeme
+
+Es gilt:
+
+\begin{align*}
+h_1[k] &= \delta[k] - \delta[k-1] \quad \text{und} \\
+h_2[k] &= 2\delta[k] - 2\delta[k-1] = 2\cdot(\delta[k] - \delta[k-1])\,.
+\end{align*}
+
+Die Impulsantwort der resultierenden Kaskade beider Systeme ergibt sich in verschiedenen Schreibweisen zu
+
+\begin{align*}
+h[k] &= h_1[k] * h_2[k] \\
+&= h_2[k] - h_2[k-1] \\
+&= 2\delta[k] - 2\delta[k-1] - (2\delta[k-1] - 2\delta[k-2]) \\
+&= 2\delta[k] - 4\delta[k-1] + 2\delta[k-2] \\
+&= 2(\delta[k] - \delta[k-1]) - 2(\delta[k-1] - \delta[k-2]) \\
+&= 2h_1[k] - 2h_1[k-1]
+\end{align*}
+
+% Grafik: Abb. 3.33 – Impulsantwort des Systems aus Abb. 3.32
 \end{beispiel}
 
 \section{Parametrische Systeme}
+
+Die Berechnung der Ausgangssignale aus den Eingangssignalen und den Zustandsvariablen wird häufig durch Signalflussdiagramme dargestellt. Dabei kommen die folgenden einfachen Elemente zum Einsatz.
 
 \subsection{Signalflussdiagramme}
 
@@ -288,38 +614,66 @@ wobei die Überlagerung der verschiedenen Ausbreitungswege auch zu einer auslös
 \end{tabular}
 \end{center}
 
+Parametrische Systeme sind dadurch gekennzeichnet, dass ihr Verhalten durch eine (meist kleine) Anzahl von Parametern (oder Koeffizienten) beschrieben werden kann.
+
 \subsection{Parametrische LSI Systeme}
 
-% Grafik: Vollständiges parametrisches LSI-Blockdiagramm: Vorwärtspfad x[k]→T_A→...→T_A gewichtet b₀,...,b_N; Rückkopplungspfad y[k]→T_A→...→T_A gewichtet a₁,...,a_M; alle in einer Summe
+Das Signalflussdiagramm eines linearen, verschiebungsinvarianten Systems ist in Abbildung 3.36 gezeigt, wobei das Systemverhalten durch die Struktur und die konstanten Parameter $b_0, \ldots, b_N$ und $a_1, \ldots, a_M$ bestimmt wird.
+
+% Grafik: Abb. 3.36 – Parametrisches LSI System (vollständig mit Vorwärtspfad b₀,...,b_N und Rückkopplungspfad a₁,...,a_M)
+
+Das LSI-System in Abbildung 3.36 wird durch die folgende Differenzengleichung beschrieben:
+
+$$
+y[k] = \sum_{\nu=0}^{N} x[k-\nu]\,b_\nu + \sum_{\mu=1}^{M} y[k-\mu]\,a_\mu\,.
+$$
 
 \subsection{Nichtrekursives Parametrisches LSI System (FIR)}
 
-% Grafik: x[k] → T_A → T_A → ... → T_A, Abgriffe b₀,b₁,b₂,...,b_N, Summe → y[k]
+Wenn der rekursive Zweig entfernt wird, erhält man das nichtrekursive System.
 
-Dieses System hat eine endliche ausgedehnte Impulsantwort und wird daher auch als ,,finite impulse-response (FIR)'' System bezeichnet.
+% Grafik: Abb. 3.37 – Nichtrekursives parametrisches LSI System
+
+Dieses System wird durch die Gleichung
+
+$$
+y[k] = \sum_{\nu=0}^{N} x[k-\nu]\,b_\nu
+$$
+
+beschrieben. Dieses System hat eine endliche ausgedehnte Impulsantwort und wird daher auch als ,,finite impulse-response (FIR)'' System bezeichnet.
 
 \subsection{Rekursives Parametrisches LSI System (IIR)}
 
-% Grafik: x[k] → b₀⊗ → (+) → y[k]; Rückkopplungspfad y[k] → T_A → T_A → ... → T_A, gewichtet a₁,a₂,a₃,...,a_M, zurück zur Summe
+Ein rein rekursives System wird durch
+
+$$
+y[k] = x[k]\,b_0 + \sum_{\mu=1}^{M} y[k-\mu]\,a_\mu
+$$
+
+beschrieben.
+
+% Grafik: Abb. 3.38 – Rekursives parametrisches LSI System
 
 Dieses System hat im Allgemeinen eine unendliche ausgedehnte Impulsantwort und wird als ,,infinite impulse-response (IIR)'' System bezeichnet.
 
 \section{Weitere Beispiele}
 
-\begin{beispiel}[2-D Faltung in Neuronalen Netzen (CNN)]
-Das Bild zeigt die grundlegende Funktion eines neuronalen Faltungsnetzes für zweidimensionale (Bild-)Daten, die durch Kreise auf der linken Seite symbolisiert sind. Die Größe des 2-D Faltungskerns (hier $M = N = 3$) ist durch das gestrichelte Quadrat angedeutet. Zur Erzeugung der Ausgangsdaten (indiziert durch $u$ und $v$) wird dann durch Verschieben des Faltungskerns eine 2-D Faltung implementiert
+\begin{beispiel}[Neuronale Faltungsnetze (,,convolutional neural networks -- CNN'')]
+Künstliche neuronale Netze spielen in der automatischen Mustererkennung eine überragende Rolle. Typische Anwendungen sind die Spracherkennung, die Handschrifterkennung, oder die Erkennung von Objekten und Hindernissen beim autonomen Fahren. Dabei ist die Bearbeitung von (mehrdimensionalen) Bild- oder Videodaten besonders herausfordernd. Zur Reduktion der Komplexität der Mustererkennung in Bilddaten werden deshalb oft Netzstrukturen verwendet, die die (zweidimensionale) Faltungsoperation (oder auch Korrelationsoperation) nachbilden (,,convolutional neural network -- CNN''). Im Unterschied zu der bisher betrachteten Faltung, werden die gesuchten Muster in der Form eines oder mehrerer ,,Faltungskerne'' nicht ,,a priori'' fest vorgegeben sondern aus gegebenen Daten trainiert.
+
+Das grundlegende Prinzip des CNN ist in Abb.\ 3.39 dargestellt. Hierbei werden die Bildpunkte eines gegebenen Bilds durch die Kreise auf der linken Seite symbolisiert. Die Größe eines zweidimensionalen Faltungskerns (hier $J = I = 3$) ist durch das gestrichelte Quadrat angedeutet. Durch Verschieben des Faltungskerns wird dann eine zweidimensionale Faltung zur Erzeugung der Ausgangsdaten (indiziert durch $m$ und $n$) implementiert,
 
 $$
-y[u,v] = f\!\left(\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} w[m,n]\,x[u-m,\,v-n] + b\right)\,,
+y(m,n) = f\!\left(\sum_{i=0}^{J-1}\sum_{j=0}^{I-1} w(i,j)\,x(m-i, n-j) + b\right).
 $$
 
-und durch einen Bias $b$ und eine nichtlineare Aktivierungsfunktion $f$ ergänzt.
+% Grafik: Abb. 3.39 – Prinzip des Faltungsnetzes
 
-% Grafik: 2-D CNN – Eingabegitter x(m,n), gestricheltes 3×3-Faltungskernelement w(m,n), Summierglied (+), Aktivierungsfunktion f → Ausgabe y(u,v)
+Wie bei neuronalen Netzen allgemein üblich, wird hierbei die lineare Faltung durch einen additiven Bias $b$ und eine nichtlineare Aktivierungsfunktion $f$ ergänzt. Häufig wird diese CNN-Struktur in aufeinanderfolgenden Schichten kaskadiert, so dass die Ausgangsdaten einer ersten Schicht die Eingangsdaten einer nachfolgenden Schicht ergeben.
 \end{beispiel}
 
 \begin{beispiel}[Signalübertragung mit PCM und DPCM]
-Für jeden Abtastwert wird, entsprechend seiner Amplituden und der daraus resultierenden Quantisierungsstufe, ein digitaler Code übertragen. Dieses Verfahren wird deshalb \textit{pulse code modulation} (PCM) genannt.
+Die digitale Übertragung eines zunächst analogen Sprach- oder Audiosignals $x(t)$ erfordert eine Abtastung, Quantisierung, Codierung, Modulation und eine entsprechende Rückgewinnung des Signals im Empfänger. Für jeden Abtastwert wird, entsprechend seiner Amplituden und der daraus resultierenden Quantisierungsstufe, ein digitaler Code übertragen. Dieses Verfahren wird deshalb auch \textit{pulse code modulation} (PCM) genannt.
 
 Um die Abhängigkeit aufeinander folgender Abtastwerte für die effiziente Quantisierung zu nutzen, werden häufig differentielle Verfahren eingesetzt. Im einfachsten Fall wird vom Sender die Differenz $d(kT_A) = x(kT_A) - x((k-1)T_A)$ quantisiert, codiert und übertragen. Der Empfänger muss dann durch eine laufende Summation die Abtastwerte des Signals $x(kT_A)$ aus den Differenzwerten rekonstruieren. Mit diesem Verfahren, das als \textit{differential pulse code modulation} (DPCM) bezeichnet wird, kann Abtastrate gegen Wortbreite abgetauscht werden.
 
@@ -349,7 +703,15 @@ $$
 d[k] = x[k] - z_s[k] = \begin{cases} x[0] - z_s[0] & k = 0 \\ x[k] - x[k-1] & k \geq 1 \end{cases}
 $$
 
+wobei $z_S[0]$ den Zustand des Systems für $k = 0$ repräsentiert.
+
 \subsubsection*{DPCM Empfänger}
+
+Der DPCM-Empfänger ist in Abb.\ 3.41 dargestellt. Für den Empfänger erhält man
+
+$$
+\widehat{x}[k] = d[k] + z_E[k] = z_E[0] + \sum_{n=0}^{k} d[n]\,.
+$$
 
 \begin{center}
 \begin{tikzpicture}[>=latex, node distance=1cm]
@@ -371,11 +733,20 @@ $$
 \end{tikzpicture}
 \end{center}
 
-Für den Empfänger erhält man:
+Für das diskrete Ausgangssignal des Empfängers erhält man
+
+\begin{align*}
+\widehat{x}[k] &= z_E[0] + \sum_{n=0}^{\infty} d[n] = z_E[0] + x[0] - z_S[0] + \sum_{n=1}^{\infty} x[n] - x[n-1] \\
+&= z_E[0] + x[0] - z_S[0] + (x[1] - x[0] + x[2] - x[1] + \ldots + x[k] - x[k-1])
+\end{align*}
+
+Schreibt man den ersten Teil der Summe aus, fällt auf, dass ein großer Teil der Summanden wegfällt. Man erhält
 
 $$
-\widehat{x}[k] = d[k] + z_E[k] = z_E[0] + \sum_{n=0}^{k} d[n]
+\widehat{x}[k] = z_E[0] - z_S[0] + x[k]\,.
 $$
+
+$\widehat{x}[k]$ entspricht $x[k]$ genau dann, wenn $z_E[0] = z_S[0]$ gilt, d.\,h.\ Sender und Empfänger starten bei $k = 0$ in dem selben Zustand.
 
 Für $z_S[0] = z_E[0]$ gilt $\widehat{x}[k] = x[k]\ \forall\ k \geq 0$. Sender und Empfänger enthalten Speicher für einen Abtastwert bzw.\ die laufende Summe. Diese stellen die inneren Zustände dar.
 
@@ -384,18 +755,6 @@ Für $z_S[0] = z_E[0]$ gilt $\widehat{x}[k] = x[k]\ \forall\ k \geq 0$. Sender u
 % Grafik: Zwei Plots bei f_A = 16 kHz; oben x(kT_A) (Originalsignal), unten d(kT_A) (Differenzsignal), t/s von 0 bis 6
 
 % Grafik: Zwei Plots bei f_A = 64 kHz; oben x(kT_A), unten d(kT_A), t/s von 0 bis 6
-
-\subsubsection*{Original und Differenzsignal}
-
-% Grafik (4 Plots): Vergleich f_A = 16 kHz und f_A = 64 kHz, jeweils x(kT_A) und d(kT_A) im Ausschnitt kT_A von 0.156562 bis ~0.1578
-
-\subsubsection*{Differenzsignal und rekonstruiertes Signal}
-
-% Grafik (4 Plots): f_A = 16 kHz und f_A = 64 kHz – oben d(kT_A), unten x̂(kT_A), Ausschnitt kT_A ≈ 0.156562–0.1578
-
-\subsubsection*{Quantisiertes (2 Bit) und rekonstruiertes Signal}
-
-% Grafik (6 Plots): f_A = 16 kHz und f_A = 64 kHz – oben Q_q(d(kT_A)) (2-Bit-quantisiertes Differenzsignal), Mitte x̂(kT_A) (rekonstruiert), unten e²(kT_A) (quadratischer Fehler, Skala ×10⁻³)
 \end{beispiel}
 
 \section*{Zusammenfassung}
@@ -405,7 +764,6 @@ Für $z_S[0] = z_E[0]$ gilt $\widehat{x}[k] = x[k]\ \forall\ k \geq 0$. Sender u
   \item Hierbei spielen die inneren Zustandvariablen des Systems eine große Rolle.
   \item Wichtige Systemeigenschaften sind die Linearität, die Zeitinvarianz oder Verschiebungsinvarianz und die Stabilität.
   \item LTI bzw.\ LSI Systeme werden durch ihre Impulsantwort beschrieben.
+  \item Das Ausgangssignal eines LTI/LSI-Systems berechnet sich als Faltung des Eingangssignals mit der Impulsantwort.
   \item Zeitinvariante und zeitvariante Systeme können mit einem Zustandsraummodell beschrieben und berechnet werden.
 \end{itemize}
-
-
