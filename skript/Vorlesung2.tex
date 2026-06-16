@@ -1,39 +1,72 @@
 \chapter{Signaleigenschaften und Kenngrößen}
 
+Der besseren Übersicht halber werden die Signaleigenschaften für kontinuierliche und diskrete Signale parallel eingeführt.
+
 \section{Symmetrie reellwertiger Signale}
 
 \begin{definition}[gerade symmetrisch]
+Ein reellwertiges Signal $x$ heißt \textbf{gerade symmetrisch}, falls
+
 $$
-x(t) = x(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = x[-k]\ \forall k \in \mathbb{Z}\
+x(t) = x(-t) \quad \forall t \in \mathbb{R} \qquad \text{bzw.} \qquad x[k] = x[-k] \quad \forall k \in \mathbb{Z}
 $$
+
+gilt.
 \end{definition}
 
 \begin{definition}[ungerade symmetrisch]
+Ein reellwertiges Signal $x$ heißt \textbf{ungerade symmetrisch}, falls
+
 $$
-x(t) = -x(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = -x[-k]\ \forall k \in \mathbb{Z}\
+x(t) = -x(-t) \quad \forall t \in \mathbb{R} \qquad \text{bzw.} \qquad x[k] = -x[-k] \quad \forall k \in \mathbb{Z}
 $$
+
+gilt.
 \end{definition}
 
-Analog dazu ergänzen sich symmetrie Eigenschaften für komplexwertige Signale.
+Für komplexwertige Signale wird zudem die \textbf{konjugiert gerade Symmetrie} wie folgt definiert:
 
 \begin{definition}[konjugiert gerade symmetrisch]
 $$
-x(t) = x*(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = x*[-k]\ \forall k \in \mathbb{Z}\
+\underline{x}(t) = \underline{x}^*(-t) \quad \forall t \in \mathbb{R} \qquad \text{bzw.} \qquad \underline{x}[k] = \underline{x}^*[-k] \quad \forall k \in \mathbb{Z}.
 $$
 \end{definition}
 
-Hierbei ist der Realteil von x eine gerade symmetrische Funktion und
-der Imaginärteil eine ungerade symmetrische Funktion.
+Hierbei ist der Realteil von $\underline{x}$ eine gerade symmetrische Funktion und der Imaginärteil eine ungerade symmetrische Funktion.
 
+Ferner kann für komplexwertige Signale die \textbf{konjugiert ungerade Symmetrie} eingeführt werden:
 
 \begin{definition}[konjugiert ungerade symmetrisch]
 $$
-x(t) = -x*(-t)\ \forall t \in \mathbb{R}\ \text{bzw.}\ x[k] = -x*[-k]\ \forall k \in \mathbb{Z}\
+\underline{x}(t) = -\underline{x}^*(-t) \quad \forall t \in \mathbb{R} \qquad \text{bzw.} \qquad \underline{x}[k] = -\underline{x}^*[-k] \quad \forall k \in \mathbb{Z}.
 $$
 \end{definition}
 
-Hierbei ist der Realteil von x eine ungerade symmetrische Funktion
-und der Imaginärteil eine gerade symmetrische Funktion.
+Hierbei ist der Realteil von $\underline{x}$ eine ungerade symmetrische Funktion und der Imaginärteil eine gerade symmetrische Funktion.
+
+Jedes beliebige zeitkontinuierliche oder zeitdiskrete reellwertige Signal lässt sich in einen geraden und einen ungeraden symmetrischen Anteil zerlegen:
+
+$$
+x(t) = x_{\mathrm{g}}(t) + x_{\mathrm{u}}(t) \qquad \text{bzw.} \qquad x[k] = x_{\mathrm{g}}[k] + x_{\mathrm{u}}[k]
+$$
+
+mit
+
+$$
+x_{\mathrm{g}}(t) = \frac{1}{2}\bigl(x(t) + x(-t)\bigr) \qquad \text{bzw.} \qquad x_{\mathrm{g}}[k] = \frac{1}{2}\bigl(x[k] + x[-k]\bigr)
+$$
+
+und
+
+$$
+x_{\mathrm{u}}(t) = \frac{1}{2}\bigl(x(t) - x(-t)\bigr) \qquad \text{bzw.} \qquad x_{\mathrm{u}}[k] = \frac{1}{2}\bigl(x[k] - x[-k]\bigr).
+$$
+
+Auch komplexwertige Signale $\underline{x}$ können entsprechend aus einem konjugiert geraden und einem konjugiert ungeraden Anteil zusammengesetzt werden.
+
+\begin{beispiel}[Symmetrie]
+Das Signal $x(t) = \cos(\omega t)$ ist eine gerade symmetrische Funktion. Das Signal $x(t) = \sin(\omega t)$ ist eine ungerade symmetrische Funktion. Beides ist durch Einsetzen in die obigen Definitionen leicht zu zeigen.
+\end{beispiel}
 
 
 \section{Periodische Signale}
@@ -59,8 +92,9 @@ für alle $k \in \mathbb{Z}$ und $n \in \mathbb{Z}$ gilt.
 \end{definition}
 
 
-Die Abtastung eines periodischen analogen Signals ergibt nicht notwendigerweise auch
-ein periodisches zeitdiskretes Signal.
+Man beachte, dass die Abtastung eines periodischen analogen Signals nicht notwendigerweise auch ein periodisches zeitdiskretes Signal ergibt. Dies ist nur dann der Fall, wenn die Grundperiode ein ganzzahliges Vielfaches der Abtastperiode ist oder beide in einem rationalen Verhältnis stehen.
+
+Unabhängig von der speziellen funktionalen Form, kann man Signale durch integrale Kenngrößen beschreiben. Wichtige Begriffe sind hierbei der Mittelwert, die Energie und die Leistung eines Signals.
 
 
 \section{Mittelwert}
@@ -110,7 +144,19 @@ $$
 $$
 \end{definition}
 
-\section{Energie}
+\section{Norm, Energie und Leistung}
+
+In endlich-dimensionalen euklidischen Räumen ist die Berechnung von innerem Produkt (Skalarprodukt) und einer Norm gut eingeführt und leicht nachvollziehbar. Z.\,B.\ entspricht die $l_2$-Norm eines $N$-dimensionalen Vektors der Länge des Vektors im Vektorraum. Diese Konzepte lassen sich auch auf Funktionen und unendlich dimensionale Folgen übertragen.
+
+Hierzu führen wir zunächst die $L_p$ bzw. $l_p$-Norm, $1 < p < \infty$, eines komplexwertigen Signals $\underline{x}$ ein:
+
+$$
+\|\underline{x}(t)\|_p = \left(\int_{-\infty}^{\infty} |\underline{x}(t)|^p\,\mathrm{d}t\right)^{\!\frac{1}{p}}
+\qquad \text{bzw.} \qquad
+\|\underline{x}[k]\|_p = \left(\sum_{k=-\infty}^{\infty} |\underline{x}[k]|^p\right)^{\!\frac{1}{p}}
+$$
+
+Besonders wichtig sind die Fälle $p = 2$ ($l_2$-Norm), $p = 1$ ($l_1$-Norm) und $p = \infty$ ($l_\infty$-Norm oder Maximums-Norm). Im Fall der Maximums-Norm muss das Signal amplitudenbeschränkt sein, denn $\|\underline{x}(t)\|_\infty = \max_{\forall t}\{|\underline{x}(t)|\}$.
 
 \begin{definition}[Energie und Energiesignal]
 Die \textbf{Energie} $E$ des Signals $\underline{x}$ im Zeitintervall $[t_1, t_2]$ bzw. eines zeitdiskreten
@@ -137,6 +183,14 @@ existiert, wird $\underline{x}$ als \textbf{Energiesignal} bezeichnet.
 Ferner halten wir fest, dass für reellwertige Signale $|\underline{x}(t)|^2 = x^2(t) = x(t)x(t)$
 und für komplexwertige Signale $|\underline{x}(t)|^2 = x(t)x^*(t)$ gilt, wobei $\underline{x}^*(t)$ das zu $\underline{x}(t)$
 konjugiert komplexe Signal bezeichnet.
+
+\begin{beispiel}[Energie des Rechteckimpulses]
+Gegeben sei ein Rechteckimpuls der Amplitude $A$ und der Dauer $T_2 - T_1$. Die Energie dieses Rechtecksignals ist offenbar endlich. Für das reellwertige Signal berechnet sie sich zu
+
+$$
+E = \int_{-\infty}^{\infty} x^2(t)\,\mathrm{d}t = \int_{T_1}^{T_2} A^2\,\mathrm{d}t = A^2\bigl[t\bigr]_{T_1}^{T_2} = A^2(T_2 - T_1).
+$$
+\end{beispiel}
 
 
 \section{Leistung}
@@ -168,7 +222,33 @@ gewählt werden kann. Falls der Grenzwert mit $P > 0$ existiert, wird
 das Signal als \textbf{Leistungssignal} bezeichnet.
 \end{definition}
 
+Oftmals kann die Klassifikation eines Signals anhand einfacher Kriterien erfolgen: Hat z.\,B.\ ein zeitlich begrenztes Signal eine begrenzte Amplitude, dann handelt es sich um ein Energiesignal. Jedoch fallen einige wichtige Elementarsignale (Sprungfunktion, Sinussignal) nicht in diese Kategorie. Zu dieser Kategorie gehören auch die periodischen Signale.
+
+\begin{beispiel}[Mittelwert und Leistung des Cosinussignals]
+Gegeben ist das Cosinussignal $x(t) = A\cos(\omega t + \varphi)$ mit $\omega = \frac{2\pi}{T}$. Es handelt sich um ein reellwertiges Signal, das mit $T$ periodisch ist. Die Berechnung des Mittelwerts berücksichtigt nur eine Periode und kann mit Hilfe der Substitutionsregel wie folgt angegeben werden:
+
+$$
+\bar{x} = \frac{1}{T}\int_{-T/2}^{T/2} A\cos(\omega t + \varphi)\,\mathrm{d}t
+        = \frac{A}{\omega T}\bigl[\sin(u)\bigr]_{\varphi-\pi}^{\varphi+\pi}
+        = \frac{A}{\omega T}\bigl(-\sin(\varphi) + \sin(\varphi)\bigr) = 0.
+$$
+
+Hierbei wurde die Substitution $u = \omega t + \varphi$ ausgeführt. Für die Leistung des Cosinussignals erhalten wir mit $\cos^2(\alpha) = \frac{1}{2}(1 + \cos(2\alpha))$:
+
+$$
+\begin{aligned}
+P &= \frac{1}{T}\int_{-T/2}^{T/2} A^2\cos^2(\omega t + \varphi)\,\mathrm{d}t \\
+  &= \frac{A^2}{2T}\int_{-T/2}^{T/2} \bigl(1 + \cos(2\omega t + 2\varphi)\bigr)\,\mathrm{d}t \\
+  &= \frac{A^2}{2T}\cdot T + \frac{A^2}{2T}\int_{-T/2}^{T/2}\cos(2\omega t + 2\varphi)\,\mathrm{d}t = \frac{A^2}{2}.
+\end{aligned}
+$$
+
+Das Cosinussignal ist somit ein Leistungssignal mit Leistung $P = \frac{A^2}{2}$.
+\end{beispiel}
+
 \chapter{Inneres Produkt (Skalarprodukt)}
+
+Während bei der Berechnung der Norm immer nur ein einzelnes Signal betrachtet wird, werden nun Beziehungen zwischen zwei oder mehr Signalen betrachtet. Dabei sind die Orthogonalität, Kollinearität und Korrelation sehr nützliche Konzepte.
 
 \begin{definition}[Inneres Produkt]
 Das innere Produkt wird für zwei \textbf{Energiesignale} $\underline{x}$ und $\underline{y}$ wie folgt definiert:
@@ -188,6 +268,7 @@ genannt. Zwei Signale, die bis auf einen Skalierungsfaktor identisch sind,
 werden \textbf{kollinear} genannt.
 \end{definition}
 
+Dabei ergibt das Integral bzw. die Summe einen endlichen Wert. Für reellwertige Signale ist das innere Produkt ebenfalls reellwertig, für komplexwertige Signale ist es im Allgemeinen komplexwertig. Wenn das innere Produkt (im Realteil und Imaginärteil) Null ist, werden die Signale $\underline{x}$ und $\underline{y}$ \textbf{orthogonal} genannt. Sie sind \textbf{kollinear}, wenn $\underline{y}(t) = a\underline{x}(t)$, $a \in \mathbb{R}$, bzw. $\underline{y}[k] = a\underline{x}[k]$, $a \in \mathbb{R}$, gilt.
 
 Für \textbf{periodische Signale} der Periode $T$ bzw. $N$ gilt entsprechend
 
@@ -213,6 +294,8 @@ Das Integral bzw. die Summe wird für alle zeitlichen Verschiebungen $\tau$ bzw.
 \end{definition}
 
 
+Demnach wird die Ähnlichkeit im Fall zeitkontinuierlicher Signale überprüft, indem $\underline{x}^*(t)$ mit $\underline{y}(t+\tau)$ für alle $t$ multipliziert und das Ergebnis integriert wird. Dieser Prozess wird für alle zeitlichen Verschiebungen $\tau$ des Signals $\underline{y}(t)$ durchgeführt.
+
 Im Allgemeinen ist die KKF eine komplexwertige Funktion bzw. Folge. Im Fall reellwertiger Signale vereinfacht sich die Schreibweise zu
 
 $$
@@ -221,6 +304,17 @@ $$
 \varphi_{xy}[\varkappa] = \sum_{k=-\infty}^{\infty} x[k]\,y[k+\varkappa].
 $$
 
+\subsection*{Kreuzkorrelationsfunktion periodischer Signale}
+
+Wenn $\underline{x}$ und $\underline{y}$ periodische Signale der Periodendauer $T$ bzw. $N$ sind, ist die Kreuzkorrelationsfunktion durch
+
+$$
+\tilde{\varphi}_{xy}(\tau) = \frac{1}{T}\int_{-T/2}^{T/2} \underline{x}^*(t)\,\underline{y}(t+\tau)\,\mathrm{d}t
+\qquad \text{bzw.} \qquad
+\tilde{\varphi}_{xy}[\varkappa] = \frac{1}{N}\sum_{k=0}^{N-1} \underline{x}^*[k]\,\underline{y}[k+\varkappa]
+$$
+
+gegeben. Aufgrund der von der aperiodischen Definition abweichenden Definition kennzeichnen wir die Kreuzkorrelationsfunktion periodischer Signale mit dem Tilde-Symbol.
 
 \newpage
 \textbf{Schema zur Kreuzkorrelation (zeitdiskret und zeitkontinuierlich)}
@@ -489,6 +583,20 @@ $$
 \end{definition}
 
 
+Offensichtlich muss die Autokorrelationsfunktion $\varphi_{xx}$ bei $\tau = 0$ bzw. $\varkappa = 0$ maximal werden. Wir zeigen nun am Beispiel eines analogen, reellwertigen Signals, dass die AKF eine gerade symmetrische Funktion ist. Ausgehend von der Definition und der Substitution $t = u - \tau$ erhalten wir:
+
+$$
+\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(u-\tau)\,x(u)\,\mathrm{d}u.
+$$
+
+Durch eine weitere Substitution $u = t$ erhalten wir schließlich
+
+$$
+\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(t)\,x(t-\tau)\,\mathrm{d}t = \varphi_{xx}(-\tau).
+$$
+
+Es gilt also $\varphi_{xx}(\tau) = \varphi_{xx}(-\tau)$. Die AKF reellwertiger Signale ist somit eine gerade symmetrische Funktion in $\tau$. Für komplexwertige Signale lässt sich zeigen, dass $\underline{\varphi}_{xx}(\tau) = \underline{\varphi}_{xx}^*(-\tau)$ gilt, d.\,h.\ der Realteil der komplexwertigen AKF ist eine gerade symmetrische Funktion und der Imaginärteil ist eine ungerade symmetrische Funktion.
+
 Die AKF eines periodischen Signals ist selbst periodisch mit derselben Periode $T$
 bzw.\ $N$. Maxima treten bei $\tau = n \cdot T$ mit $n \in \mathbb{Z}$ auf.
 
@@ -561,6 +669,34 @@ Gesucht ist $\varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(t)\,x(t+\tau)\,\math
 
 
 
+\begin{beispiel}[Autokorrelation des Sinussignals]
+Wir berechnen die AKF des Sinussignals $x(t) = A\sin(\omega t + \varphi)$. Offensichtlich handelt es sich um ein reellwertiges, periodisches Signal mit Periode $T = \frac{2\pi}{\omega}$, also
+
+$$
+\tilde{\varphi}_{xx}(\tau) = \frac{1}{T}\int_{-T/2}^{T/2} x(t)\,x(t+\tau)\,\mathrm{d}t = \frac{A^2}{T}\int_{-T/2}^{T/2} \sin(\omega t + \varphi)\sin(\omega t + \omega\tau + \varphi)\,\mathrm{d}t.
+$$
+
+Mit dem Additionstheorem $\sin(\alpha)\sin(\beta) = \frac{1}{2}(\cos(\alpha-\beta) - \cos(\alpha+\beta))$ folgt
+
+$$
+\sin(\omega t+\varphi)\sin(\omega t+\omega\tau+\varphi) = \frac{1}{2}\bigl(\cos(\omega\tau) - \cos(2\omega t + 2\varphi + \omega\tau)\bigr)
+$$
+
+und
+
+$$
+\tilde{\varphi}_{xx}(\tau) = \frac{A^2}{2T}\int_{-T/2}^{T/2}\cos(\omega\tau)\,\mathrm{d}t - \frac{A^2}{2T}\int_{-T/2}^{T/2}\cos(2\omega t + 2\varphi + \omega\tau)\,\mathrm{d}t.
+$$
+
+Da das zweite Integral Null ist und im ersten Integral der Integrand nicht von $t$ abhängt, folgt
+
+$$
+\tilde{\varphi}_{xx}(\tau) = \frac{A^2\cos(\omega\tau)}{2T}\cdot T = \frac{A^2}{2}\cos(\omega\tau).
+$$
+
+Wie zu erwarten war, ist die AKF des Sinussignals eine periodische Funktion mit der Periode $T = \frac{2\pi}{\omega}$. Für $\tau = 0$ erhalten wir die Leistung des Sinussignals: $\tilde{\varphi}_{xx}(0) = \frac{A^2}{2}$.
+\end{beispiel}
+
 \section{Orthogonalsysteme}
 
 $M$ zueinander orthogonale Funktionen $x_i(t)$ bilden ein Orthogonalsystem. Es gilt
@@ -571,7 +707,23 @@ $$
 
 Gilt zusätzlich $\langle x_i(t), x_i(t) \rangle = 1 \quad \forall\, i \in \{1, \ldots, M\}$, spricht man von einem Orthonormalsystem.
 
-Orthonormalsysteme eignen sich besonders zur Approximation komplizierter Signale durch elementare Signale.
+Orthonormalsysteme eignen sich besonders zur Approximation komplizierter Signale durch orthogonale Elementarsignale.
+
+\begin{beispiel}[Cosinus-Signale]
+Wir gehen der Frage nach, ob die Signale $x(t) = \cos(n\omega_0 t)$ und $y(t) = \cos(m\omega_0 t)$ mit der Bedingung $\omega_0 = \frac{2\pi}{T} = 2\pi f_0$ und $n, m \in \mathbb{N}$ orthogonal sind. Um diese Frage zu beantworten, benutzen wir die Definition des Skalarprodukts für periodische Funktionen:
+
+$$
+\langle x(t), y(t)\rangle = \frac{1}{T}\int_{-T/2}^{T/2} \cos(n\omega_0 t)\cos(m\omega_0 t)\,\mathrm{d}t.
+$$
+
+Wir verwenden das Additionstheorem $\cos(\alpha)\cos(\beta) = \frac{1}{2}(\cos(\alpha-\beta) + \cos(\alpha+\beta))$ und erhalten:
+
+$$
+\frac{1}{T}\int_{-T/2}^{T/2} \frac{1}{2}\bigl(\cos(\omega_0 t(n-m)) + \cos(\omega_0 t(n+m))\bigr)\,\mathrm{d}t = \begin{cases} \dfrac{1}{2} & n = m \\ 0 & \text{sonst.} \end{cases}
+$$
+
+Für den Fall $n \neq m$ sind die Signale orthogonal, da sich im Argument der cos-Funktionen ganzzahlige Vielfache der Grundfrequenz $f_0$ ergeben und somit das Integral Null wird.
+\end{beispiel}
 
 \subsection*{Kommunikation mit orthogonalen Sequenzen}
 
@@ -579,15 +731,13 @@ Orthogonale Signale werden u.\,a.\ in Mobilfunksysteme verwendet um Teilnehmer $
 
 \chapter{Signalsynthese und Signalanalyse}
 
-\textbf{Aufgabe:} Synthese eines Signals mit Sinus- und Cosinusfunktionen.
-
-\begin{center}
-\textit{Jean Baptiste Joseph Fourier, 1768–1830}
-\end{center}
+Mit orthonormalen Funktionen lassen sich Signale auf systematische Weise approximieren. Dieses Approximationsverfahren wird als \textit{Fouriersynthese} (nach J.\,B.\,J.\ Fourier) bezeichnet.
 
 \section{Fourierreihe}
 
-Ein periodisches Signal $x(t)$ kann aus Sinusfunktionen unterschiedlicher Amplitude, Frequenz und Phase zusammengesetzt werden:
+\textbf{Die Fourierapproximation zeitkontinuierlicher Signale:}
+
+Ein analoges Signal $x(t)$ kann aus Sinusfunktionen unterschiedlicher Amplitude, Frequenz und Phase zusammengesetzt werden und dementsprechend auch wieder in diese Komponenten zerlegt werden. Für ein reellwertiges, periodisches Signal $x(t)$ wird die Fouriersynthese durch die Fourierreihe beschrieben:
 
 $$
 x(t) = \bar{x} + \sum_{n=1}^{\infty} X[n] \cos(2\pi n f_0 t + \varphi_n)
@@ -621,6 +771,10 @@ X[n] = \frac{1}{T_0} \int_{t_1}^{t_1+T_0} x(t)\, e^{-jn\omega_0 t}\,\mathrm{d}t
 $$
 
 entwickelt werden. Das zeitbegrenzte Signal $x(t)$ wird dann durch die diskrete Folge $X[n]$ repräsentiert.
+
+Die Reihenentwicklung besteht aus Kosinus- und Sinusfunktionen mit Frequenzen, die ganzzahligen Vielfachen der Grundfrequenz entsprechen, also orthogonal sind. Die Bestimmung der Koeffizienten wird als Fourieranalyse bezeichnet. Aufgrund der Orthogonalität der Kosinus- und Sinusfunktionen ergeben sich entkoppelte Bestimmungsgleichungen für die \textit{Fourierkoeffizienten}, d.\,h.\ jeder der Koeffizienten kann unabhängig von den anderen berechnet werden.
+
+Die Fourierreihenentwicklung kann selbstverständlich auch auf komplexwertige Signale angewandt werden. In der komplexwertigen Schreibweise erhalten wir für die Fouriersynthese und die Fourieranalyse dann eine sehr kompakte Darstellung.
 
 \subsection*{Analyse und Synthese im Vergleich}
 
@@ -681,15 +835,19 @@ Wenn das Signal einen Gleichanteil enthält, gilt $f_{\min} = 0$ und $B = f_{\ma
 
 \subsection*{Begrenzung der Bandbreite}
 
-Wird die Fourierreihe auf die ersten 60 Sinusfunktionen begrenzt, gehen höherfrequente Anteile verloren. Das Spektrum (Sinusamplituden über Frequenz/Grundfrequenz) wird bei der Grenzfrequenz abgeschnitten.
+Die Begrenzung der Bandbreite eines Signals führt zu einem Verlust an Detail. Offensichtlich eignet sich die Fourieranalyse zur Bestimmung der in einem Signal enthaltenen Frequenzen.
 
-\subsection*{Approximation eines Bildsignals}
+\begin{beispiel}[Approximation eines Bildsignals]
+Die nachfolgenden Bilder zeigen den Einfluss der Signalbandbreite auf die Bildqualität. Je kleiner die Bandbreite, desto detailärmer und letztlich unschärfer ist das Bild.
 
-Ein Bildsignal (z.\,B.\ eine Zeile eines Röntgenbildes) lässt sich ebenfalls durch Sinusfunktionen darstellen. Bei Verwendung von 60 bzw.\ 30 Sinusfunktionen nimmt die Bildschärfe sichtbar ab:
+Ein Bildsignal (z.\,B.\ eine Zeile eines Röntgenbildes) lässt sich durch Kosinusfunktionen darstellen. Mit Gleichanteil und 60 Kosinusfunktionen wird die wesentliche Struktur des Bildes erfasst. Bei Begrenzung auf 30 Kosinusfunktionen nimmt die Bildschärfe sichtbar ab.
 
 $$
 \Rightarrow \text{Je kleiner die Bandbreite, desto unschärfer ist das Bild.}
 $$
+
+% Grafik: Originalbild (Röntgenaufnahme) und Approximationen mit 60 bzw. 30 Kosinusfunktionen
+\end{beispiel}
 
 \section{Diskrete Fourier-Transformation (DFT)}
 
@@ -707,7 +865,9 @@ $$
 
 Diese Transformation berechnet aus $M$ (möglicherweise komplexwertigen) Signalwerten $M$ in der Regel komplexwertige Spektralkoeffizienten (Fourierkoeffizienten). Sie ist eindeutig umkehrbar.
 
-\subsection*{DFT eines Sprachlauts ($M = 164$)}
+\subsection*{Physikalische Frequenz der Fourierkoeffizienten}
+
+Diese Transformation berechnet aus $M$ (möglicherweise komplexwertigen) Signalwerten $M$ in der Regel komplexwertige Spektralkoeffizienten (Fourierkoeffizienten). Sie ist eindeutig umkehrbar.
 
 Wenn das diskrete Zeitsignal durch Abtastung mit der Abtastperiode $T_A$ aus einem analogen Signal hervorgegangen ist, gilt für die physikalische Frequenz des $m$-ten Koeffizienten mit $m < M/2$ die Beziehung
 
