@@ -1,0 +1,202 @@
+\section{Zwei Zufallsvariablen}
+
+Wenn zwei Zufallsvariablen $X$ und $Y$ gegeben sind, ist die Verbundverteilungsfunktion durch
+
+$$
+F_{XY}(x,y) = P(X \leq x, Y \leq y)
+$$
+
+definiert. Es gilt
+
+$$
+F_{XY}(-\infty, y) = 0, \quad F_{XY}(x, -\infty) = 0 \quad \text{und} \quad F_{XY}(\infty, \infty) = 1.
+$$
+
+Die Verbundverteilungsdichtefunktion ist dann durch
+
+$$
+p_{XY}(x,y) = \frac{\partial^2 F_{XY}(x,y)}{\partial x \, \partial y}
+$$
+
+gegeben. Somit gilt auch
+
+$$
+F_{XY}(x,y) = \int_{-\infty}^{x} \int_{-\infty}^{y} p_{XY}(\xi, \mu) \, \mathrm{d}\xi \, \mathrm{d}\mu.
+$$
+
+\subsection{Statistische Unabhängigkeit}
+
+Für zwei statistisch unabhängige Zufallsvariablen $X$ und $Y$ gilt:
+
+$$
+F_{XY}(x,y) = F_X(x) \cdot F_Y(y)
+$$
+
+und
+
+$$
+p_{XY}(x,y) = p_X(x) \cdot p_Y(y).
+$$
+
+\subsection{Randverteilungen}
+
+Die univariate Verteilungsdichtefunktion der Zufallsvariablen $X$ und $Y$ lässt sich mit
+
+$$
+p_X(x) = \int_{-\infty}^{\infty} p_{XY}(x,y)\,\mathrm{d}y \quad \text{und} \quad p_Y(y) = \int_{-\infty}^{\infty} p_{XY}(x,y)\,\mathrm{d}x
+$$
+
+bestimmen. Diese werden Randverteilungen genannt. Für die Verteilungsfunktion ergibt sich
+
+$$
+F_X(x) = F_{XY}(x, \infty) \quad \text{und} \quad F_Y(y) = F_{XY}(\infty, y).
+$$
+
+\begin{beispiel}[Bivariate Normalverteilung]
+Zwei Zufallsvariablen $X$ und $Y$ sind gemeinsam normalverteilt, wenn ihre Verbundverteilungsdichtefunktion durch
+
+$$
+p_{XY}(x,y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-r_{XY}^2}} \exp\!\left(-\frac{1}{2(1-r_{XY}^2)}\left[\frac{(x-\mu_X)^2}{\sigma_X^2} - 2r_{XY}\frac{(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} + \frac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right)
+$$
+
+gegeben ist. Hierbei sind $\mu_X$ und $\mu_Y$ die Mittelwerte, $\sigma_X^2$ und $\sigma_Y^2$ die Varianz und $r_{XY}$ der Korrelationskoeffizient
+
+$$
+r_{XY} = \frac{\mathrm{E}\{(X-\mu_X)(Y-\mu_Y)\}}{\sigma_X\sigma_Y}
+$$
+
+der Zufallsvariablen $X$ und $Y$. Es gilt $|r_{XY}| \leq 1$.
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=1, μ_Y=1, σ_X²=1, σ_Y²=1, r_XY=0
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=0.5, r_XY=0
+
+% Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0.5
+\end{beispiel}
+
+\subsection{Momente der bivariaten Verteilungsdichte}
+
+Die Momente zweier Zufallsvariablen $X$ und $Y$ mit der VDF $p_{XY}(x,y)$ lassen sich mit dem folgenden Theorem ermitteln:
+
+$$
+\mathrm{E}\{g(X,Y)\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y)\,p_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y.
+$$
+
+Hierbei ist $g(X,Y)$ eine beliebige Funktion der Zufallsvariablen $X$ und $Y$.
+
+Speziell gilt im Fall $Z = g(X,Y) = aX + bY$
+
+$$
+\mathrm{E}\{aX + bY\} = a\,\mathrm{E}\{X\} + b\,\mathrm{E}\{Y\}.
+$$
+
+Die Erwartungswertbildung ist eine lineare Operation.
+
+\subsection{Linearität des Erwartungswertes}
+
+Für zwei Zufallsvariablen $X$ und $Y$ gilt:
+
+$$
+\mathrm{E}\{aX + bY\} = a\,\mathrm{E}\{X\} + b\,\mathrm{E}\{Y\} \quad \text{für alle } a, b \in \mathbb{R}
+$$
+
+\subsection{Kovarianz, Korrelation und Orthogonalität}
+
+Die Kovarianz von zwei Zufallsvariablen $X$ und $Y$ ist zu
+
+$$
+C = \mathrm{E}\{(X - \mu_X)(Y - \mu_Y)\}
+$$
+
+definiert. Es gilt $C = \mathrm{E}\{XY\} - \mu_X\mu_Y$.
+
+Der Korrelationskoeffizient ist zu
+
+$$
+r_{XY} = \frac{\mathrm{E}\{(X - \mu_X)(Y - \mu_Y)\}}{\sigma_X\sigma_Y}
+$$
+
+definiert. Es gilt $|r_{XY}| \leq 1$.
+
+Zwei Zufallsvariablen werden orthogonal genannt, wenn
+
+$$
+\mathrm{E}\{XY\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x\,y\,p_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y = 0
+$$
+
+gilt.
+
+\subsection{Eine Funktion von zwei Zufallsvariablen}
+
+Es sei eine Funktion von zwei Zufallsvariablen $X$ und $Y$ gegeben:
+
+$$
+Z = g(X, Y)
+$$
+
+Die Verteilungsfunktion $F_Z(z)$ ist dann durch
+
+$$
+F_Z(z) = P(Z \leq z) = P(g(X,Y) \leq z) = \iint_{D_z} p_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y
+$$
+
+gegeben, wobei $D_z$ das nicht unbedingt zusammenhängende Gebiet in der $xy$-Ebene bezeichnet, für das $g(x, y) \leq z$ gilt.
+
+\begin{beispiel}
+Für $Z = X + Y$ gilt:
+
+% Grafik: Gebiet z ≤ x+y in der xy-Ebene (Halbebene unterhalb der Linie y = z-x)
+
+$$
+F_Z(z) = \int_{-\infty}^{\infty} \int_{-\infty}^{z-x} p_{XY}(x,y)\,\mathrm{d}y\,\mathrm{d}x
+$$
+
+$$
+p_Z(z) = \int_{-\infty}^{\infty} p_{XY}(x, z-x)\,\mathrm{d}x
+$$
+
+und im Fall unabhängiger Zufallsvariablen $X$ und $Y$
+
+$$
+p_Z(z) = \int_{-\infty}^{\infty} p_X(x)\,p_Y(z-x)\,\mathrm{d}x
+$$
+\end{beispiel}
+
+\subsection{Zwei Funktionen von zwei Zufallsvariablen}
+
+Gegeben sind zwei Zufallsvariablen $X$ und $Y$ und zwei Funktionen
+
+$$
+Z = g(X, Y) \quad \text{und} \quad W = h(X, Y).
+$$
+
+Die Verbundverteilungsdichtefunktion der Zufallsvariablen $Z$ und $W$ ist dann durch
+
+$$
+p_{ZW}(z,w) = \frac{p_{XY}(x_1, y_1)}{|\det(J(x_1, y_1))|} + \ldots + \frac{p_{XY}(x_n, y_n)}{|\det(J(x_n, y_n))|}
+$$
+
+gegeben, wobei die $x_i$ die Lösungen des Gleichungssystems $g(x_i, y_i) = z$, $h(x_i, y_i) = w$ sind und $J$ die Jakobi-Matrix
+
+$$
+J(x,y) = \begin{pmatrix} \dfrac{\partial g}{\partial x} & \dfrac{\partial g}{\partial y} \\[6pt] \dfrac{\partial h}{\partial x} & \dfrac{\partial h}{\partial y} \end{pmatrix}
+$$
+
+bezeichnet. Hierbei ist $\det(J(x_i, y_i))$ die Determinante dieser Matrix.
+
+\subsection{Statistische Mittelwerte und Zeitmittelwerte}
+
+% Grafik: Drei diskrete Realisierungen X_1[k], X_2[k], X_3[k] eines Zufallsprozesses als Impulsfolgen
+
+\subsection{Ausblick: Zufallsprozesse}
+
+Zufällige diskrete Signale lassen sich nun als Folge von Zufallsvariablen $X[k]$ definieren. Dabei kann für jede Zufallsvariable eine Verteilungsdichtefunktion und entsprechende statistische Mittelwerte und Momente angegeben werden. Zudem wird die statistische Abhängigkeit der Zufallsvariablen mit Verbundverteilungsdichtefunktionen beschrieben. Für die Modellbildung sind besonders
+
+\begin{itemize}
+  \item stationäre Zufallsprozesse (alle $X[k]$ weisen die selbe Verteilungsdichtefunktion auf) und
+  \item ergodische Zufallsprozesse (die statistischen Mittelwerte entsprechen den durch Mittelung über eine Folge $X[k]$ gewonnenen empirischen Mittelwerten).
+\end{itemize}
+
+

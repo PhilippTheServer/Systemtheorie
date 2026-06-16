@@ -1,0 +1,184 @@
+\section{Bedingte Wahrscheinlichkeiten und der Satz von Bayes}
+
+% Grafik: Videobild (Baumkronen), Schaltfläche „play"
+
+Die Bildpunkte eines Videosignals weisen ein hohes Maß an statistischer Abhängigkeit auf.
+
+\subsection{Bedingte Wahrscheinlichkeiten}
+
+Die Wahrscheinlichkeit $P(A_i|B_j)$, dass ein Ereignis $A_i \in \mathcal{A}$ eintritt, wenn das Ergebnis $B_j \in \mathcal{B}$ eines anderen Experiments mit $P(B_j) > 0$ vorausgesetzt wird, wird als bedingte Wahrscheinlichkeit bezeichnet und ist zu
+
+$$
+P(A_i|B_j) = \frac{P(A_i, B_j)}{P(B_j)}
+$$
+
+definiert. Es gilt $0 \leq P(A_i|B_j) \leq 1$.
+
+Wenn die Ereignisse $A_i$ und $B_j$ statistisch unabhängig sind gilt
+
+$$
+P(A_i|B_j) = \frac{P(A_i, B_j)}{P(B_j)} = \frac{P(A_i)P(B_j)}{P(B_j)} = P(A_i).
+$$
+
+In diesem Fall bleibt bei der Kenntnis des Ereignisses $B_j$ ohne Auswirkung auf die Wahrscheinlichkeit von $A_i$.
+
+\begin{beispiel}[Bedingte Wahrscheinlichkeiten]
+Wir betrachten die Erzeugung der Symbole $A_1$ und $A_2$ durch die Quelle $Q_A$ und der Symbole $B_1$ und $B_2$ durch die Quelle $Q_B$, also $\Omega_A = \{A_1, A_2\}$ und $\Omega_B = \{B_1, B_2\}$.
+
+Außerdem ist bekannt, dass die Wahrscheinlichkeiten für das gemeinsame Auftreten der Symbole durch
+
+$$
+P(A_1, B_1) = 0{,}3 \qquad P(A_2, B_1) = 0{,}2
+$$
+$$
+P(A_1, B_2) = 0{,}2 \qquad P(A_2, B_2) = 0{,}3
+$$
+
+gegeben sind. Die Randwahrscheinlichkeiten für das Auftreten eines Symbols ergeben sich somit zu $P(A_1) = P(A_2) = P(B_1) = P(B_2) = 0{,}5$.
+
+\begin{itemize}
+  \item Sind die Symbole der Quellen $Q_A$ und $Q_B$ statistisch abhängig?
+  \item Berechnen Sie die bedingte Wahrscheinlichkeit $P(A_1|B_1)$.
+\end{itemize}
+\end{beispiel}
+
+\begin{beispiel}[Gameshow]
+Hinter einer der Türen verbirgt sich ein Auto, hinter den anderen jeweils eine Ziege. Wenn Sie die richtige Tür raten, gehört das Auto Ihnen. Welche Tür wählen Sie?
+
+% Grafik: 3 Türen – eine mit Ziege, eine mit Auto, eine mit „?"
+
+Der Showmaster öffnet nun eine der beiden nicht ausgewählten Türen, hinter der sich eine Ziege verbirgt.
+
+Frage: Ist es sinnvoll, sich nun für die bisher nicht gewählte Tür zu entscheiden?
+\end{beispiel}
+
+\subsection{Totale Wahrscheinlichkeit}
+
+Für einen Wahrscheinlichkeitsraum $(\Omega, \mathcal{F}, \mathbb{P})$ mit der Partition $B_1, \ldots, B_N \in \mathcal{F}$ und $P(B_i) > 0$ für jedes $A_k \in \mathcal{F}$
+
+$$
+P(A_k) = \sum_{i=1}^{N} P(A_k|B_i)\,P(B_i)
+$$
+
+Das Theorem von der totalen Wahrscheinlichkeit erlaubt die Berechnung einer unbekannten Wahrscheinlichkeit $P(A_k)$ durch Entwicklung in eine Summe von oft einfacher zu ermittelnden bedingten Wahrscheinlichkeiten $P(A_k|B_i)$ und den \textit{a priori} Wahrscheinlichkeiten $P(B_i)$.
+
+\subsection{Der Satz von Bayes}
+
+Sei $(\Omega, \mathcal{F}, \mathbb{P})$ ein Wahrscheinlichkeitsraum und $B_1, \ldots, B_N \in \mathcal{F}$ eine Partition von $\Omega$ mit $P(B_i) > 0$ für alle $i = 1, \ldots, N$. Dann gilt für jedes $A_k \in \mathcal{F}$ mit $P(A_k) > 0$ und $B_j$
+
+$$
+P(B_j|A_k) = \frac{P(A_k|B_j)P(B_j)}{\displaystyle\sum_{i=1}^{N} P(A_k|B_i)P(B_i)} = \frac{P(A_k|B_j)P(B_j)}{\displaystyle\sum_{i=1}^{N} P(A_k, B_i)} = \frac{P(A_k|B_j)P(B_j)}{P(A_k)}
+$$
+
+\begin{beispiel}[Symmetrischer Binärkanal]
+Eine Datenquelle erzeugt die Symbole $\xi_1 = 0$ und $\xi_2 = 1$ mit den Wahrscheinlichkeiten $P(\xi_1) = P_1$ und $P(\xi_2) = P_2 = 1 - P_1$. Bei der Übertragung dieser Symbole treten Fehler für die beiden Fälle $0 \to 1$ und $1 \to 0$ mit der gleichen Wahrscheinlichkeit $P_e$ auf.
+
+\begin{center}
+\begin{tikzpicture}[>=latex, node distance=1.5cm]
+  \node (xi1) {$\xi_1 = 0$};
+  \node [below=1.2cm of xi1] (xi2) {$\xi_2 = 1$};
+  \node [right=4cm of xi1] (eta1) {$0 = \eta_1$};
+  \node [right=4cm of xi2] (eta2) {$1 = \eta_2$};
+  \draw[->] (xi1) -- node[above] {$1 - P_e$} (eta1);
+  \draw[->] (xi1) -- node[above, sloped, near end] {$P_e$} (eta2);
+  \draw[->] (xi2) -- node[below, sloped, near end] {$P_e$} (eta1);
+  \draw[->] (xi2) -- node[below] {$1 - P_e$} (eta2);
+\end{tikzpicture}
+\end{center}
+
+Auf der Grundlage dieses Modells und mit Hilfe des Satzes von Bayes lässt sich nun auf die gesendeten Bits schließen, z.\,B.
+
+$$
+P(\xi_1|\eta_1) = \frac{P(\eta_1|\xi_1) \cdot P(\xi_1)}{\displaystyle\sum_{i=1}^{2} P(\eta_1|\xi_i)P(\xi_i)} = \frac{(1-P_e)P_1}{(1-P_e)P_1 + P_e P_2}
+$$
+
+mit
+
+$$
+P(\eta_1|\xi_1) = 1 - P_e, \quad P(\eta_1|\xi_2) = P_e, \quad P(\eta_2|\xi_1) = P_e, \quad P(\eta_2|\xi_2) = 1 - P_e
+$$
+
+Anhand dieses Beispiels interpretieren wir
+
+\begin{itemize}
+  \item $P(\xi_i)$ als \textit{a priori} Wahrscheinlichkeiten (Vorabwissen)
+  \item $P(\eta_i|\xi_j)$ als Übergangswahrscheinlichkeiten
+  \item $P(\xi_j|\eta_i)$ als \textit{a posteriori} Wahrscheinlichkeiten
+\end{itemize}
+\end{beispiel}
+
+\begin{beispiel}[Internetwerbung]
+Ein Verlag möchte mehr über seine Leser erfahren, um diese gezielt mit Werbung zu Büchern des Genres Belletristik (B), Ratgeber (R) oder Sachbuch (S) zu versorgen. So kann dann gezielt Werbung in die Browser potentieller Käufer eingeblendet werden.
+
+Es soll in diesem Beispiel ermittelt werden, mit welcher Wahrscheinlichkeit eine der drei Personen $x_1$, $x_2$ oder $x_3$ ein Buch einer der drei Genres gekauft hat.
+
+Wir bezeichnen die Wahrscheinlichkeit, dass Person $x_i$ ein Buch im Internet kauft mit $P(K_i)$ und die Wahrscheinlichkeit, dass kein Buch gekauft wird mit $P(\overline{K_i})$.
+
+Aus alten Facebook-Daten ist nun bekannt, dass
+
+\begin{itemize}
+  \item die Person $x_1$ in der Schulzeit viele Bücher gelesen hat,
+  \item die Person $x_2$ schon einmal in der Nähe eines Bücherregals gesehen wurde (Foto auf dem Facebook-Server),
+  \item die Person $x_3$ gute Noten in den Schulfächern Deutsch und Englisch hatte.
+\end{itemize}
+
+Auf der Grundlage dieser Daten wird das generell zu vermutende Interesse am Kauf eines Buchs $K_i$ der Person $x_i$ als \textit{a priori} Information mit den Wahrscheinlichkeiten $P(K_i)$ modelliert:
+
+$$
+P(K_1) = 0{,}6 \qquad P(K_2) = 0{,}15 \qquad P(K_3) = 0{,}25
+$$
+
+Aus den Daten der Internetkäufe ist ferner bekannt, mit welchen relativen Häufigkeiten (als Wahrscheinlichkeiten zu modellieren) Bücher der Kategorie Belletristik (B), Ratgeber (R) oder Sachbuch (S) gekauft wurden, wenn von der Person $x_i$ ein Buch gekauft wurde. Dieses Wissen wird durch die bedingten Wahrscheinlichkeiten $P(\text{Genre} \mid \text{Person})$ modelliert:
+
+\begin{center}
+\begin{tabular}{lll}
+  $P(B|K_1) = 0{,}4$ & $P(R|K_1) = 0{,}1$ & $P(S|K_1) = 0{,}5$ \\
+  $P(B|K_2) = 0{,}1$ & $P(R|K_2) = 0{,}8$ & $P(S|K_2) = 0{,}1$ \\
+  $P(B|K_3) = 0{,}5$ & $P(R|K_3) = 0{,}2$ & $P(S|K_3) = 0{,}3$ \\
+\end{tabular}
+\end{center}
+
+In Kombination mit den \textit{a priori} Informationen, z.\,B.\ gilt $P(B, K) = P(B|K_1) \cdot P(K_1)$, ergeben sich nun die Verbundwahrscheinlichkeiten $P(\text{Genre}, \text{Person})$ wie folgt:
+
+\begin{center}
+\begin{tabular}{lll}
+  $P(B, K_1) = 0{,}2400$ & $P(R, K_1) = 0{,}0600$ & $P(S, K_1) = 0{,}3000$ \\
+  $P(B, K_2) = 0{,}0150$ & $P(R, K_2) = 0{,}1200$ & $P(S, K_2) = 0{,}0150$ \\
+  $P(B, K_3) = 0{,}1250$ & $P(R, K_3) = 0{,}0500$ & $P(S, K_3) = 0{,}0750$ \\
+\end{tabular}
+\end{center}
+
+Auf der Grundlage dieser Wahrscheinlichkeiten, ist es naheliegend, z.\,B.\ die Person $x_1$ vorrangig mit Buchwerbung zu den Genres Belletristik und Sachbuch zu versorgen.
+
+Weiterhin lassen sich die Wahrscheinlichkeiten für den Kauf eines Buches eines Genres als Randwahrscheinlichkeit berechnen:
+
+$$
+P(B) = 0{,}3800 \qquad P(R) = 0{,}23 \qquad P(S) = 0{,}39
+$$
+
+Schließlich kann auf die Wahrscheinlichkeiten geschlossen werden, dass der Kauf eines Buches einer der drei Genres durch eine bestimmte Person erfolgte, also die \textit{a posteriori} Wahrscheinlichkeiten $P(\text{Person} \mid \text{Genre})$:
+
+\begin{center}
+\begin{tabular}{lll}
+  $P(K_1|B) = 0{,}6316$ & $P(K_1|R) = 0{,}2609$ & $P(K_1|S) = 0{,}7692$ \\
+  $P(K_2|B) = 0{,}0395$ & $P(K_2|R) = 0{,}5217$ & $P(K_2|S) = 0{,}0385$ \\
+  $P(K_3|B) = 0{,}3289$ & $P(K_3|R) = 0{,}2174$ & $P(K_3|S) = 0{,}1923$ \\
+\end{tabular}
+\end{center}
+
+Wurde z.\,B.\ ein Ratgeber verkauft, ist der Kauf durch Person $x_2$ sehr viel wahrscheinlicher als durch die anderen Personen.
+
+Die grundlegende Idee des \textbf{maschinellen Lernens} beruht nun darauf, die so ermittelte \textit{a posteriori} Wahrscheinlichkeiten im nächsten Rechenschritt als \textit{a priori} Information zu verwenden. Damit werden die alten Vermutungen über das Verhalten von Personen (oder Systemen) durch aktualisierte, auf Beobachtungen beruhende Vermutungen ersetzt.
+
+In unserem Beispiel ergeben sich mit den aktualisierten \textit{a priori} Wahrscheinlichkeiten als einer erneuten Berechnung der \textit{a posteriori} Wahrscheinlichkeiten:
+
+\begin{center}
+\begin{tabular}{lll}
+  $P(K_1|B) = 0{,}6000$ & $P(K_1|R) = 0{,}0536$ & $P(K_1|S) = 0{,}8621$ \\
+  $P(K_2|B) = 0{,}0094$ & $P(K_2|R) = 0{,}8571$ & $P(K_2|S) = 0{,}0086$ \\
+  $P(K_3|B) = 0{,}3906$ & $P(K_3|R) = 0{,}0893$ & $P(K_3|S) = 0{,}1293$ \\
+\end{tabular}
+\end{center}
+
+wobei hier jetzt die Zusammenhänge zwischen Genre und Person noch deutlicher sichtbar sind.
+\end{beispiel}
