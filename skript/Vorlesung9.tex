@@ -1,0 +1,414 @@
+\section{Zufallsvariablen, Verteilungen, Momente}
+
+Zufallsvariablen bilden Ereignisse (also Mengen) auf Zahlen ab.
+
+$$
+X : \Omega \to \mathbb{R}
+$$
+
+Die Zufallsvariable (ZV) $X$ definiert somit eine Partition von $\Omega$. Jedem Element $A_i$ der Partition wird eine Zahl $x_i$ zugeordnet.
+
+Für die Zufallsvariable $X$ kann dann auch eine Wahrscheinlichkeitsverteilung $P(A_i) = p_X(x_i)$ bestimmt werden. Zufallsvariablen können diskret oder kontinuierlich sein.
+
+\subsection{Wahrscheinlichkeitsverteilung}
+
+Wenn eine Menge von $N$ sich gegenseitig ausschließenden Ereignissen $A_i$ die Menge $\Omega$ vollständig abdeckt und $\sum_{i=1}^{N} P(A_i) = 1$ gilt, dann beschreiben die Zahlen $P(A_i) = p_X(x_i) > 0$ eine \textit{Wahrscheinlichkeitsverteilung}.
+
+Die kumulative Wahrscheinlichkeitsverteilung wird mit
+
+$$
+F_X(x) = \sum_{x_i \leq x} p_X(x_i)
+$$
+
+angegeben. Es gilt:
+
+$$
+F_X(-\infty) = \lim_{x \to -\infty} F_X(x) = 0 \qquad F_X(\infty) = \lim_{x \to \infty} F_X(x) = 1
+$$
+
+$F_X$ ist monoton steigend.
+
+\begin{beispiel}[Idealer Würfel]
+Im Fall des idealen Würfels ergibt sich eine Gleichverteilung.
+
+% Grafik: Stabdiagramm p_X(xᵢ) über Symbol xᵢ (1–6), alle Werte bei 1/6 ≈ 0{,}167
+\end{beispiel}
+
+\subsection{Relative Häufigkeiten}
+
+Die im theoretischen Modell des idealen Würfels angenommenen Wahrscheinlichkeiten lassen sich im Experiment mit einem realen Würfel näherungsweise verifizieren.
+
+\begin{beispiel}[Würfelwurf mit $M = 50$]
+Wir werfen einen Würfel $M = 50$ mal und registrieren die Ergebnisse:
+
+\begin{center}
+\begin{tabular}{lcccccc}
+  \hline
+  Elementarereignis              & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ \\
+  Zahlensymbol                   & 1 & 2 & 3 & 4 & 5 & 6 \\
+  beob.\ Häufigkeit $M_i$        & 9 & 8 & 10 & 7 & 8 & 8 \\
+  relative Häufigkeit $M_i/M$    & $\frac{9}{50}$ & $\frac{8}{50}$ & $\frac{10}{50}$ & $\frac{7}{50}$ & $\frac{8}{50}$ & $\frac{8}{50}$ \\
+  \hline
+\end{tabular}
+\end{center}
+\end{beispiel}
+
+Wenn das Experiment „unendlich" oft unter gleichen Bedingungen wiederholt wird, nähern sich die relativen Häufigkeiten einer festen Zahl, z.\,B.\ im Fall eines Würfels den Wahrscheinlichkeiten $\frac{1}{6}$.
+
+\subsection{Häufigkeit und Histogramm}
+
+Berechnung relativer Häufigkeiten:
+
+\begin{itemize}
+  \item Zahl aller Experimente: $M$
+  \item Anzahl der Ereignisse $x_i$: $M_i$
+  \item Relative Häufigkeit des Ereignisses $x_i$: $\dfrac{M_i}{M}$
+\end{itemize}
+
+% Grafik: Histogramm – links absolut (Häufigkeit Mᵢ über Symbol 1–6), rechts relativ (rel. Häufigkeit Mᵢ/M über Symbol 1–6)
+
+\subsection{Das Gesetz der großen Zahlen}
+
+\begin{bemerkung}
+Aus dem obigen, einmal durchgeführten Experiment des fünfzigfachen Würfelns mit den dargestellten relativen Häufigkeiten darf man nicht den Schluss ziehen, dass der Würfel \textit{generell} die Zahl drei häufiger produziert als die anderen Zahlen. Die beobachteten Unterschiede sind der Zufälligkeit des Würfelvorgangs geschuldet. Es ist ein zentrales Anliegen der Wahrscheinlichkeitsrechnung, die Unsicherheiten, die sich in der Ausführung von Experimenten ergeben, zu quantifizieren, so dass gesicherte Schlussfolgerungen möglich werden. Das nachfolgende Gesetz der großen Zahlen betrachtet hierzu die wiederholte, sehr häufige Ausführung von Experimenten.
+\end{bemerkung}
+
+Ein Experiment werde $M$-mal unabhängig durchgeführt und es sei $\xi_i \in \{0,1\}$ die Indikatorvariable für ein Ereignis $A$ im $i$-ten Versuch. Es gilt $\xi_i = 1$, falls $A$ im $i$-ten Versuch eintritt und sonst $\xi_i = 0$. Für $\varepsilon > 0$ gilt dann das (schwache) Gesetz der großen Zahlen:
+
+$$
+\lim_{M \to \infty} P\!\left(\left\{\left|\frac{1}{M}\sum_{i=1}^{M} \xi_i - P(A)\right| \leq \varepsilon\right\}\right) = 1.
+$$
+
+\subsection{Erwartungswert}
+
+Allgemein erhält man, wenn eine Zufallsvariable $X$ die Werte $x_1, x_2, \ldots$ annehmen kann, den statistischen Mittelwert $\mathrm{E}\{X\}$, der häufig auch als \textit{Erwartungswert} bezeichnet wird, aus
+
+$$
+\mu_X = \mathrm{E}\{X\} = \sum_i x_i\, p_X(x_i)
+$$
+
+Weiterhin erhält man den quadratischen Mittelwert
+
+$$
+\mathrm{E}\{X^2\} = \sum_i x_i^2\, p_X(x_i)
+$$
+
+und die Varianz
+
+$$
+\mathrm{var}\{X\} = \mathrm{E}\{(X - \mu_X)^2\} = \sum_i (x_i - \mu_X)^2\, p_X(x_i).
+$$
+
+\begin{beispiel}[Erwartungswert: Bitgruppen]
+Eine Quelle sendet Bitgruppen $A_i$ unterschiedlicher Länge $l_i \in \{1,2\}$ mit den Wahrscheinlichkeiten $P(A_i)$ aus.
+
+\begin{center}
+\begin{tabular}{c|c|c}
+  \hline
+  Ereignis & gesendete Bitgruppe & Wahrscheinlichkeit $P(A_i)$ \\
+  \hline
+  1 & 0  & 0{,}1 \\
+  2 & 1  & 0{,}1 \\
+  3 & 00 & 0{,}4 \\
+  4 & 11 & 0{,}4 \\
+  \hline
+\end{tabular}
+\end{center}
+
+Wie viele Bits werden pro Bitgruppe im Mittel gesendet?
+\end{beispiel}
+
+\subsection{Binomialverteilung}
+
+Es wird ein Experiment mit zwei möglichen Ereignissen $A_1$ und $A_2$ und den zugehörigen Wahrscheinlichkeiten $P(A_1)$ und $P(A_2) = 1 - P(A_1)$ betrachtet. Dieses Experiment wird $N$-fach wiederholt, wobei die Versuche als statistisch unabhängig anzusehen sind. Die Wahrscheinlichkeit, dass das Ereignis $A_1$ dabei $k$ mal auftritt, beträgt
+
+$$
+P(k \text{ mal } A_1) = \binom{N}{k} P(A_1)^k \cdot (1 - P(A_1))^{N-k}
+$$
+
+Wir definieren somit eine Zufallsvariable $K$ mit der Wahrscheinlichkeitsverteilung $p_K(k) = P(k)$ und $k \in \{1, \ldots, N\}$.
+
+% Grafik: Stabdiagramme für N=10, P(A₁)=0{,}5 (links) und N=10, P(A₁)=0{,}1 (rechts)
+
+\subsection{Poisson-Verteilung}
+
+Die Poisson-Verteilung beschreibt die Zahl $K$ der Ereignisse innerhalb eines Beobachtungsintervalls, wenn diese Ereignisse unabhängig auftreten und die mittlere Auftrittsrate $\lambda$ bekannt ist. Es gilt:
+
+$$
+p_X(k) = e^{-\lambda} \frac{\lambda^k}{k!}
+$$
+
+$$
+\mathrm{E}\{X\} = \sum_{k=0}^{\infty} k \frac{\lambda^k}{k!} e^{-\lambda} = \lambda
+$$
+
+$$
+\mathrm{E}\{X^2\} = \sum_{k=0}^{\infty} k^2 \frac{\lambda^k}{k!} e^{-\lambda} = \lambda^2 + \lambda
+$$
+
+$$
+\mathrm{var}\{X\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2 = \lambda
+$$
+
+% Grafik: Stabdiagramme für λ=1 (links) und λ=10 (rechts), jeweils p_K(k) und F_K(k) über k von 0 bis 20
+
+\subsection{Übergang zu Verteilungsdichten}
+
+\begin{itemize}
+  \item Bisher wurde einem diskreten Wert $x_i$, bzw.\ der einelementigen Menge $\{A_i\}$ eine positive Wahrscheinlichkeit zugeordnet.
+  \item Für kontinuierliche Zufallsvariablen besitzen nur Intervalle positive Wahrscheinlichkeiten, der einzelne Punkt hat die Wahrscheinlichkeit 0.
+  \item Die Wahrscheinlichkeit, dass die Variable $X$ im Intervall $[a,b]$ liegt, lässt sich dann über den Flächeninhalt einer Dichtefunktion angeben:
+\end{itemize}
+
+$$
+P(X \in (a,b)) = \int_a^b p_X(u)\,\mathrm{d}u,
+$$
+
+wobei $p_X(u)$ die Wahrscheinlichkeitsdichte bezeichnet.
+
+\subsection{Eigenschaften der Wahrscheinlichkeitsdichte}
+
+Die WS-Dichte $p_X(u)$ soll den folgenden Eigenschaften genügen:
+
+\begin{itemize}
+  \item $p_X(u) \geq 0$ für alle $u \in \mathbb{R}$
+  \item $p_X(u)$ ist stückweise stetig
+  \item $\displaystyle\int_{-\infty}^{\infty} p_X(u)\,\mathrm{d}u = 1$
+\end{itemize}
+
+Durch diese Festlegungen wird ein Wahrscheinlichkeitsmaß definiert.
+
+\subsection{Erwartungswerte kontinuierlicher ZV}
+
+Der Erwartungswert einer kontinuierlichen Zufallsvariablen $X$ ist mit
+
+$$
+\mathrm{E}\{X\} = \int_{-\infty}^{\infty} x\, p_X(x)\,\mathrm{d}x
+$$
+
+gegeben, wobei $\displaystyle\int_{-\infty}^{\infty} |x|\, p_X(x)\,\mathrm{d}x < \infty$ gelten muss.
+
+Für eine stückweise stetige Funktion $g\colon \mathbb{R} \to \mathbb{R}$ einer Zufallsvariablen $X$ mit $\displaystyle\int_{-\infty}^{\infty} |g(x)|\, p_X(x)\,\mathrm{d}x < \infty$ gilt:
+
+$$
+\mathrm{E}\{g(X)\} = \int_{-\infty}^{\infty} g(x)\, p_X(x)\,\mathrm{d}x
+$$
+
+\subsection{Momente einer Wahrscheinlichkeitsdichte}
+
+\begin{itemize}
+  \item Mittelwert: $\mathrm{E}\{X\} = \displaystyle\int_{-\infty}^{\infty} x\, p_X(x)\,\mathrm{d}x$ \hfill (erstes Moment)
+  \item Leistung: $\mathrm{E}\{X^2\} = \displaystyle\int_{-\infty}^{\infty} x^2\, p_X(x)\,\mathrm{d}x$ \hfill (zweites Moment)
+\end{itemize}
+
+Die Leistung der um den Mittelpunkt bereinigten Zufallsvariablen wird Varianz genannt.
+
+$$
+\mathrm{var}\{X\} = \mathrm{E}\{(X - \mathrm{E}\{X\})^2\} = \int_{-\infty}^{\infty} (x - \mathrm{E}\{X\})^2\, p_X(x)\,\mathrm{d}x = \sigma_X^2
+$$
+
+Es gilt $\mathrm{E}\{(X - \mathrm{E}\{X\})^2\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2$.
+
+Standardabweichung: $\sigma_X = \mathrm{std}\{X\} = \sqrt{\mathrm{var}\{X\}}$
+
+\subsection{Die Verteilungsfunktion}
+
+Die kumulative Verteilungsfunktion $F_X(x)$ einer Zufallsvariablen ist eine Funktion, die durch die Bedingung
+
+$$
+F_X(x) = P(X \leq x)
+$$
+
+definiert ist. Sie gibt an, mit welcher Wahrscheinlichkeit die ZV $X$ kleiner oder gleich einem Wert $x$ ist. $F_X(x)$ ist eine monoton steigende Funktion mit $0 \leq F_X(x) \leq 1$. Offenbar lässt sich diese Funktion aus der Verteilungsdichte $p_X(x)$ durch Integration berechnen, so dass wir $F_X(x)$ und $p_X(x)$ wie folgt schreiben können:
+
+$$
+\int_{-\infty}^{x} p_X(u)\,\mathrm{d}u = F_X(x) \quad \Leftrightarrow \quad p_X(x) = \frac{\mathrm{d}}{\mathrm{d}x} F_X(x).
+$$
+
+\subsection{Die Gleichverteilung auf dem Intervall $[a,b]$}
+
+Für Zahlen $a, b \in \mathbb{R}$ und $b > a$ ist die Gleichverteilung einer ZV $X$ durch
+
+$$
+p_X(x) = \begin{cases} \dfrac{1}{b - a} & , \quad x \in [a, b] \\ 0 & , \quad \text{sonst} \end{cases}
+$$
+
+definiert.
+
+% Grafik: Rechteckige WS-Dichte auf [a,b] mit Höhe 1/(b−a)
+
+% Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für a=−1, b=1 (links) und a=−1, b=2 (rechts), x von −2 bis 2
+
+Für eine gleichverteilte Zufallsvariable $X$ gilt:
+
+$$
+\mathrm{E}\{X\} = \frac{a + b}{2} \qquad \mathrm{E}\{X^2\} = \frac{a^2 + ab + b^2}{3} \qquad \mathrm{var}\{X\} = \frac{(a-b)^2}{12}
+$$
+
+\subsection{Die Normalverteilung}
+
+Die Normalverteilung zu den Parametern $\mu \in \mathbb{R}$ und $\sigma > 0$ ist durch die Dichtefunktion
+
+$$
+p_X(x) = \mathcal{N}(x;\, \mu,\, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\, e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+$$
+
+definiert. Ferner gilt für eine normalverteilte ZV $X$:
+
+\begin{itemize}
+  \item Mittelwert: $\mathrm{E}\{X\} = \mu$
+  \item Varianz: $\mathrm{var}\{X\} = \sigma^2$
+  \item Leistung: $P = \sigma^2 + \mu^2$
+\end{itemize}
+
+% Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für μ=0, σ=1 (links) und μ=1, σ=0{,}5 (rechts), x von −2 bis 2
+
+Die Verteilungsfunktion $F_X(x)$ einer normalverteilten Zufallsvariablen $X$ mit der Dichtefunktion $p_X(x) = \dfrac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}$ wird häufig mit Hilfe der Gaußschen Fehlerfunktion
+
+$$
+\mathrm{erf}(x) = \frac{2}{\sqrt{\pi}} \int_0^x e^{-t^2}\,\mathrm{d}t = \sqrt{\frac{2}{\pi}} \int_0^{x\sqrt{2}} e^{-\frac{t^2}{2}}\,\mathrm{d}t
+$$
+
+oder der komplementären Fehlerfunktion
+
+$$
+\mathrm{erfc}(x) = \frac{2}{\sqrt{\pi}} \int_x^{\infty} e^{-t^2}\,\mathrm{d}t = 1 - \mathrm{erf}(x)
+$$
+
+angegeben. Somit gilt mit $\mathrm{erf}(-x) = -\mathrm{erf}(x)$
+
+$$
+F_X(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} e^{-\frac{t^2}{2}}\,\mathrm{d}t = \frac{1}{2}\!\left(1 + \mathrm{erf}\!\left(\frac{x}{\sqrt{2}}\right)\right) = \frac{1}{2}\,\mathrm{erfc}\!\left(\frac{-x}{\sqrt{2}}\right).
+$$
+
+\subsection{Die Exponentialverteilung}
+
+Die Exponentialverteilung zum Parameter $\lambda > 0$ ist zu
+
+$$
+p_X(x) = \begin{cases} \lambda e^{-\lambda x} & , \quad x \geq 0 \\ 0 & , \quad \text{sonst} \end{cases}
+$$
+
+definiert. Ferner gilt für eine exponentialverteilte ZV $X$:
+
+$$
+\mathrm{E}\{X\} = \frac{1}{\lambda} \qquad \mathrm{E}\{X^2\} = \frac{2}{\lambda^2} \qquad \mathrm{var}\{X\} = \frac{1}{\lambda^2}
+$$
+
+% Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für λ=1 (links) und λ=1{,}5 (rechts), x von −2 bis 2
+
+\subsection{Die Laplaceverteilung}
+
+Die zweiseitige Laplaceverteilung zu den Parametern $\mu$ und $\sigma$ ist zu
+
+$$
+p_X(x) = \frac{1}{2\sigma}\, e^{-\frac{|x-\mu|}{\sigma}}
+$$
+
+definiert. Ferner gilt für eine laplaceverteilte ZV $X$:
+
+$$
+\mathrm{E}\{X\} = \mu \qquad \mathrm{E}\{X^2\} = 2\sigma^2 + \mu^2 \qquad \mathrm{var}\{X\} = 2\sigma^2
+$$
+
+% Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für μ=0, σ=1 (links) und μ=1, σ=0{,}5 (rechts), x von −2 bis 2
+
+\begin{beispiel}[Quantisierung eines Audiosignals]
+Die Abtastwerte eines Audiosignals seien Laplace-verteilt mit $\mu = 0$ und $\sigma = 1$. Die Abtastwerte werden nun mit der folgenden Quantisierungskennlinie quantisiert.
+
+% Grafik: Midrise-Quantisierungskennlinie x_q über x, x und x_q von −1 bis 1
+
+Wie groß ist die Wahrscheinlichkeit, dass der Quantisierer übersteuert ($|x| > 1$) wird?
+\end{beispiel}
+
+\subsection{Transformation einer Zufallsvariablen}
+
+% Grafik: Transformationsprinzip – Funktion y = g(x) (nichtlinear, ansteigend), darunter p_X(x) (Gleichverteilung, 4 Blöcke à 25\%), links p_Y(y) (transformierte Verteilung)
+
+% Grafik: Infinitesimale Betrachtung – y = g(x), p_X(x)|dx| = p_Y(y)|dy|; p_Y(y)|dy| und p_X(x)|dx| als schattierte Streifen eingezeichnet
+
+\subsection{Streng monotone Funktion einer Zufallsvariablen}
+
+Falls $Y = g(X)$ gilt und $g(\cdot)$ eine streng monotone Funktion ist, so dass die Umkehrfunktion $X = g^{-1}(Y)$ existiert, dann gilt für die Lösung $x = g^{-1}(y)$
+
+$$
+p_Y(y) = p_X(x)\frac{|\mathrm{d}x|}{|\mathrm{d}y|} = p_X(g^{-1}(y))\left|\frac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y}\right| = \frac{p_X(g^{-1}(y))}{\left|\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right|} = \frac{p_X(g^{-1}(y))}{|g'(g^{-1}(y))|}
+$$
+
+wobei für das Differenzieren der Umkehrfunktion $\dfrac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y} = \left(\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right)^{-1}$ gilt.
+
+\begin{beispiel}[Mehrfaches Werfen einer Münze]
+Wie oft muss eine faire Münze im Mittel geworfen werden, bis zum ersten Mal „Kopf" erscheint?
+
+Lösungsansatz: Es wird der Erwartungswert
+
+$$
+\mathrm{E}\{I\} = \sum_{i=1}^{\infty} i\, 2^{-i}
+$$
+
+einer Zufallsvariable $I$, die die Werte $i \in \mathbb{N}$ annehmen kann, gesucht.
+\end{beispiel}
+
+\subsection{Transformation für nichtmonotone Funktionen}
+
+Gegeben sei eine Funktion $Y = g(X)$ einer Zufallsvariablen $X$. Wenn die Funktion $g(\cdot)$ nicht streng monoton ist, hat die Gleichung $Y = g(x)$ mehrfache Lösungen $x_1 = g^{-1}(y), \ldots, x_n = g^{-1}(y)$. Dann berechnet sich die Wahrscheinlichkeitsdichtefunktion $p_Y(y)$ zu
+
+$$
+p_Y(y) = \frac{p_X(x_1)}{|g'(x_1)|} + \ldots + \frac{p_X(x_n)}{|g'(x_n)|}
+$$
+
+wobei die $x_i$ die Lösungen der Gleichung $y = g(x_i)$ und $g'(x)$ die Ableitung der Funktion $g(x)$ bezeichnen.
+
+\begin{beispiel}[Beispiele zur Transformation von Zufallsvariablen]
+\textbf{a)} $Y = aX + b = g(X)$
+
+Diese Gleichung hat genau eine Lösung
+
+$$
+x_1 = \frac{y - b}{a}.
+$$
+
+Ferner gilt $g'(x) = a$.
+
+Also gilt für die WS-Dichte $p_Y(y)$:
+
+$$
+p_Y(y) = \frac{p_X\!\left(\dfrac{y-b}{a}\right)}{|a|}
+$$
+
+\textbf{b)} $Y = X^2 = g(X)$
+
+Diese Gleichung hat für $y \geq 0$ zwei Lösungen
+
+$$
+x_1 = +\sqrt{y} \quad \text{und} \quad x_2 = -\sqrt{y}.
+$$
+
+Für $y < 0$ existiert keine reellwertige Lösung.
+
+Ferner gilt $g'(x) = 2x$ und somit $|g'(x_1)| = |g'(x_2)| = 2\sqrt{y}$.
+
+Also gilt für die WS-Dichte $p_Y(y)$:
+
+$$
+p_Y(y) = \begin{cases}
+\dfrac{p_X(\sqrt{y})}{2\sqrt{y}} + \dfrac{p_X(-\sqrt{y})}{2\sqrt{y}} & , \quad y \geq 0 \\[6pt]
+0 & , \quad y < 0
+\end{cases}
+= \left(\frac{p_X(\sqrt{y})}{2\sqrt{y}} + \frac{p_X(-\sqrt{y})}{2\sqrt{y}}\right) \cdot \varepsilon(y)
+$$
+\end{beispiel}
+
+\begin{beispiel}[Beispiel: Normalverteilung]
+$$
+p_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}} \quad \text{mit } \mu = 0
+$$
+
+$Y = X^2$ mit den Lösungen $x_1 = \sqrt{y}$ und $x_2 = -\sqrt{y}$
+
+$$
+p_Y(y) = \frac{1}{2\sqrt{y}} \cdot \frac{1}{\sqrt{2\pi\sigma^2}} \left(e^{-\frac{(\sqrt{y})^2}{2\sigma^2}} + e^{-\frac{(-\sqrt{y})^2}{2\sigma^2}}\right) \cdot \varepsilon(y)
+= \frac{1}{\sqrt{2\pi\sigma^2 y}}\,e^{-\frac{y}{2\sigma^2}} \cdot \varepsilon(y)
+$$
+\end{beispiel}
+
