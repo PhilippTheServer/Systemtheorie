@@ -1,0 +1,455 @@
+\chapter{Grundbegriffe der Informationstheorie}
+
+Als Anwendung der Wahrscheinlichkeitsrechnung betrachten wir in diesem Kapitel grundlegende Konzepte der Informationstheorie.
+
+\section{Fragestellungen der Informationstheorie}
+
+Die Informationstheorie ist die Grundlage für die Verarbeitung, Übertragung und Speicherung von Text-, Audio- und Videoinformationen. Sie ist ein Kerngebiet der Informations- und Kommunikationstechnik und stützt sich auf eine bahnbrechende Arbeit von C.E. Shannon (1948)\footnote{C.E. Shannon: A Mathematical Theory of Communication, Bell Systems Technical Journal, Vol. 27, S. 379-423, Juli 1948}. U.a. gibt sie Antworten auf die folgenden Fragen:
+
+\begin{itemize}
+  \item Wie kann man eine Informationsmenge messen?
+  \item Wie werden Signale optimal übertragen?
+  \item Wie kann man die Kapazität eines Übertragungskanals berechnen?
+  \item Welche Informationsrate ist mindestens erforderlich um ein Signal verzerrungsfrei zu übertragen?
+  \item Welchen Einfluss hat das Rauschen und wie lässt er sich reduzieren?
+\end{itemize}
+
+Die mathematische Formulierung dieser Frage und ihrer Antworten hat der Informationstheorie breite Anwendungsgebiete eröffnet.
+
+In der Informationstechnik werden Informationen durch Zeichen (oder Symbole) dargestellt. Diese Symbole sind in der Regel einer endlichen Menge zulässiger Zeichen, dem \textit{Alphabet}, entnommen.
+
+Beispiele für die Kommunikation mittels diskreter Symbole (Zeichen) sind
+
+\begin{itemize}
+  \item in der Nachrichtentechnik: Bits oder Bitgruppen
+  \item im Strassenverkehr: Schilder (visuelle Symbole)
+  \item in der sprachlichen Kommunikation: Phoneme (Lautzeichen)
+\end{itemize}
+
+Unter einem Code verstehen wir die Zuordnung von Symbolen eines ersten Alphabets zu den Symbolen eines zweiten Alphabets. In den dargestellten Anwendungen geschieht dies zum Zweck einer effizienten und/oder fehlergesicherten Übertragung. Der Aspekt der Verschlüsselung der Informationen spielt hier zunächst keine Rolle. Der Schutz der Informationen gegen z. B. unberechtigtes Lesen wird in der Kryptologie behandelt.
+
+Weiterhin spielen die folgenden Begriffe der Informationstheorie eine wichtige Rolle:
+
+\begin{itemize}
+  \item \textbf{Redundante Daten:}
+
+    Daten, die im Prinzip vollständig aus bereits vorhandenen Daten berechnet werden können.
+
+  \item \textbf{Irrelevante Daten:}
+
+    Daten, die zur Verarbeitung oder Interpretation der vorhandenen Daten nichts beitragen.
+
+  \item \textbf{Wechselseitige Informationen:}
+
+    Informationen, die sowohl in Datenmenge $X$ als auch in Datenmenge $Y$ enthalten sind.
+\end{itemize}
+
+Unter \textit{Quellencodierung} verstehen wir dementsprechend die (effiziente) Darstellung der Zeichen einer Quelle durch einen Code. Häufig handelt es sich dabei um einen Binärcode, der mit den Symbolen „0" und „1" notiert werden kann.
+
+Zum Beispiel kann mit dem MP3-Verfahren ein digitalisiertes Musiksignal „komprimiert", d.h. in eine Folge von Codesymbolen umgerechnet werden, die weniger Speicherplatz benötigt, als die ursprüngliche digitale Darstellung. Dies wird durch das Entfernen redundanter und irrelevanter Daten erreicht.
+
+Ähnliches gilt für die Übertragung von Audio- oder Videodaten über DSL-Verbindungen oder einen Mobilfunkkanal. Auch hier werden die Quellensignale komprimiert. Allerdings muss das quellencodierte Signal zusätzlich auch gegen Übertragungsfehler gesichert werden. Dies erfolgt durch das Hinzufügen redundanter Bits. Man spricht dabei von \textit{Kanalcodierung}.
+
+Abbildung 5.1 erläutert das der Informationsübertragung zugrunde liegende Modell: Die von der Informationsquelle erzeugten Nachrichten werden in einen Sender einem physikalischen Signal aufgeprägt. Dieses Signal wird bei der Übertragung durch Störungen beeinflusst und im Empfänger in Nachrichtensymbole umgesetzt. Nur wenn eine wirkungsvolle Kanalcodierung eingesetzt wird, sind die empfangenen Symbole gleich den gesendeten Symbolen. Die Informationssenke interpretiert schließlich die empfangenen Informationen.
+
+% Grafik: Abbildung 5.1: Blockdiagramm: Informationsquelle → Sender → Übertragungskanal (Störungen/Rauschen von oben) → Empfänger → Informationssenke
+
+In Abhängigkeit von der Fragestellung, sind unterschiedliche Aspekte der Kommunikation von Bedeutung:
+
+\begin{itemize}
+  \item[\textbf{A.}] Mit welchen Fehlern ist die Übertragung von Symbolen (Zeichen) behaftet (das \textit{technische} Kommunikationsproblem)?
+  \item[\textbf{B.}] Welche Bedeutung (Inhalt) wird von den Symbolen (Zeichen) vermittelt (das \textit{semantische} Kommunikationsproblem)?
+  \item[\textbf{C.}] Welche Art von Handlungen werden durch die empfangenen Symbole (und ihrer Bedeutung) ausgelöst?
+\end{itemize}
+
+Wir stellen fest: Information (im technischen Sinn) muss von Bedeutung unterschieden werden!
+
+\begin{beispiel}[Fernbedienung eines Fernsehers]
+Die drei Ebenen der Kommunikation sollen anhand der Infrarotfernbedienung eines Fernsehers verdeutlicht werden.
+
+\textbf{Ebene A:} Nach dem Drücken eines Programmwahlknopfes wird ein optisches Signal (im infraroten Spektrum) zum Fernseher übertragen. Diese Übertragung kann durch ungünstige Bedingungen (z. B. keine Sichtverbindung zwischen Sender und Empfänger) gestört sein.
+
+\textbf{Ebene B:} Den verschiedenen Knöpfen der Fernbedienung sind verschiedene Fernsehprogramme zugeordnet.
+
+\textbf{Ebene C:} Bei korrekter Bedienung der Fernbedienung, korrektem Empfang und korrekter Decodierung des Infrarotsignals schaltet der Fernseher auf einen anderen Kanal um.
+\end{beispiel}
+
+Die klassische Informationstheorie behandelt in erster Linie die Frage der Ebene A. Allerdings rücken mit der Entwicklung „intelligenter" Systeme zunehmend auch die Ebenen B und C in den Fokus.
+
+\subsection{Definition des Informationsmaßes}
+
+\begin{itemize}
+  \item Information im technischen Sinne beschreibt die \textbf{Wahlmöglichkeiten} der Informationsquelle bei der Auswahl eines möglichen Nachrichtensymbols.
+
+  \item Aufgrund der Wahlmöglichkeiten des Senders entsteht im Empfänger eine \textbf{Unsicherheit} bezüglich des möglicherweise gesendeten Symbols. Durch den Empfang des vom Sender ausgewählten Symbols wird diese Unsicherheit reduziert.
+
+  \item Im einfachsten Fall besteht die Auswahl einer Nachrichtenquelle aus \textbf{zwei} möglichen Symbolen (z. B. zwei Quantisierungsstufen, „0"/„1" oder „Ja" / „Nein"). Wenn beide Symbole mit gleicher Wahrscheinlichkeit auftreten (also größte Unsicherheit bezüglich der Auswahl einer Nachricht herrscht), ist die Informationsmenge, die mit der Auswahl einer dieser Symbole verbunden ist, genau \textbf{1 bit}.
+\end{itemize}
+
+Wichtige Unterscheidung:
+
+1 Bit $\mathrel{\widehat{=}}$ Binary Digit $\rightarrow$ beschreibt die Ziffer einer binären Zahl
+
+1 bit $\rightarrow$ ist die SI-Einheit der Informationsmenge
+
+Der Fall einer größeren Auswahl wird zunächst an dem Beispiel in Abbildung 5.2 erläutert: Wie viele binäre Entscheidungen muss man treffen, um ein ausgewähltes Symbol $m$ aus einer Menge $\{1,2,3,4,5,6,7,8\}$ von $N = 8$ gleichwahrscheinlichen Symbolen zu ermitteln? Wir lösen diese Aufgabe mit dem in Abbildung 5.2 dargestellten Entscheidungsbaum.
+
+% Grafik: Abbildung 5.2: Binärer Entscheidungsbaum für N=8 gleichwahrscheinliche Symbole; 3 Ebenen, Blätter m=1,...,8; an jeder Verzweigung ja/nein-Frage
+
+In obigem Beispiel sind $3 = \log_2(8)$ ja/nein-Fragen mit den entsprechenden binären Entscheidungen erforderlich! Wenn man die Antwort auf jede dieser Fragen mit einem Bit notiert wird, entsteht ein einfacher \textit{binärer Code} zur Darstellung der ausgewählten Symbole.
+
+\begin{itemize}
+  \item Allgemein wird die Informationsmenge bei Auswahl aus $N$ gleichwahrscheinlichen Symbolen zu
+$$
+H_0 = \log_2(N) \quad \text{[bit]} \qquad \text{oder} \qquad H_0 = \ln(N) \; \text{[nats]}
+$$
+berechnet. $H_0$ wird als \textit{Entscheidungsgehalt} der Nachrichtenquelle bezeichnet.
+\end{itemize}
+
+Zum Beispiel ergibt sich bei einer Auswahl aus $N = 16$ gleichwahrscheinlichen Symbolen eine Informationsmenge von $H_0 = \log_2(N) = \log_2(2^4) = 4$ bit.
+
+Die Wahl des Logarithmus als Informationsmaß hat einige Vorteile, die wie folgt begründet sind:
+
+\begin{itemize}
+  \item Der Entscheidungsgehalt $H_0$ wächst streng monoton mit der Größe des Alphabets $N$.
+  \item Der Entscheidungsgehalt mehrfacher Entscheidungen ist additiv.
+\end{itemize}
+
+Die letztere Aussage lässt sich am Beispiel des Entscheidungsbaums in Abbildung 5.2 verdeutlichen, indem wir den Entscheidungsbaum von „unten nach oben" lesen. Auf der untersten Ebene sind binäre 4 Entscheidungen erforderlich. Dies entspricht einer Informationsmenge von 4 bit. Der darüberliegende „Baumstumpf" weist 4 Enden auf, was einem Entscheidungsgehalt von $\log_2(4) = 2$ bit entspricht. Da jedes dieser Enden nur in einem Viertel aller Fälle erreicht wird, beträgt die Informationsmenge insgesamt $1/4 \cdot 4\,\text{bit} + 2\,\text{bit} = 3\,\text{bit}$.
+
+Wenn die Symbole nun mit unterschiedlicher Wahrscheinlichkeit auftreten, lässt sich das in Abbildung 5.2 dargestellte „Fragespiel" \textbf{im Mittel} deutlich abkürzen. Wenn \textit{a priori} bekannt ist, dass z. B. das Symbol „5" in 60\,\% aller Fälle von einem Sender ausgewählt wird, ist es sinnvoll zunächst zu fragen, ob das Symbol „5" ausgewählt wurde und erst danach alle anderen Möglichkeiten zu überprüfen. In 60\,\% aller Fälle ist man dann schon nach nur einer ja/nein-Frage am Ziel. Wenn dieses Experiment nun „unendlich oft" wiederholt wird, ist nach obigen Überlegungen die \textit{mittlere Informationsmenge} kleiner als $\log_2(N)$, denn es werden im Mittel weniger ja/nein-Fragen benötigt. Offensichtlich hängt also die Informationsmenge von den Wahrscheinlichkeiten des Auftretens der Symbole ab. Die \textit{a priori} Kenntnis der Auftrittswahrscheinlichkeiten verringert im Empfänger die Unsicherheit bezüglich der gesendeten Symbole.
+
+Ähnliche Effekte treten auf, wenn man aufeinanderfolgende Symbole, z. B. die Buchstaben eines Wortes oder die Worte eines Textes betrachtet. Z.B. ist die Wahrscheinlichkeit, dass auf das Wort „grüner" das Wort „Schokoladenpudding" folgt außerordentlich gering. Allerdings ist sie auch nicht gleich Null, denn die Wortfolge „grüner Schokoladenpudding" kommt tatsächlich in Texten deutscher Sprache vor (allerdings nur in Diesem). Die Kenntnis dieser Statistik kann bei der Vermeidung von Übertragungsfehlern helfen. Ebenso lassen sich fehlende oder vertauschte Buchstaben in Worten ergänzen. Abbildung 5.3 und Abbildung 5.4 geben hierzu Beispiele. Die Redundanz der Daten ist in diesen Fällen hilfreich.
+
+% Grafik: Abbildung 5.3: „I.F.R.A.I.N.T.C.N.K" — Jeder zweite Buchstabe fehlt. Welches Wort ist hier gemeint? (INFORMATIONSTECHNIK)
+
+% Grafik: Abbildung 5.4: Artikel aus FAZ vom 24.09.03 — Buchstaben in Wörtern vertauscht, Text bleibt lesbar (Redundanz in der Schriftsprache)
+
+Wir halten fest: Eine Nachrichtenquelle weist Redundanz auf,
+
+\begin{itemize}
+  \item wenn die Symbole der Quelle nicht gleichwahrscheinlich sind oder/und
+  \item wenn aufeinanderfolgende Symbole voneinander abhängen.
+\end{itemize}
+
+In der Regel gibt es also signifikante Abhängigkeiten zwischen aufeinander folgenden Symbolen. Diese Abhängigkeiten vermindern die tatsächlich übertragene Informationsmenge, denn sie vermindern die Wahlfreiheit bei der Symbolauswahl, bzw. die Unsicherheit im Empfänger bezüglich der gesendeten Symbole.
+
+Die Statistik der Symbole spielt bei der Ermittlung des Informationsgehaltes und der Redundanz offensichtlich eine große Rolle! Es ist also sehr zweckmäßig, den Informationsbegriff mit Hilfe von Wahrscheinlichkeiten zu definieren.
+
+\section{Entropie und Redundanz}
+
+Offensichtlich trägt ein Nachrichtensymbol um so mehr Information, je seltener es auftritt, d.h. je weniger wahrscheinlich es von der Quelle ausgewählt wird. Der \textbf{Informationsgehalt} des $i$-ten Symbols $a_i$ wird daher zu
+
+$$
+I(a_i) = -\log_2(P(a_i)) = \log_2\!\left(\frac{1}{P(a_i)}\right) = -\mathrm{ld}(P(a_i))
+$$
+
+festgelegt, wobei $P(a_i)$ die Auftrittswahrscheinlichkeit des Symbols $a_i$ angibt. Wegen $0 \leq P(a_i) \leq 1$ ist dieses Informationsmaß nicht negativ.
+
+Der \textbf{mittlere Informationsgehalt} einer Nachrichtenquelle $A$, die $N$ verschiedene Symbole $a_i$ mit den Wahrscheinlichkeiten $P(a_i)$ aussenden kann, ist der statistische Mittelwert des Informationsgehalts und wird dann zu
+
+$$
+H(A) = \sum_{i=1}^{N} P(a_i)\, I(a_i) = -\sum_{i=1}^{N} P(a_i) \log_2(P(a_i))
+$$
+
+berechnet. $H$ wird als \textit{Entropie} bezeichnet.
+
+\textbf{Anmerkung zu dieser Definition der Entropie:}
+
+\begin{itemize}
+  \item Für $N$ \textit{gleichwahrscheinliche} Ereignisse mit $\sum_{i=1}^{N} P(a_i) = 1$ gilt
+$$
+H(A) = \sum_{i=1}^{N} P(a_i)\, I(a_i) = -\sum_{i=1}^{N} \frac{1}{N} \log_2\!\left(\frac{1}{N}\right) = \log_2(N) = H_0.
+$$
+Die Entropie $H(A)$ ist gleich dem Entscheidungsgehalt $H_0$.
+
+  \item $H$ nimmt zu wenn $N$ größer wird.
+
+  \item Es besteht eine enge Beziehung zwischen dem hier eingeführten Informationsmaß und dem Entropiebegriff in der Thermodynamik. In der Thermodynamik beschreibt die Entropie den Grad an „Unordnung" in einem System. Auch hier wird die Entropie bei einer Gleichverteilung, z. B. von Gasmolekülen im Raum, maximal. Die informationstheoretische Entropie kann in diesem Zusammenhang als die Information verstanden werden, die in der mikroskopischen Anordnung in Gasmoleküle enthalten ist und einem makroskopischen Beobachter entgeht. Durch Zufuhr von Information kann im Prinzip die Unordnung eines Systems verringert werden. Die zugeführte Information ist somit negativer (thermodynamischer) Entropie gleichzusetzen. Wenn der 2. Hauptsatz der Thermodynamik feststellt, dass die Entropie in einem geschlossenen System nicht abnimmt, gilt dies ebenso auch für die Information. (siehe auch: H.D. Zeh: Entropie, Fischer (Tb.), Frankfurt, 2005 und J. Monod: Zufall und Notwendigkeit, Pieper 1983, DTV 1975).
+\end{itemize}
+
+\subsection{Berechnung der Entropie für $N = 2$}
+
+Eine Quelle sendet zwei Symbole $a_1$ und $a_2$, von denen \textit{a priori} bekannt ist, dass sie mit den Wahrscheinlichkeiten $P(a_1)$ und $P(a_2) = 1 - P(a_1)$ auftreten.
+
+Der mittlere Informationsgehalt (Entropie) dieser Nachrichten berechnet sich dann zu
+
+$$
+H = -\sum_{i=1}^{2} P(a_i)\log_2(P(a_i))
+= -P(a_1)\log_2(P(a_1)) - (1-P(a_1))\log_2(1-P(a_1))
+$$
+
+$$
+= -\frac{1}{\log_e(2)}\left[P(a_1)\log_e(P(a_1)) + (1-P(a_1))\log_e(1-P(a_1))\right].
+$$
+
+Diese Funktion ist in Abbildung 5.5 dargestellt. Das Maximum dieser Funktion finden wir durch Differenzieren nach $P(a_1)$ und Nullsetzen.
+
+$$
+\frac{dH}{dP(a_1)} = \frac{1}{\log_e(2)}\left[-\frac{P(a_1)}{P(a_1)} - \log_e(P(a_1)) + \frac{1-P(a_1)}{1-P(a_1)} + \log_e(1-P(a_1))\right] = 0
+$$
+
+Diese Funktion nimmt für
+
+$$
+\log_e\!\left(\frac{1-P(a_1)}{P(a_1)}\right) = 0 \;\Leftrightarrow\; P(a_1) = P(a_2) = 0.5
+$$
+
+ein Maximum an, denn $\dfrac{d^2H}{dP(a_1)^2} < 0$. Dabei haben wir die Beziehungen $\dfrac{d}{\mathrm{d}x}\log_e(x) = \dfrac{1}{x}$ und $\log_2(x) = \dfrac{\log_e(x)}{\log_e(2)}$ verwendet. Wenn die Quelle immer eines der Symbole auswählt, also $P(a_1) = 1$ oder $P(a_2) = 1$ gilt, dann ist die Entropie Null.
+
+% Grafik: Abbildung 5.5: Entropie H [bit] als Funktion von P(a_1) für N=2; glockenförmige Kurve, Maximum H=1 bei P(a_1)=0.5
+
+\subsection{Relative Entropie und Quellenredundanz}
+
+Aus dem vorangegangenen Beispiel lässt sich folgern:
+
+\begin{itemize}
+  \item Der mittlere Informationsgehalt ist maximal, wenn die Nachrichten \textit{a priori} gleichwahrscheinlich ausgewählt werden (maximale Wahlfreiheit)!
+
+  \item Offensichtlich kann der mittlere Informationsgehalt pro Symbol aber auch geringer als $H_0 = \log_2(N)$ sein. In den Nachrichtensymbolen ist dann weniger als $H_0 = \log_2(N)$ bit an Information enthalten!
+
+  \item Für die \textit{relative Entropie}
+$$
+\frac{H}{H_0} = \frac{H}{\log_2(N)}
+$$
+gilt $0 \leq H/H_0 \leq 1$.
+
+  \item Die Differenz
+$$
+r_q = 1 - \frac{H}{H_0} = \frac{H_0 - H}{H_0}
+$$
+wird als Quellenredundanz bezeichnet und wird oft in Prozent angegeben.
+\end{itemize}
+
+\begin{beispiel}[Relative Entropie einer Nachrichtenquelle]
+Gegeben sei die binäre Quelle in Abbildung 5.6, deren Zeichen 0 und 1 mit den Wahrscheinlichkeiten $P(0) = 0.8$ und $P(1) = 0.2$ auftreten. Aufeinanderfolgende Zeichen seien statistisch unabhängig. Die folgenden informationstheoretischen Maße lassen sich nun wie folgt berechnen:
+
+\begin{itemize}
+  \item Der Entscheidungsgehalt der Quelle ist $H_0 = \log_2(2) = 1$ bit/Symbol.
+
+  \item Die Entropie berechnet sich zu
+$$
+H = \sum_{i=1}^{N} P(a_i)\,I(a_i) = -0.8\log_2(0.8) - 0.2\log_2(0.2) \approx 0.7219
+$$
+
+  \item Die relative Entropie ist demnach $\dfrac{H}{H_0} = \dfrac{H}{1} \approx 0.7219$
+
+  \item Die Quellenredundanz berechnet sich zu
+$$
+r_q = 1 - \frac{H}{H_0} \approx 1 - 0.7219 = 0.2781 \equiv 27.81\%
+$$
+\end{itemize}
+
+% Grafik: Abbildung 5.6: Nachrichtenquelle erzeugt binäre Folge …0 0 1 0 1 0 1 1…
+\end{beispiel}
+
+\section{Kanalkapazität}
+
+Ein \textit{diskreter} Kanal ist ein Übertragungskanal, auf dem in einem vorgegebenen Zeitintervall $T$ nur eine endliche Anzahl $N$ verschiedener Signalformen übertragen werden kann.
+
+\textbf{Beispiel:} Vier mögliche Signalformen pro Zeitintervall $T$.
+
+% Grafik: Treppensignal u(t) mit 4 Stufen (−2, −1, 1, 2) über Zeitintervalle T, 2T, …
+
+\begin{definition}[Kanalkapazität]
+Die Kapazität eines rauschfreien, diskreten Kanals ist durch
+
+$$
+C = \lim_{\tau \to \infty} \frac{\log_2(N(\tau))}{\tau}
+$$
+
+gegeben, wobei $N(\tau)$ die Anzahl zulässiger Signalformen der Dauer $\tau$ bezeichnet. Die Kanalkapazität hat die Dimension Informationsmenge/Zeit und kann z. B. in bit/s angegeben werden.
+\end{definition}
+
+\section{Verlustlose Quellencodierung}
+
+Die Informationsübertragung über rauschfreie, diskrete Kanäle ist durch das folgende wichtige Theorem gegeben:
+
+\begin{quote}
+„Let a source have entropy $H$ (bits per symbol) and a channel have a capacity $C$ (bits per second). Then it is possible to encode the output of the source in such a way as to transmit at the average rate $\frac{C}{H} - \epsilon$ symbols per second over the channel where $\epsilon$ is arbitrarily small. It is not possible to transmit at an average rate greater than $\frac{C}{H}$."
+
+\hfill C.E. Shannon, „A Mathematical Theory of Communication", 1948, Theorem 9
+\end{quote}
+
+Der mittlere Informationsgehalt und nicht der Entscheidungsgehalt der Quelle bestimmt die Zahl der im Mittel übertragbaren Symbole. Das Theorem sagt allerdings nicht, \textbf{wie} die Symbole codiert werden müssen, um diese Grenze zu erreichen. Hierfür wurden nachfolgend verschiedene Codierverfahren entwickelt, die auch unter dem Begriff „Entropiecodierung" zusammengefasst werden.
+
+Unter Codierung versteht man die Zuordnung von „Ersatz"-Symbolen zu den ursprünglichen Symbolen einer Nachricht. In allen hier betrachteten Fällen werden diese Ersatzsymbole als Folge \textit{binärer} Ziffern konstruiert. Die Zuordnung der binären Ziffern zu den Symbolen der Nachricht wird dann hinsichtlich eines festzulegenden Kriteriums optimiert. In der Quellencodierung wird eine Minimierung der in dem Code befindlichen Redundanz angestrebt, wobei sich die Coderedundanz zu
+
+$$
+r_c = \frac{\mathrm{E}\{L\} - H}{H}
+$$
+
+berechnet und $\mathrm{E}\{L\}$ die mittlere Länge der Codeworte angibt.
+
+Der mittlere Informationsgehalt einer Menge von Nachrichtensymbolen ist dann maximal (und gleich dem Entscheidungsgehalt), wenn diese Symbole mit gleicher Wahrscheinlichkeit auftreten. Die binären Ziffern „0" und „1" der Codeworte werden deshalb den Nachrichtensymbolen so zugeordnet, dass sie mit möglichst gleicher Wahrscheinlichkeit auftreten. Diese Vorgehensweise resultiert in Codes mit variabler Codewortlänge, wie sie schon lange zum Beispiel in der Form des Morse-Codes bekannt sind. Dabei werden häufig auftretenden Nachrichten kurze Codeworte und selten auftretenden Symbolen lange Codeworte zugeordnet. Die Codewortlänge wird dadurch im statistischen Mittel minimiert.
+
+\subsection{Codierung nach Shannon und Fano}
+
+Ein erstes Codierverfahren wurde von C.E. Shannon\footnote{C.E. Shannon: A Mathematical Theory of Communication, Bell Systems Technical Journal, Vol. 27, S. 379-423, Juli 1948} und R.M. Fano\footnote{R.M. Fano: The Transmission of Information, Technical Report No. 65, MIT, Cambridge, 1949.} vorgeschlagen. Das Codierschema kann wie folgt zusammengefasst werden:
+
+\begin{enumerate}
+  \item Ordnen der Originalsymbole nach fallenden Auftrittswahrscheinlichkeiten;
+  \item Aufteilen der Originalsymbole in zwei Gruppen (möglichst) gleicher Summenwahrscheinlichkeiten;
+  \item Zuordnung eines Bits, so dass die erste Gruppe mit „0" und die zweite Gruppe mit „1" adressiert wird;
+  \item Wiederholung der Schritte 2. und 3. mit den im vorangegangenen Codierschritt entstandenen Gruppen.
+\end{enumerate}
+
+Der Code ist eindeutig decodierbar, da kein Codewort linker Teil eines anderen Codewortes ist („Präfix"-Freiheit).
+
+Der erste Schritt des Sortierens nach fallenden Wahrscheinlichkeiten ist für dieses Verfahren essentiell. Eine kleine mittlere Codewortlänge wird nur dann erreicht, wenn Symbole mit ähnlich großen Wahrscheinlichkeiten in eine Gruppe sortiert werden. Ansonsten erhalten selten auftretende Symbole zu kurze und häufig auftretende Symbole zu lange Codeworte.
+
+\begin{beispiel}[Codierung nach Fano]
+Gegeben ist eine Quelle, die vier verschiedene Symbole $a_1$, $a_2$, $a_3$ und $a_4$ mit den Auftrittswahrscheinlichkeiten $P(a_1) = 0.1$, $P(a_2) = 0.4$, $P(a_3) = 0.2$ und $P(a_4) = 0.3$ aussendet. Der Code wird in der nachfolgenden Tabelle konstruiert. Daraus ergibt sich ein Entscheidungsbaum, der in Abb. 5.7 dargestellt ist.
+
+\begin{center}
+\begin{tabular}{c|c|ccc|c}
+Symbol & $P(a_i)$ & \multicolumn{3}{c|}{Code} & Codewortlänge $l_i$ / bit \\
+\hline
+$a_2$ & 0.4 & 0 & $\times$ & $\times$ & 1 \\
+$a_4$ & 0.3 & 1 & 0 & $\times$ & 2 \\
+$a_3$ & 0.2 & 1 & 1 & 0       & 3 \\
+$a_1$ & 0.1 & 1 & 1 & 1       & 3 \\
+\end{tabular}
+\end{center}
+
+Weiterhin lassen sich die folgenden Größen berechnen:
+
+Entropie der Quelle: $H = -\sum_{i=1}^{N} P(a_i)\log_2(P(a_i)) \approx 1.8464$ bit/Symbol
+
+Relative Entropie der Quelle: $\dfrac{H}{H_0} = \dfrac{-\sum_{i=1}^{N} P(a_i)\log_2(P(a_i))}{\log_2(N)} \approx 0.9232$
+
+Redundanz der Quelle: $r_q = 1 - \dfrac{H}{H_0} = 0.0768 \mathrel{\widehat{=}} 7.68\,\%$
+
+Mittlere zu erwartende Codewortlänge bei Fano-Codierung:
+$\mathrm{E}\{L\} = \sum_{i=1}^{N} l_i P(a_i) = 0.4 \cdot 1 + 0.3 \cdot 2 + 0.2 \cdot 3 + 0.1 \cdot 3 = 1.9$ bit/Symbol
+
+Mit Hilfe des Codes und des Entscheidungsbaums wird nun ein Bitstrom wie folgt decodiert:
+$1\;0\;1\;1\;1\;0\;1\;0\;0\;1\;1\;0\;0 \;\rightarrow\; a_4\,a_1\,a_2\,a_4\,a_2\,a_3\,a_2$.
+
+Somit ergibt sich eine Coderedundanz: $r_c = \dfrac{\mathrm{E}\{L\} - H}{H} = \dfrac{1.9 - 1.8464}{1.8464} = 0.029$.
+
+% Grafik: Abbildung 5.7: Entscheidungsbaum für den Fano-Code aus Beispiel 5.3
+\end{beispiel}
+
+Würde man hingegen die Symbole $a_2$ und $a_1$ in die erste Gruppe und $a_3$ und $a_4$ in die zweite Gruppe sortieren, dann erhält man einen schlechteren Code mit einer mittleren Codewortlänge von 2 Bit/Symbol.
+
+\subsection{Codierung nach Huffman}
+
+Das Codierschema nach Huffman kann wie folgt zusammengefasst werden:
+
+\begin{enumerate}
+  \item Ordnen der Originalsymbole nach fallenden Auftrittswahrscheinlichkeiten;
+  \item Zusammenfassen der Symbole mit den niedrigsten Wahrscheinlichkeiten zu einem neuen Ersatzsymbol;
+  \item Zuordnung eines Bits zu den beiden Originalsymbolen des Ersatzsymbols, so dass das erste Originalsymbol mit „0" und das zweite Originalsymbol mit „1" (oder umgekehrt) adressiert wird;
+  \item Ordnen der verbliebenen Originalsymbole und des neuen Ersatzsymbols nach fallenden Auftrittswahrscheinlichkeiten, wobei die Ersatzsymbole maximal aufrücken;
+  \item Wiederholung der Schritte 2., 3. und 4.
+\end{enumerate}
+
+\begin{beispiel}[Codierung nach Huffman]
+Ein Huffman Code kann für das Beispiel 5.3 wie folgt entwickelt werden (Ersatzsymbole rücken maximal auf). Durch Rückwärtslesen ergibt sich die folgende Codetabelle:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+Symbol & Codewort & $l_i$ \\
+\hline
+$a_1$ & 001 & 3 \\
+$a_2$ & 1   & 1 \\
+$a_3$ & 000 & 3 \\
+$a_4$ & 01  & 2 \\
+\end{tabular}
+\end{center}
+
+% Grafik: Abbildung 5.8: Entscheidungsbaum für den Huffman-Code aus Beispiel 5.4 (Schritte: a3+a1→I(0.3); I+a4→II(0.6); II+a2→III(1.0))
+\end{beispiel}
+
+Aus dem Konstruktionsverfahren folgt, dass der Huffman-Code die mittlere Codewortlänge minimiert!
+
+\begin{itemize}
+  \item Man erkennt, dass den Knoten in jedem Schritt die minimalen Auftrittswahrscheinlichkeiten zugeordnet werden.
+  \item In jedem Knoten wird zudem ein Bit vergeben. Somit werden die Bits den insgesamt wachsenden, aber in jedem Schritt minimal möglichen Wahrscheinlichkeiten zugeordnet.
+  \item Somit wird der Erwartungswert $\mathrm{E}\{L\}$ minimal.
+\end{itemize}
+
+Da es häufig mehrere Huffman-Codes gleicher minimaler Codewortlänge gibt, ist es sinnvoll, mit einem weiteren Kriterium den besten Code auszuwählen. Ein häufig gewähltes Kriterium ist die minimale Varianz der Codewortlängen. Die Optimierung dieses Kriteriums wird durch das „maximale Aufrücken" der Kombinationssymbole in dem oben dargestellten Codierschema erreicht.
+
+\subsection{Lauflängencodierung}
+
+Eine Form der redundanzreduzierenden Codierung, die oft im Zusammenhang mit der Entropiecodierung eingesetzt wird, ist die sogenannte Lauflängencodierung. Diese ist besonders leicht anwendbar, wenn der zu codierende Datenstrom aus binären Symbolen besteht. In diesem Fall handelt es sich um eine verlustlose Codierung. Bei der Lauflängencodierung wird die Anzahl aufeinanderfolgender gleicher Symbole erfasst. Codierung dieser „Lauflängen" kann dann z.B. mittels Huffman-Codes erfolgen, wobei die Codetabellen anhand der Häufigkeitsverteilungen der Lauflängen aus typischen Bitströmen ermittelt wurden. Der Wechsel von einer Reihe von Null-Bits auf eine Reihe von Eins-Bits muss hierbei nicht signalisiert werden, da sich diese automatisch aus dem Wechsel der beiden Bitmuster ergibt.
+
+Dieses Prinzip wurde z.B. bei der inzwischen weitgehend verdrängten Faksimile-Übertragung („FAX") eingesetzt. Hierbei wird eine Bildvorlage zeilenweise in schwarz-weiß abgetastet. Die Lauflänge entspricht dann der Anzahl aufeinanderfolgender schwarzer oder weißer Bildpunkte. Bei schwarzer Schrift auf weißem Untergrund sind die weißen Lauflängen sehr viel länger als die schwarzen Lauflängen. Für weiße und schwarze Lauflängen werden daher unterschiedliche Huffman-Codes verwendet. Da auf eine weiße Lauflänge stets eine schwarze Lauflänge folgt (und umgekehrt), muss der Beginn einer neuen Lauflänge nicht explizit angezeigt werden. Allerdings muss das Ende einer Zeile mit einem speziellen Symbol signalisiert werden.
+
+% Grafik: Abbildung 5.9: Haussilhouette, zeilenweise abgetastet; weiße und schwarze Lauflängen entstehen durch horizontales Abtasten der Bildvorlage
+
+\subsection{Verlustlose und verlustbehaftete Audiocodierung}
+
+Die verlustlose Quellencodierung spielt in vielen technischen Anwendungen eine große Rolle, z.B. bei der Speicherung von Audio Dateien. Die Huffman-Codierung ergibt in diesem Fall einen binären Code, der die zu speichernde Datenmenge im Mittel minimiert. Bei fehlerfreier Speicherung kann die Symbolfolge der Quelle ohne Verluste im Empfänger aus dem gespeicherten Code rekonstruiert werden. Diese Verfahren werden daher als \textit{verlustlose Quellencodierung} bezeichnet. Demgegenüber werden bei vielen Verfahren der Signalübertragung, z. B. bei der Mobilfunktelefonie oder MP3-Audiocodierung, irrelevante Daten im Zuge der Codierung entfernt. Die Symbolfolge der Quelle kann dann im Empfänger nicht exakt reproduziert werden. Jedoch ist das Empfangssignal hinsichtlich der vom Menschen wahrgenommenen Qualität nicht vom Original zu unterscheiden oder weist nur geringfügige und mithin akzeptable Verzerrungen auf. Man spricht dann von \textit{verlustbehafteter Quellencodierung}. Im Unterschied zur verlustlosen Quellencodierung ist bei einer verlustbehafteten Codierung ein mehrfaches Umcodieren des Signals mit Einbußen an Qualität verbunden und muss deshalb vermieden werden.
+
+\textbf{FLAC Audiocodierung}
+
+Das FLAC-Verfahren („free lossless audio codec") ist ein frei verfügbares Verfahren für die Codierung von Audiosignalen im PCM-Format, das im Mittel eine Reduktion der Datenmenge um ca. 50\,\% erreicht. Seit 2024 ist es als RFC 9639 („request for comment") als „Internet Engineering Task Force (IETF)" Standard etabliert und besonders auch für die paketierte Übertragung von Audiosignalen im Internet geeignet. Dabei wird das Audiosignal in Rahmen zerlegt, die neben den eigentlichen Audiodaten auch einen Kopf („header") mit Informationen über die Abtastrate und die Wortbreite enthalten. Jedes Signalsegment wird dann durch ein parametrisches Prädiktionsmodell approximiert und der Fehler („Residualsignal") zwischen dem parametrischen Modell und dem tatsächlichen Eingangssignal berechnet. Dieses Residualsignal wird dann einer Entropiecodierung (hier: Rice Code) unterzogen, die im Unterschied zur Huffman-Codierung keine Konstruktion und Übertragung von Codetabellen erfordert. Die Codierung und Decodierung benötigt nur einen geringen Rechenaufwand.
+
+\textbf{MP3 und AAC Audiocodierung}
+
+In der \textit{verlustbehafteten} Audiocodierung macht man sich den Umstand zunutze, dass zu jedem Zeitpunkt eines Audiosignals nur Teile des verfügbaren Frequenzspektrums eine nennenswerte Rolle spielen. Zum Beispiel befinden sich die leistungsstärksten Anteile eines Melodieinstruments in der Regel bei relativ tiefen Frequenzen während der Frequenzbereich nahe der halben Abtastrate („Nyquist-Frequenz") kaum Leistung gemessen werden kann. Aufgrund einer Eigenschaften des Gehörs, derzufolge leistungsstarke Anteile die leistungsschwachen Anteile (besonders bei hohen Frequenzen) verdecken, können dann die leistungsschwachen Frequenzanteile vor der Codierung entfernt werden, d.h. faktisch zu Null gesetzt, oder weniger genau codiert werden. Hierfür ist zunächst eine Frequenzanalyse des Signals erforderlich, so dass mit Hilfe eines „psychoakustischen Modells" eine Entscheidung über die zu codierenden Frequenzanteile getroffen werden kann. Im „MP3" Standard (ISO/IEC 11172-3, Layer III) werden bei tiefen Frequenzen die Frequenzwerte paarweise zusammengefasst und dann Huffman-codiert. Hierfür stellt der Standard Codiertabellen zur Verfügung, deren Statistik auf typischen Audiosignalen ermittelt wurde. Eine Folge des oben genannten Prinzips ist, dass der Decoder das originale Audiosignal nicht mehr bitgenau aus dem Bitstrom rekonstruieren kann. Ähnliche Prinzipien werden auch in neueren Standards eingesetzt, z.B. dem ISO/IEC 13818-7:2006 MPEG-2 Advanced Audio Coder (AAC), der auch Mehrkanalton unterstützt. Bei einem Stereosignal, sind Bitraten ab ca. 192 kbit/s mit der Qualität einer 16-Bit PCM Codierung vergleichbar („CD-Qualität"). Diese Standards werden kontinuierlich weiterentwickelt, z.B. in der Form des MPEG-4 High-efficiency Advanced Audio Coding AAC+ (ISO/IEC 14496-3:2005).
+
+% Grafik: Abbildung 5.10: MP3-Encoder (oben): PCM audio samples → mapping → quantizer and coding (psychoacoustic model) → frame packing → encoded bitstream; MP3-Decoder (unten): encoded bitstream → frame unpacking → reconstruction → inverse mapping → PCM audio samples
+
+\subsection{Kullbach-Leibler Divergenz und Kreuzentropie}
+
+Die Entropie
+
+$$
+H = \sum_i P(a_i) \log_2\!\left(\frac{1}{P(a_i)}\right)
+$$
+
+gibt an, wie viele Bits für die Übertragung der Symbole $a_i$ mindestens aufgewandt werden müssen. Auf der Grundlage der Auftrittswahrscheinlichkeiten $P(a_i)$ kann ein optimaler Code entwickelt werden. Treten die Symbole $a_i$ nun tatsächlich mit anderen Auftrittswahrscheinlichkeiten $\widehat{P}(a_i)$ auf, müssen prinzipiell mehr Bits für eine Codierung und Übertragung aufgewandt werden. Diese Abweichung wird durch die \textit{Kullbach-Leibler Divergenz} quantifiziert.
+
+Die pro Symbol $a_i$ mindestens aufzuwendenden Bits sind durch den Informationsgehalt
+
+$$
+I(a_i) = \log_2\!\left(\frac{1}{P(a_i)}\right)
+$$
+
+gegeben. Tatsächlich werden die Symbole nun aber mit der Verteilung $\widehat{P}(a_i)$ erzeugt, so dass den Symbolen der Informationsgehalt
+
+$$
+\widehat{I}(a_i) = \log_2\!\left(\frac{1}{\widehat{P}(a_i)}\right)
+$$
+
+zugrunde liegt. Daraus ergibt sich im statistischen Mittel eine Differenz
+
+$$
+D_{\mathrm{KL}}(P(a_i) \| \widehat{P}(a_i)) = \sum_i P(a_i) \log_2\!\left(\frac{1}{\widehat{P}(a_i)}\right) - \sum_i P(a_i) \log_2\!\left(\frac{1}{P(a_i)}\right)
+= \sum_i P(a_i) \log_2\!\left(\frac{P(a_i)}{\widehat{P}(a_i)}\right) \quad \text{[bit].}
+$$
+
+Diese Abweichung wird Kullbach-Leibler Divergenz genannt. Sie ist ein Maß für die Ähnlichkeit der Wahrscheinlichkeitsverteilungen $P(a_i)$ und $\widehat{P}(a_i)$. Es gilt
+
+$$
+0 \leq D_{\mathrm{KL}}(P(a_i) \| \widehat{P}(a_i)) \leq \sum_i \frac{P^2(a_i)}{\widehat{P}(a_i)} - 1 \quad \text{für } P(a_i),\, \widehat{P}(a_i) > 0.
+$$
+
+Weiterhin gilt
+
+$$
+D_{\mathrm{KL}}(P(a_i) \| \widehat{P}(a_i)) = H(P, \widehat{P}) - H(P)
+$$
+
+und
+
+$$
+D_{\mathrm{KL}}(\widehat{P}(a_i) \| P(a_i)) = H(\widehat{P}, P) - H(\widehat{P}).
+$$
+
+Der Term $H(\widehat{P}, P) = -\sum_i \widehat{P}(a_i) \log_2 P(a_i)$ wird auch als Kreuzentropie bezeichnet. Die Kreuzentropie wird häufig als Kriterium in der Adaption neuronaler Netze (mit der „Backpropagation"-Methode) eingesetzt. Hiermit kann die Abweichung der Verteilung $P(a_i)$ gegebener Daten zu der Verteilung $\widehat{P}(a_i)$ der von dem neuronalen Netz erzeugten Daten durch ein zielgerichtetes Training des Netzwerks minimiert werden.
+
+\section{Zusammenfassung}
+
+\begin{itemize}
+  \item Digitale Daten werden häufig mit Hilfe binärer Zeichen codiert.
+  \item Die Zahl der zu übertragenden binären Zeichen oder die Datenrate lässt per se keinen Rückschluss auf den Informationsgehalt dieser Daten zu.
+  \item Der mittlere Informationsgehalt der Zeichen wird aus den Auftrittswahrscheinlichkeiten der Zeichen berechnet.
+  \item Information entsteht erst durch Wahlfreiheit des Senders und die damit verbundene Unsicherheit bezüglich der gesendeten Daten beim Empfänger.
+  \item Das Ziel der Quellencodierung ist die Verminderung der Datenmenge und mithin auch der Redundanz der Quellendaten.
+  \item Für die über einen gestörten Kanal übertragbare Information ist der mittlere Informationsgehalt der Quelle in Relation zur Übertragungskapazität des Kanals von Bedeutung, nicht aber die Zahl der binären Zeichen.
+\end{itemize}
