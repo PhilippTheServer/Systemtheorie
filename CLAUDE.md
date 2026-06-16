@@ -167,6 +167,21 @@ Fehlende Grafiken mit Kommentar kennzeichnen:
 
 ---
 
+## Git-Workflow (immer einhalten)
+
+Nach **jeder** Änderung an Dateien diesen Workflow vollständig durchführen:
+
+1. **Branch erstellen** — `git checkout -b feat/<kurzbeschreibung>`
+2. **Commit** — aussagekräftige Commit-Message mit `feat/fix/chore`-Präfix
+3. **Push** — `git push -u origin <branch>`
+4. **Pull Request erstellen** — `gh pr create` mit Titel und kurzer Beschreibung
+5. **Merge** — `gh pr merge --merge` (kein Squash, kein Rebase)
+6. **Branch löschen** — `git branch -d <branch>` lokal + `git push origin --delete <branch>`
+
+Direkte Commits auf `main` sind **verboten**.
+
+---
+
 ## Wichtige Hinweise
 
 - Transkription ist **wort- und formelgetreu** — kein Paraphrasieren, keine Ergänzungen
