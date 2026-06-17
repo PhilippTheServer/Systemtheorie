@@ -34,6 +34,20 @@ Read(file_path="vl/skript_SystheoEins_2025.pdf", pages="21-40")
 
 ---
 
+## Themen lokalisieren
+
+Alle nummerierten `\chapter{}`, `\section{}` und `\subsection{}` tragen ein `\label{}`. Damit lässt sich jedes Thema mit einem einzigen Befehl finden:
+
+```bash
+grep -rn "label{sec:" skript/          # alle Abschnitte
+grep -rn "label{chap:" skript/         # alle Kapitel
+grep -rn "label{sec:normalverteilung" skript/  # konkretes Thema → Datei + Zeile
+```
+
+Stern-Varianten (`\section*{}`, `\subsection*{}`) haben **kein** Label.
+
+---
+
 ## Bekannte Lücken (Stand: 2026-06-16)
 
 Folgende Inhalte aus der PDF sind noch **nicht** in den Vorlesungsdateien enthalten:
