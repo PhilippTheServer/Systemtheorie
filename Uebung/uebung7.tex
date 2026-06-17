@@ -271,3 +271,94 @@ $$
 $$
 
 \end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Teil C – Bildpunkte eines Schwarz-Weiß-Bildes}
+% ----------------------------------------------------------------
+
+\subsubsection*{C1 – Elementarereignisse eines einzelnen Bildpunkts}
+
+\begin{beispiel}[Ereignismenge eines Bildpunkts]
+
+\textbf{Gegeben:} Ein digitalisiertes Schwarz-Weiß-Bild. Jeder Bildpunkt kann genau
+einen von zwei Zuständen annehmen: schwarz~(S) oder weiß~(W). Beide Zustände treten
+mit gleicher Wahrscheinlichkeit auf.
+
+\textbf{Gesucht:} Menge der Elementarereignisse $\Omega_P$ für einen einzelnen Bildpunkt.
+
+\textbf{Formel} (Definition Elementarereignis, Abschnitt~\ref{sec:mengen-ereignisse}):
+
+$$
+\Omega_P = \{\xi_1, \xi_2, \ldots\}
+$$
+
+\textbf{Rechnung:}
+
+Da schwarz und weiß die einzigen möglichen Zustände sind und sich gegenseitig ausschließen:
+
+$$
+\Omega_P = \{S,\, W\}
+$$
+
+Da es sich um ein Laplace-Experiment handelt (Abschnitt~\ref{sec:axiome-wahrscheinlichkeit}):
+
+$$
+P(S) = P(W) = \frac{1}{|\Omega_P|} = \frac{1}{2}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\Omega_P = \{S,\, W\}, \qquad P(S) = P(W) = \frac{1}{2}}
+$$
+
+\end{beispiel}
+
+% ---- C2 --------------------------------------------------------
+\subsubsection*{C2 – Verbundwahrscheinlichkeiten zweier unabhängiger Bildpunkte}
+
+\begin{beispiel}[Gemeinsame Betrachtung zweier Bildpunkte]
+
+\textbf{Gegeben:} Zwei benachbarte Bildpunkte mit
+$P(S) = P(W) = \tfrac{1}{2}$; die Bildpunkte sind statistisch unabhängig.
+
+\textbf{Gesucht:} Wahrscheinlichkeiten aller Elementarereignisse des kombinierten
+Experiments.
+
+\textbf{Formel} (Kartesisches Produkt + Verbundwahrscheinlichkeit bei Unabhängigkeit,
+Abschnitte~\ref{sec:kartesische-produktmengen} und~\ref{sec:verbundwahrscheinlichkeiten}):
+
+$$
+\Omega = \Omega_P \times \Omega_P, \qquad
+P(A_i, B_j) = P(A_i)\cdot P(B_j)
+$$
+
+\textbf{Rechnung:}
+
+$$
+\Omega = \{(S,S),\,(S,W),\,(W,S),\,(W,W)\}, \qquad |\Omega| = 4
+$$
+
+\begin{center}
+\begin{tabular}{c|cc}
+  & $B = S$ & $B = W$ \\
+  \hline
+  $A = S$ & $P(S,S) = \tfrac{1}{2}\cdot\tfrac{1}{2} = \tfrac{1}{4}$
+           & $P(S,W) = \tfrac{1}{2}\cdot\tfrac{1}{2} = \tfrac{1}{4}$ \\[4pt]
+  $A = W$ & $P(W,S) = \tfrac{1}{2}\cdot\tfrac{1}{2} = \tfrac{1}{4}$
+           & $P(W,W) = \tfrac{1}{2}\cdot\tfrac{1}{2} = \tfrac{1}{4}$ \\
+\end{tabular}
+\end{center}
+
+Probe: $\displaystyle\sum_{i,j} P(A_i,B_j) = 4\cdot\frac{1}{4} = 1$ \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(S,S) = P(S,W) = P(W,S) = P(W,W) = \frac{1}{4}}
+$$
+
+Alle vier Kombinationen sind gleichwahrscheinlich, da die Bildpunkte statistisch
+unabhängig sind und jeder Zustand mit $\tfrac{1}{2}$ auftritt.
+
+\end{beispiel}
