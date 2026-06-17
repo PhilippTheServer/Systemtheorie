@@ -1,0 +1,273 @@
+\section{Übung 7 – Zufallsereignisse und statistische Abhängigkeit}
+
+Zwei bzw.\ sechs ideale Würfel werden geworfen. Alle Teilaufgaben folgen dem
+Laplace-Modell (vgl.\ Abschnitt~\ref{sec:axiome-wahrscheinlichkeit}).
+
+% ----------------------------------------------------------------
+\subsection*{Teil A – Zwei Würfel}
+% ----------------------------------------------------------------
+
+Der Ergebnisraum ist das kartesische Produkt
+$\Omega = \Omega_w \times \Omega_w$ mit $|\Omega| = 6^2 = 36$
+(vgl.\ Abschnitt~\ref{sec:kartesische-produktmengen}).
+Jedes Elementarereignis $(\xi_i,\xi_j)$ hat die Wahrscheinlichkeit
+$P(\xi_i,\xi_j) = \tfrac{1}{36}$.
+
+% ---- A1 --------------------------------------------------------
+\subsubsection*{A1 – Genau ein Würfel zeigt eine 5}
+
+\begin{beispiel}[Genau eine 5 bei zwei Würfeln]
+
+\textbf{Gegeben:} $n = 2$ unabhängige ideale Würfel, $p = P(\text{5}) = \tfrac{1}{6}$.
+
+\textbf{Gesucht:} $P(\text{genau eine 5})$
+
+\textbf{Formel} (Binomialformel, Abschnitt~\ref{sec:kombinatorik}):
+
+$$
+P = \binom{n}{s}\,p^{s}\,(1-p)^{n-s}
+\qquad n=2,\; s=1,\; p=\tfrac{1}{6}
+$$
+
+\textbf{Rechnung:}
+
+$$
+P = \binom{2}{1}\cdot\frac{1}{6}\cdot\frac{5}{6}
+  = 2 \cdot \frac{5}{36}
+  = \frac{10}{36}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{genau eine 5}) = \frac{5}{18} \approx 0{,}278}
+$$
+
+\end{beispiel}
+
+% ---- A2 --------------------------------------------------------
+\subsubsection*{A2 – Mindestens ein Würfel zeigt eine 5}
+
+\begin{beispiel}[Mindestens eine 5 bei zwei Würfeln]
+
+\textbf{Gegeben:} wie A1.
+
+\textbf{Gesucht:} $P(\text{mindestens eine 5})$
+
+\textbf{Formel} (Komplementregel + statistische Unabhängigkeit,
+Abschnitt~\ref{sec:unabhaengige-versuche}):
+
+$$
+P(\text{mindestens eine 5}) = 1 - P(\text{keine 5})
+= 1 - \left(\frac{5}{6}\right)^{2}
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(\text{keine 5}) = \frac{5}{6}\cdot\frac{5}{6} = \frac{25}{36}
+\qquad\Rightarrow\qquad
+P = 1 - \frac{25}{36} = \frac{11}{36}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{mindestens eine 5}) = \frac{11}{36} \approx 0{,}306}
+$$
+
+\end{beispiel}
+
+% ---- A3 --------------------------------------------------------
+\subsubsection*{A3 – Beide Würfel zeigen die gleiche Zahl}
+
+\begin{beispiel}[Beide Würfel zeigen die gleiche Zahl]
+
+\textbf{Gegeben:} $|\Omega| = 36$.
+
+\textbf{Gesucht:} $P(W_1 = W_2)$
+
+\textbf{Formel} (Laplace-Experiment, Abschnitt~\ref{sec:axiome-wahrscheinlichkeit}):
+
+$$
+P(A) = \frac{|A|}{|\Omega|}
+$$
+
+\textbf{Rechnung:}
+
+Günstige Ereignisse: $A = \{(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)\}$, also $|A| = 6$.
+
+$$
+P = \frac{6}{36}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(W_1 = W_2) = \frac{1}{6} \approx 0{,}167}
+$$
+
+\end{beispiel}
+
+% ---- A4 --------------------------------------------------------
+\subsubsection*{A4 – Beide Würfel zeigen unterschiedliche Zahlen}
+
+\begin{beispiel}[Beide Würfel zeigen unterschiedliche Zahlen]
+
+\textbf{Gegeben:} Ergebnis aus A3.
+
+\textbf{Gesucht:} $P(W_1 \neq W_2)$
+
+\textbf{Formel} (Komplementregel):
+
+$$
+P(W_1 \neq W_2) = 1 - P(W_1 = W_2)
+$$
+
+\textbf{Rechnung:}
+
+$$
+P = 1 - \frac{1}{6} = \frac{5}{6}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(W_1 \neq W_2) = \frac{5}{6} \approx 0{,}833}
+$$
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Teil B – Sechs Würfel}
+% ----------------------------------------------------------------
+
+Der Ergebnisraum erweitert sich auf
+$\Omega = \Omega_w^{\times 6}$ mit $|\Omega| = 6^6 = 46\,656$.
+
+% ---- B1 --------------------------------------------------------
+\subsubsection*{B1 – Genau ein Würfel zeigt eine 5}
+
+\begin{beispiel}[Genau eine 5 bei sechs Würfeln]
+
+\textbf{Gegeben:} $n = 6$ unabhängige ideale Würfel, $p = \tfrac{1}{6}$.
+
+\textbf{Gesucht:} $P(\text{genau eine 5})$
+
+\textbf{Formel} (Binomialformel, Abschnitt~\ref{sec:kombinatorik}):
+
+$$
+P = \binom{6}{1}\cdot\left(\frac{1}{6}\right)^{1}\cdot\left(\frac{5}{6}\right)^{5}
+$$
+
+\textbf{Rechnung:}
+
+$$
+P = 6 \cdot \frac{1}{6} \cdot \frac{5^5}{6^5}
+  = 1 \cdot \frac{3125}{7776}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{genau eine 5}) = \frac{3125}{7776} \approx 0{,}402}
+$$
+
+\end{beispiel}
+
+% ---- B2 --------------------------------------------------------
+\subsubsection*{B2 – Mindestens ein Würfel zeigt eine 5}
+
+\begin{beispiel}[Mindestens eine 5 bei sechs Würfeln]
+
+\textbf{Gegeben:} $n = 6$, $p = \tfrac{1}{6}$.
+
+\textbf{Gesucht:} $P(\text{mindestens eine 5})$
+
+\textbf{Formel} (Komplementregel, Abschnitt~\ref{sec:unabhaengige-versuche}):
+
+$$
+P(\text{mindestens eine 5}) = 1 - \left(\frac{5}{6}\right)^{6}
+$$
+
+\textbf{Rechnung:}
+
+$$
+\left(\frac{5}{6}\right)^{6} = \frac{15\,625}{46\,656}
+\qquad\Rightarrow\qquad
+P = 1 - \frac{15\,625}{46\,656} = \frac{31\,031}{46\,656}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{mindestens eine 5}) = \frac{31\,031}{46\,656} \approx 0{,}665}
+$$
+
+\end{beispiel}
+
+% ---- B3 --------------------------------------------------------
+\subsubsection*{B3 – Alle sechs Würfel zeigen die gleiche Zahl}
+
+\begin{beispiel}[Alle sechs Würfel zeigen die gleiche Zahl]
+
+\textbf{Gegeben:} $|\Omega| = 6^6 = 46\,656$.
+
+\textbf{Gesucht:} $P(W_1 = W_2 = \cdots = W_6)$
+
+\textbf{Formel} (Laplace-Experiment, Abschnitt~\ref{sec:axiome-wahrscheinlichkeit}):
+
+$$
+P(A) = \frac{|A|}{|\Omega|}
+$$
+
+\textbf{Rechnung:}
+
+Günstige Ereignisse: $\{(1,\ldots,1),(2,\ldots,2),\ldots,(6,\ldots,6)\}$, also $|A| = 6$.
+
+$$
+P = \frac{6}{6^6} = \frac{6}{46\,656} = \frac{1}{7\,776}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(W_1 = \cdots = W_6) = \frac{1}{7\,776} \approx 1{,}29 \cdot 10^{-4}}
+$$
+
+\end{beispiel}
+
+% ---- B4 --------------------------------------------------------
+\subsubsection*{B4 – Alle sechs Würfel zeigen unterschiedliche Zahlen}
+
+\begin{beispiel}[Alle sechs Würfel zeigen unterschiedliche Zahlen]
+
+\textbf{Gegeben:} $|\Omega| = 6^6 = 46\,656$.
+
+\textbf{Gesucht:} $P(\text{alle Würfel verschieden})$
+
+\textbf{Formel} (Permutationen ohne Wiederholung, Abschnitt~\ref{sec:kombinatorik}):
+
+$$
+|A| = n! \qquad \text{(alle Anordnungen von } \{1,2,3,4,5,6\}\text{)}
+$$
+
+$$
+P(A) = \frac{n!}{|\Omega|}
+$$
+
+\textbf{Rechnung:}
+
+$$
+|A| = 6! = 720
+\qquad\Rightarrow\qquad
+P = \frac{720}{46\,656} = \frac{5}{324}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{alle verschieden}) = \frac{5}{324} \approx 0{,}0154}
+$$
+
+\end{beispiel}

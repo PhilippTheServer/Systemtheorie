@@ -170,6 +170,22 @@ Direkte Commits auf `main` sind **verboten**.
 
 ---
 
+## Rechenaufgaben-Format (PFLICHT)
+
+Jede Rechenaufgabe **muss** in folgender Struktur beantwortet werden:
+
+| Abschnitt | Inhalt |
+|-----------|--------|
+| **Gegeben** | Alle bekannten Größen, Voraussetzungen, Versuchsbeschreibung |
+| **Gesucht** | Die zu berechnende Wahrscheinlichkeit / Größe, klar formuliert |
+| **Formel** | Die verwendete Formel mit Referenz auf Label im Skript (z. B. `\ref{sec:kombinatorik}`) |
+| **Rechnung** | Vollständige, nachvollziehbare Rechenschritte |
+| **Lösung** | Ergebnis in Bruch und Dezimalform, ggf. kurze Interpretation |
+
+Diese Struktur ist **obligatorisch** – keine Ausnahmen.
+
+---
+
 ## Wichtige Hinweise
 
 - Grafiken aus den Folien werden als TikZ-Code neu erstellt, nicht als `\includegraphics` eingebunden
