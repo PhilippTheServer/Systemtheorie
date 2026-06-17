@@ -177,6 +177,24 @@ $$
 y(t) = \int_0^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi\,.
 $$
 
+\begin{beispiel}[Kausalität]
+Ein System heißt \textbf{kausal}, wenn das Ausgangssignal zum Zeitpunkt $t_0$ ausschließlich von Eingangswerten der Vergangenheit und Gegenwart ($t \leq t_0$) abhängt — das System „kennt" keine zukünftigen Eingaben. Für LTI-Systeme ist dies gleichbedeutend mit $h(t) = 0$ für alle $t < 0$.
+
+\textbf{Kausales System:} $h(t) = e^{-2t}\,\varepsilon(t)$
+
+Die Sprungfunktion $\varepsilon(t)$ stellt sicher, dass $h(t) = 0$ für $t < 0$. Das Ausgangssignal
+
+$$
+y(t) = \int_0^{\infty} e^{-2\xi}\,x(t - \xi)\,\mathrm{d}\xi
+$$
+
+hängt nur von vergangenen Eingabewerten $x(t - \xi)$, $\xi \geq 0$, ab. $\Rightarrow$ \textbf{kausal}.
+
+\textbf{Nicht-kausales System:} $h(t) = e^{-2|t|}$
+
+Da $h(t) \neq 0$ für $t < 0$, fließen zukünftige Eingabewerte in $y(t)$ ein. $\Rightarrow$ \textbf{nicht kausal} (in der Praxis nur mit Verzögerung realisierbar).
+\end{beispiel}
+
 \subsubsection*{BIBO-Stabilität}
 
 Die BIBO-Stabilität fordert, dass für jedes amplitudenbeschränkte Eingangssignal mit $|x(t)| < x_{\max}$ auch das Ausgangssignal des Systems beschränkt ist, d.\,h.\ $|y(t)| < \infty$. Für ein zeitkontinuierliches System gilt:
@@ -196,6 +214,30 @@ $$
 $$
 
 gilt. Diese Bedingung ist allerdings auch notwendig, siehe hierzu Abschnitt 3.3.5.
+
+\begin{beispiel}[BIBO-Stabilität]
+\textbf{Stabiles System:} $h(t) = e^{-2t}\,\varepsilon(t)$
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi
+= \int_0^{\infty} e^{-2\xi}\,\mathrm{d}\xi
+= \left[-\frac{1}{2}e^{-2\xi}\right]_0^{\infty}
+= \frac{1}{2} < \infty
+$$
+
+Die Bedingung ist erfüllt $\Rightarrow$ \textbf{BIBO-stabil}.
+
+\textbf{Instabiles System:} $h(t) = e^{+2t}\,\varepsilon(t)$
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi
+= \int_0^{\infty} e^{+2\xi}\,\mathrm{d}\xi
+= \left[\frac{1}{2}e^{+2\xi}\right]_0^{\infty}
+= \infty
+$$
+
+Die Bedingung ist verletzt $\Rightarrow$ \textbf{nicht BIBO-stabil}. Selbst ein beschränktes Eingangssignal (z.\,B.\ $x(t) = \varepsilon(t)$) würde ein unbeschränktes Ausgangssignal erzeugen.
+\end{beispiel}
 
 \subsubsection*{Autokorrelationsfunktion des Ausgangssignals}
 
