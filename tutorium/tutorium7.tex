@@ -1,0 +1,269 @@
+\chapter{Tutorien}
+
+\section{Tutorium 7 – Linearität, Zeitinvarianz, BIBO-Stabilität}
+
+% ================================================================
+\subsection*{Teil A – Linearität und Zeitinvarianz}
+% ================================================================
+
+Für jedes System wird geprüft:
+\begin{itemize}
+  \item \textbf{Linearität} (Abschnitt~\ref{sec:zeitinvarianz-linearitaet}):
+  $\mathcal{S}[a\,x_1(t) + b\,x_2(t)] \stackrel{!}{=} a\,y_1(t) + b\,y_2(t)$
+  \item \textbf{Zeitinvarianz} (Abschnitt~\ref{sec:zeitinvarianz-linearitaet}):
+  $\mathcal{S}[x(t - \tau_0)] \stackrel{!}{=} y(t - \tau_0)$
+\end{itemize}
+
+% ----------------------------------------------------------------
+\subsubsection*{A1 – $y(t) = x(t) + a$, \quad $a \in \mathbb{R}$, $a \neq 0$}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Linearität und Zeitinvarianz: $y(t) = x(t) + a$]
+
+\textbf{Gegeben:} $\mathcal{S}[x(t)] = x(t) + a$,\quad $a \in \mathbb{R}$, $a \neq 0$.
+
+\textbf{Gesucht:} Ist das System linear? Ist es zeitinvariant?
+
+\textbf{Formel} (Abschnitt~\ref{sec:zeitinvarianz-linearitaet}): Superpositionsprinzip
+und Verschiebungsinvarianz.
+
+\textbf{Rechnung – Linearität:}
+
+Sei $y_1(t) = x_1(t) + a$ und $y_2(t) = x_2(t) + a$. Dann:
+
+$$
+\mathcal{S}[a_1 x_1(t) + a_2 x_2(t)]
+= a_1 x_1(t) + a_2 x_2(t) + a
+$$
+
+$$
+a_1 y_1(t) + a_2 y_2(t)
+= a_1(x_1(t)+a) + a_2(x_2(t)+a)
+= a_1 x_1(t) + a_2 x_2(t) + (a_1+a_2)\,a
+$$
+
+Da $(a_1+a_2)\,a \neq a$ im Allgemeinen: $\mathcal{S}[a_1 x_1 + a_2 x_2] \neq a_1 y_1 + a_2 y_2$.
+
+\textbf{Rechnung – Zeitinvarianz:}
+
+$$
+\mathcal{S}[x(t-\tau_0)] = x(t-\tau_0) + a
+\qquad
+y(t-\tau_0) = x(t-\tau_0) + a
+$$
+
+Beide Seiten sind identisch.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\text{nicht linear},\quad \text{zeitinvariant (NL-Z)}}
+$$
+
+Der konstante Offset $a$ verletzt das Superpositionsprinzip (Homogenitätsbedingung: $\mathcal{S}[0] = a \neq 0$).
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{A2 – $y(t) = t\,x(t)$}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Linearität und Zeitinvarianz: $y(t) = t\,x(t)$]
+
+\textbf{Gegeben:} $\mathcal{S}[x(t)] = t\,x(t)$.
+
+\textbf{Gesucht:} Ist das System linear? Ist es zeitinvariant?
+
+\textbf{Formel} (Abschnitt~\ref{sec:zeitinvarianz-linearitaet}).
+
+\textbf{Rechnung – Linearität:}
+
+$$
+\mathcal{S}[a_1 x_1(t) + a_2 x_2(t)]
+= t\bigl(a_1 x_1(t) + a_2 x_2(t)\bigr)
+= a_1\,t\,x_1(t) + a_2\,t\,x_2(t)
+= a_1 y_1(t) + a_2 y_2(t)
+$$
+
+Das Superpositionsprinzip ist erfüllt.
+
+\textbf{Rechnung – Zeitinvarianz:}
+
+$$
+\mathcal{S}[x(t-\tau_0)] = t\,x(t-\tau_0)
+$$
+
+$$
+y(t-\tau_0) = (t-\tau_0)\,x(t-\tau_0)
+$$
+
+Da $t \neq t - \tau_0$ für $\tau_0 \neq 0$: $\mathcal{S}[x(t-\tau_0)] \neq y(t-\tau_0)$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\text{linear},\quad \text{nicht zeitinvariant (L-NZ)}}
+$$
+
+Der zeitabhängige Koeffizient $t$ bewirkt, dass eine Verschiebung des Eingangs
+nicht zur gleichen Verschiebung des Ausgangs führt. Das System ist \textbf{zeitvariant}.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{A3 – $y(t) = \dfrac{\mathrm{d}}{\mathrm{d}t}\,x(t)$}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Linearität und Zeitinvarianz: $y(t) = \dot{x}(t)$]
+
+\textbf{Gegeben:} $\mathcal{S}[x(t)] = \dfrac{\mathrm{d}}{\mathrm{d}t}\,x(t)$.
+
+\textbf{Gesucht:} Ist das System linear? Ist es zeitinvariant?
+
+\textbf{Formel} (Abschnitt~\ref{sec:zeitinvarianz-linearitaet}).
+
+\textbf{Rechnung – Linearität:}
+
+Die Ableitung ist ein linearer Operator (Linearität der Differentiation):
+
+$$
+\mathcal{S}[a_1 x_1(t) + a_2 x_2(t)]
+= \frac{\mathrm{d}}{\mathrm{d}t}\bigl(a_1 x_1(t) + a_2 x_2(t)\bigr)
+= a_1\,\dot{x}_1(t) + a_2\,\dot{x}_2(t)
+= a_1 y_1(t) + a_2 y_2(t)
+$$
+
+\textbf{Rechnung – Zeitinvarianz:}
+
+$$
+\mathcal{S}[x(t-\tau_0)]
+= \frac{\mathrm{d}}{\mathrm{d}t}\,x(t-\tau_0)
+= \dot{x}(t-\tau_0)
+= y(t-\tau_0)
+$$
+
+(Kettenregel: $\frac{\mathrm{d}}{\mathrm{d}t}x(t-\tau_0) = \dot{x}(t-\tau_0)\cdot 1$)
+
+\textbf{Lösung:}
+
+$$
+\boxed{\text{linear},\quad \text{zeitinvariant} \;\Rightarrow\; \textbf{LTI-System}}
+$$
+
+Der Differentiationsoperator ist linear und verschiebt das Signal ohne
+zusätzliche Zeitabhängigkeit — das System ist ein LTI-System.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Teil B – BIBO-Stabilität}
+% ================================================================
+
+Kriterium (Abschnitt~\ref{sec:faltung-eigenschaften}): Ein zeitkontinuierliches LTI-System
+mit Impulsantwort $h(t)$ ist BIBO-stabil genau dann, wenn
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty\,.
+$$
+
+% ----------------------------------------------------------------
+\subsubsection*{B1 – $h(t) = 2\,\varepsilon(t-2T)\,\sin\!\left(\dfrac{\pi(t-2T)}{2T}\right)$}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[BIBO-Stabilität: ungedämpfte Sinusantwort]
+
+\textbf{Gegeben:}
+
+$$
+h(t) = 2\,\varepsilon(t-2T)\,\sin\!\left(\frac{\pi(t-2T)}{2T}\right)
+$$
+
+\textbf{Gesucht:} Ist das System BIBO-stabil?
+
+\textbf{Formel} (Abschnitt~\ref{sec:faltung-eigenschaften}):
+$\displaystyle\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi \stackrel{?}{<} \infty$
+
+\textbf{Rechnung:}
+
+Substitution $\tau = t - 2T$ (der Sprung verschiebt den Träger auf $\tau \geq 0$):
+
+$$
+\int_{-\infty}^{\infty} |h(t)|\,\mathrm{d}t
+= \int_{0}^{\infty} 2\left|\sin\!\left(\frac{\pi\tau}{2T}\right)\right|\mathrm{d}\tau
+$$
+
+Der Integrand $2\left|\sin\!\left(\tfrac{\pi\tau}{2T}\right)\right|$ ist periodisch mit Periode
+$2T$ und hat konstante Amplitude $2$ — er klingt \textbf{nicht} ab. Das Integral über $[0,\infty)$
+wächst ohne Schranke:
+
+$$
+\int_{0}^{2nT} 2\left|\sin\!\left(\frac{\pi\tau}{2T}\right)\right|\mathrm{d}\tau
+= n \cdot \frac{8T}{\pi} \;\xrightarrow{n\to\infty}\; \infty
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\int_{-\infty}^{\infty}|h(t)|\,\mathrm{d}t = \infty \;\Rightarrow\; \textbf{nicht BIBO-stabil}}
+$$
+
+Eine ungedämpfte Schwingung in der Impulsantwort führt stets zur Instabilität, da
+der Energieinhalt unbegrenzt wächst.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{B2 – $h(t) = 4A\!\left[\operatorname{rect}\!\left(\dfrac{t}{T}\right) + e^{-(t-T)/T}\,\varepsilon(t-T)\right]$}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[BIBO-Stabilität: Rechteck + abklingende Exponentialfunktion]
+
+\textbf{Gegeben:}
+
+$$
+h(t) = 4A\!\left[\operatorname{rect}\!\left(\frac{t}{T}\right)
+       + e^{-(t-T)/T}\,\varepsilon(t-T)\right],
+\quad A > 0,\; T > 0
+$$
+
+\textbf{Gesucht:} Ist das System BIBO-stabil?
+
+\textbf{Formel} (Abschnitt~\ref{sec:faltung-eigenschaften}):
+$\displaystyle\int_{-\infty}^{\infty}|h(\xi)|\,\mathrm{d}\xi \stackrel{?}{<} \infty$
+
+\textbf{Rechnung:}
+
+Die beiden Terme haben disjunkte Träger und können separat integriert werden.
+
+\textbf{Term 1 –} $\operatorname{rect}(t/T)$: Träger $|t| \leq T/2$, Amplitude $4A$:
+
+$$
+\int_{-\infty}^{\infty} 4A\left|\operatorname{rect}\!\left(\frac{t}{T}\right)\right|\mathrm{d}t
+= 4A \int_{-T/2}^{T/2}\mathrm{d}t = 4AT
+$$
+
+\textbf{Term 2 –} $e^{-(t-T)/T}\,\varepsilon(t-T)$: Träger $t \geq T$, Substitution $u = (t-T)/T$:
+
+$$
+\int_{-\infty}^{\infty} 4A\,e^{-(t-T)/T}\,\varepsilon(t-T)\,\mathrm{d}t
+= 4A\int_{T}^{\infty} e^{-(t-T)/T}\,\mathrm{d}t
+= 4AT\int_{0}^{\infty} e^{-u}\,\mathrm{d}u
+= 4AT
+$$
+
+\textbf{Gesamt:}
+
+$$
+\int_{-\infty}^{\infty}|h(t)|\,\mathrm{d}t = 4AT + 4AT = 8AT < \infty
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\int_{-\infty}^{\infty}|h(t)|\,\mathrm{d}t = 8AT < \infty \;\Rightarrow\; \textbf{BIBO-stabil}}
+$$
+
+Das Rechteck ist zeitlich begrenzt (endliche Energie), die Exponentialfunktion klingt
+für $t \geq T$ monoton ab — beide Terme liefern endliche Beiträge.
+
+\end{beispiel}
