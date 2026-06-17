@@ -362,3 +362,122 @@ Alle vier Kombinationen sind gleichwahrscheinlich, da die Bildpunkte statistisch
 unabhängig sind und jeder Zustand mit $\tfrac{1}{2}$ auftritt.
 
 \end{beispiel}
+
+% ---- C3–C5 Neue Verbundwahrscheinlichkeiten -------------------
+
+\medskip
+Für die folgenden Teilaufgaben C3–C5 gelten die Verbundwahrscheinlichkeiten:
+
+\begin{center}
+\begin{tabular}{c|cc|c}
+  & $B = S$ & $B = W$ & $P(A_i)$ \\
+  \hline
+  $A = S$ & $0{,}3$ & $0{,}2$ & \\
+  $A = W$ & $0{,}2$ & $0{,}3$ & \\
+  \hline
+  $P(B_j)$ & & & $1$ \\
+\end{tabular}
+\end{center}
+
+wobei $A$ den linken und $B$ den rechten Bildpunkt bezeichnet.
+
+\subsubsection*{C3 – Wahrscheinlichkeit: linker Bildpunkt ist schwarz}
+
+\begin{beispiel}[Randwahrscheinlichkeit des linken Bildpunkts]
+
+\textbf{Gegeben:} $P(S,S) = 0{,}3$,\; $P(W,S) = 0{,}2$,\; $P(S,W) = 0{,}2$,\; $P(W,W) = 0{,}3$.
+
+\textbf{Gesucht:} $P(A = S)$
+
+\textbf{Formel} (Randwahrscheinlichkeit, Abschnitt~\ref{sec:verbundwahrscheinlichkeiten}):
+
+$$
+P(A_i) = \sum_{j} P(A_i, B_j)
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(A = S) = P(S,S) + P(S,W) = 0{,}3 + 0{,}2 = 0{,}5
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(A = S) = 0{,}5}
+$$
+
+\end{beispiel}
+
+\subsubsection*{C4 – Wahrscheinlichkeit: rechter Bildpunkt ist weiß}
+
+\begin{beispiel}[Randwahrscheinlichkeit des rechten Bildpunkts]
+
+\textbf{Gegeben:} wie C3.
+
+\textbf{Gesucht:} $P(B = W)$
+
+\textbf{Formel} (Randwahrscheinlichkeit, Abschnitt~\ref{sec:verbundwahrscheinlichkeiten}):
+
+$$
+P(B_j) = \sum_{i} P(A_i, B_j)
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(B = W) = P(S,W) + P(W,W) = 0{,}2 + 0{,}3 = 0{,}5
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(B = W) = 0{,}5}
+$$
+
+\end{beispiel}
+
+\subsubsection*{C5 – Statistische Unabhängigkeit der beiden Bildpunkte}
+
+\begin{beispiel}[Unabhängigkeitstest]
+
+\textbf{Gegeben:} Verbundwahrscheinlichkeiten wie C3; Randwahrscheinlichkeiten aus C3/C4.
+
+\textbf{Gesucht:} Sind die beiden Bildpunkte statistisch unabhängig?
+
+\textbf{Formel} (Bedingung für statistische Unabhängigkeit,
+Abschnitt~\ref{sec:verbundwahrscheinlichkeiten}):
+
+$$
+P(A_i, B_j) \stackrel{!}{=} P(A_i)\cdot P(B_j) \quad \forall\, i, j
+$$
+
+\textbf{Rechnung:}
+
+Zunächst alle Randwahrscheinlichkeiten:
+
+$$
+P(A=S) = 0{,}3 + 0{,}2 = 0{,}5, \qquad P(A=W) = 0{,}2 + 0{,}3 = 0{,}5
+$$
+$$
+P(B=S) = 0{,}3 + 0{,}2 = 0{,}5, \qquad P(B=W) = 0{,}2 + 0{,}3 = 0{,}5
+$$
+
+Gegenbeispiel: Es genügt ein einziger Fall, bei dem die Bedingung verletzt ist:
+
+$$
+P(A=S)\cdot P(B=S) = 0{,}5 \cdot 0{,}5 = 0{,}25 \;\neq\; P(S,S) = 0{,}3
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\text{Die Bildpunkte sind statistisch \textbf{abhängig}.}}
+$$
+
+Obwohl beide Randwahrscheinlichkeiten identisch zu Teil~C2 sind ($P = 0{,}5$), weichen
+die Verbundwahrscheinlichkeiten vom Produkt der Randwahrscheinlichkeiten ab. Benachbarte
+Bildpunkte in einem realen Bild sind typischerweise statistisch abhängig, da ähnliche
+Farben in räumlicher Nähe häufiger gemeinsam auftreten.
+
+\end{beispiel}
