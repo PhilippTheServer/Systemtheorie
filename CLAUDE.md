@@ -34,31 +34,6 @@ Read(file_path="vl/skript_SystheoEins_2025.pdf", pages="21-40")
 
 ---
 
-## Hauptaufgabe: Bilder → LaTeX transkribieren
-
-Der User gibt jeweils:
-- einen **Bildbereich** (z. B. `page_029.png – page_045.png`)
-- eine **Ziel-Datei** (z. B. `skript/Vorlesung2.tex`)
-
-### Workflow (strikt sequenziell)
-
-1. Bild lesen (`Read` auf `vl/<ordner>/page_XXX.png`)
-2. Inhalt analysieren und **wort- und formelgetreu** in LaTeX übersetzen
-3. Ans Ende der Zieldatei (oder an die richtige Stelle) anfügen
-4. Nächstes Bild lesen → wiederholen
-
-**Nie mehrere Bilder auf einmal analysieren.** Ein Bild analysieren, einfügen, dann erst das nächste.
-
-### Bildverzeichnisse
-
-| Vorlesung | Ordner                              | Seiten      |
-|-----------|-------------------------------------|-------------|
-| VL 2      | `vl/systhe1_signale_vl2/`           | 029 – 059   |
-
-Bilder sind benannt: `page_029.png`, `page_030.png`, …
-
----
-
 ## Bekannte Lücken (Stand: 2026-06-16)
 
 Folgende Inhalte aus der PDF sind noch **nicht** in den Vorlesungsdateien enthalten:
@@ -161,7 +136,6 @@ Fehlende Grafiken mit Kommentar kennzeichnen:
 │   └── Vorlesung10.tex       # VL 10: Zwei ZV, Bivariate Normalvert. (Kap. 4.7)
 └── vl/
     ├── skript_SystheoEins_2025.pdf  # Professorskript (Source of Truth)
-    ├── systhe1_signale_vl2/          # PNG-Bilder VL 2 (page_029 – page_059)
     └── pdf_to_images.py              # Hilfsskript: PDF → PNG
 ```
 
@@ -184,9 +158,7 @@ Direkte Commits auf `main` sind **verboten**.
 
 ## Wichtige Hinweise
 
-- Transkription ist **wort- und formelgetreu** — kein Paraphrasieren, keine Ergänzungen
 - Grafiken aus den Folien werden als TikZ-Code neu erstellt, nicht als `\includegraphics` eingebunden
 - Kommentare im LaTeX nur wenn absolut nötig (z. B. fehlende Grafik: `% Grafik fehlt hier`)
 - Kein `\newpage` einfügen, außer es steht explizit in den Folien
 - PDF kann nur in max. 20 Seiten pro `Read`-Aufruf gelesen werden
-- Immer gegen die PDF prüfen, nicht nur gegen bestehende `.tex`-Dateien
