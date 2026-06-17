@@ -1,7 +1,9 @@
 \chapter{Determinierte Signale}
+\label{chap:determinierte-signale}
 
 
 \section{Signalarten}
+\label{sec:signalarten}
 
 Je nach Zeitbasis und Wertemenge des Signals unterscheidet man in:
 
@@ -74,12 +76,14 @@ Je nach Zeitbasis und Wertemenge des Signals unterscheidet man in:
 
 
 \subsection{Zeitdiskrete Signale}
+\label{sec:zeitdiskrete-signale}
 
 Das Zeitdiskrete Signal entsteht durch \textit{Abtastung} des analogen Signals.
 Das Wertdiskrete Signal durch \textit{Quantisierung}.
 
 
 \subsection{Komplexwertige und Reellwertige Signale}
+\label{sec:komplexwertige-signale}
 
 Signale können reellwertig $(x: \mathbb{R} \rightarrow \mathbb{R})$ oder komplexwertig 
 $(x: \mathbb{R} \rightarrow \mathbb{C})$ sein.
@@ -108,6 +112,7 @@ x_I(t) = & \operatorname{Im}\{x(t)\} = \dfrac{1}{2j}\bigl(x(t) - x^*(t)\bigr) \\
 $$
 
 \section{Elementare analoge Signale}
+\label{sec:elementare-analoge-signale}
 
 \begin{definition}[Gleichsignal]
 $x(t) = A \forall t$ $T$: Zeitliches Bezugsintervall
@@ -325,6 +330,7 @@ $$
 \end{definition}
 
 \subsection{Komplexe Exponentialsignale}
+\label{sec:komplexe-exponentialsignale}
 
 Im Zusammenhang mit linearen Netzwerken und Systemen im eingeschwungenen Zustand
 wird häufig auch das komplexe Exponentialsignal verwendet,
@@ -429,6 +435,7 @@ Zahlenebene rotierenden Zeiger:
 \end{center}
 
 \subsection{Dirac-Impuls $\delta(t)$}
+\label{sec:dirac-impuls}
 
 Der Dirac-Impuls ist ein Signal, das für die mathematische Behandlung der Abtastung analoger Signale von großer Bedeutung ist. Den Dirac-Impuls erhält man im Grenzwert $T \to 0$ aus Rechteckfunktionen der Form $x(t) = \frac{1}{T}\operatorname{rect}\!\bigl(\frac{t + T/2}{T}\bigr)$.
 
@@ -495,6 +502,7 @@ In dem Katalog der bisher behandelten Elementarsignale nimmt der Dirac-Impuls ei
 \end{center}
 
 \section{Elementare Operationen}
+\label{sec:elementare-operationen}
 
 Mit Hilfe der elementaren Operationen werden aus elementaren Signalen beliebige zusammengesetzte Signale erzeugt. Die folgenden Operationen sind hierbei besonders wichtig:
 
@@ -536,6 +544,7 @@ Im einfachsten Fall werden nur zwei Amplitudenstufen verwendet, d.\,h.\ $A(t) \i
 
 
 \section{Elementare diskrete Signale}
+\label{sec:elementare-diskrete-signale}
 
 Auch für zeitdiskrete Signale sollen zunächst einige elementare Signale definiert werden. Das (zeit-)diskrete Signal $x$ wird als Folge von Werten $x[k]$ mit $k \in \mathbb{Z}$ definiert:
 
@@ -626,6 +635,7 @@ $$
 % Grafik: diskrete Sinusfolge für f/f_A = 1/8
 
 \section{Elementare Operationen diskreter Signale}
+\label{sec:elementare-operationen-diskret}
 
 Die Operationen für diskrete Signale sind analog zu den Operationen kontinuierlicher Signale definiert. Es werden daher nur zwei einfache Beispiele betrachtet.
 
@@ -640,6 +650,7 @@ Die Operationen für diskrete Signale sind analog zu den Operationen kontinuierl
 \end{itemize}
 
 \section{Schwebung}
+\label{sec:schwebung}
 
 \begin{beispiel}[Schwebung]
 Eine Schwebung entsteht durch die Addition zweier Sinussignale $x_1(t)$ und $x_2(t)$ mit gleicher Amplitude und geringer Frequenzdifferenz $2\Delta\omega$. Zur Berechnung der Summe verwenden wir die komplexwertige Schreibweise:

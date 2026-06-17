@@ -1,8 +1,10 @@
 \chapter{Grundbegriffe der Informationstheorie}
+\label{chap:informationstheorie}
 
 Als Anwendung der Wahrscheinlichkeitsrechnung betrachten wir in diesem Kapitel grundlegende Konzepte der Informationstheorie.
 
 \section{Fragestellungen der Informationstheorie}
+\label{sec:informationstheorie-fragen}
 
 Die Informationstheorie ist die Grundlage für die Verarbeitung, Übertragung und Speicherung von Text-, Audio- und Videoinformationen. Sie ist ein Kerngebiet der Informations- und Kommunikationstechnik und stützt sich auf eine bahnbrechende Arbeit von C.E. Shannon (1948)\footnote{C.E. Shannon: A Mathematical Theory of Communication, Bell Systems Technical Journal, Vol. 27, S. 379-423, Juli 1948}. U.a. gibt sie Antworten auf die folgenden Fragen:
 
@@ -77,6 +79,7 @@ Die drei Ebenen der Kommunikation sollen anhand der Infrarotfernbedienung eines 
 Die klassische Informationstheorie behandelt in erster Linie die Frage der Ebene A. Allerdings rücken mit der Entwicklung „intelligenter" Systeme zunehmend auch die Ebenen B und C in den Fokus.
 
 \subsection{Definition des Informationsmaßes}
+\label{sec:informationsmass}
 
 \begin{itemize}
   \item Information im technischen Sinne beschreibt die \textbf{Wahlmöglichkeiten} der Informationsquelle bei der Auswahl eines möglichen Nachrichtensymbols.
@@ -137,6 +140,7 @@ In der Regel gibt es also signifikante Abhängigkeiten zwischen aufeinander folg
 Die Statistik der Symbole spielt bei der Ermittlung des Informationsgehaltes und der Redundanz offensichtlich eine große Rolle! Es ist also sehr zweckmäßig, den Informationsbegriff mit Hilfe von Wahrscheinlichkeiten zu definieren.
 
 \section{Entropie und Redundanz}
+\label{sec:entropie-redundanz}
 
 Offensichtlich trägt ein Nachrichtensymbol um so mehr Information, je seltener es auftritt, d.h. je weniger wahrscheinlich es von der Quelle ausgewählt wird. Der \textbf{Informationsgehalt} des $i$-ten Symbols $a_i$ wird daher zu
 
@@ -169,6 +173,7 @@ Die Entropie $H(A)$ ist gleich dem Entscheidungsgehalt $H_0$.
 \end{itemize}
 
 \subsection{Berechnung der Entropie für $N = 2$}
+\label{sec:entropie-binaer}
 
 Eine Quelle sendet zwei Symbole $a_1$ und $a_2$, von denen \textit{a priori} bekannt ist, dass sie mit den Wahrscheinlichkeiten $P(a_1)$ und $P(a_2) = 1 - P(a_1)$ auftreten.
 
@@ -200,6 +205,7 @@ ein Maximum an, denn $\dfrac{d^2H}{dP(a_1)^2} < 0$. Dabei haben wir die Beziehun
 % Grafik: Abbildung 5.5: Entropie H [bit] als Funktion von P(a_1) für N=2; glockenförmige Kurve, Maximum H=1 bei P(a_1)=0.5
 
 \subsection{Relative Entropie und Quellenredundanz}
+\label{sec:relative-entropie}
 
 Aus dem vorangegangenen Beispiel lässt sich folgern:
 
@@ -244,6 +250,7 @@ $$
 \end{beispiel}
 
 \section{Kanalkapazität}
+\label{sec:kanalkapazitaet}
 
 Ein \textit{diskreter} Kanal ist ein Übertragungskanal, auf dem in einem vorgegebenen Zeitintervall $T$ nur eine endliche Anzahl $N$ verschiedener Signalformen übertragen werden kann.
 
@@ -262,6 +269,7 @@ gegeben, wobei $N(\tau)$ die Anzahl zulässiger Signalformen der Dauer $\tau$ be
 \end{definition}
 
 \section{Verlustlose Quellencodierung}
+\label{sec:quellencodierung}
 
 Die Informationsübertragung über rauschfreie, diskrete Kanäle ist durch das folgende wichtige Theorem gegeben:
 
@@ -284,6 +292,7 @@ berechnet und $\mathrm{E}\{L\}$ die mittlere Länge der Codeworte angibt.
 Der mittlere Informationsgehalt einer Menge von Nachrichtensymbolen ist dann maximal (und gleich dem Entscheidungsgehalt), wenn diese Symbole mit gleicher Wahrscheinlichkeit auftreten. Die binären Ziffern „0" und „1" der Codeworte werden deshalb den Nachrichtensymbolen so zugeordnet, dass sie mit möglichst gleicher Wahrscheinlichkeit auftreten. Diese Vorgehensweise resultiert in Codes mit variabler Codewortlänge, wie sie schon lange zum Beispiel in der Form des Morse-Codes bekannt sind. Dabei werden häufig auftretenden Nachrichten kurze Codeworte und selten auftretenden Symbolen lange Codeworte zugeordnet. Die Codewortlänge wird dadurch im statistischen Mittel minimiert.
 
 \subsection{Codierung nach Shannon und Fano}
+\label{sec:shannon-fano}
 
 Ein erstes Codierverfahren wurde von C.E. Shannon\footnote{C.E. Shannon: A Mathematical Theory of Communication, Bell Systems Technical Journal, Vol. 27, S. 379-423, Juli 1948} und R.M. Fano\footnote{R.M. Fano: The Transmission of Information, Technical Report No. 65, MIT, Cambridge, 1949.} vorgeschlagen. Das Codierschema kann wie folgt zusammengefasst werden:
 
@@ -334,6 +343,7 @@ Somit ergibt sich eine Coderedundanz: $r_c = \dfrac{\mathrm{E}\{L\} - H}{H} = \d
 Würde man hingegen die Symbole $a_2$ und $a_1$ in die erste Gruppe und $a_3$ und $a_4$ in die zweite Gruppe sortieren, dann erhält man einen schlechteren Code mit einer mittleren Codewortlänge von 2 Bit/Symbol.
 
 \subsection{Codierung nach Huffman}
+\label{sec:huffman}
 
 Das Codierschema nach Huffman kann wie folgt zusammengefasst werden:
 
@@ -373,6 +383,7 @@ Aus dem Konstruktionsverfahren folgt, dass der Huffman-Code die mittlere Codewor
 Da es häufig mehrere Huffman-Codes gleicher minimaler Codewortlänge gibt, ist es sinnvoll, mit einem weiteren Kriterium den besten Code auszuwählen. Ein häufig gewähltes Kriterium ist die minimale Varianz der Codewortlängen. Die Optimierung dieses Kriteriums wird durch das „maximale Aufrücken" der Kombinationssymbole in dem oben dargestellten Codierschema erreicht.
 
 \subsection{Lauflängencodierung}
+\label{sec:laufllaengencodierung}
 
 Eine Form der redundanzreduzierenden Codierung, die oft im Zusammenhang mit der Entropiecodierung eingesetzt wird, ist die sogenannte Lauflängencodierung. Diese ist besonders leicht anwendbar, wenn der zu codierende Datenstrom aus binären Symbolen besteht. In diesem Fall handelt es sich um eine verlustlose Codierung. Bei der Lauflängencodierung wird die Anzahl aufeinanderfolgender gleicher Symbole erfasst. Codierung dieser „Lauflängen" kann dann z.B. mittels Huffman-Codes erfolgen, wobei die Codetabellen anhand der Häufigkeitsverteilungen der Lauflängen aus typischen Bitströmen ermittelt wurden. Der Wechsel von einer Reihe von Null-Bits auf eine Reihe von Eins-Bits muss hierbei nicht signalisiert werden, da sich diese automatisch aus dem Wechsel der beiden Bitmuster ergibt.
 
@@ -381,6 +392,7 @@ Dieses Prinzip wurde z.B. bei der inzwischen weitgehend verdrängten Faksimile-�
 % Grafik: Abbildung 5.9: Haussilhouette, zeilenweise abgetastet; weiße und schwarze Lauflängen entstehen durch horizontales Abtasten der Bildvorlage
 
 \subsection{Verlustlose und verlustbehaftete Audiocodierung}
+\label{sec:audiocodierung}
 
 Die verlustlose Quellencodierung spielt in vielen technischen Anwendungen eine große Rolle, z.B. bei der Speicherung von Audio Dateien. Die Huffman-Codierung ergibt in diesem Fall einen binären Code, der die zu speichernde Datenmenge im Mittel minimiert. Bei fehlerfreier Speicherung kann die Symbolfolge der Quelle ohne Verluste im Empfänger aus dem gespeicherten Code rekonstruiert werden. Diese Verfahren werden daher als \textit{verlustlose Quellencodierung} bezeichnet. Demgegenüber werden bei vielen Verfahren der Signalübertragung, z. B. bei der Mobilfunktelefonie oder MP3-Audiocodierung, irrelevante Daten im Zuge der Codierung entfernt. Die Symbolfolge der Quelle kann dann im Empfänger nicht exakt reproduziert werden. Jedoch ist das Empfangssignal hinsichtlich der vom Menschen wahrgenommenen Qualität nicht vom Original zu unterscheiden oder weist nur geringfügige und mithin akzeptable Verzerrungen auf. Man spricht dann von \textit{verlustbehafteter Quellencodierung}. Im Unterschied zur verlustlosen Quellencodierung ist bei einer verlustbehafteten Codierung ein mehrfaches Umcodieren des Signals mit Einbußen an Qualität verbunden und muss deshalb vermieden werden.
 
@@ -395,6 +407,7 @@ In der \textit{verlustbehafteten} Audiocodierung macht man sich den Umstand zunu
 % Grafik: Abbildung 5.10: MP3-Encoder (oben): PCM audio samples → mapping → quantizer and coding (psychoacoustic model) → frame packing → encoded bitstream; MP3-Decoder (unten): encoded bitstream → frame unpacking → reconstruction → inverse mapping → PCM audio samples
 
 \subsection{Kullbach-Leibler Divergenz und Kreuzentropie}
+\label{sec:kullback-leibler}
 
 Die Entropie
 
@@ -444,6 +457,7 @@ $$
 Der Term $H(\widehat{P}, P) = -\sum_i \widehat{P}(a_i) \log_2 P(a_i)$ wird auch als Kreuzentropie bezeichnet. Die Kreuzentropie wird häufig als Kriterium in der Adaption neuronaler Netze (mit der „Backpropagation"-Methode) eingesetzt. Hiermit kann die Abweichung der Verteilung $P(a_i)$ gegebener Daten zu der Verteilung $\widehat{P}(a_i)$ der von dem neuronalen Netz erzeugten Daten durch ein zielgerichtetes Training des Netzwerks minimiert werden.
 
 \section{Zusammenfassung}
+\label{sec:informationstheorie-zusammenfassung}
 
 \begin{itemize}
   \item Digitale Daten werden häufig mit Hilfe binärer Zeichen codiert.
