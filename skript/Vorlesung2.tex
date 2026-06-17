@@ -1,8 +1,10 @@
 \chapter{Signaleigenschaften und Kenngrößen}
+\label{chap:signaleigenschaften}
 
 Der besseren Übersicht halber werden die Signaleigenschaften für kontinuierliche und diskrete Signale parallel eingeführt.
 
 \section{Symmetrie reellwertiger Signale}
+\label{sec:symmetrie-signale}
 
 \begin{definition}[gerade symmetrisch]
 Ein reellwertiges Signal $x$ heißt \textbf{gerade symmetrisch}, falls
@@ -70,6 +72,7 @@ Das Signal $x(t) = \cos(\omega t)$ ist eine gerade symmetrische Funktion. Das Si
 
 
 \section{Periodische Signale}
+\label{sec:periodische-signale}
 
 \begin{definition}[Periodisches analoges Signal]
 Ein analoges Signal $x(t)$ heißt periodisch, falls es eine Periodendauer
@@ -98,8 +101,10 @@ Unabhängig von der speziellen funktionalen Form, kann man Signale durch integra
 
 
 \section{Mittelwert}
+\label{sec:mittelwert}
 
 \subsection{Mittelwert diskreter Signale}
+\label{sec:mittelwert-diskret}
 
 \begin{definition}[Mittelwert]
 \textbf{Mittelwert} $\bar{x}$ des zeitkontinuierlichen Signals $x(t)$ im Zeitintervall $[t_1, t_2]$
@@ -124,6 +129,7 @@ $$
 \end{definition}
 
 \subsection{Mittelwert periodischer Signale}
+\label{sec:mittelwert-periodisch}
 
 \begin{definition}[Mittelwert periodischer Signale]
 Für \textbf{periodische Signale} $x(t)$ bzw. $x[k]$ wird der Mittelwert über die
@@ -145,6 +151,7 @@ $$
 \end{definition}
 
 \section{Norm, Energie und Leistung}
+\label{sec:norm-energie-leistung}
 
 In endlich-dimensionalen euklidischen Räumen ist die Berechnung von innerem Produkt (Skalarprodukt) und einer Norm gut eingeführt und leicht nachvollziehbar. Z.\,B.\ entspricht die $l_2$-Norm eines $N$-dimensionalen Vektors der Länge des Vektors im Vektorraum. Diese Konzepte lassen sich auch auf Funktionen und unendlich dimensionale Folgen übertragen.
 
@@ -194,6 +201,7 @@ $$
 
 
 \section{Leistung}
+\label{sec:leistung}
 
 
 Einige wichtige Elementarsignale (Sprungfunktion, Sinussignal) sind
@@ -247,6 +255,7 @@ Das Cosinussignal ist somit ein Leistungssignal mit Leistung $P = \frac{A^2}{2}$
 \end{beispiel}
 
 \chapter{Inneres Produkt (Skalarprodukt)}
+\label{chap:inneres-produkt}
 
 Während bei der Berechnung der Norm immer nur ein einzelnes Signal betrachtet wird, werden nun Beziehungen zwischen zwei oder mehr Signalen betrachtet. Dabei sind die Orthogonalität, Kollinearität und Korrelation sehr nützliche Konzepte.
 
@@ -280,6 +289,7 @@ $$
 
 
 \section{Kreuzkorrelation}
+\label{sec:kreuzkorrelation}
 
 \begin{definition}[Kreuzkorrelationsfunktion (KKF)]
 Für zwei Energiesignale $\underline{x}$ und $\underline{y}$ wird die Ähnlichkeit (Kreuzkorrelation) wie folgt definiert:
@@ -537,6 +547,7 @@ Die KKF verschiebt das Maximum dorthin, wo die Überlappung der Folgen am größ
 
 \newpage
 \section{Selbstähnlichkeit (Autokorrelation)}
+\label{sec:autokorrelation}
 
 \begin{definition}[Autokorrelationsfunktion (AKF)]
 Die \textbf{Autokorrelationsfunktion (AKF)} ergibt sich als Spezialfall der KKF
@@ -698,6 +709,7 @@ Wie zu erwarten war, ist die AKF des Sinussignals eine periodische Funktion mit 
 \end{beispiel}
 
 \section{Orthogonalsysteme}
+\label{sec:orthogonalsysteme}
 
 $M$ zueinander orthogonale Funktionen $x_i(t)$ bilden ein Orthogonalsystem. Es gilt
 
@@ -730,10 +742,12 @@ Für den Fall $n \neq m$ sind die Signale orthogonal, da sich im Argument der co
 Orthogonale Signale werden u.\,a.\ in Mobilfunksysteme verwendet um Teilnehmer $m_1, m_2, \ldots$ im Empfangssignal zu trennen.
 
 \chapter{Signalsynthese und Signalanalyse}
+\label{chap:signalsynthese}
 
 Mit orthonormalen Funktionen lassen sich Signale auf systematische Weise approximieren. Dieses Approximationsverfahren wird als \textit{Fouriersynthese} (nach J.\,B.\,J.\ Fourier) bezeichnet.
 
 \section{Fourierreihe}
+\label{sec:fourierreihe}
 
 \textbf{Die Fourierapproximation zeitkontinuierlicher Signale:}
 
@@ -757,6 +771,7 @@ Dabei sind
 \end{itemize}
 
 \section{Fourierreihe (komplexwertige Schreibweise)}
+\label{sec:fourierreihe-komplex}
 
 Ein periodisches oder ein im Intervall $[t_1,\, t_1 + T_0]$ definiertes Signal der Dauer $T_0$ kann in eine Fourierreihe
 
@@ -824,6 +839,7 @@ gegeben.
 Die folgende Abbildung veranschaulicht die schrittweise Synthese eines Signals. Die linke Spalte zeigt die einzelnen Elementarsignale (Gleichanteil, erste und zweite Cosinusfunktion usw.), die rechte Spalte das jeweils aufaddierte rekonstruierte Signal. Mit wachsender Anzahl von Termen $K$ nähert sich $x_K(t)$ dem Zielsignal an.
 
 \section{Bandbreite eines Signals}
+\label{sec:bandbreite}
 
 Die Differenz von maximaler und minimaler Frequenz der im Signal enthaltenen Sinusfunktionen wird als \textit{Signalbandbreite $B$} des Signals bezeichnet, d.\,h.
 
@@ -850,6 +866,7 @@ $$
 \end{beispiel}
 
 \section{Diskrete Fourier-Transformation (DFT)}
+\label{sec:dft}
 
 \textbf{Signalsynthese mit DFT:}
 
@@ -876,6 +893,7 @@ f_m = \frac{m}{M} \cdot \frac{1}{T_A}.
 $$
 
 \section{Spektrogramm}
+\label{sec:spektrogramm}
 
 Für die Spektralanalyse eines zeitlich ausgedehnten Signals wird das Signal in kurze Segmente zerlegt und jedes Segment mit der DFT transformiert. Dieses Verfahren bezeichnet man als Kurzzeit-Fourier-Transformation (engl.\ \textit{short-time Fourier transform}, STFT).
 

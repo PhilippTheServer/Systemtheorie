@@ -1,4 +1,5 @@
 \chapter{Systeme und ihre Eigenschaften}
+\label{chap:systeme}
 
 Der Entwurf, die Analyse und die Berechnung informationstechnischer Methoden und Geräte erfordert eine strukturierende Betrachtungsweise. Dazu wurde der Begriff des ,,Systems'' eingeführt, der auch in vielen anderen Bereichen der technischen und physikalischen Welt eingesetzt wird.
 
@@ -25,8 +26,10 @@ Die Systemtheorie unterscheidet somit zwischen der inneren Struktur eines System
 \end{itemize}
 
 \section{Mathematische Systemdefinition}
+\label{sec:systemdefinition}
 
 \subsection{Allgemeine Definitionen}
+\label{sec:system-allgemein}
 
 Aus den oben genannten Punkten läßt sich nun eine erste, sehr allgemeine Systemdefinition ableiten: Ein System $\mathbb{S}$ mit einem Eingangssignal $x(t)$ und einem Ausgangssignal $y(t)$ wird durch eine bezüglich der Komposition abgeschlossene Menge von geordneten Signalpaaren
 
@@ -41,6 +44,7 @@ Die Abgeschlossenheit der Menge $\mathbb{S}$ bezüglich der Komposition garantie
 Die Definition des Systems als Menge geordneter Signal- oder Datenpaare ist sowohl auf \textbf{reale Systeme} als auch auf \textbf{Systemmodelle} anwendbar.
 
 \subsection{Single/Multiple Input/Output Systeme}
+\label{sec:siso-mimo}
 
 Die obige Definition lässt sich sinngemäß auch auf Systeme mit mehreren Eingangs- und Ausgangssignalen erweitern.
 
@@ -59,6 +63,7 @@ MIMO Systeme haben u.\,a.\ in der drahtlosen Funkübertragung große Bedeutung e
 \end{beispiel}
 
 \subsection{Systeme und innere Zustände}
+\label{sec:innere-zustaende}
 
 Die Definition der Menge $\mathbb{S}$ schließt nicht aus, dass es zu einem Eingangssignal $x(t)$ mehr als nur ein Ausgangssignal $y(t)$ gibt. Diese Mehrdeutigkeit ist Ausdruck der Abhängigkeit der Ausgangssignale von ,,inneren'' Variablen des Systems. Diese werden als Zustände $z_1(t), z_2(t), \ldots, z_K(t)$ des Systems bezeichnet. Das Systemverhalten kann dann durch einen eindeutigen funktionalen Zusammenhang
 
@@ -71,6 +76,7 @@ bestimmt werden. In Abhängigkeit von der Zeitvariablen (kontinuierlich oder dis
 % Grafik: Blockdiagramm x(t) → [S mit z_1(t)...z_K(t)] → y(t)
 
 \subsection{Zustandsraummodelle}
+\label{sec:zustandsraum}
 
 Eine allgemeine Form, um die Abhängigkeit von Eingangs- und Ausgangssignalen und den inneren Zustandsvariablen des Systems zu erfassen, bietet das \textit{Zustandsraummodell}. Hierbei wird das Systemverhalten mithilfe einer linearen DGL erster Ordnung (oder eines Systems linearer DGLen erster Ordnung) in eine Berechnungsvorschrift überführt. Wenn hierbei im Kontext eines MIMO-Systems $K$ Zustandsvariablen, $N$-dimensionale Eingangssignale $\vec{x}(t)$ und $M$-dimensionale Ausgangssignale $\vec{y}(t)$ berücksichtigt werden sollen, ist die Formulierung mit Hilfe von Vektoren und Matrizen zweckmäßig, d.\,h.
 
@@ -127,6 +133,7 @@ $$
 Die Matrix $\Phi(k, k_0) = \mathbf{A}^{k-k_0}$ wird als Zustandsübergangsmatrix oder Transitionsmatrix bezeichnet.
 
 \subsection{MIMO Zustandsraummodell}
+\label{sec:mimo-zustandsraum}
 
 Das MIMO Systemmodell für $t \geq t_0$:
 
@@ -372,6 +379,7 @@ $$
 Die an diesem Beispiel gewonnenen Erkenntnisse lassen sich auf Systeme mit beliebig vielen inneren Zustandsvariablen und beliebig vielen Eingangs- und Ausgangssignalen verallgemeinern.
 
 \section{Diskrete Zustandsraummodelle}
+\label{sec:diskrete-zustandsraum}
 
 Zeitvariant:
 
@@ -430,10 +438,12 @@ Zeitinvariant:
 $T$ bezeichnet einen vektorwertigen Zustandsspeicher.
 
 \section{Systemeigenschaften}
+\label{sec:systemeigenschaften}
 
 Ausgehend von der sehr allgemeinen Systemdefinition in Gleichung (3.1) sollen Systeme nun durch spezielle Eigenschaften charakterisiert werden. Dabei werden wir sowohl den zeitkontinuierlichen als auch den zeitdiskreten Fall berücksichtigen. Letztere ist besonders für die Simulation von Systemen auf digitalen Computern wichtig. Wir beschränken uns hierbei auf den SISO Fall.
 
 \subsection{Zeitinvarianz und Linearität kontinuierlicher Systeme}
+\label{sec:zeitinvarianz-linearitaet}
 
 Ein System heißt \textbf{zeitinvariant}, wenn alle Signalpaare $(x(t), y(t)) \in \mathbb{S}$ gegenüber einer zeitlichen Verschiebung $\tau_0$ invariant sind, d.\,h.\ falls für die Relation $y(t) = \mathcal{S}[x(t)]$ eines SISO-Systems und beliebige Zeitverzögerungen $\tau_0 \in \mathbb{R}$ gilt:
 
@@ -452,6 +462,7 @@ Wenn ein System linear ist, gilt auch das bekannte Superpositionsprinzip.
 Ein System, das \textbf{linear} und \textbf{zeitinvariant} ist, wird LTI-System (engl.: \textit{linear time-invariant system}) genannt.
 
 \subsection{Verschiebungsinvarianz und Linearität diskreter Systeme}
+\label{sec:verschiebungsinvarianz}
 
 Ein zeitdiskretes System $y[k] = \mathcal{S}[x[k]]$ heißt \textbf{verschiebungsinvariant}, falls für ein beliebiges $k_0 \in \mathbb{Z}$ gilt:
 
@@ -468,6 +479,7 @@ $$
 Ein System, das \textbf{linear} und \textbf{verschiebungsinvariant} ist, wird LSI-System (engl.: \textit{linear shift-invariant system}) genannt.
 
 \subsection{Weitere Systemeigenschaften}
+\label{sec:weitere-systemeigenschaften}
 
 \begin{itemize}
   \item Ein zeitkontinuierliches System heißt \textbf{gedächtnislos}, falls für jedes Eingangssignal $x(t)$ und beliebiges $t_0 \in \mathbb{R}$ das Ausgangssignal $y(t = t_0)$ nur von $x(t = t_0)$ abhängt.

@@ -1,4 +1,5 @@
 \section{Zufallsvariablen, Verteilungen, Momente}
+\label{sec:zufallsvariablen}
 
 Zufallsvariablen bilden Ereignisse (also Mengen) auf Zahlen ab.
 
@@ -11,6 +12,7 @@ Die Zufallsvariable (ZV) $X$ definiert somit eine Partition von $\Omega$. Jedem 
 Für die Zufallsvariable $X$ kann dann auch eine Wahrscheinlichkeitsverteilung $P(A_i) = p_X(x_i)$ bestimmt werden. Zufallsvariablen können diskret oder kontinuierlich sein.
 
 \subsection{Wahrscheinlichkeitsverteilung}
+\label{sec:wahrscheinlichkeitsverteilung}
 
 Wenn eine Menge von $N$ sich gegenseitig ausschließenden Ereignissen $A_i$ die Menge $\Omega$ vollständig abdeckt und $\sum_{i=1}^{N} P(A_i) = 1$ gilt, dann beschreiben die Zahlen $P(A_i) = p_X(x_i) > 0$ eine \textit{Wahrscheinlichkeitsverteilung}.
 
@@ -35,6 +37,7 @@ Im Fall des idealen Würfels ergibt sich eine Gleichverteilung.
 \end{beispiel}
 
 \subsection{Relative Häufigkeiten}
+\label{sec:relative-haeufigkeiten}
 
 Die im theoretischen Modell des idealen Würfels angenommenen Wahrscheinlichkeiten lassen sich im Experiment mit einem realen Würfel näherungsweise verifizieren.
 
@@ -56,6 +59,7 @@ Wir werfen einen Würfel $M = 50$ mal und registrieren die Ergebnisse:
 Wenn das Experiment „unendlich" oft unter gleichen Bedingungen wiederholt wird, nähern sich die relativen Häufigkeiten einer festen Zahl, z.\,B.\ im Fall eines Würfels den Wahrscheinlichkeiten $\frac{1}{6}$.
 
 \subsection{Häufigkeit und Histogramm}
+\label{sec:histogramm}
 
 Berechnung relativer Häufigkeiten:
 
@@ -68,6 +72,7 @@ Berechnung relativer Häufigkeiten:
 % Grafik: Histogramm – links absolut (Häufigkeit Mᵢ über Symbol 1–6), rechts relativ (rel. Häufigkeit Mᵢ/M über Symbol 1–6)
 
 \subsection{Das Gesetz der großen Zahlen}
+\label{sec:gesetz-grosse-zahlen}
 
 \begin{bemerkung}
 Aus dem obigen, einmal durchgeführten Experiment des fünfzigfachen Würfelns mit den dargestellten relativen Häufigkeiten darf man nicht den Schluss ziehen, dass der Würfel \textit{generell} die Zahl drei häufiger produziert als die anderen Zahlen. Die beobachteten Unterschiede sind der Zufälligkeit des Würfelvorgangs geschuldet. Es ist ein zentrales Anliegen der Wahrscheinlichkeitsrechnung, die Unsicherheiten, die sich in der Ausführung von Experimenten ergeben, zu quantifizieren, so dass gesicherte Schlussfolgerungen möglich werden. Das nachfolgende Gesetz der großen Zahlen betrachtet hierzu die wiederholte, sehr häufige Ausführung von Experimenten.
@@ -80,6 +85,7 @@ $$
 $$
 
 \subsection{Erwartungswert}
+\label{sec:erwartungswert}
 
 Allgemein erhält man, wenn eine Zufallsvariable $X$ die Werte $x_1, x_2, \ldots$ annehmen kann, den statistischen Mittelwert $\mathrm{E}\{X\}$, der häufig auch als \textit{Erwartungswert} bezeichnet wird, aus
 
@@ -119,6 +125,7 @@ Wie viele Bits werden pro Bitgruppe im Mittel gesendet?
 \end{beispiel}
 
 \subsection{Binomialverteilung}
+\label{sec:binomialverteilung}
 
 Es wird ein Experiment mit zwei möglichen Ereignissen $A_1$ und $A_2$ und den zugehörigen Wahrscheinlichkeiten $P(A_1)$ und $P(A_2) = 1 - P(A_1)$ betrachtet. Dieses Experiment wird $N$-fach wiederholt, wobei die Versuche als statistisch unabhängig anzusehen sind. Die Wahrscheinlichkeit, dass das Ereignis $A_1$ dabei $k$ mal auftritt, beträgt
 
@@ -131,6 +138,7 @@ Wir definieren somit eine Zufallsvariable $K$ mit der Wahrscheinlichkeitsverteil
 % Grafik: Stabdiagramme für N=10, P(A₁)=0{,}5 (links) und N=10, P(A₁)=0{,}1 (rechts)
 
 \subsection{Poisson-Verteilung}
+\label{sec:poisson-verteilung}
 
 Die Poisson-Verteilung beschreibt die Zahl $K$ der Ereignisse innerhalb eines Beobachtungsintervalls, wenn diese Ereignisse unabhängig auftreten und die mittlere Auftrittsrate $\lambda$ bekannt ist. Es gilt:
 
@@ -153,6 +161,7 @@ $$
 % Grafik: Stabdiagramme für λ=1 (links) und λ=10 (rechts), jeweils p_K(k) und F_K(k) über k von 0 bis 20
 
 \subsection{Übergang zu Verteilungsdichten}
+\label{sec:verteilungsdichten}
 
 \begin{itemize}
   \item Bisher wurde einem diskreten Wert $x_i$, bzw.\ der einelementigen Menge $\{A_i\}$ eine positive Wahrscheinlichkeit zugeordnet.
@@ -167,6 +176,7 @@ $$
 wobei $p_X(u)$ die Wahrscheinlichkeitsdichte bezeichnet.
 
 \subsection{Eigenschaften der Wahrscheinlichkeitsdichte}
+\label{sec:ws-dichte-eigenschaften}
 
 Die WS-Dichte $p_X(u)$ soll den folgenden Eigenschaften genügen:
 
@@ -179,6 +189,7 @@ Die WS-Dichte $p_X(u)$ soll den folgenden Eigenschaften genügen:
 Durch diese Festlegungen wird ein Wahrscheinlichkeitsmaß definiert.
 
 \subsection{Erwartungswerte kontinuierlicher ZV}
+\label{sec:erwartungswert-kontinuierlich}
 
 Der Erwartungswert einer kontinuierlichen Zufallsvariablen $X$ ist mit
 
@@ -195,6 +206,7 @@ $$
 $$
 
 \subsection{Momente einer Wahrscheinlichkeitsdichte}
+\label{sec:momente}
 
 \begin{itemize}
   \item Mittelwert: $\mathrm{E}\{X\} = \displaystyle\int_{-\infty}^{\infty} x\, p_X(x)\,\mathrm{d}x$ \hfill (erstes Moment)
@@ -212,6 +224,7 @@ Es gilt $\mathrm{E}\{(X - \mathrm{E}\{X\})^2\} = \mathrm{E}\{X^2\} - \mathrm{E}\
 Standardabweichung: $\sigma_X = \mathrm{std}\{X\} = \sqrt{\mathrm{var}\{X\}}$
 
 \subsection{Die Verteilungsfunktion}
+\label{sec:verteilungsfunktion}
 
 Die kumulative Verteilungsfunktion $F_X(x)$ einer Zufallsvariablen ist eine Funktion, die durch die Bedingung
 
@@ -226,6 +239,7 @@ $$
 $$
 
 \subsection{Die Gleichverteilung auf dem Intervall $[a,b]$}
+\label{sec:gleichverteilung}
 
 Für Zahlen $a, b \in \mathbb{R}$ und $b > a$ ist die Gleichverteilung einer ZV $X$ durch
 
@@ -246,6 +260,7 @@ $$
 $$
 
 \subsection{Die Normalverteilung}
+\label{sec:normalverteilung}
 
 Die Normalverteilung zu den Parametern $\mu \in \mathbb{R}$ und $\sigma > 0$ ist durch die Dichtefunktion
 
@@ -282,6 +297,7 @@ F_X(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} e^{-\frac{t^2}{2}}\,\mathrm{d}
 $$
 
 \subsection{Die Exponentialverteilung}
+\label{sec:exponentialverteilung}
 
 Die Exponentialverteilung zum Parameter $\lambda > 0$ ist zu
 
@@ -348,6 +364,7 @@ $$
 % Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für λ=1 (links) und λ=1{,}5 (rechts), x von −2 bis 2
 
 \subsection{Die Laplaceverteilung}
+\label{sec:laplaceverteilung}
 
 Die zweiseitige Laplaceverteilung zu den Parametern $\mu$ und $\sigma$ ist zu
 
@@ -424,6 +441,7 @@ Dieses Ergebnis gilt für einen einzelnen Abtastwert. Werden mehrere, aufeinande
 \end{beispiel}
 
 \subsection{Transformation einer Zufallsvariablen}
+\label{sec:transformation-zv}
 
 In vielen Anwendungen werden Zufallsvariablen mit einer vorgegebenen Verteilungsdichtefunktion einer Transformation unterzogen, zum Beispiel mit Hilfe einer Funktion auf eine neue Zufallsvariable abgebildet. Es entsteht dann die Aufgabe, die Verteilungsdichtefunktion der neuen Zufallsvariable zu berechnen.
 
@@ -491,6 +509,7 @@ $$
 existiert, dann gilt für die Lösung $x = g^{-1}(y)$
 
 \subsection{Streng monotone Funktion einer Zufallsvariablen}
+\label{sec:monotone-transformation}
 
 Falls $Y = g(X)$ gilt und $g(\cdot)$ eine streng monotone Funktion ist, so dass die Umkehrfunktion $X = g^{-1}(Y)$ existiert, dann gilt für die Lösung $x = g^{-1}(y)$
 
@@ -501,6 +520,7 @@ $$
 wobei für das Differenzieren der Umkehrfunktion $\dfrac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y} = \left(\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right)^{-1}$ gilt und $g'(x)$ die Ableitung der Funktion $g(x)$ bezeichnet.
 
 \subsection{Transformation für nichtmonotone Funktionen}
+\label{sec:nichtmonotone-transformation}
 
 Gegeben sei eine Funktion $Y = g(X)$ einer Zufallsvariablen $X$. Wenn die Funktion $g(\cdot)$ nicht streng monoton ist, hat die Gleichung $Y = g(x)$ mehrfache Lösungen $x_1 = g^{-1}(y), \ldots, x_n = g^{-1}(y)$. Dann berechnet sich die Wahrscheinlichkeitsdichtefunktion $p_Y(y)$ zu
 

@@ -1,7 +1,9 @@
 
 \chapter{Abtastung und Quantisierung}
+\label{chap:abtastung-quantisierung}
 
 \section{Analog-digital Umsetzung}
+\label{sec:analog-digital}
 
 Die Verarbeitung wert- und zeitkontinuierlicher (,,analoger'') Signale mit einem digitalen Prozessor erfordert die Umsetzung des Signals in eine Zahlenfolge. Nach der numerischen Verarbeitung im Prozessor wird aus der resultierenden Zahlenfolge wieder ein analoges Signal rekonstruiert.
 
@@ -29,6 +31,7 @@ Die A/D-Umsetzung beinhaltet drei wesentliche Schritte:
 Während die Abtastung unter bestimmten Bedingungen ohne Informationsverlust realisiert werden kann, ist die Quantisierung in der Regel mit einem Informationsverlust verbunden.
 
 \section{Abtastung}
+\label{sec:abtastung}
 
 Die Abtastung eines analogen Signals führt zu einer Entnahme von ,,Signalproben'' in regelmäßigen Intervallen. In digitalen Telefonsystemen (ISDN, GSM, etc.) werden dem analogen Sprachsignal z.\,B.\ 8000 Abtastwerte pro Sekunde entnommen. Dementsprechend kann man eine \textit{Abtastfrequenz} oder \textit{Abtastrate} $f_A$ definieren:
 
@@ -151,6 +154,7 @@ $$
 Die maximale Signalfrequenz $f_{\max}$ muss die Bedingung $2f_{\max} < f_A$ erfüllen. Dies wird im Folgenden am Beispiel der Sinusfunktion erklärt.
 
 \section{Das Abtasttheorem}
+\label{sec:abtasttheorem}
 
 Die vorangegangenen Experimente und weitergehende Untersuchungen zeigen: Bei sinusförmigen Vorgängen sind mehr als zwei Abtastwerte pro Signalperiode für die eindeutige Repräsentation des Signals durch die Abtastwerte erforderlich. Wird diese Bedingung verletzt, ergibt die ideale Rekonstruktion eine Sinusfunktion bei einer Spiegelfrequenz. Da man sich beliebige Signale aus Sinussignalen zusammensetzen kann, bestimmt die in einem Signal enthaltene maximale Frequenz die erforderliche Anzahl von Abtastwerten pro Zeiteinheit.
 
@@ -177,6 +181,7 @@ wobei $\tilde{f}$ die sogenannte \textit{Spiegelfrequenz} darstellt. Der oben be
 % Grafik: Abb. 2.73 – Interpolation mit si-Funktionen und f_A ≈ 5/(4T): aliasing
 
 \section{Quantisierung}
+\label{sec:quantisierung}
 
 Im Zuge der Quantisierung wird die Amplitude $x(kT_A)$ eines Signalabtastwertes zum Zeitpunkt $t = kT_A$, $k \in \mathbb{Z}$, auf eine Menge endlicher, meist fest vorgegebener Werte, den Quantisierungsniveaus, abgebildet. Damit geht in der Regel ein Informationsverlust einher. Wird der quantisierte Wert mit $x_q(kT_A)$ bezeichnet, so kann der \textit{Quantisierungsfehler} des $k$-ten Abtastwertes mit
 
@@ -189,6 +194,7 @@ angegeben werden.
 % Grafik: Abb. 2.74 – Quantisierung des Intervalls [0,1] auf zwei (links) und vier (rechts) Werte
 
 \section{Die Quantisierungskennlinie}
+\label{sec:quantisierungskennlinie}
 
 Der Zusammenhang zwischen zu quantisierendem und quantisiertem Wert kann mittels einer \textit{Quantisierungskennlinie} beschrieben werden. Zwei gebräuchliche Typen sind die Midrise- und die Midtread-Kennlinie, wie in Abb.\ 2.75 dargestellt.
 
@@ -197,6 +203,7 @@ Der (gleichmäßige) Quantisierer ist durch den Aussteuerbereich $[x_{\min}, x_{
 % Grafik: Abb. 2.75 – Quantisierungskennlinien: Midrise (links) und Midtread (rechts)
 
 \section{Der Quantisierungsfehler und seine Leistung}
+\label{sec:quantisierungsfehler}
 
 Der Betrag $|e(t)|$ des Quantisierungsfehlers ist durch die halbe Quantisierungsstufenhöhe $\Delta x / 2$ beschränkt. Bei einer großen Zahl von Quantisierungsstufen hat der Quantisierungsfehler rauschartigen Charakter.
 
@@ -233,6 +240,7 @@ Somit erhalten wir für dieses spezielle Signal $P_e = \dfrac{\Delta x^2}{12}$.
 Durch weiterführende Rechnungen kann nun gezeigt werden, dass die Formel für die Leistung des Quantisierungsfehlers näherungsweise auch für andere als das gewählte, linear ansteigende Signal gilt. Das ist dann der Fall, wenn die Zahl der Quantisierungsstufen $2^w$ ,,hinreichend'' groß ist.
 
 \section{Dezibel}
+\label{sec:dezibel}
 
 \begin{itemize}
   \item Die Einheit Bel zeigt an, dass es sich um eine logarithmierte Verhältnisgröße handelt. Die Definition bezieht sich auf das Verhältnis zweier Leistungen $P_2$ und $P_1$:
@@ -275,6 +283,7 @@ $\Rightarrow$ Die Qualität des rekonstruierten Signals hängt wesentlich von de
 % Grafik: Abb. 2.76 – Quantisierungsfehler e(t) = x(t) - x_q(t): Rampensignal, Sägezahnfehler, Fehlerleistung
 
 \section{Codierung: Natürliche binäre Zahlen}
+\label{sec:codierung-binaer}
 
 \begin{center}
 \begin{tabular}{lcc}
@@ -295,6 +304,7 @@ $\bullet\bullet\bullet\bullet\bullet\bullet\bullet\bullet$ & 8 & 1000 \\
 \end{center}
 
 \section{Prinzip der Codierung}
+\label{sec:prinzip-codierung}
 
 Die Quantisierungsniveaus eines Quantisierers lassen sich durch einen binären Code mit endlich vielen Stellen repräsentieren.
 

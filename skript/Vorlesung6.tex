@@ -1,8 +1,10 @@
 \section{Lineare und zeitinvariante Systeme}
+\label{sec:lti-systeme}
 
 LTI- und LSI-Systeme nehmen in der Systemtheorie eine besondere Stellung ein, da für die Analyse und den Entwurf dieser Systeme umfangreiche mathematische Methoden zur Verfügung stehen. Wir führen hierfür zunächst das Konzept der Impulsantwort an einem Beispiel ein.
 
 \subsection{Die Impulsantwort}
+\label{sec:impulsantwort}
 
 Die Reaktion eines Systems auf die Sprungfunktion $x(t) = A \cdot \epsilon(t)$ sei mit $y(t) = A \cdot (1 - e^{-\frac{t}{\tau}})$ gegeben, wobei $\tau$ eine Zeitkonstante ist. Dieses System kann durch das RC-Netzwerk realisiert werden, sofern zu Beginn der Kondensator entladen war.
 
@@ -37,6 +39,7 @@ Die \textit{Impulsantwort} ist eine charakteristische Eigenschaft eines LTI/LSI-
 Voraussetzung hierfür ist, dass das System vor der Anregung mit dem Impuls in Ruhe ist, d.\,h.\ dass alle inneren Zustände Null sind.
 
 \subsection{Das Faltungsintegral}
+\label{sec:faltungsintegral}
 
 Mit der Impulsantwort $h(t) = \mathcal{S}[\delta(t)]$ eines LTI-Systems $\mathcal{S}$ und mit der Siebeigenschaft des Dirac-Impulses
 
@@ -127,6 +130,7 @@ $$
 \end{beispiel}
 
 \subsection{Eigenschaften von Faltung und LTI-Systemen}
+\label{sec:faltung-eigenschaften}
 
 LTI-Systeme weisen einige grundlegende Eigenschaften auf, deren Kenntnis und Anwendung das Rechnen wesentlich erleichtern können.
 
@@ -276,6 +280,7 @@ $$
 gegeben.
 
 \subsection{Die zeitdiskrete Faltung}
+\label{sec:diskrete-faltung}
 
 Für zeitdiskrete Systeme lassen sich die oben getroffenen Definitionen und Beobachtungen sinngemäß übertragen. Insbesondere erhält man auch hier unter Anwendung der Linearität und der Verschiebungsinvarianz das Ausgangssignal eines LSI-System,
 
@@ -333,6 +338,7 @@ Die Berücksichtigung sämtlicher Rückwürfe führt dann zur \textbf{Raumimpuls
 \end{beispiel}
 
 \subsection{Eigenschaften von diskreter Faltung und LSI-Systemen}
+\label{sec:lsi-eigenschaften}
 
 Am Beispiel zeitdiskreter Signale sollen die Eigenschaften der Faltung in einigen Punkten weiter veranschaulicht werden.
 
@@ -523,10 +529,12 @@ h[k] &= h_1[k] * h_2[k] \\
 \end{beispiel}
 
 \section{Parametrische Systeme}
+\label{sec:parametrische-systeme}
 
 Die Berechnung der Ausgangssignale aus den Eingangssignalen und den Zustandsvariablen wird häufig durch Signalflussdiagramme dargestellt. Dabei kommen die folgenden einfachen Elemente zum Einsatz.
 
 \subsection{Signalflussdiagramme}
+\label{sec:signalflussdiagramme}
 
 \begin{center}
 \begin{tabular}{lcc}
@@ -617,6 +625,7 @@ Die Berechnung der Ausgangssignale aus den Eingangssignalen und den Zustandsvari
 Parametrische Systeme sind dadurch gekennzeichnet, dass ihr Verhalten durch eine (meist kleine) Anzahl von Parametern (oder Koeffizienten) beschrieben werden kann.
 
 \subsection{Parametrische LSI Systeme}
+\label{sec:parametrische-lsi}
 
 Das Signalflussdiagramm eines linearen, verschiebungsinvarianten Systems ist in Abbildung 3.36 gezeigt, wobei das Systemverhalten durch die Struktur und die konstanten Parameter $b_0, \ldots, b_N$ und $a_1, \ldots, a_M$ bestimmt wird.
 
@@ -629,6 +638,7 @@ y[k] = \sum_{\nu=0}^{N} x[k-\nu]\,b_\nu + \sum_{\mu=1}^{M} y[k-\mu]\,a_\mu\,.
 $$
 
 \subsection{Nichtrekursives Parametrisches LSI System (FIR)}
+\label{sec:fir}
 
 Wenn der rekursive Zweig entfernt wird, erhält man das nichtrekursive System.
 
@@ -643,6 +653,7 @@ $$
 beschrieben. Dieses System hat eine endliche ausgedehnte Impulsantwort und wird daher auch als ,,finite impulse-response (FIR)'' System bezeichnet.
 
 \subsection{Rekursives Parametrisches LSI System (IIR)}
+\label{sec:iir}
 
 Ein rein rekursives System wird durch
 
@@ -657,6 +668,7 @@ beschrieben.
 Dieses System hat im Allgemeinen eine unendliche ausgedehnte Impulsantwort und wird als ,,infinite impulse-response (IIR)'' System bezeichnet.
 
 \section{Weitere Beispiele}
+\label{sec:lti-beispiele}
 
 \begin{beispiel}[Neuronale Faltungsnetze (,,convolutional neural networks -- CNN'')]
 Künstliche neuronale Netze spielen in der automatischen Mustererkennung eine überragende Rolle. Typische Anwendungen sind die Spracherkennung, die Handschrifterkennung, oder die Erkennung von Objekten und Hindernissen beim autonomen Fahren. Dabei ist die Bearbeitung von (mehrdimensionalen) Bild- oder Videodaten besonders herausfordernd. Zur Reduktion der Komplexität der Mustererkennung in Bilddaten werden deshalb oft Netzstrukturen verwendet, die die (zweidimensionale) Faltungsoperation (oder auch Korrelationsoperation) nachbilden (,,convolutional neural network -- CNN''). Im Unterschied zu der bisher betrachteten Faltung, werden die gesuchten Muster in der Form eines oder mehrerer ,,Faltungskerne'' nicht ,,a priori'' fest vorgegeben sondern aus gegebenen Daten trainiert.

@@ -1,6 +1,8 @@
 \chapter{Einführung in die Wahrscheinlichkeitsrechnung}
+\label{chap:wahrscheinlichkeit}
 
 \section{Einführung und Definition}
+\label{sec:wahrscheinlichkeit-einfuehrung}
 
 Die Wahrscheinlichkeitsrechnung behandelt Experimente, deren Ergebnisse sich nicht mit beliebiger Präzision vorhersagen lassen. Diese Experimente werden Zufallsexperimente genannt und deren Ergebnisse Elementarereignisse $\xi$. Die Menge aller Elementarereignisse eines Experiments bezeichnen wir mit $\Omega$.
 
@@ -21,6 +23,7 @@ In Abbildung 4.2 sind Signalformen des gesprochenen Wortes „one" dargestellt. 
 \end{beispiel}
 
 \subsection{Mengen und Ereignisse}
+\label{sec:mengen-ereignisse}
 
 In der Wahrscheinlichkeitsrechnung werden Ereignisse mit Mengen gleichgesetzt. Dabei geht man zunächst von einer Menge $\Omega = \{\xi_1, \xi_2, \ldots, \xi_K\}$ von Elementen $\xi_i$ aus, die man \textit{Elementarereignisse} nennt.
 
@@ -33,6 +36,7 @@ In der Wahrscheinlichkeitsrechnung werden Ereignisse mit Mengen gleichgesetzt. D
 \end{itemize}
 
 \subsection{Endliche und unendliche Ereignismengen}
+\label{sec:ereignismengen}
 
 Die Menge der Elementarereignisse $\Omega$ kann endlich viele Elemente, oder (abzählbar oder überabzählbar) unendlich viele Elemente aufweisen. Wir betrachten hierzu die folgenden Beispiele:
 
@@ -52,6 +56,7 @@ Die Menge der Elementarereignisse $\Omega$ kann endlich viele Elemente, oder (ab
 \end{enumerate}
 
 \subsection{Das Ereignis als Teilmenge von $\Omega$}
+\label{sec:ereignis-teilmenge}
 
 Ausgehend von der Grundmenge der Elementarereignisse $\Omega$ können nun eine Vielzahl von speziellen, an eine Fragestellung angepassten Ereignisse konstruiert werden. Diese werden durch Teilmengen $A \subseteq \Omega$ repräsentiert.
 
@@ -68,6 +73,7 @@ gegeben.
 Jedes Elementarereignis kann eine Teilmenge von $\Omega$ bilden und kann daher auch Ereignis sein, d.\,h.\ $A_i = \{\xi_i\}$. Weiterhin können aus vorgegebenen Ereignissen durch Mengenoperationen neue Ereignisse definiert werden. Die wichtigsten Mengenoperationen werden im Folgenden behandelt.
 
 \subsection{Mengenoperationen}
+\label{sec:mengenoperationen}
 
 \textbf{Die Vereinigungsmenge}
 
@@ -162,6 +168,7 @@ $$
 \end{beispiel}
 
 \subsection{Mengenalgebra}
+\label{sec:mengenalgebra}
 
 Werden nun alle Ereignisse eines Experiments betrachtet, so hat man es offensichtlich mit einer Menge von Mengen (jede Menge steht für ein Ereignis) zu tun. Dieses Konstrukt wird durch die Begriffe des Mengensystems und der Mengenalgebra formalisiert.
 
@@ -195,6 +202,7 @@ In diesem Fall ist die Konstruktion der $\sigma$-Algebra sehr einfach. Sie enth�
 \end{beispiel}
 
 \subsection{Überabzählbare Mengen}
+\label{sec:ueberabzaehlbare-mengen}
 
 Wenn die Menge der Elementarereignisse dem Intervall $[0,1] \in \mathbb{R}$ entspricht, erfordert die Definition eines Mengenkörpers zusätzliche Überlegungen. Man verwendet dann eine sogenannte Borel-Algebra:
 
@@ -203,6 +211,7 @@ Die Borel-Algebra $\mathcal{B}$ ist die kleinste $\sigma$-Algebra auf $[0,1]$, d
 Im Fall \textit{kontinuierlicher Ereignisräume} (z.\,B.\ $\Omega = [0,1]$ oder $\Omega = \mathbb{R}$) werden Ereignisse also durch Intervalle repräsentiert.
 
 \subsection{Zusammenfassung der Terminologie}
+\label{sec:wahrscheinlichkeit-terminologie}
 
 Abschließend folgt eine Gegenüberstellung von Begriffen der Mengenlehre und der Wahrscheinlichkeitsrechnung.
 
@@ -223,6 +232,7 @@ Abschließend folgt eine Gegenüberstellung von Begriffen der Mengenlehre und de
 \end{center}
 
 \section{Axiomatische Definition der Wahrscheinlichkeit}
+\label{sec:axiome-wahrscheinlichkeit}
 
 Die Wahrscheinlichkeit eines Ereignisses $A_i$ aus einem Mengenkörper $\mathcal{F} = \{A_1, \ldots, A_i, \ldots, A_N\}$, wobei $A_i$ Teilmengen von $\Omega$ bezeichnen und in $\mathcal{F}$ enthalten sind, ist eine reelle Zahl $P(A_i)$ mit den folgenden Eigenschaften:
 
@@ -235,6 +245,7 @@ Die Wahrscheinlichkeit eines Ereignisses $A_i$ aus einem Mengenkörper $\mathcal
 Aus diesen drei Axiomen lassen sich alle weiteren Zusammenhänge der Wahrscheinlichkeitsrechnung widerspruchsfrei ableiten.
 
 \subsection{Wahrscheinlichkeitsraum}
+\label{sec:wahrscheinlichkeitsraum}
 
 Mit der Zuordnung von Wahrscheinlichkeiten zu Mengen wird ein Wahrscheinlichkeitsmaß $\mathbb{P}$ definiert.
 
@@ -312,6 +323,7 @@ $$
 \end{beispiel}
 
 \subsection{Kartesische Produktmengen}
+\label{sec:kartesische-produktmengen}
 
 \begin{itemize}
   \item Gegeben sind zwei Mengen $\Omega_\Xi = \{\xi_1, \ldots, \xi_K\}$ und $\Omega_E = \{\eta_1, \ldots, \eta_L\}$.
@@ -350,6 +362,7 @@ bzw. in zweidimensionaler Anordnung mit dem ersten Wurf $\xi_i$ und dem zweiten 
 \end{beispiel}
 
 \subsection{Mehrfache, unabhängige Versuche}
+\label{sec:unabhaengige-versuche}
 
 Nun werden mehrere Experimente, die unabhängig voneinander unter gleichen Bedingungen wiederholt werden, gemeinsam betrachtet. Wenn die Menge der Elementarereignisse des einzelnen Versuchs durch $\Omega_1$ gegeben ist, wird die Menge der Elementarereignisse zweier gleichartiger Experimente durch die kartesische Produktmenge $\Omega = \Omega_1 \times \Omega_1$ definiert. Im allgemeinen Fall sind die Elementarereignisse des $L$-fach wiederholten ($L$-stufigen) Experiments durch die $L$-Tupel der kartesischen Produktmenge
 
@@ -394,6 +407,7 @@ Tatsächlich kann bei einer endlichen Anzahl von Würfen nicht mit Bestimmtheit 
 \end{beispiel}
 
 \subsection{Kombinatorik und Stichproben}
+\label{sec:kombinatorik}
 
 Der Wahrscheinlichkeitsrechnung liegen häufig kombinatorische Aufgaben zugrunde. Die wichtigsten Fälle werden nachfolgend kurz behandelt:
 
@@ -487,6 +501,7 @@ $$
 \end{beispiel}
 
 \subsection{Verbundwahrscheinlichkeiten und Randwahrscheinlichkeiten}
+\label{sec:verbundwahrscheinlichkeiten}
 
 Der Wahrscheinlichkeitsraum für elementare Ereignisse mehrfacher Versuche kann mit Hilfe des kartesischen Produkts konstruiert werden. Dabei ist von Bedeutung, dass sich die Elementarereignisse gegenseitig ausschließen und eine vollständige Abdeckung des Raums erreicht wird. Darüber hinaus ist aber auch die gemeinsame Betrachtung beliebiger Ereignisse von Interesse. Diese Ereignisse müssen sich nicht unbedingt gegenseitig ausschließen.
 
