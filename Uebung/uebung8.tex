@@ -245,7 +245,22 @@ $$
 
 Bei einer recht hohen Grün-Wahrscheinlichkeit von $40\,\%$ pro Ziehung ist es
 über $16$ Versuche äußerst unwahrscheinlich, höchstens eine grüne Kugel zu
-ziehen -- der Erwartungswert liegt bei $\mu = n\,P_g = 16 \cdot 0{,}4 = 6{,}4$
-grünen Kugeln.
+ziehen. Dies zeigt sich auch am \emph{Erwartungswert}
+(Abschnitt~\ref{sec:erwartungswert}): Für eine binomialverteilte Zufallsvariable
+$X = \sum_{i=1}^{n} X_i$ als Summe von $n$ unabhängigen Bernoulli-Variablen mit
+$\mathrm{E}\{X_i\} = P_g$ folgt aus der Linearität des Erwartungswerts
+
+$$
+\mu_X = \mathrm{E}\{X\} = \sum_{k=0}^{n} k\, p_X(k) = n\,P_g
+$$
+
+und damit konkret
+
+$$
+\mu_X = n\,P_g = 16 \cdot 0{,}4 = 6{,}4 \text{ grüne Kugeln}.
+$$
+
+Der Erwartungswert liegt also weit über $1$, weshalb $P(X \le 1)$ verschwindend
+klein ausfällt.
 
 \end{beispiel}
