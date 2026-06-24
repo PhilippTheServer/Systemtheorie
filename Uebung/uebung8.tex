@@ -1,0 +1,251 @@
+\section{Übung 8 – Bedingte Wahrscheinlichkeiten und Satz von Bayes}
+
+In dieser Übung werden bedingte Wahrscheinlichkeiten beim Ziehen ohne Zurücklegen
+(Teil~A) sowie die Binomialverteilung beim Ziehen mit Zurücklegen (Teil~B)
+betrachtet.
+
+% ----------------------------------------------------------------
+\subsection*{Teil A – Urne mit farbigen Kugeln (ohne Zurücklegen)}
+% ----------------------------------------------------------------
+
+Eine Urne enthält $2$ rote, $5$ schwarze und $3$ weiße Kugeln, insgesamt also
+$N = 10$ Kugeln. Es wird zweimal \emph{ohne Zurücklegen} gezogen.
+
+% ---- A1 --------------------------------------------------------
+\subsubsection*{A1 – Bedingte Wahrscheinlichkeiten für die 2.\ Ziehung}
+
+\begin{beispiel}[Bedingte Wahrscheinlichkeit nach einer schwarzen Kugel]
+
+\textbf{Gegeben:} Urne mit $2$ roten, $5$ schwarzen, $3$ weißen Kugeln
+($N = 10$). Die erste gezogene Kugel ist schwarz und wird \emph{nicht}
+zurückgelegt.
+
+\textbf{Gesucht:} Die bedingten Wahrscheinlichkeiten
+$P(\text{rot} \mid S_1)$, $P(\text{schwarz} \mid S_1)$ und
+$P(\text{weiß} \mid S_1)$ für die zweite Ziehung, wobei $S_1$ das Ereignis
+„erste Kugel schwarz`` bezeichnet.
+
+\textbf{Formel} (bedingte Wahrscheinlichkeit als Laplace-Experiment auf der
+reduzierten Urne, Abschnitt~\ref{sec:bedingte-wahrscheinlichkeit}):
+
+$$
+P(\text{Farbe} \mid S_1) = \frac{\text{Anzahl Kugeln dieser Farbe}}{\text{Restzahl Kugeln}}
+$$
+
+\textbf{Rechnung:}
+
+Nach dem Entnehmen einer schwarzen Kugel verbleiben $N' = 9$ Kugeln, davon
+$2$ rote, $4$ schwarze und $3$ weiße. Somit gilt:
+
+$$
+P(\text{rot} \mid S_1) = \frac{2}{9}, \qquad
+P(\text{schwarz} \mid S_1) = \frac{4}{9}, \qquad
+P(\text{weiß} \mid S_1) = \frac{3}{9} = \frac{1}{3}
+$$
+
+Probe: $\dfrac{2}{9} + \dfrac{4}{9} + \dfrac{3}{9} = \dfrac{9}{9} = 1$ \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{rot} \mid S_1) = \frac{2}{9} \approx 0{,}222, \quad
+P(\text{schwarz} \mid S_1) = \frac{4}{9} \approx 0{,}444, \quad
+P(\text{weiß} \mid S_1) = \frac{1}{3} \approx 0{,}333}
+$$
+
+\end{beispiel}
+
+% ---- A2 --------------------------------------------------------
+\subsubsection*{A2 – Wahrscheinlichkeit, dass die 2.\ Kugel schwarz ist}
+
+\begin{beispiel}[Satz von der totalen Wahrscheinlichkeit]
+
+\textbf{Gegeben:} Urne wie oben ($2$ rot, $5$ schwarz, $3$ weiß, $N = 10$),
+zweimal ohne Zurücklegen.
+
+\textbf{Gesucht:} $P(S_2)$ -- die Wahrscheinlichkeit, dass die \emph{zweite}
+gezogene Kugel schwarz ist (ohne Kenntnis der ersten Kugel).
+
+\textbf{Formel} (Satz von der totalen Wahrscheinlichkeit,
+Abschnitt~\ref{sec:totale-wahrscheinlichkeit}):
+
+$$
+P(S_2) = \sum_{i} P(S_2 \mid F_i)\, P(F_i)
+$$
+
+wobei $F_i \in \{\text{rot}, \text{schwarz}, \text{weiß}\}$ die Farbe der ersten
+Kugel ist.
+
+\textbf{Rechnung:}
+
+Die a-priori-Wahrscheinlichkeiten der ersten Ziehung sind
+$P(R_1) = \tfrac{2}{10}$, $P(S_1) = \tfrac{5}{10}$, $P(W_1) = \tfrac{3}{10}$.
+Die bedingten Wahrscheinlichkeiten für eine schwarze zweite Kugel:
+
+$$
+P(S_2 \mid R_1) = \frac{5}{9}, \qquad
+P(S_2 \mid S_1) = \frac{4}{9}, \qquad
+P(S_2 \mid W_1) = \frac{5}{9}
+$$
+
+Einsetzen:
+
+$$
+P(S_2) = \frac{5}{9}\cdot\frac{2}{10} + \frac{4}{9}\cdot\frac{5}{10}
+       + \frac{5}{9}\cdot\frac{3}{10}
+       = \frac{10}{90} + \frac{20}{90} + \frac{15}{90}
+       = \frac{45}{90}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(S_2) = \frac{1}{2} = 0{,}5}
+$$
+
+Die zweite Kugel ist mit derselben Wahrscheinlichkeit schwarz wie die erste
+($P(S_1) = \tfrac{5}{10} = \tfrac{1}{2}$). Dieses Symmetrieergebnis gilt
+allgemein: Ohne Information über die erste Ziehung ist die Wahrscheinlichkeit
+für jede Position dieselbe.
+
+\end{beispiel}
+
+% ---- A3 --------------------------------------------------------
+\subsubsection*{A3 – Rückschluss auf die erste Kugel (Satz von Bayes)}
+
+\begin{beispiel}[Satz von Bayes]
+
+\textbf{Gegeben:} Aus der Urne ($2$ rot, $5$ schwarz, $3$ weiß) wird eine Kugel
+\emph{verdeckt} gezogen und beiseitegelegt. Anschließend wird eine schwarze
+Kugel gezogen (Ereignis $S_2$).
+
+\textbf{Gesucht:} $P(S_1 \mid S_2)$ -- die Wahrscheinlichkeit, dass die
+zuerst gezogene (verdeckte) Kugel ebenfalls schwarz war.
+
+\textbf{Formel} (Satz von Bayes, Abschnitt~\ref{sec:satz-von-bayes}):
+
+$$
+P(S_1 \mid S_2) = \frac{P(S_2 \mid S_1)\, P(S_1)}{P(S_2)}
+$$
+
+\textbf{Rechnung:}
+
+Die benötigten Größen sind aus A1 und A2 bekannt:
+
+$$
+P(S_2 \mid S_1) = \frac{4}{9}, \qquad
+P(S_1) = \frac{5}{10} = \frac{1}{2}, \qquad
+P(S_2) = \frac{1}{2}
+$$
+
+Einsetzen:
+
+$$
+P(S_1 \mid S_2) = \frac{\dfrac{4}{9}\cdot\dfrac{1}{2}}{\dfrac{1}{2}}
+               = \frac{4}{9}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(S_1 \mid S_2) = \frac{4}{9} \approx 0{,}444}
+$$
+
+Da $P(S_2) = P(S_1)$ ist, vereinfacht sich der Bayes-Ausdruck zu
+$P(S_1 \mid S_2) = P(S_2 \mid S_1) = \tfrac{4}{9}$. Die Information, dass die
+zweite Kugel schwarz ist, senkt die Wahrscheinlichkeit für eine schwarze erste
+Kugel von $\tfrac{1}{2}$ auf $\tfrac{4}{9}$, da nun eine schwarze Kugel
+„verbraucht`` ist.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Teil B – Zweite Urne (mit Zurücklegen, Binomialverteilung)}
+% ----------------------------------------------------------------
+
+Eine zweite Urne enthält grüne und blaue Kugeln. Die Wahrscheinlichkeit, eine
+grüne Kugel zu ziehen, beträgt $P_g$. Es wird $n = 16$ Mal eine Kugel gezogen
+und jeweils wieder \emph{zurückgelegt}. Die einzelnen Ziehungen sind damit
+statistisch unabhängig und identisch verteilt (Bernoulli-Kette).
+
+% ---- B1 --------------------------------------------------------
+\subsubsection*{B1 – Genau $k$-mal grün}
+
+\begin{beispiel}[Binomialverteilung]
+
+\textbf{Gegeben:} $n = 16$ unabhängige Ziehungen mit Zurücklegen,
+Erfolgswahrscheinlichkeit $P_g$ für „grün`` pro Ziehung.
+
+\textbf{Gesucht:} $P(X = k)$ -- die Wahrscheinlichkeit, dass genau $k$-mal eine
+grüne Kugel gezogen wurde.
+
+\textbf{Formel} (Binomialverteilung, Abschnitt~\ref{sec:binomialverteilung}):
+
+$$
+P(X = k) = \binom{n}{k}\, P_g^{\,k}\,(1 - P_g)^{\,n-k}
+$$
+
+\textbf{Rechnung:}
+
+Mit $n = 16$ ergibt sich unmittelbar:
+
+$$
+P(X = k) = \binom{16}{k}\, P_g^{\,k}\,(1 - P_g)^{\,16-k},
+\qquad k \in \{0, 1, \ldots, 16\}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(X = k) = \binom{16}{k}\, P_g^{\,k}\,(1 - P_g)^{\,16-k}}
+$$
+
+\end{beispiel}
+
+% ---- B2 --------------------------------------------------------
+\subsubsection*{B2 – Höchstens eine grüne Kugel bei $P_g = 0{,}4$}
+
+\begin{beispiel}[Kumulierte Binomialwahrscheinlichkeit]
+
+\textbf{Gegeben:} $n = 16$, $P_g = 0{,}4$, also $1 - P_g = 0{,}6$.
+
+\textbf{Gesucht:} $P(X \le 1)$ -- die Wahrscheinlichkeit, dass höchstens eine
+grüne Kugel gezogen wurde.
+
+\textbf{Formel} (Summe der Einzelwahrscheinlichkeiten,
+Abschnitt~\ref{sec:binomialverteilung}):
+
+$$
+P(X \le 1) = P(X = 0) + P(X = 1)
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(X = 0) = \binom{16}{0}\,(0{,}4)^{0}\,(0{,}6)^{16}
+         = (0{,}6)^{16} \approx 0{,}000282
+$$
+
+$$
+P(X = 1) = \binom{16}{1}\,(0{,}4)^{1}\,(0{,}6)^{15}
+         = 16 \cdot 0{,}4 \cdot (0{,}6)^{15} \approx 0{,}003009
+$$
+
+Summe:
+
+$$
+P(X \le 1) \approx 0{,}000282 + 0{,}003009 = 0{,}003291
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(X \le 1) \approx 0{,}00329 \approx 0{,}33\,\%}
+$$
+
+Bei einer recht hohen Grün-Wahrscheinlichkeit von $40\,\%$ pro Ziehung ist es
+über $16$ Versuche äußerst unwahrscheinlich, höchstens eine grüne Kugel zu
+ziehen -- der Erwartungswert liegt bei $\mu = n\,P_g = 16 \cdot 0{,}4 = 6{,}4$
+grünen Kugeln.
+
+\end{beispiel}
