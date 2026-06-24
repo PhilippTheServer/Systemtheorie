@@ -21,57 +21,205 @@ $$
 \qquad (4)
 $$
 
-% ----------------------------------------------------------------
+% ================================================================
+\subsection*{Vorüberlegung – Warum überhaupt ein Zustandsraummodell?}
+% ================================================================
+
+\begin{gedankenexperiment}[Die Grundidee]
+
+Die Bewegungsgleichung des Oszillators ist eine \emph{Differentialgleichung
+zweiter Ordnung} in $x(t)$:
+
+$$
+m\,\ddot{x}(t) = -k_F\, x(t) - b\,\dot{x}(t).
+$$
+
+Mit einer DGL zweiter Ordnung kann man schlecht „rechnen``: Sie enthält eine
+zweite Ableitung, ist nicht direkt in Matrixform darstellbar und nicht ohne
+Weiteres numerisch (Schritt für Schritt) lösbar.
+
+Die zentrale Idee des Zustandsraummodells ist daher: \textbf{Wir ersetzen eine
+DGL der Ordnung $n$ durch ein System aus $n$ gekoppelten DGLen erster Ordnung.}
+DGLen erster Ordnung haben die Form „Ableitung $=$ Funktion der aktuellen
+Werte`` und lassen sich kompakt als
+
+$$
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t} = \mathbf{A}\,\vec{z}(t) + \mathbf{B}\,u(t)
+$$
+
+schreiben. Der \emph{Zustandsvektor} $\vec{z}(t)$ fasst dabei genau die
+Information zusammen, die man zu einem Zeitpunkt $t$ kennen muss, um die gesamte
+Zukunft des Systems zu berechnen.
+
+\end{gedankenexperiment}
+
+% ================================================================
+\subsection*{Das universelle Rezept: Von der DGL zum Zustandsraummodell}
+% ================================================================
+
+Das folgende Vorgehen funktioniert für \emph{jede} lineare DGL mit konstanten
+Koeffizienten und ist das Werkzeug für alle Aufgaben dieses Typs. Ziel ist immer
+die Standardform (vgl.\ Abschnitt~\ref{sec:zustandsraum})
+
+$$
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t} = \mathbf{A}\,\vec{z}(t) + \mathbf{B}\,u(t),
+\qquad
+\vec{y}(t) = \mathbf{C}\,\vec{z}(t) + \mathbf{D}\,u(t).
+$$
+
+\begin{bemerkung}[Kochrezept in 6 Schritten]
+
+\textbf{Schritt 1 – Ordnung $n$ bestimmen.}
+Suche die höchste vorkommende Ableitung der gesuchten Größe. Ihre Ordnung $n$
+ist die Anzahl der benötigten Zustandsvariablen. \emph{Warum:} Der Zustand muss
+die Funktion und alle Ableitungen bis zur $(n-1)$-ten enthalten, denn genau
+diese Werte braucht man als „Startbedingungen``, um die Lösung eindeutig
+fortzuschreiben.
+
+\textbf{Schritt 2 – Zustandsvariablen wählen.}
+Setze $z_1 = $ (die Größe selbst), $z_2 = \dot{z}_1$, $z_3 = \ddot{z}_1$, \ldots,
+$z_n = z_1^{(n-1)}$. \emph{Warum:} Diese „Ableitungskette`` ist die natürliche
+Wahl (Phasenraum) und führt direkt auf die Schritte 3 und 4.
+
+\textbf{Schritt 3 – Die trivialen Zustandsgleichungen.}
+Aus der Definition folgt unmittelbar $\dot{z}_1 = z_2$, $\dot{z}_2 = z_3$,
+\ldots, $\dot{z}_{n-1} = z_n$. \emph{Warum:} Das sind keine neuen Annahmen,
+sondern nur die Umbenennung „die Ableitung von $z_i$ heißt $z_{i+1}$``.
+
+\textbf{Schritt 4 – Die „echte`` Zustandsgleichung.}
+Löse die ursprüngliche DGL nach der höchsten Ableitung $z_1^{(n)} = \dot{z}_n$
+auf und ersetze rechts alle Ableitungen durch die Zustandsvariablen $z_i$ (und
+ggf.\ das Eingangssignal $u$). \emph{Warum:} Damit ist auch die letzte fehlende
+Ableitung $\dot{z}_n$ allein durch aktuelle Werte ausgedrückt -- das System ist
+geschlossen.
+
+\textbf{Schritt 5 – Matrixform: $\mathbf{A}$ und $\mathbf{B}$ ablesen.}
+Schreibe die $n$ Gleichungen $\dot{z}_i = \ldots$ untereinander und sortiere
+nach den $z_j$ und nach $u$. Die Koeffizienten vor den $z_j$ bilden zeilenweise
+die Systemmatrix $\mathbf{A}$, die Koeffizienten vor $u$ die Eingangsmatrix
+$\mathbf{B}$. \emph{Warum:} Das ist nur das Umschreiben eines linearen
+Gleichungssystems in Matrix-Vektor-Schreibweise.
+
+\textbf{Schritt 6 – Ausgangsgleichung: $\mathbf{C}$ und $\mathbf{D}$.}
+Frage: \emph{Welche Größe wird gemessen/beobachtet?} Drücke diese durch die
+Zustände (und ggf.\ $u$) aus. Die Koeffizienten bilden $\mathbf{C}$ (vor $z_j$)
+und $\mathbf{D}$ (vor $u$). \emph{Warum:} Der Zustand $\vec{z}$ ist intern; das
+Modell muss noch sagen, was davon nach außen sichtbar ist.
+
+\textbf{Kontrolle:} Dimensionen müssen passen --
+$\mathbf{A}\!:\,n\times n$, $\mathbf{B}\!:\,n\times L$,
+$\mathbf{C}\!:\,M\times n$, $\mathbf{D}\!:\,M\times L$
+($n$ Zustände, $L$ Eingänge, $M$ Ausgänge).
+
+\end{bemerkung}
+
+% ================================================================
 \subsection*{Teil a) – Zustandsraummodell des freien Oszillators}
-% ----------------------------------------------------------------
+% ================================================================
 
 \begin{beispiel}[Zustandsraummodell aus DGL (3)]
 
-\textbf{Gegeben:} Die DGL (3) des freien gedämpften Oszillators sowie der
-Zustandsvektor $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$. Gemessen wird die
-Auslenkung $x(t)$ (Skala in Bild~1).
+\textbf{Gegeben:} Die DGL (3) des freien gedämpften Oszillators,
+$\dot{v}(t) = -\omega_0^2\, x(t) - 2\gamma\, v(t)$, mit $v(t) = \dot{x}(t)$.
+Vorgegebener Zustandsvektor $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$. Gemessen
+wird die Auslenkung $x(t)$ (Skala in Bild~1).
 
-\textbf{Gesucht:} Das Zustandsraummodell, d.\,h.\ die Systemmatrix $\mathbf{A}$
-und die Beobachtungsmatrix $\mathbf{C}$ der Zustands- und Ausgangsgleichung.
+\textbf{Gesucht:} Das vollständige Zustandsraummodell, d.\,h.\ die Matrizen
+$\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$, $\mathbf{D}$ der Zustands- und
+Ausgangsgleichung.
 
-\textbf{Formel} (allgemeines zeitinvariantes Zustandsraummodell,
+\textbf{Formel} (zeitinvariantes Zustandsraummodell,
 Abschnitt~\ref{sec:zustandsraum}):
 
 $$
-\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t} = \mathbf{A}\,\vec{z}(t) + \mathbf{B}\,\vec{x}(t),
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t} = \mathbf{A}\,\vec{z}(t) + \mathbf{B}\,u(t),
 \qquad
-\vec{y}(t) = \mathbf{C}\,\vec{z}(t) + \mathbf{D}\,\vec{x}(t).
+y(t) = \mathbf{C}\,\vec{z}(t) + \mathbf{D}\,u(t).
 $$
 
-\textbf{Rechnung:}
+\textbf{Rechnung:} Wir gehen das Kochrezept Schritt für Schritt durch.
 
-Die DGL zweiter Ordnung wird durch Einführung der beiden Zustandsvariablen
-$x(t)$ und $v(t)$ in ein System zweier DGLen erster Ordnung überführt. Die erste
-Gleichung folgt unmittelbar aus der Definition der Geschwindigkeit,
+\medskip
+\textit{Schritt 1 – Ordnung.}
+Die zugrunde liegende Bewegungsgleichung $m\ddot{x} = -k_F x - b\dot{x}$ enthält
+die zweite Ableitung $\ddot{x}$. Die Ordnung ist also $n = 2$
+$\Rightarrow$ wir brauchen \textbf{zwei} Zustandsvariablen. Dies ist in der
+Aufgabe bereits durch $\vec{z} = (x, v)^{\mathsf{T}}$ vorweggenommen.
+
+\medskip
+\textit{Schritt 2 – Zustandsvariablen.}
+Gemäß der Ableitungskette wählen wir
 
 $$
-\dot{x}(t) = v(t),
+z_1(t) = x(t) \quad\text{(Auslenkung)}, \qquad
+z_2(t) = \dot{x}(t) = v(t) \quad\text{(Geschwindigkeit)}.
 $$
 
-die zweite Gleichung ist die gegebene DGL (3),
+\emph{Woher:} Position und Geschwindigkeit sind genau die zwei Größen, die man
+zu einem Zeitpunkt kennen muss, um die weitere Schwingung eindeutig zu bestimmen
+(physikalischer Anfangszustand).
+
+\medskip
+\textit{Schritt 3 – Triviale Zustandsgleichung.}
+Aus $z_2 = \dot{z}_1$ folgt unmittelbar
 
 $$
-\dot{v}(t) = -\omega_0^2\, x(t) - 2\gamma\, v(t).
+\dot{z}_1(t) = \dot{x}(t) = v(t) = z_2(t).
 $$
 
-In Matrix-Vektor-Schreibweise mit $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$:
+\emph{Warum:} Das ist keine Physik, sondern reine Definition -- die erste Zeile
+des Modells „verkettet`` nur $x$ und $v$.
+
+\medskip
+\textit{Schritt 4 – Echte Zustandsgleichung.}
+Die zweite Zeile ist die gegebene DGL (3), bereits nach der höchsten Ableitung
+$\dot{v} = \ddot{x}$ aufgelöst:
+
+$$
+\dot{z}_2(t) = \dot{v}(t) = -\omega_0^2\, x(t) - 2\gamma\, v(t)
+            = -\omega_0^2\, z_1(t) - 2\gamma\, z_2(t).
+$$
+
+\emph{Woher:} direkt aus der Bewegungsgleichung; rechts wurde nur
+$x \to z_1$, $v \to z_2$ eingesetzt.
+
+\medskip
+\textit{Schritt 5 – Matrixform.}
+Wir schreiben beide Zeilen untereinander und sortieren nach $z_1, z_2$:
+
+$$
+\begin{aligned}
+\dot{z}_1 &= 0\cdot z_1 + 1\cdot z_2, \\
+\dot{z}_2 &= -\omega_0^2\cdot z_1 - 2\gamma\cdot z_2.
+\end{aligned}
+$$
+
+Die Koeffizienten in die Matrix übertragen (erste Zeile: $0,\,1$; zweite Zeile:
+$-\omega_0^2,\,-2\gamma$):
 
 $$
 \frac{\mathrm{d}}{\mathrm{d}t}
-\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}
+\begin{pmatrix} z_1 \\ z_2 \end{pmatrix}
 =
 \begin{pmatrix} 0 & 1 \\ -\omega_0^2 & -2\gamma \end{pmatrix}
-\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}.
+\begin{pmatrix} z_1 \\ z_2 \end{pmatrix}.
 $$
 
-Da der freie Oszillator kein Eingangssignal besitzt, entfällt der Term
-$\mathbf{B}\,\vec{x}(t)$. Gemessen wird die Auslenkung, also $y(t) = x(t)$, was
-auf die Beobachtungsmatrix $\mathbf{C} = (1\;\; 0)$ und $\mathbf{D} = 0$ führt.
+Der freie Oszillator hat \emph{kein} Eingangssignal, daher $\mathbf{B} = \vec{0}$
+und der Term $\mathbf{B}\,u(t)$ entfällt.
+
+\medskip
+\textit{Schritt 6 – Ausgangsgleichung.}
+Gemessen wird laut Aufgabe nur die Auslenkung, also $y(t) = x(t) = z_1(t)$:
+
+$$
+y(t) = \underbrace{(1\;\; 0)}_{\mathbf{C}}
+\begin{pmatrix} z_1 \\ z_2 \end{pmatrix} = z_1(t),
+\qquad \mathbf{D} = 0.
+$$
+
+\emph{Warum:} Der Zustand enthält auch die (nicht abgelesene) Geschwindigkeit
+$z_2$; $\mathbf{C}$ wählt aus, dass davon nur $z_1 = x$ sichtbar ist.
 
 \textbf{Lösung:}
 
@@ -85,27 +233,31 @@ y(t) = \underbrace{(1\;\; 0)}_{\mathbf{C}}\,\vec{z}(t)
 }
 $$
 
-Das System ist autonom (homogen): Die Dynamik wird allein durch die Systemmatrix
-$\mathbf{A}$ und den Anfangszustand $\vec{z}_0$ bestimmt. Die abklingende
-Schwingung in Bild~1 entspricht dem Einschwingen aus einer impulsartigen
+\textit{Kontrolle:} $\mathbf{A}$ ist $2\times 2$, $\mathbf{C}$ ist $1\times 2$ --
+passend zu $n=2$ Zuständen und $M=1$ Ausgang. \checkmark
+
+Das System ist \emph{autonom} (homogen): Ohne äußere Anregung wird die Dynamik
+allein durch $\mathbf{A}$ und den Anfangszustand $\vec{z}_0$ bestimmt. Die
+abklingende Schwingung in Bild~1 ist die Eigenbewegung aus einer impulsartigen
 Anfangsauslenkung.
 
 \end{beispiel}
 
-% ----------------------------------------------------------------
+% ================================================================
 \subsection*{Teil b) – Zustandsraummodell des angeregten Oszillators}
-% ----------------------------------------------------------------
+% ================================================================
 
 \begin{beispiel}[Zustandsraummodell aus DGL (4)]
 
-\textbf{Gegeben:} Die DGL (4) des fremderregten Oszillators mit der
-Anregungskraft $F(t) = \hat{F}\cos(\omega t)$ als Eingangssignal sowie der
+\textbf{Gegeben:} Die DGL (4) des fremderregten Oszillators,
+$\dot{v}(t) = \tfrac{\hat{F}}{m}\cos(\omega t) - \omega_0^2 x(t) - 2\gamma v(t)$,
+mit der Anregungskraft $F(t) = \hat{F}\cos(\omega t)$ als Eingangssignal.
 Zustandsvektor $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$.
 
-\textbf{Gesucht:} Das Zustandsraummodell mit Systemmatrix $\mathbf{A}$,
-Eingangsmatrix $\mathbf{B}$ und Beobachtungsmatrix $\mathbf{C}$.
+\textbf{Gesucht:} Das vollständige Zustandsraummodell mit $\mathbf{A}$,
+$\mathbf{B}$, $\mathbf{C}$, $\mathbf{D}$.
 
-\textbf{Formel} (allgemeines zeitinvariantes Zustandsraummodell,
+\textbf{Formel} (zeitinvariantes Zustandsraummodell,
 Abschnitt~\ref{sec:zustandsraum}):
 
 $$
@@ -114,34 +266,89 @@ $$
 y(t) = \mathbf{C}\,\vec{z}(t) + \mathbf{D}\,u(t).
 $$
 
-\textbf{Rechnung:}
+\textbf{Rechnung:} Dasselbe Rezept; neu ist nur, dass jetzt ein Eingangssignal
+existiert.
 
-Als Eingangssignal wird die angreifende Kraft gewählt, $u(t) = F(t) =
-\hat{F}\cos(\omega t)$. Die beiden DGLen erster Ordnung lauten
+\medskip
+\textit{Schritt 1+2 – Ordnung und Zustandsvariablen.}
+Unverändert: Die DGL ist weiterhin zweiter Ordnung in $x$, also $n = 2$ mit
 
 $$
-\dot{x}(t) = v(t),
-$$
-$$
-\dot{v}(t) = -\omega_0^2\, x(t) - 2\gamma\, v(t) + \frac{1}{m}\,F(t),
+z_1(t) = x(t), \qquad z_2(t) = v(t).
 $$
 
-wobei der Anregungsterm aus DGL (4) wegen $\tfrac{\hat{F}}{m}\cos(\omega t) =
-\tfrac{1}{m}F(t)$ entsteht. In Matrix-Vektor-Schreibweise:
+\medskip
+\textit{Eingangssignal identifizieren.}
+Die Aufgabe sagt ausdrücklich: „Die zusätzliche Kraft stellt das Eingangssignal
+dar.`` Also setzen wir
+
+$$
+u(t) = F(t) = \hat{F}\cos(\omega t).
+$$
+
+\emph{Warum wichtig:} In Schritt 5 müssen wir die Terme nach Zuständen $z_j$
+\emph{und} Eingang $u$ trennen -- daher muss $u$ vorher eindeutig benannt sein.
+
+\medskip
+\textit{Schritt 3 – Triviale Zustandsgleichung.}
+Wie in Teil a):
+
+$$
+\dot{z}_1(t) = v(t) = z_2(t).
+$$
+
+\medskip
+\textit{Schritt 4 – Echte Zustandsgleichung.}
+DGL (4) nach $\dot{v}$ aufgelöst und der Anregungsterm über
+$\tfrac{\hat{F}}{m}\cos(\omega t) = \tfrac{1}{m}F(t) = \tfrac{1}{m}u(t)$
+geschrieben:
+
+$$
+\dot{z}_2(t) = \dot{v}(t)
+= -\omega_0^2\, z_1(t) - 2\gamma\, z_2(t) + \frac{1}{m}\,u(t).
+$$
+
+\emph{Woher kommt der $\tfrac{1}{m}$-Term:} Aus dem zweiten Newtonschen Gesetz
+$F_{\text{ges}} = m\,\dot{v}$ folgt für die \emph{äußere} Kraft der Beitrag
+$\dot{v} = \ldots + \tfrac{1}{m}F(t)$ -- eine Kraft wirkt über $a = F/m$ auf die
+Geschwindigkeitsänderung.
+
+\medskip
+\textit{Schritt 5 – Matrixform.}
+Beide Zeilen, sortiert nach $z_1, z_2$ und $u$:
+
+$$
+\begin{aligned}
+\dot{z}_1 &= 0\cdot z_1 + 1\cdot z_2 + 0\cdot u, \\
+\dot{z}_2 &= -\omega_0^2\cdot z_1 - 2\gamma\cdot z_2 + \tfrac{1}{m}\cdot u.
+\end{aligned}
+$$
+
+Koeffizienten vor $z_1, z_2$ $\to \mathbf{A}$; Koeffizienten vor $u$ $\to
+\mathbf{B}$:
 
 $$
 \frac{\mathrm{d}}{\mathrm{d}t}
-\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}
+\begin{pmatrix} z_1 \\ z_2 \end{pmatrix}
 =
 \begin{pmatrix} 0 & 1 \\ -\omega_0^2 & -2\gamma \end{pmatrix}
-\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}
+\begin{pmatrix} z_1 \\ z_2 \end{pmatrix}
 +
 \begin{pmatrix} 0 \\ \tfrac{1}{m} \end{pmatrix}
-F(t).
+u(t).
 $$
 
-Die Auslenkung bleibt die Messgröße, also $y(t) = x(t)$ mit
-$\mathbf{C} = (1\;\; 0)$ und $\mathbf{D} = 0$.
+\emph{Beachte:} Die erste Komponente von $\mathbf{B}$ ist $0$, weil die Kraft
+\emph{nicht direkt} auf die Position $z_1$ wirkt, sondern erst über die
+Beschleunigung auf $z_2$.
+
+\medskip
+\textit{Schritt 6 – Ausgangsgleichung.}
+Gemessen wird weiterhin die Auslenkung, $y(t) = x(t) = z_1(t)$:
+
+$$
+y(t) = (1\;\; 0)\,\vec{z}(t), \qquad \mathbf{D} = 0.
+$$
 
 \textbf{Lösung:}
 
@@ -157,16 +364,22 @@ y(t) = \underbrace{(1\;\; 0)}_{\mathbf{C}}\,\vec{z}(t)
 }
 $$
 
-Die Systemmatrix $\mathbf{A}$ ist gegenüber Teil~a) unverändert -- die
-Eigendynamik des Oszillators bleibt gleich. Neu hinzu kommt die Eingangsmatrix
-$\mathbf{B} = (0,\; \tfrac{1}{m})^{\mathsf{T}}$, die beschreibt, wie die äußere
-Kraft auf die Geschwindigkeitsänderung wirkt. Die erzwungene Schwingung in
-Bild~2 setzt sich aus der abklingenden Eigenschwingung und der stationären
-Antwort auf die periodische Anregung $\hat{F}\cos(\omega t)$ zusammen.
+\textit{Kontrolle:} $\mathbf{A}\!:\,2\times2$, $\mathbf{B}\!:\,2\times1$,
+$\mathbf{C}\!:\,1\times2$ -- passend zu $n=2$, $L=1$, $M=1$. \checkmark
+
+\textbf{Vergleich mit Teil a):} Die Systemmatrix $\mathbf{A}$ ist
+\emph{identisch} -- die innere Dynamik (Eigenfrequenz $\omega_0$, Dämpfung
+$\gamma$) ändert sich durch die Anregung nicht. Hinzugekommen ist allein die
+Eingangsmatrix $\mathbf{B}$, die beschreibt, \emph{wie} das Eingangssignal in das
+System eingreift. Die erzwungene Schwingung in Bild~2 ist daher die Summe aus
+abklingender Eigenschwingung (homogene Lösung, $\mathbf{A}$) und der stationären
+Antwort auf die periodische Anregung (partikuläre Lösung, $\mathbf{B}\,u$).
 
 \textbf{Bemerkung:} Wählt man statt der Kraft das normierte Signal
-$u(t) = \cos(\omega t)$ als Eingang, so verschiebt sich die Amplitude in die
+$u(t) = \cos(\omega t)$ als Eingang, so wandert die Amplitude in die
 Eingangsmatrix: $\mathbf{B} = (0,\; \tfrac{\hat{F}}{m})^{\mathsf{T}}$. Beide
-Darstellungen sind äquivalent.
+Darstellungen beschreiben dasselbe System; sie unterscheiden sich nur in der
+Frage, ob der Faktor $\hat{F}$ zum Signal $u$ oder zur Matrix $\mathbf{B}$
+gezählt wird.
 
 \end{beispiel}
