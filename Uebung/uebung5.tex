@@ -1,0 +1,172 @@
+\section{Übung 5 – Zustandsraummodell eines Masse-Feder-Systems}
+
+Betrachtet wird ein gedämpfter Oszillator (Masse-Feder-System) mit der Masse
+$M$, der Federkonstante $k_F$ und der Dämpfungskonstante $b$. Die Auslenkung
+$x(t)$ und die Geschwindigkeit $v(t) = \dot{x}(t)$ bilden den Zustandsvektor
+$\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$. Mit den Hilfsgrößen $\omega_0^2 =
+\tfrac{k_F}{m}$ und $2\gamma = \tfrac{b}{m}$ lautet die Bewegungsgleichung des
+freien Oszillators
+
+$$
+\frac{\mathrm{d}v(t)}{\mathrm{d}t} = -\omega_0^2\, x(t) - 2\gamma\, v(t).
+\tag{3}
+$$
+
+Wird das System zusätzlich über einen Exzenter mit der Kraft
+$F(t) = \hat{F}\cos(\omega t)$ angeregt, ergibt sich
+
+$$
+\frac{\mathrm{d}v(t)}{\mathrm{d}t} = \frac{\hat{F}}{m}\cos(\omega t)
+- \omega_0^2\, x(t) - 2\gamma\, v(t).
+\tag{4}
+$$
+
+% ----------------------------------------------------------------
+\subsection*{Teil a) – Zustandsraummodell des freien Oszillators}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Zustandsraummodell aus DGL (3)]
+
+\textbf{Gegeben:} Die DGL (3) des freien gedämpften Oszillators sowie der
+Zustandsvektor $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$. Gemessen wird die
+Auslenkung $x(t)$ (Skala in Bild~1).
+
+\textbf{Gesucht:} Das Zustandsraummodell, d.\,h.\ die Systemmatrix $\mathbf{A}$
+und die Beobachtungsmatrix $\mathbf{C}$ der Zustands- und Ausgangsgleichung.
+
+\textbf{Formel} (allgemeines zeitinvariantes Zustandsraummodell,
+Abschnitt~\ref{sec:zustandsraum}):
+
+$$
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t} = \mathbf{A}\,\vec{z}(t) + \mathbf{B}\,\vec{x}(t),
+\qquad
+\vec{y}(t) = \mathbf{C}\,\vec{z}(t) + \mathbf{D}\,\vec{x}(t).
+$$
+
+\textbf{Rechnung:}
+
+Die DGL zweiter Ordnung wird durch Einführung der beiden Zustandsvariablen
+$x(t)$ und $v(t)$ in ein System zweier DGLen erster Ordnung überführt. Die erste
+Gleichung folgt unmittelbar aus der Definition der Geschwindigkeit,
+
+$$
+\dot{x}(t) = v(t),
+$$
+
+die zweite Gleichung ist die gegebene DGL (3),
+
+$$
+\dot{v}(t) = -\omega_0^2\, x(t) - 2\gamma\, v(t).
+$$
+
+In Matrix-Vektor-Schreibweise mit $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t}
+\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}
+=
+\begin{pmatrix} 0 & 1 \\ -\omega_0^2 & -2\gamma \end{pmatrix}
+\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}.
+$$
+
+Da der freie Oszillator kein Eingangssignal besitzt, entfällt der Term
+$\mathbf{B}\,\vec{x}(t)$. Gemessen wird die Auslenkung, also $y(t) = x(t)$, was
+auf die Beobachtungsmatrix $\mathbf{C} = (1\;\; 0)$ und $\mathbf{D} = 0$ führt.
+
+\textbf{Lösung:}
+
+$$
+\boxed{
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t}
+= \underbrace{\begin{pmatrix} 0 & 1 \\ -\omega_0^2 & -2\gamma \end{pmatrix}}_{\mathbf{A}}
+\,\vec{z}(t),
+\qquad
+y(t) = \underbrace{(1\;\; 0)}_{\mathbf{C}}\,\vec{z}(t)
+}
+$$
+
+Das System ist autonom (homogen): Die Dynamik wird allein durch die Systemmatrix
+$\mathbf{A}$ und den Anfangszustand $\vec{z}_0$ bestimmt. Die abklingende
+Schwingung in Bild~1 entspricht dem Einschwingen aus einer impulsartigen
+Anfangsauslenkung.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Teil b) – Zustandsraummodell des angeregten Oszillators}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Zustandsraummodell aus DGL (4)]
+
+\textbf{Gegeben:} Die DGL (4) des fremderregten Oszillators mit der
+Anregungskraft $F(t) = \hat{F}\cos(\omega t)$ als Eingangssignal sowie der
+Zustandsvektor $\vec{z}(t) = (x(t),\, v(t))^{\mathsf{T}}$.
+
+\textbf{Gesucht:} Das Zustandsraummodell mit Systemmatrix $\mathbf{A}$,
+Eingangsmatrix $\mathbf{B}$ und Beobachtungsmatrix $\mathbf{C}$.
+
+\textbf{Formel} (allgemeines zeitinvariantes Zustandsraummodell,
+Abschnitt~\ref{sec:zustandsraum}):
+
+$$
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t} = \mathbf{A}\,\vec{z}(t) + \mathbf{B}\,u(t),
+\qquad
+y(t) = \mathbf{C}\,\vec{z}(t) + \mathbf{D}\,u(t).
+$$
+
+\textbf{Rechnung:}
+
+Als Eingangssignal wird die angreifende Kraft gewählt, $u(t) = F(t) =
+\hat{F}\cos(\omega t)$. Die beiden DGLen erster Ordnung lauten
+
+$$
+\dot{x}(t) = v(t),
+$$
+$$
+\dot{v}(t) = -\omega_0^2\, x(t) - 2\gamma\, v(t) + \frac{1}{m}\,F(t),
+$$
+
+wobei der Anregungsterm aus DGL (4) wegen $\tfrac{\hat{F}}{m}\cos(\omega t) =
+\tfrac{1}{m}F(t)$ entsteht. In Matrix-Vektor-Schreibweise:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d}t}
+\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}
+=
+\begin{pmatrix} 0 & 1 \\ -\omega_0^2 & -2\gamma \end{pmatrix}
+\begin{pmatrix} x(t) \\ v(t) \end{pmatrix}
++
+\begin{pmatrix} 0 \\ \tfrac{1}{m} \end{pmatrix}
+F(t).
+$$
+
+Die Auslenkung bleibt die Messgröße, also $y(t) = x(t)$ mit
+$\mathbf{C} = (1\;\; 0)$ und $\mathbf{D} = 0$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{
+\frac{\mathrm{d}\vec{z}(t)}{\mathrm{d}t}
+= \underbrace{\begin{pmatrix} 0 & 1 \\ -\omega_0^2 & -2\gamma \end{pmatrix}}_{\mathbf{A}}
+\,\vec{z}(t)
++ \underbrace{\begin{pmatrix} 0 \\ \tfrac{1}{m} \end{pmatrix}}_{\mathbf{B}}
+F(t),
+\qquad
+y(t) = \underbrace{(1\;\; 0)}_{\mathbf{C}}\,\vec{z}(t)
+}
+$$
+
+Die Systemmatrix $\mathbf{A}$ ist gegenüber Teil~a) unverändert -- die
+Eigendynamik des Oszillators bleibt gleich. Neu hinzu kommt die Eingangsmatrix
+$\mathbf{B} = (0,\; \tfrac{1}{m})^{\mathsf{T}}$, die beschreibt, wie die äußere
+Kraft auf die Geschwindigkeitsänderung wirkt. Die erzwungene Schwingung in
+Bild~2 setzt sich aus der abklingenden Eigenschwingung und der stationären
+Antwort auf die periodische Anregung $\hat{F}\cos(\omega t)$ zusammen.
+
+\textbf{Bemerkung:} Wählt man statt der Kraft das normierte Signal
+$u(t) = \cos(\omega t)$ als Eingang, so verschiebt sich die Amplitude in die
+Eingangsmatrix: $\mathbf{B} = (0,\; \tfrac{\hat{F}}{m})^{\mathsf{T}}$. Beide
+Darstellungen sind äquivalent.
+
+\end{beispiel}
