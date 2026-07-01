@@ -14,6 +14,7 @@ Für die Zufallsvariable $X$ kann dann auch eine Wahrscheinlichkeitsverteilung $
 \subsection{Wahrscheinlichkeitsverteilung}
 \label{sec:wahrscheinlichkeitsverteilung}
 
+\begin{definition}[Wahrscheinlichkeitsverteilung]
 Wenn eine Menge von $N$ sich gegenseitig ausschließenden Ereignissen $A_i$ die Menge $\Omega$ vollständig abdeckt und $\sum_{i=1}^{N} P(A_i) = 1$ gilt, dann beschreiben die Zahlen $P(A_i) = p_X(x_i) > 0$ eine \textit{Wahrscheinlichkeitsverteilung}.
 
 Die kumulative Wahrscheinlichkeitsverteilung wird mit
@@ -29,6 +30,7 @@ F_X(-\infty) = \lim_{x \to -\infty} F_X(x) = 0 \qquad F_X(\infty) = \lim_{x \to 
 $$
 
 $F_X$ ist monoton steigend.
+\end{definition}
 
 \begin{beispiel}[Idealer Würfel]
 Im Fall des idealen Würfels ergibt sich eine Gleichverteilung.
@@ -87,6 +89,7 @@ $$
 \subsection{Erwartungswert}
 \label{sec:erwartungswert}
 
+\begin{definition}[Erwartungswert, quadratischer Mittelwert und Varianz]
 Allgemein erhält man, wenn eine Zufallsvariable $X$ die Werte $x_1, x_2, \ldots$ annehmen kann, den statistischen Mittelwert $\mathrm{E}\{X\}$, der häufig auch als \textit{Erwartungswert} bezeichnet wird, aus
 
 $$
@@ -104,6 +107,9 @@ und die Varianz
 $$
 \mathrm{var}\{X\} = \mathrm{E}\{(X - \mu_X)^2\} = \sum_i (x_i - \mu_X)^2\, p_X(x_i).
 $$
+\end{definition}
+
+Diese Kenngrößen sind die theoretischen Gegenstücke zu den empirischen Lage- und Streumaßen (Abschnitt~\ref{sec:streumasse}).
 
 \begin{beispiel}[Erwartungswert: Bitgruppen]
 Eine Quelle sendet Bitgruppen $A_i$ unterschiedlicher Länge $l_i \in \{1,2\}$ mit den Wahrscheinlichkeiten $P(A_i)$ aus.
@@ -127,6 +133,7 @@ Wie viele Bits werden pro Bitgruppe im Mittel gesendet?
 \subsection{Binomialverteilung}
 \label{sec:binomialverteilung}
 
+\begin{definition}[Binomialverteilung]
 Es wird ein Experiment mit zwei möglichen Ereignissen $A_1$ und $A_2$ und den zugehörigen Wahrscheinlichkeiten $P(A_1)$ und $P(A_2) = 1 - P(A_1)$ betrachtet. Dieses Experiment wird $N$-fach wiederholt, wobei die Versuche als statistisch unabhängig anzusehen sind. Die Wahrscheinlichkeit, dass das Ereignis $A_1$ dabei $k$ mal auftritt, beträgt
 
 $$
@@ -134,12 +141,14 @@ P(k \text{ mal } A_1) = \binom{N}{k} P(A_1)^k \cdot (1 - P(A_1))^{N-k}
 $$
 
 Wir definieren somit eine Zufallsvariable $K$ mit der Wahrscheinlichkeitsverteilung $p_K(k) = P(k)$ und $k \in \{1, \ldots, N\}$.
+\end{definition}
 
 % Grafik: Stabdiagramme für N=10, P(A₁)=0{,}5 (links) und N=10, P(A₁)=0{,}1 (rechts)
 
 \subsection{Poisson-Verteilung}
 \label{sec:poisson-verteilung}
 
+\begin{definition}[Poisson-Verteilung]
 Die Poisson-Verteilung beschreibt die Zahl $K$ der Ereignisse innerhalb eines Beobachtungsintervalls, wenn diese Ereignisse unabhängig auftreten und die mittlere Auftrittsrate $\lambda$ bekannt ist. Es gilt:
 
 $$
@@ -157,6 +166,7 @@ $$
 $$
 \mathrm{var}\{X\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2 = \lambda
 $$
+\end{definition}
 
 % Grafik: Stabdiagramme für λ=1 (links) und λ=10 (rechts), jeweils p_K(k) und F_K(k) über k von 0 bis 20
 
@@ -178,6 +188,7 @@ wobei $p_X(u)$ die Wahrscheinlichkeitsdichte bezeichnet.
 \subsection{Eigenschaften der Wahrscheinlichkeitsdichte}
 \label{sec:ws-dichte-eigenschaften}
 
+\begin{definition}[Wahrscheinlichkeitsdichte]
 Die WS-Dichte $p_X(u)$ soll den folgenden Eigenschaften genügen:
 
 \begin{itemize}
@@ -187,6 +198,7 @@ Die WS-Dichte $p_X(u)$ soll den folgenden Eigenschaften genügen:
 \end{itemize}
 
 Durch diese Festlegungen wird ein Wahrscheinlichkeitsmaß definiert.
+\end{definition}
 
 \subsection{Erwartungswerte kontinuierlicher ZV}
 \label{sec:erwartungswert-kontinuierlich}
@@ -226,6 +238,7 @@ Standardabweichung: $\sigma_X = \mathrm{std}\{X\} = \sqrt{\mathrm{var}\{X\}}$
 \subsection{Die Verteilungsfunktion}
 \label{sec:verteilungsfunktion}
 
+\begin{definition}[Verteilungsfunktion]
 Die kumulative Verteilungsfunktion $F_X(x)$ einer Zufallsvariablen ist eine Funktion, die durch die Bedingung
 
 $$
@@ -237,10 +250,12 @@ definiert ist. Sie gibt an, mit welcher Wahrscheinlichkeit die ZV $X$ kleiner od
 $$
 \int_{-\infty}^{x} p_X(u)\,\mathrm{d}u = F_X(x) \quad \Leftrightarrow \quad p_X(x) = \frac{\mathrm{d}}{\mathrm{d}x} F_X(x).
 $$
+\end{definition}
 
 \subsection{Die Gleichverteilung auf dem Intervall $[a,b]$}
 \label{sec:gleichverteilung}
 
+\begin{definition}[Gleichverteilung auf einem Intervall]
 Für Zahlen $a, b \in \mathbb{R}$ und $b > a$ ist die Gleichverteilung einer ZV $X$ durch
 
 $$
@@ -258,10 +273,12 @@ Für eine gleichverteilte Zufallsvariable $X$ gilt:
 $$
 \mathrm{E}\{X\} = \frac{a + b}{2} \qquad \mathrm{E}\{X^2\} = \frac{a^2 + ab + b^2}{3} \qquad \mathrm{var}\{X\} = \frac{(a-b)^2}{12}
 $$
+\end{definition}
 
 \subsection{Die Normalverteilung}
 \label{sec:normalverteilung}
 
+\begin{definition}[Normalverteilung]
 Die Normalverteilung zu den Parametern $\mu \in \mathbb{R}$ und $\sigma > 0$ ist durch die Dichtefunktion
 
 $$
@@ -275,6 +292,7 @@ definiert. Ferner gilt für eine normalverteilte ZV $X$:
   \item Varianz: $\mathrm{var}\{X\} = \sigma^2$
   \item Leistung: $P = \sigma^2 + \mu^2$
 \end{itemize}
+\end{definition}
 
 % Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für μ=0, σ=1 (links) und μ=1, σ=0{,}5 (rechts), x von −2 bis 2
 
@@ -299,6 +317,7 @@ $$
 \subsection{Die Exponentialverteilung}
 \label{sec:exponentialverteilung}
 
+\begin{definition}[Exponentialverteilung]
 Die Exponentialverteilung zum Parameter $\lambda > 0$ ist zu
 
 $$
@@ -321,9 +340,11 @@ Varianz:
 $$
 \mathrm{var}\{X\} = \frac{1}{\lambda^2}
 $$
+\end{definition}
 
 Diese werden wie folgt berechnet.
 
+\begin{beweis}[Momente der Exponentialverteilung]
 Berechnung des Mittelwertes:
 
 $$
@@ -360,12 +381,14 @@ Berechnung der Varianz:
 $$
 \mathrm{var}\{X\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}
 $$
+\end{beweis}
 
 % Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für λ=1 (links) und λ=1{,}5 (rechts), x von −2 bis 2
 
 \subsection{Die Laplaceverteilung}
 \label{sec:laplaceverteilung}
 
+\begin{definition}[Laplaceverteilung]
 Die zweiseitige Laplaceverteilung zu den Parametern $\mu$ und $\sigma$ ist zu
 
 $$
@@ -379,7 +402,9 @@ Mittelwert: $\mathrm{E}\{X\} = \mu$
 Leistung: $\mathrm{E}\{X^2\} = 2\sigma^2 + \mu^2$
 
 Varianz: $\mathrm{var}\{X\} = 2\sigma^2$
+\end{definition}
 
+\begin{beweis}[Momente der Laplaceverteilung]
 Wir berechnen wieder die Momente erster und zweiter Ordnung.
 
 Berechnung des Mittelwertes:
@@ -401,11 +426,12 @@ Berechnung der Varianz:
 $$
 \mathrm{var}\{X\} = \mathrm{E}\{X^2\} - \mathrm{E}\{X\}^2 = 2\sigma^2 + \mu^2 - \mu^2 = 2\sigma^2
 $$
+\end{beweis}
 
 % Grafik: p_X(x) (blau) und F_X(x) (grün gestrichelt) für μ=0, σ=1 (links) und μ=1, σ=0{,}5 (rechts), x von −2 bis 2
 
 \begin{beispiel}[Quantisierung eines Laplace-verteilten Signals]
-Die Abtastwerte eines Audiosignals seien Laplace-verteilt mit $\mu = 0$ und $\sigma = 1$. Die Abtastwerte werden nun mit der in Abbildung 4.26 dargestellten Quantisierungskennlinie quantisiert.
+Die Abtastwerte eines Audiosignals seien Laplace-verteilt mit $\mu = 0$ und $\sigma = 1$. Die Abtastwerte werden nun mit der nachfolgend dargestellten Quantisierungskennlinie (vgl.\ Abschnitt~\ref{sec:quantisierungskennlinie}) quantisiert.
 
 % Grafik: Midrise-Quantisierungskennlinie x_q über x, x und x_q von −1 bis 1
 
@@ -439,6 +465,23 @@ $$
 
 Dieses Ergebnis gilt für einen einzelnen Abtastwert. Werden mehrere, aufeinanderfolgende Abtastwerte betrachtet, so muss deren Verbundstatistik berücksichtigt werden. Diese ist in diesem Beispiel allerdings nicht gegeben.
 \end{beispiel}
+
+\begin{bemerkung}[Übersicht: Momente der stetigen Verteilungen]
+\renewcommand{\arraystretch}{1.6}
+\begin{center}
+\begin{tabular}{lccc}
+  \hline
+  \textbf{Verteilung} & \textbf{Dichte $p_X(x)$} & $\mathbf{E\{X\}}$ & $\mathbf{var\{X\}}$ \\
+  \hline
+  Gleichverteilung $[a,b]$ & $\dfrac{1}{b-a}$ auf $[a,b]$ & $\dfrac{a+b}{2}$ & $\dfrac{(b-a)^2}{12}$ \\
+  Normalverteilung & $\dfrac{1}{\sqrt{2\pi\sigma^2}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}}$ & $\mu$ & $\sigma^2$ \\
+  Exponentialverteilung & $\lambda e^{-\lambda x}$,\ $x \geq 0$ & $\dfrac{1}{\lambda}$ & $\dfrac{1}{\lambda^2}$ \\
+  Laplaceverteilung & $\dfrac{1}{2\sigma}\,e^{-\frac{|x-\mu|}{\sigma}}$ & $\mu$ & $2\sigma^2$ \\
+  \hline
+\end{tabular}
+\end{center}
+\renewcommand{\arraystretch}{1}
+\end{bemerkung}
 
 \subsection{Transformation einer Zufallsvariablen}
 \label{sec:transformation-zv}
@@ -511,6 +554,7 @@ existiert, dann gilt für die Lösung $x = g^{-1}(y)$
 \subsection{Streng monotone Funktion einer Zufallsvariablen}
 \label{sec:monotone-transformation}
 
+\begin{satz}[Transformation einer streng monotonen Funktion]
 Falls $Y = g(X)$ gilt und $g(\cdot)$ eine streng monotone Funktion ist, so dass die Umkehrfunktion $X = g^{-1}(Y)$ existiert, dann gilt für die Lösung $x = g^{-1}(y)$
 
 $$
@@ -518,10 +562,12 @@ p_Y(y) = p_X(x)\frac{|\mathrm{d}x|}{|\mathrm{d}y|} = p_X(g^{-1}(y))\left|\frac{\
 $$
 
 wobei für das Differenzieren der Umkehrfunktion $\dfrac{\mathrm{d}g^{-1}(y)}{\mathrm{d}y} = \left(\dfrac{\mathrm{d}g(x)}{\mathrm{d}x}\right)^{-1}$ gilt und $g'(x)$ die Ableitung der Funktion $g(x)$ bezeichnet.
+\end{satz}
 
 \subsection{Transformation für nichtmonotone Funktionen}
 \label{sec:nichtmonotone-transformation}
 
+\begin{satz}[Transformation einer nichtmonotonen Funktion]
 Gegeben sei eine Funktion $Y = g(X)$ einer Zufallsvariablen $X$. Wenn die Funktion $g(\cdot)$ nicht streng monoton ist, hat die Gleichung $Y = g(x)$ mehrfache Lösungen $x_1 = g^{-1}(y), \ldots, x_n = g^{-1}(y)$. Dann berechnet sich die Wahrscheinlichkeitsdichtefunktion $p_Y(y)$ zu
 
 $$
@@ -529,6 +575,7 @@ p_Y(y) = \frac{p_X(x_1)}{|g'(x_1)|} + \ldots + \frac{p_X(x_n)}{|g'(x_n)|}
 $$
 
 wobei die $x_i$ die Lösungen der Gleichung $y = g(x_i)$ und $g'(x)$ die Ableitung der Funktion $g(x)$ bezeichnen.
+\end{satz}
 
 \begin{beispiel}[Lineare Transformation]
 $Y = aX + b = g(X)$
