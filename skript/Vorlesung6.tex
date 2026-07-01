@@ -18,6 +18,7 @@ aus den Systemantworten für $x_1(t) = A\epsilon(t)$ und $x_2(t) = A\epsilon(t -
 
 % Grafik: Abb. 3.10 – Übergang von Rechteckimpuls-Anregung zur Impulsantwort (drei Signalpaare)
 
+\begin{definition}[Impulsantwort]
 Die \textit{Impulsantwort} ist eine charakteristische Eigenschaft eines LTI/LSI-Systems, die mit $x(t) = \delta(t)$ bzw.\ $x[k] = \delta[k]$ am Systemausgang zur Verfügung steht.
 
 \begin{center}
@@ -37,11 +38,12 @@ Die \textit{Impulsantwort} ist eine charakteristische Eigenschaft eines LTI/LSI-
 \end{center}
 
 Voraussetzung hierfür ist, dass das System vor der Anregung mit dem Impuls in Ruhe ist, d.\,h.\ dass alle inneren Zustände Null sind.
+\end{definition}
 
 \subsection{Das Faltungsintegral}
 \label{sec:faltungsintegral}
 
-Mit der Impulsantwort $h(t) = \mathcal{S}[\delta(t)]$ eines LTI-Systems $\mathcal{S}$ und mit der Siebeigenschaft des Dirac-Impulses
+Mit der Impulsantwort $h(t) = \mathcal{S}[\delta(t)]$ eines LTI-Systems $\mathcal{S}$ und mit der Siebeigenschaft des Dirac-Impulses (Abschnitt~\ref{sec:dirac-impuls})
 
 $$
 x(t) = \int_{-\infty}^{\infty} x(\xi)\,\delta(\xi - t)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} x(\xi)\,\delta(t - \xi)\,\mathrm{d}\xi
@@ -49,14 +51,15 @@ $$
 
 erhalten wir für ein beliebiges Eingangssignal $x(t)$
 
-\begin{align*}
-y(t) = \mathcal{S}\left[x(t)\right] &= \mathcal{S}\!\left[\int_{-\infty}^{\infty} x(\xi)\,\delta(t-\xi)\,\mathrm{d}\xi\right] \\
-&= \int_{-\infty}^{\infty} x(\xi)\,\mathcal{S}\!\left[\delta(t-\xi)\right]\mathrm{d}\xi \\
-&= \int_{-\infty}^{\infty} x(\xi)\,h(t-\xi)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi \\
+\begin{align}
+y(t) = \mathcal{S}\left[x(t)\right] &= \mathcal{S}\!\left[\int_{-\infty}^{\infty} x(\xi)\,\delta(t-\xi)\,\mathrm{d}\xi\right] \nonumber \\
+&= \int_{-\infty}^{\infty} x(\xi)\,\mathcal{S}\!\left[\delta(t-\xi)\right]\mathrm{d}\xi \nonumber \\
+&= \int_{-\infty}^{\infty} x(\xi)\,h(t-\xi)\,\mathrm{d}\xi = \int_{-\infty}^{\infty} h(\xi)\,x(t-\xi)\,\mathrm{d}\xi \nonumber \\
 &= x(t) * h(t),
-\end{align*}
+\label{eq:faltung}
+\end{align}
 
-wobei im ersten Rechenschritt die Linearität und im zweiten Schritt die Zeitvarianz ausgenutzt wurde. Die Umformung in der dritten Zeile folgt aus einer einfachen Variablensubstitution $\xi \to t - \xi$. Diese Rechenoperation wird als \textit{Faltung} (engl.\ ,,convolution'') bezeichnet und mit dem Symbol $*$ dargestellt. Das Faltungsintegral ermöglicht somit die Berechnung des Ausgangssignals wenn das Eingangssignal und die Impulsantwort des Systems bekannt sind. Aus der Umformung in der dritten Zeile erkennen wir zudem, dass die Faltung kommutativ ist, d.\,h.\ die Rollen von Eingangssignal und Impulsantwort können vertauscht werden, ohne dass sich das Ergebnis ändert.
+wobei im ersten Rechenschritt die Linearität und im zweiten Schritt die Zeitinvarianz\footnote{Im Vorlesungsskript steht an dieser Stelle „Zeitvarianz``; fachlich korrekt ist jedoch die \emph{Zeitinvarianz}, da aus $\mathcal{S}[\delta(t-\xi)] = h(t-\xi)$ genau die Zeitinvarianz des Systems folgt.} ausgenutzt wurde. Die Umformung in der dritten Zeile folgt aus einer einfachen Variablensubstitution $\xi \to t - \xi$. Diese Rechenoperation wird als \textit{Faltung} (engl.\ ,,convolution'') bezeichnet und mit dem Symbol $*$ dargestellt. Das Faltungsintegral ermöglicht somit die Berechnung des Ausgangssignals wenn das Eingangssignal und die Impulsantwort des Systems bekannt sind. Aus der Umformung in der dritten Zeile erkennen wir zudem, dass die Faltung kommutativ ist, d.\,h.\ die Rollen von Eingangssignal und Impulsantwort können vertauscht werden, ohne dass sich das Ergebnis ändert.
 
 \begin{beispiel}[RC-Netz: Berechnung des Ausgangssignals]
 Die Eingangs-Ausgangsbeziehung des RC-Netzes ist für $z(t_0) = 0$ und $t_0 = -\infty$:
@@ -71,7 +74,7 @@ $\Rightarrow$ Kausales System mit der Impulsantwort $h(t) = \epsilon(t)\,\dfrac{
 \end{beispiel}
 
 \begin{beispiel}[Berechnung der Faltung zweier Rechteckimpulse]
-Wir betrachten die Faltung eines Rechteckimpulses $x(t)$ mit einer ebenso rechteckförmigen Impulsantwort $h(t)$. Das Ergebnis der Faltung ergibt sich aus (3.39) und ist in Abbildung 3.12 dargestellt. Man beachte dabei die formale Ähnlichkeit, aber auch die Unterschiede zur Berechnung der Kreuzkorrelationsfunktion.
+Wir betrachten die Faltung eines Rechteckimpulses $x(t)$ mit einer ebenso rechteckförmigen Impulsantwort $h(t)$. Das Ergebnis der Faltung ergibt sich aus~\eqref{eq:faltung} und ist in Abbildung 3.12 dargestellt. Man beachte dabei die formale Ähnlichkeit, aber auch die Unterschiede zur Berechnung der Kreuzkorrelationsfunktion (Abschnitt~\ref{sec:kreuzkorrelation}).
 
 % Grafik: Abb. 3.12 – x(t) Rechteck [0,t₂], h(t) Rechteck [t₁,t₂], y(t) Trapez
 
@@ -134,18 +137,21 @@ $$
 
 LTI-Systeme weisen einige grundlegende Eigenschaften auf, deren Kenntnis und Anwendung das Rechnen wesentlich erleichtern können.
 
-\subsubsection*{Rechengesetze der Faltung}
-
+\begin{satz}[Rechengesetze der Faltung]
 Im Fall zeitkontinuierlicher Systeme erfüllt das Faltungsintegral die folgenden Rechengesetze:
 
 \begin{itemize}
-  \item $x(t) * \delta(t) = x(t)$ ($\delta(x)$ ist das neutrale Element der Faltung)
+  \item $x(t) * \delta(t) = x(t)$ ($\delta(t)$ ist das neutrale Element der Faltung)
   \item $x(t) * h(t) = h(t) * x(t)$ (Kommutativgesetz)
   \item $(x(t) * y(t)) * z(t) = x(t) * (y(t) * z(t))$ (Assoziativgesetz)
   \item $x(t) * (h_1(t) + h_2(t)) = x(t) * h_1(t) + x(t) * h_2(t)$ (Distributivgesetz)
 \end{itemize}
+\end{satz}
 
-Diese sind jeweils leicht, gegebenenfalls durch Substitution der Integrationsvariablen in den Faltungsintegralen, zu beweisen. Als Beispiel zeigen wir, dass das Assoziativgesetz auch für Faltungsoperationen der drei Signale $x(t)$, $y(t)$ und $z(t)$ gilt:
+Diese sind jeweils leicht, gegebenenfalls durch Substitution der Integrationsvariablen in den Faltungsintegralen, zu beweisen.
+
+\begin{beweis}[Assoziativgesetz der Faltung]
+Als Beispiel zeigen wir, dass das Assoziativgesetz auch für Faltungsoperationen der drei Signale $x(t)$, $y(t)$ und $z(t)$ gilt:
 
 \begin{align*}
 f(t) * z(t) = (x(t) * y(t)) * z(t)
@@ -168,6 +174,7 @@ Mit der Substitution $\xi = t - v$:
 \end{align*}
 
 mit $g(t) = y(t) * z(t)$.
+\end{beweis}
 
 \subsubsection*{Kausalität}
 
@@ -213,7 +220,7 @@ $$
 \int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty
 $$
 
-gilt. Diese Bedingung ist allerdings auch notwendig, siehe hierzu Abschnitt 3.3.5.
+gilt. Diese Bedingung ist allerdings auch notwendig, siehe hierzu Abschnitt~\ref{sec:lsi-eigenschaften}.
 
 \begin{beispiel}[BIBO-Stabilität]
 \textbf{Stabiles System:} $h(t) = e^{-2t}\,\varepsilon(t)$
@@ -313,13 +320,15 @@ y(t) &= \int_{-\infty}^{\infty} h(\xi)\,x(t - \xi)\,\mathrm{d}\xi = \int_{-\inft
 &= \underbrace{A\,e^{j\omega t}}_{\text{Eingangssignal}}\underbrace{\int_{-\infty}^{\infty} h(\xi)\,e^{-j\omega\xi}\,\mathrm{d}\xi}_{\underline{H}(j\omega)\text{ komplexwertiger Faktor}}\,.
 \end{align*}
 
-Der komplexwertige Faktor $\underline{H}(j\omega)$ skaliert das Eingangssignal und wird als \textbf{Frequenzgang} des Systems bezeichnet. Er gibt an, wie das Eingangssignal durch das LTI-System in der Amplitude und Phase verändert wird. Dieser Faktor ist eine Funktion der Kreisfrequenz $\omega$. Daraus folgt auch, dass der Frequenzgang eines LTI-Systems mit Sinus/Cosinus-Funktionen vermessen werden kann. Ferner kann der Frequenzgang durch \textit{Fourier-Transformation} aus der Impulsantwort berechnet werden. Diese Transformation ist durch die Rechenvorschrift
+\begin{definition}[Frequenzgang]
+Der komplexwertige Faktor $\underline{H}(j\omega)$ skaliert das Eingangssignal und wird als \textbf{Frequenzgang} des Systems bezeichnet. Er gibt an, wie das Eingangssignal durch das LTI-System in der Amplitude und Phase verändert wird. Dieser Faktor ist eine Funktion der Kreisfrequenz $\omega$. Daraus folgt auch, dass der Frequenzgang eines LTI-Systems mit Sinus/Cosinus-Funktionen vermessen werden kann. Ferner kann der Frequenzgang durch \textit{Fourier-Transformation} (Abschnitt~\ref{sec:fourierreihe}) aus der Impulsantwort berechnet werden. Diese Transformation ist durch die Rechenvorschrift
 
 $$
 \underline{H}(j\omega) = \int_{-\infty}^{\infty} h(\xi)\,e^{-j\omega\xi}\,\mathrm{d}\xi
 $$
 
 gegeben.
+\end{definition}
 
 \subsection{Die zeitdiskrete Faltung}
 \label{sec:diskrete-faltung}
@@ -374,7 +383,7 @@ wobei die Überlagerung der verschiedenen Ausbreitungswege auch zu insgesamt aus
 
 % Grafik: Abb. 3.28 – h[l] mit vielen Impulsen unterschiedlicher Vorzeichen
 
-Die Berücksichtigung sämtlicher Rückwürfe führt dann zur \textbf{Raumimpulsantwort} $h[l]$ mit vielen hundert von Null verschiedenen Koeffizienten. Die Impulsantwort $h[l]$ kann mit einer Impulsanregung des Raums gemessen werden. Es ist daher besser, für die Messung Rauschsignale längerer Dauer einzusetzen (siehe auch Abschnitt 3.3.3).
+Die Berücksichtigung sämtlicher Rückwürfe führt dann zur \textbf{Raumimpulsantwort} $h[l]$ mit vielen hundert von Null verschiedenen Koeffizienten. Die Impulsantwort $h[l]$ kann mit einer Impulsanregung des Raums gemessen werden. Es ist daher besser, für die Messung Rauschsignale längerer Dauer einzusetzen (siehe auch Abschnitt~\ref{sec:faltung-eigenschaften}).
 
 % Grafik: Abb. 3.29 – Raumimpulsantwort h[l], Abtastindex l von 0 bis 2500, Amplitude −0.5 bis 0.5
 \end{beispiel}
@@ -404,6 +413,7 @@ Aufgrund des Kommutativgesetzes sind die Rollen von Eingangssignal und Impulsant
 \end{tikzpicture}
 \end{center}
 
+\begin{beweis}[Kommutativität der diskreten Faltung]
 Die Symmetrieeigenschaft wird wie folgt nachgewiesen:
 
 $$
@@ -421,6 +431,7 @@ $$
 $$
 y[k] = \sum_{l=-\infty}^{\infty} h[l]\,x[k-l]\,.
 $$
+\end{beweis}
 
 \subsubsection*{Assoziativgesetz der diskreten Faltung}
 
@@ -444,6 +455,7 @@ Die Kaskade zweier Systeme ist in Abb.\ 3.31 dargestellt. Bei der Vertauschung d
 \end{tikzpicture}
 \end{center}
 
+\begin{beweis}[Assoziativität kaskadierter LSI-Systeme]
 Wir zeigen nun auch für den diskreten Fall, dass zwei kaskadierte LSI-Systeme mit den Impulsantworten $h_1[k]$ und $h_2[k]$ kommutativ sind. Mit $x_1[k] = x[k] * h_1[k]$ folgt
 
 \begin{align*}
@@ -465,6 +477,7 @@ y[k] = \sum_{q=-\infty}^{\infty} h_1[k-q] \left(\sum_{p=-\infty}^{\infty} h_2[p]
 $$
 
 Die Gleichung verdeutlicht die Vertauschbarkeit in offensichtlicher Weise: Es ist unerheblich, ob zuerst die Summation über $l$ oder $p$ ausgeführt wird.
+\end{beweis}
 
 \subsubsection*{Distributivgesetz der diskreten Faltung}
 
@@ -727,7 +740,7 @@ Wie bei neuronalen Netzen allgemein üblich, wird hierbei die lineare Faltung du
 \end{beispiel}
 
 \begin{beispiel}[Signalübertragung mit PCM und DPCM]
-Die digitale Übertragung eines zunächst analogen Sprach- oder Audiosignals $x(t)$ erfordert eine Abtastung, Quantisierung, Codierung, Modulation und eine entsprechende Rückgewinnung des Signals im Empfänger. Für jeden Abtastwert wird, entsprechend seiner Amplituden und der daraus resultierenden Quantisierungsstufe, ein digitaler Code übertragen. Dieses Verfahren wird deshalb auch \textit{pulse code modulation} (PCM) genannt.
+Die digitale Übertragung eines zunächst analogen Sprach- oder Audiosignals $x(t)$ erfordert eine Abtastung, Quantisierung (Kapitel~\ref{chap:abtastung-quantisierung}), Codierung, Modulation und eine entsprechende Rückgewinnung des Signals im Empfänger. Für jeden Abtastwert wird, entsprechend seiner Amplituden und der daraus resultierenden Quantisierungsstufe, ein digitaler Code übertragen. Dieses Verfahren wird deshalb auch \textit{pulse code modulation} (PCM) genannt.
 
 Um die Abhängigkeit aufeinander folgender Abtastwerte für die effiziente Quantisierung zu nutzen, werden häufig differentielle Verfahren eingesetzt. Im einfachsten Fall wird vom Sender die Differenz $d(kT_A) = x(kT_A) - x((k-1)T_A)$ quantisiert, codiert und übertragen. Der Empfänger muss dann durch eine laufende Summation die Abtastwerte des Signals $x(kT_A)$ aus den Differenzwerten rekonstruieren. Mit diesem Verfahren, das als \textit{differential pulse code modulation} (DPCM) bezeichnet wird, kann Abtastrate gegen Wortbreite abgetauscht werden.
 
