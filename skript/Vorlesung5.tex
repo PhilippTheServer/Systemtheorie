@@ -31,13 +31,18 @@ Die Systemtheorie unterscheidet somit zwischen der inneren Struktur eines System
 \subsection{Allgemeine Definitionen}
 \label{sec:system-allgemein}
 
-Aus den oben genannten Punkten läßt sich nun eine erste, sehr allgemeine Systemdefinition ableiten: Ein System $\mathbb{S}$ mit einem Eingangssignal $x(t)$ und einem Ausgangssignal $y(t)$ wird durch eine bezüglich der Komposition abgeschlossene Menge von geordneten Signalpaaren
+Aus den oben genannten Punkten läßt sich nun eine erste, sehr allgemeine Systemdefinition ableiten.
 
-$$
+\begin{definition}[Mathematische Systemdefinition]
+Ein System $\mathbb{S}$ mit einem Eingangssignal $x(t)$ und einem Ausgangssignal $y(t)$ wird durch eine bezüglich der Komposition abgeschlossene Menge von geordneten Signalpaaren
+
+\begin{equation}
 \mathbb{S} := \{(x(t), y(t)) \mid t_0 \leq t < t_1;\, t_0, t_1 \in \mathbb{R}\}
-$$
+\label{eq:systemdefinition}
+\end{equation}
 
 definiert. Hierbei ist $x(t)$ das Eingangssignal und $y(t)$ das Ausgangssignal des Systems. Die Menge $\mathbb{S}$ heißt bezüglich der Komposition abgeschlossen, falls für alle Signalpaare $\{(x(t), y(t)) \mid t_0 \leq t < t_1\}$ und $\{(x(t), y(t)) \mid t_1 \leq t < t_2\}$ auch $\{(x(t), y(t)) \mid t_0 \leq t < t_2\}$ in $\mathbb{S}$ enthalten ist.
+\end{definition}
 
 Die Abgeschlossenheit der Menge $\mathbb{S}$ bezüglich der Komposition garantiert, dass zwei zeitlich aufeinander folgende Eingangs-Ausgangssignalpaare, die in zwei Experimenten nacheinander beobachtet wurden, prinzipiell in einem weiteren Experiment auch an einem Stück beobachtet werden können. Hiermit wird die Konsistenz der Beobachtungen an den Ein- und Ausgängen des Systems sichergestellt.
 
@@ -78,17 +83,22 @@ bestimmt werden. In Abhängigkeit von der Zeitvariablen (kontinuierlich oder dis
 \subsection{Zustandsraummodelle}
 \label{sec:zustandsraum}
 
-Eine allgemeine Form, um die Abhängigkeit von Eingangs- und Ausgangssignalen und den inneren Zustandsvariablen des Systems zu erfassen, bietet das \textit{Zustandsraummodell}. Hierbei wird das Systemverhalten mithilfe einer linearen DGL erster Ordnung (oder eines Systems linearer DGLen erster Ordnung) in eine Berechnungsvorschrift überführt. Wenn hierbei im Kontext eines MIMO-Systems $K$ Zustandsvariablen, $N$-dimensionale Eingangssignale $\vec{x}(t)$ und $M$-dimensionale Ausgangssignale $\vec{y}(t)$ berücksichtigt werden sollen, ist die Formulierung mit Hilfe von Vektoren und Matrizen zweckmäßig, d.\,h.
+Eine allgemeine Form, um die Abhängigkeit von Eingangs- und Ausgangssignalen und den inneren Zustandsvariablen des Systems zu erfassen, bietet das Zustandsraummodell.
 
-$$
+\begin{definition}[Zustandsraummodell]
+Beim \textit{Zustandsraummodell} wird das Systemverhalten mithilfe einer linearen DGL erster Ordnung (oder eines Systems linearer DGLen erster Ordnung) in eine Berechnungsvorschrift überführt. Wenn hierbei im Kontext eines MIMO-Systems $K$ Zustandsvariablen, $N$-dimensionale Eingangssignale $\vec{x}(t)$ und $M$-dimensionale Ausgangssignale $\vec{y}(t)$ berücksichtigt werden sollen, ist die Formulierung mit Hilfe von Vektoren und Matrizen zweckmäßig, d.\,h.
+
+\begin{equation}
 \frac{d\vec{z}(t)}{dt} = \mathbf{A}(t)\,\vec{z}(t) + \mathbf{B}(t)\,\vec{x}(t)
-$$
+\label{eq:zustandsgleichung}
+\end{equation}
 
-$$
+\begin{equation}
 \vec{y}(t) = \mathbf{C}(t)\,\vec{z}(t) + \mathbf{D}(t)\,\vec{x}(t)\,.
-$$
+\label{eq:ausgangsgleichung}
+\end{equation}
 
-Die Gleichung (3.2) wird als Zustandsgleichung und die Gleichung (3.3) als Ausgangsgleichung bezeichnet. $\vec{z}(t)$ ist ein Spaltenvektor der Dimension $K$, der die Zustandsvariablen enthält. Weiterhin sind
+Die Gleichung~\eqref{eq:zustandsgleichung} wird als Zustandsgleichung und die Gleichung~\eqref{eq:ausgangsgleichung} als Ausgangsgleichung bezeichnet. $\vec{z}(t)$ ist ein Spaltenvektor der Dimension $K$, der die Zustandsvariablen enthält. Weiterhin sind
 
 \begin{itemize}
   \item $\vec{x}(t)$ \quad der Vektor der Eingangssignale der Dimension $L$
@@ -99,6 +109,7 @@ Die Gleichung (3.2) wird als Zustandsgleichung und die Gleichung (3.3) als Ausga
   \item $\mathbf{D}(t)$ \quad die Durchgangsmatrix der Dimension $M \times L$
   \item $\vec{z}_0$ \quad der Anfangszustandsvektor der Dimension $K$ zum Zeitpunkt $t_0$.
 \end{itemize}
+\end{definition}
 
 Das Systemverhalten wird durch das Zusammenwirken dieser Größen charakterisiert. Die Systembeobachtung startet bei $t_0$ mit dem Anfangszustand $\vec{z}_0$. Wenn der Anfangszustand $\vec{z}_0$ Null ist, handelt es sich um ein lineares Systemmodell. Wenn das System zeitinvariant ist, entfällt die Abhängigkeit dieser Matrizen von der Zeit. Der Ruhezustand ist durch $\vec{z}(t) = \vec{0}$ gegeben.
 
@@ -200,7 +211,7 @@ Das MIMO Systemmodell für $t \geq t_0$:
 \end{tikzpicture}
 \end{center}
 
-Das in Abb. 3.6 gezeigte RC-Zweitor kann als System mit einer inneren Zustandsvariablen $z(t)$ modelliert werden. Das System ist für $t \geq t_0$ durch die folgende Beziehung zwischen dem Eingangssignal $x(t)$ und dem Ausgangssignal $y(t)$ charakterisiert:
+Das oben dargestellte RC-Zweitor kann als System mit einer inneren Zustandsvariablen $z(t)$ modelliert werden. Das System ist für $t \geq t_0$ durch die folgende Beziehung zwischen dem Eingangssignal $x(t)$ und dem Ausgangssignal $y(t)$ charakterisiert:
 
 $$
 y(t) = z(t_0)\,e^{-\frac{t-t_0}{\tau}} + \frac{1}{\tau}\int_{t_0}^{t} e^{-\frac{t-\xi}{\tau}}\,x(\xi)\,\mathrm{d}\xi
@@ -270,7 +281,7 @@ $$
 
 \subsubsection*{Die Impulsantwort}
 
-Wir betrachten den Dirac-Impuls als spezielles Eingangssignal $x(t) = \delta(t)$. Für $x(t) = \delta(t)$ erhalten wir mit der Siebeigenschaft des $\delta$-Impulses (implizit gilt hier $z(t_0) = 0$ für $t_0 = -\infty$):
+Wir betrachten den Dirac-Impuls als spezielles Eingangssignal $x(t) = \delta(t)$. Für $x(t) = \delta(t)$ erhalten wir mit der Siebeigenschaft des $\delta$-Impulses (Abschnitt~\ref{sec:dirac-impuls}; implizit gilt hier $z(t_0) = 0$ für $t_0 = -\infty$):
 
 \begin{align*}
 y(t) &= \frac{1}{\tau}\int_{-\infty}^{\infty} \delta(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\epsilon(t-\xi)\,\mathrm{d}\xi
@@ -284,7 +295,7 @@ In der folgenden Fortsetzung dieses Beispiels wollen wir zeigen, wie man im Fall
 
 \begin{beispiel}[Vom elektrischen Netz zur Eingangs-Ausgangsbeziehung]
 
-Das Ziel der folgenden Rechnung ist die Bestimmung des Ausgangssignals $y(t)$ für beliebige Eingangssignale $x(t)$ des RC-Netzes. Wir wollen damit das in Beispiel 3.1 eingeführte Systemverhalten aus grundlegenden Prinzipien der elektrischen Netzberechnung ableiten.
+Das Ziel der folgenden Rechnung ist die Bestimmung des Ausgangssignals $y(t)$ für beliebige Eingangssignale $x(t)$ des RC-Netzes. Wir wollen damit das im vorangehenden Beispiel (RC-Zweitor) eingeführte Systemverhalten aus grundlegenden Prinzipien der elektrischen Netzberechnung ableiten.
 
 Wir beginnen mit den Bauteilgleichungen: Mit $q(t) = Cu_C(t)$ erhalten wir für die Stromstärke (Strom = bewegte Ladung)
 
@@ -369,7 +380,7 @@ y(t) = \frac{1}{\tau}\int_{-\infty}^{t} x(\xi)\,e^{-\frac{t-\xi}{\tau}}\,\mathrm
 = \int_{-\infty}^{\infty} x(\xi)\,h(t-\xi)\,\mathrm{d}\xi.
 $$
 
-Wir erhalten somit das Ausgangssignal als Faltung des Eingangssignals mit der Funktion $h(t) = \tfrac{1}{\tau}e^{-t/\tau}\,\epsilon(t)$, die wir zuvor schon als Impulsantwort identifiziert haben. Für das Eingangssignal $x(t) = \delta(t)$ ergibt sich die kausale Impulsantwort des Systems zu
+Wir erhalten somit das Ausgangssignal als Faltung (Abschnitt~\ref{sec:faltungsintegral}) des Eingangssignals mit der Funktion $h(t) = \tfrac{1}{\tau}e^{-t/\tau}\,\epsilon(t)$, die wir zuvor schon als Impulsantwort identifiziert haben. Für das Eingangssignal $x(t) = \delta(t)$ ergibt sich die kausale Impulsantwort des Systems zu
 
 $$
 y(t) = \frac{1}{\tau}\,e^{-\frac{t}{\tau}}\,\epsilon(t) = \begin{cases} 0 & t < 0 \\ \dfrac{1}{\tau}\,e^{-\frac{t}{\tau}} & t \geq 0 \end{cases}.
@@ -440,11 +451,12 @@ $T$ bezeichnet einen vektorwertigen Zustandsspeicher.
 \section{Systemeigenschaften}
 \label{sec:systemeigenschaften}
 
-Ausgehend von der sehr allgemeinen Systemdefinition in Gleichung (3.1) sollen Systeme nun durch spezielle Eigenschaften charakterisiert werden. Dabei werden wir sowohl den zeitkontinuierlichen als auch den zeitdiskreten Fall berücksichtigen. Letztere ist besonders für die Simulation von Systemen auf digitalen Computern wichtig. Wir beschränken uns hierbei auf den SISO Fall.
+Ausgehend von der sehr allgemeinen Systemdefinition in Gleichung~\eqref{eq:systemdefinition} sollen Systeme nun durch spezielle Eigenschaften charakterisiert werden. Dabei werden wir sowohl den zeitkontinuierlichen als auch den zeitdiskreten Fall berücksichtigen. Letztere ist besonders für die Simulation von Systemen auf digitalen Computern wichtig. Wir beschränken uns hierbei auf den SISO Fall.
 
 \subsection{Zeitinvarianz und Linearität kontinuierlicher Systeme}
 \label{sec:zeitinvarianz-linearitaet}
 
+\begin{definition}[Zeitinvariante und lineare Systeme (LTI)]
 Ein System heißt \textbf{zeitinvariant}, wenn alle Signalpaare $(x(t), y(t)) \in \mathbb{S}$ gegenüber einer zeitlichen Verschiebung $\tau_0$ invariant sind, d.\,h.\ falls für die Relation $y(t) = \mathcal{S}[x(t)]$ eines SISO-Systems und beliebige Zeitverzögerungen $\tau_0 \in \mathbb{R}$ gilt:
 
 $$
@@ -457,13 +469,15 @@ $$
 a\,y_1(t) + b\,y_2(t) = \mathcal{S}[a\,x_1(t) + b\,x_2(t)]\,.
 $$
 
-Wenn ein System linear ist, gilt auch das bekannte Superpositionsprinzip.
-
 Ein System, das \textbf{linear} und \textbf{zeitinvariant} ist, wird LTI-System (engl.: \textit{linear time-invariant system}) genannt.
+\end{definition}
+
+Wenn ein System linear ist, gilt auch das bekannte Superpositionsprinzip.
 
 \subsection{Verschiebungsinvarianz und Linearität diskreter Systeme}
 \label{sec:verschiebungsinvarianz}
 
+\begin{definition}[Verschiebungsinvariante und lineare Systeme (LSI)]
 Ein zeitdiskretes System $y[k] = \mathcal{S}[x[k]]$ heißt \textbf{verschiebungsinvariant}, falls für ein beliebiges $k_0 \in \mathbb{Z}$ gilt:
 
 $$
@@ -477,16 +491,19 @@ a\,y_1[k] + b\,y_2[k] = \mathcal{S}[a\,x_1[k] + b\,x_2[k]]\,.
 $$
 
 Ein System, das \textbf{linear} und \textbf{verschiebungsinvariant} ist, wird LSI-System (engl.: \textit{linear shift-invariant system}) genannt.
+\end{definition}
 
 \subsection{Weitere Systemeigenschaften}
 \label{sec:weitere-systemeigenschaften}
 
+\begin{definition}[Gedächtnislosigkeit, BIBO-Stabilität und Kausalität]
 \begin{itemize}
   \item Ein zeitkontinuierliches System heißt \textbf{gedächtnislos}, falls für jedes Eingangssignal $x(t)$ und beliebiges $t_0 \in \mathbb{R}$ das Ausgangssignal $y(t = t_0)$ nur von $x(t = t_0)$ abhängt.
   \item Ein zeitdiskretes System heißt \textbf{gedächtnislos}, falls für jedes Eingangssignal $x[k]$ und beliebiges $k_0 \in \mathbb{Z}$ das Ausgangssignal $y[k = k_0]$ nur von $x[k = k_0]$ abhängt.
   \item Ein System ist \textbf{bounded input -- bounded output (BIBO) stabil}, falls jedes amplitudenbegrenzte Eingangssignal $x(t)$ bzw.\ $x[k]$ ein amplitudenbegrenztes Ausgangssignal $y(t)$ bzw.\ $y[k]$ zur Folge hat.
   \item Ein System heißt \textbf{kausal}, wenn das Ausgangssignal zur Zeit $t_0$ nur von den Eingangssignalen und Zustandsvariablen für Zeiten $t \leq t_0$ abhängt.
 \end{itemize}
+\end{definition}
 
 \begin{beispiel}[Das Perzeptron -- ein nichtlineares System]
 Künstliche neuronale Netze werden aus vielen gleichartigen Grundelementen, den künstlichen Neuronen, zusammengesetzt. Ein einfaches, zeitdiskretes Modell eines Neurons ist in Abb.\ 3.8 dargestellt. Dieses wird als ,,Perzeptron'' bezeichnet. Die Kombination vieler Neuronen in mehreren Schichten ergibt dann das ,,Multi-layer Perzeptron'' (MLP), eine einfache Variante tiefer neuronaler Netze (engl.\ \textit{deep neural network, DNN}).
