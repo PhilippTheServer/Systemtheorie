@@ -91,23 +91,23 @@ $(x: \mathbb{R} \rightarrow \mathbb{C})$ sein.
 \subsubsection{Komplexwertige Signale}
 
 Ein komplexwertiges Signal kann über reellwertige Real- und Imaginärteilsignale oder über Amplitude
-und Phasensignal formuliert werden. Wir schreiben vortan für dei Phase: $j = \sqrt{-1}$.
+und Phasensignal formuliert werden. Dabei bezeichnet $j = \sqrt{-1}$ die imaginäre Einheit.
 
 $$
 \begin{array}{rl}
-x(t) = x_R(t) + jx_I(t) = & Re\{x(t)\} + jIm\{x(t)\}\\
-= & |x(t)|e^{j \phi(t)}
+\underline{x}(t) = x_R(t) + jx_I(t) = & \operatorname{Re}\{\underline{x}(t)\} + j\operatorname{Im}\{\underline{x}(t)\}\\
+= & |\underline{x}(t)|\,e^{j \phi(t)}
 \end{array}
 $$
 
-Mit der Definition des zu $x(t)$ konjugierten Signals $x^*(t) = x_R(t) - jx_I(t)$ gilt:
+Mit der Definition des zu $\underline{x}(t)$ konjugierten Signals $\underline{x}^*(t) = x_R(t) - jx_I(t)$ gilt:
 
 $$
 \begin{array}{rl}
-x_R(t) = & \operatorname{Re}\{x(t)\} = \dfrac{1}{2}\bigl(x(t) + x^*(t)\bigr) \\[8pt]
-x_I(t) = & \operatorname{Im}\{x(t)\} = \dfrac{1}{2j}\bigl(x(t) - x^*(t)\bigr) \\[8pt]
-|x(t)| = & \sqrt{x_R^2(t) + x_I^2(t)} = \sqrt{x(t)\cdot x^*(t)} \\[8pt]
-\phi(t) = & \arg\{x(t)\}
+x_R(t) = & \operatorname{Re}\{\underline{x}(t)\} = \dfrac{1}{2}\bigl(\underline{x}(t) + \underline{x}^*(t)\bigr) \\[8pt]
+x_I(t) = & \operatorname{Im}\{\underline{x}(t)\} = \dfrac{1}{2j}\bigl(\underline{x}(t) - \underline{x}^*(t)\bigr) \\[8pt]
+|\underline{x}(t)| = & \sqrt{x_R^2(t) + x_I^2(t)} = \sqrt{\underline{x}(t)\cdot \underline{x}^*(t)} \\[8pt]
+\phi(t) = & \arg\{\underline{x}(t)\}
 \end{array}
 $$
 
@@ -115,9 +115,10 @@ $$
 \label{sec:elementare-analoge-signale}
 
 \begin{definition}[Gleichsignal]
-$x(t) = A \forall t$ $T$: Zeitliches Bezugsintervall
+Das Gleichsignal ist durch $x(t) = A\ \forall t$ definiert. Hierbei ist $A$ eine Konstante mit $A \in \mathbb{R}$ oder $A \in \mathbb{C}$; $T$ bezeichnet ein zeitliches Bezugsintervall.
+
 $$
-x(t) = A \forall t
+x(t) = A \quad \forall t
 $$
 
 
@@ -140,11 +141,10 @@ $$
 
 
 \begin{definition}[Sinussignal]
-
-$x(t) = A sin(\omega t + \phi)$
+Den sinus- oder cosinusförmigen Signalen kommt eine besondere Bedeutung zu, da viele natürliche Signale harmonische Strukturen aufweisen und die Analyse linearer Systeme auf ihrer Grundlage besonders einfach ist. Das Sinussignal ist wie folgt definiert:
 
   $$
-  x(t) = A sin(\omega t+ \phi) = A cos(\omega t + \phi - \frac{\pi}{2})
+  x(t) = A \sin(\omega t+ \phi) = A \cos\!\left(\omega t + \phi - \tfrac{\pi}{2}\right)
   $$
 
   \begin{itemize}
@@ -296,6 +296,8 @@ $$
 
 
 \begin{definition}[si-Funktion]
+Ein weiteres, interessantes Signal ist durch die si-Funktion gegeben. Diese ist eine gerade symmetrische Funktion und für $-\infty < t < \infty$ wie folgt definiert:
+
 $$
   x(t) =
   \begin{cases}
@@ -303,8 +305,10 @@ $$
     A                                  & t = 0
   \end{cases}
   \qquad \Leftrightarrow \qquad
-  x(t) = A\,\operatorname{si}\ \left(\frac{t}{T}\right)
+  x(t) = A\,\operatorname{si}\!\left(\frac{t}{T}\right)
 $$
+
+Die Definition der si-Funktion beruht auf einer stetigen Ergänzung der Funktion $\frac{\sin(\pi t/T)}{\pi t/T}$ an der Stelle $t = 0$.
 
 
 \begin{center}
@@ -332,8 +336,8 @@ $$
 \subsection{Komplexe Exponentialsignale}
 \label{sec:komplexe-exponentialsignale}
 
-Im Zusammenhang mit linearen Netzwerken und Systemen im eingeschwungenen Zustand
-wird häufig auch das komplexe Exponentialsignal verwendet,
+Im Zusammenhang mit der Theorie linearer Systeme (siehe Abschnitt~\ref{sec:zeitinvarianz-linearitaet})
+und Netzwerken im eingeschwungenen Zustand wird häufig auch das komplexe Exponentialsignal verwendet,
 
 \begin{align*}
   \underline{x}(t)
@@ -437,7 +441,7 @@ Zahlenebene rotierenden Zeiger:
 \subsection{Dirac-Impuls $\delta(t)$}
 \label{sec:dirac-impuls}
 
-Der Dirac-Impuls ist ein Signal, das für die mathematische Behandlung der Abtastung analoger Signale von großer Bedeutung ist. Den Dirac-Impuls erhält man im Grenzwert $T \to 0$ aus Rechteckfunktionen der Form $x(t) = \frac{1}{T}\operatorname{rect}\!\bigl(\frac{t + T/2}{T}\bigr)$.
+Der Dirac-Impuls ist ein Signal, das für die mathematische Behandlung der Abtastung analoger Signale (Kapitel~\ref{chap:abtastung-quantisierung}) von großer Bedeutung ist. Den Dirac-Impuls erhält man im Grenzwert $T \to 0$ aus Rechteckfunktionen der Form $x(t) = \frac{1}{T}\operatorname{rect}\!\bigl(\frac{t + T/2}{T}\bigr)$.
 
 Sei $f:\mathbb{R} \rightarrow \mathbb{R}$ eine beliebige stetige Funktion. Der Dirac-Impuls ist
 dann durch den folgenden Zusammenhang definiert:
@@ -467,7 +471,9 @@ Aufgrund der Siebeigenschaft wird der Dirac-Impuls häufig zur Beschreibung von
 Abtastvorgängen eingesetzt. Dabei wird der Dirac-Impuls $\delta(t-a)$ wie ein
 Signal visualisiert, wobei das Signal für $t \neq a$ Null ist.
 
-In dem Katalog der bisher behandelten Elementarsignale nimmt der Dirac-Impuls eine Sonderstellung ein, da er nicht der Kategorie der Funktionen zuzuordnen ist. Es handelt sich hierbei um eine sogenannte \textit{Distribution}. Daher sind einerseits die Methoden der Standardanalysis nicht ohne weiteres anwendbar. Zum Beispiel ist die Frage nach der „Energie" oder der „Leistung" des Dirac-Impulses nicht sinnvoll zu beantworten. Andererseits erweitert der Dirac-Impuls den mathematischen Werkzeugkasten und ist u.\,a.\ im Zusammenhang mit der Fourier-Transformation von Bedeutung.
+\begin{bemerkung}[Der Dirac-Impuls als Distribution]
+In dem Katalog der bisher behandelten Elementarsignale nimmt der Dirac-Impuls eine Sonderstellung ein, da er nicht der Kategorie der Funktionen zuzuordnen ist. Es handelt sich hierbei um eine sogenannte \textit{Distribution}. Daher sind einerseits die Methoden der Standardanalysis nicht ohne weiteres anwendbar. Zum Beispiel ist die Frage nach der „Energie" oder der „Leistung" des Dirac-Impulses nicht sinnvoll zu beantworten (zu Energie und Leistung siehe Abschnitt~\ref{sec:norm-energie-leistung}). Andererseits erweitert der Dirac-Impuls den mathematischen Werkzeugkasten und ist u.\,a.\ im Zusammenhang mit der Fourier-Transformation (Kapitel~\ref{chap:signalsynthese}) von Bedeutung.
+\end{bemerkung}
 
 \begin{center}
 \begin{tikzpicture}[>=stealth, font=\small]
@@ -560,8 +566,7 @@ $$
 
 Wenn eine physikalische Interpretation des diskreten Signals gewünscht ist, muss die Dauer des Abtastintervalls bzw. deren Kehrwert, die Abtastrate $f_A = \frac{1}{T_A}$, bekannt sein.
 
-\subsection*{Die diskrete Einheitsimpulsfolge}
-
+\begin{definition}[Diskrete Einheitsimpulsfolge]
 Für den Einheitsimpuls wird das Symbol $\delta[k]$ verwendet. Er ist wie folgt definiert:
 
 $$
@@ -569,9 +574,9 @@ $$
 $$
 
 % Grafik: δ[k] für k von -30 bis 30, Einheitsimpuls bei k=0
+\end{definition}
 
-\subsection*{Das diskrete Einheitssprungsignal}
-
+\begin{definition}[Diskreter Einheitssprung]
 Für den diskreten Einheitssprung wird das Symbol $\epsilon[k]$ verwendet. Er ist wie folgt definiert:
 
 $$
@@ -579,9 +584,9 @@ $$
 $$
 
 % Grafik: ε[k] für k von -30 bis 30, Sprung bei k=0
+\end{definition}
 
-\subsection*{Das diskrete Rechtecksignal}
-
+\begin{definition}[Diskretes Rechtecksignal]
 Aus zwei Einheitssprungsignalen kann ein diskretes Rechtecksignal mit $M$ von Null verschiedenen Werten gebildet werden:
 
 $$
@@ -591,6 +596,7 @@ $$
 Die Werte dieses diskreten Signals lassen sich auch mit $x[k] = \operatorname{rect}(k/M)$, $k \in \mathbb{Z}$, angeben.
 
 % Grafik: diskretes Rechtecksignal für M=10
+\end{definition}
 
 Die Energie eines diskreten Rechtecksignals $x[k] = A\,(\epsilon[k] - \epsilon[k-M])$ mit der Amplitude $A$ und der Breite $M$ beträgt:
 
@@ -598,13 +604,13 @@ $$
 E = \sum_{k=-\infty}^{\infty} x^2[k] = \sum_{k=0}^{M-1} A^2 = M A^2.
 $$
 
-\subsection*{Die diskrete Exponentialfolge}
-
+\begin{definition}[Diskrete Exponentialfolge]
 Die Exponentialfolge ist für $a \in \mathbb{R}$ und $k \in \mathbb{Z}$ wie folgt definiert:
 
 $$
 x[k] = a^k\,\epsilon[k].
 $$
+\end{definition}
 
 Man beachte, dass der Betrag dieses Signals für $|a| > 1$ und $k \to \infty$ über alle Grenzen wächst. Für $|a| < 1$ klingen die Beträge des Signals ab.
 
@@ -624,8 +630,7 @@ $$
 hilfreich.
 \end{bemerkung}
 
-\subsection*{Das diskrete Sinussignal}
-
+\begin{definition}[Diskretes Sinussignal]
 Das diskrete Sinussignal ist wie folgt definiert:
 
 $$
@@ -633,6 +638,7 @@ x[k] = A\sin\!\left(2\pi k\,\frac{f}{f_A}\right).
 $$
 
 % Grafik: diskrete Sinusfolge für f/f_A = 1/8
+\end{definition}
 
 \section{Elementare Operationen diskreter Signale}
 \label{sec:elementare-operationen-diskret}
