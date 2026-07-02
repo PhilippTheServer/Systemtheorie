@@ -1,7 +1,7 @@
 \chapter{Grundbegriffe der Informationstheorie}
 \label{chap:informationstheorie}
 
-Als Anwendung der Wahrscheinlichkeitsrechnung betrachten wir in diesem Kapitel grundlegende Konzepte der Informationstheorie.
+Als Anwendung der Wahrscheinlichkeitsrechnung (Kapitel~\ref{chap:wahrscheinlichkeit}) betrachten wir in diesem Kapitel grundlegende Konzepte der Informationstheorie.
 
 \section{Fragestellungen der Informationstheorie}
 \label{sec:informationstheorie-fragen}
@@ -101,13 +101,13 @@ Der Fall einer größeren Auswahl wird zunächst an dem Beispiel in Abbildung 5.
 
 In obigem Beispiel sind $3 = \log_2(8)$ ja/nein-Fragen mit den entsprechenden binären Entscheidungen erforderlich! Wenn man die Antwort auf jede dieser Fragen mit einem Bit notiert wird, entsteht ein einfacher \textit{binärer Code} zur Darstellung der ausgewählten Symbole.
 
-\begin{itemize}
-  \item Allgemein wird die Informationsmenge bei Auswahl aus $N$ gleichwahrscheinlichen Symbolen zu
+\begin{definition}[Entscheidungsgehalt]
+Allgemein wird die Informationsmenge bei Auswahl aus $N$ gleichwahrscheinlichen Symbolen zu
 $$
 H_0 = \log_2(N) \quad \text{[bit]} \qquad \text{oder} \qquad H_0 = \ln(N) \; \text{[nats]}
 $$
 berechnet. $H_0$ wird als \textit{Entscheidungsgehalt} der Nachrichtenquelle bezeichnet.
-\end{itemize}
+\end{definition}
 
 Zum Beispiel ergibt sich bei einer Auswahl aus $N = 16$ gleichwahrscheinlichen Symbolen eine Informationsmenge von $H_0 = \log_2(N) = \log_2(2^4) = 4$ bit.
 
@@ -142,21 +142,27 @@ Die Statistik der Symbole spielt bei der Ermittlung des Informationsgehaltes und
 \section{Entropie und Redundanz}
 \label{sec:entropie-redundanz}
 
-Offensichtlich trägt ein Nachrichtensymbol um so mehr Information, je seltener es auftritt, d.h. je weniger wahrscheinlich es von der Quelle ausgewählt wird. Der \textbf{Informationsgehalt} des $i$-ten Symbols $a_i$ wird daher zu
+Offensichtlich trägt ein Nachrichtensymbol um so mehr Information, je seltener es auftritt, d.h. je weniger wahrscheinlich es von der Quelle ausgewählt wird.
+
+\begin{definition}[Informationsgehalt]
+Der \textbf{Informationsgehalt} des $i$-ten Symbols $a_i$ wird daher zu
 
 $$
 I(a_i) = -\log_2(P(a_i)) = \log_2\!\left(\frac{1}{P(a_i)}\right) = -\mathrm{ld}(P(a_i))
 $$
 
 festgelegt, wobei $P(a_i)$ die Auftrittswahrscheinlichkeit des Symbols $a_i$ angibt. Wegen $0 \leq P(a_i) \leq 1$ ist dieses Informationsmaß nicht negativ.
+\end{definition}
 
-Der \textbf{mittlere Informationsgehalt} einer Nachrichtenquelle $A$, die $N$ verschiedene Symbole $a_i$ mit den Wahrscheinlichkeiten $P(a_i)$ aussenden kann, ist der statistische Mittelwert des Informationsgehalts und wird dann zu
+\begin{definition}[Entropie]
+Der \textbf{mittlere Informationsgehalt} einer Nachrichtenquelle $A$, die $N$ verschiedene Symbole $a_i$ mit den Wahrscheinlichkeiten $P(a_i)$ aussenden kann, ist der statistische Mittelwert (Erwartungswert, Abschnitt~\ref{sec:erwartungswert}) des Informationsgehalts und wird dann zu
 
 $$
 H(A) = \sum_{i=1}^{N} P(a_i)\, I(a_i) = -\sum_{i=1}^{N} P(a_i) \log_2(P(a_i))
 $$
 
 berechnet. $H$ wird als \textit{Entropie} bezeichnet.
+\end{definition}
 
 \textbf{Anmerkung zu dieser Definition der Entropie:}
 
@@ -188,7 +194,10 @@ $$
 = -\frac{1}{\log_e(2)}\left[P(a_1)\log_e(P(a_1)) + (1-P(a_1))\log_e(1-P(a_1))\right].
 $$
 
-Diese Funktion ist in Abbildung 5.5 dargestellt. Das Maximum dieser Funktion finden wir durch Differenzieren nach $P(a_1)$ und Nullsetzen.
+Diese Funktion ist in Abbildung 5.5 dargestellt.
+
+\begin{beweis}[Maximum der binären Entropie]
+Das Maximum dieser Funktion finden wir durch Differenzieren nach $P(a_1)$ und Nullsetzen.
 
 $$
 \frac{dH}{dP(a_1)} = \frac{1}{\log_e(2)}\left[-\frac{P(a_1)}{P(a_1)} - \log_e(P(a_1)) + \frac{1-P(a_1)}{1-P(a_1)} + \log_e(1-P(a_1))\right] = 0
@@ -201,6 +210,7 @@ $$
 $$
 
 ein Maximum an, denn $\dfrac{d^2H}{dP(a_1)^2} < 0$. Dabei haben wir die Beziehungen $\dfrac{d}{\mathrm{d}x}\log_e(x) = \dfrac{1}{x}$ und $\log_2(x) = \dfrac{\log_e(x)}{\log_e(2)}$ verwendet. Wenn die Quelle immer eines der Symbole auswählt, also $P(a_1) = 1$ oder $P(a_2) = 1$ gilt, dann ist die Entropie Null.
+\end{beweis}
 
 % Grafik: Abbildung 5.5: Entropie H [bit] als Funktion von P(a_1) für N=2; glockenförmige Kurve, Maximum H=1 bei P(a_1)=0.5
 
@@ -273,11 +283,11 @@ gegeben, wobei $N(\tau)$ die Anzahl zulässiger Signalformen der Dauer $\tau$ be
 
 Die Informationsübertragung über rauschfreie, diskrete Kanäle ist durch das folgende wichtige Theorem gegeben:
 
-\begin{quote}
+\begin{satz}[Quellencodierungstheorem (Shannon)]
 „Let a source have entropy $H$ (bits per symbol) and a channel have a capacity $C$ (bits per second). Then it is possible to encode the output of the source in such a way as to transmit at the average rate $\frac{C}{H} - \epsilon$ symbols per second over the channel where $\epsilon$ is arbitrarily small. It is not possible to transmit at an average rate greater than $\frac{C}{H}$."
 
 \hfill C.E. Shannon, „A Mathematical Theory of Communication", 1948, Theorem 9
-\end{quote}
+\end{satz}
 
 Der mittlere Informationsgehalt und nicht der Entscheidungsgehalt der Quelle bestimmt die Zahl der im Mittel übertragbaren Symbole. Das Theorem sagt allerdings nicht, \textbf{wie} die Symbole codiert werden müssen, um diese Grenze zu erreichen. Hierfür wurden nachfolgend verschiedene Codierverfahren entwickelt, die auch unter dem Begriff „Entropiecodierung" zusammengefasst werden.
 
@@ -356,7 +366,7 @@ Das Codierschema nach Huffman kann wie folgt zusammengefasst werden:
 \end{enumerate}
 
 \begin{beispiel}[Codierung nach Huffman]
-Ein Huffman Code kann für das Beispiel 5.3 wie folgt entwickelt werden (Ersatzsymbole rücken maximal auf). Durch Rückwärtslesen ergibt sich die folgende Codetabelle:
+Ein Huffman Code kann für die Quelle aus dem vorangehenden Fano-Beispiel wie folgt entwickelt werden (Ersatzsymbole rücken maximal auf). Durch Rückwärtslesen ergibt sich die folgende Codetabelle:
 
 \begin{center}
 \begin{tabular}{c|c|c}
