@@ -29,13 +29,14 @@ Für eines der in Abb.\ 2.57 gezeigten Rauschsignale ist das Histogramm dargeste
 % Grafik: Abb. 2.58 – Histogramm (links) und Verteilungsdichtefunktion VDF (rechts), Amplitudenachse –5 bis 5
 \end{beispiel}
 
-Im Allgemeinen müssen die Methoden der Wahrscheinlichkeitsrechnung angewandt werden (siehe Kapitel~4). Die im Histogramm dargestellte relative Häufigkeit der Amplitudenwerte kann dann mit einer \textbf{Verteilungsdichtefunktion} (VDF) modelliert werden. Die Verteilungsdichtefunktion ist dann das der beobachteten Häufigkeitsverteilung zugrunde liegende Modell.
+Im Allgemeinen müssen die Methoden der Wahrscheinlichkeitsrechnung angewandt werden (siehe Kapitel~\ref{chap:wahrscheinlichkeit}). Die im Histogramm dargestellte relative Häufigkeit der Amplitudenwerte kann dann mit einer \textbf{Verteilungsdichtefunktion} (VDF) modelliert werden. Die Verteilungsdichtefunktion ist dann das der beobachteten Häufigkeitsverteilung zugrunde liegende Modell.
 
 Wichtige Kenngrößen zufälliger Signale sind wieder der Mittelwert, die Varianz und die Leistung. Wenn diese unmittelbar aus nur einer Realisation des Zufallssignals berechnet werden, spricht man von \textbf{empirischen} Kenngrößen. Diese Kenngrößen werden häufig in ,,Lagemaße'' und ,,Streumaße'' eingeteilt.
 
 \subsection{Lagemaße}
 \label{sec:lagemasse}
 
+\begin{definition}[Empirischer Mittelwert]
 Der \textbf{empirische Mittelwert} eines diskreten Signals mit $N$ Abtastwerten ist durch
 
 $$
@@ -43,13 +44,17 @@ $$
 $$
 
 gegeben.
+\end{definition}
 
+\begin{definition}[Median]
 Der \textbf{Median} $\tilde{x}$ eines diskreten Signals $x[k]$ teilt die Werte in zwei Hälften, so dass die eine Hälfte größer oder gleich $\tilde{x}$ ist und die andere Hälfte kleiner oder gleich $\tilde{x}$ ist.
 Der Median liegt also in der Mitte der geordneten Daten und ist robust gegenüber Ausreißern. Oft ist er durch die obige Definition nicht eindeutig bestimmt. Er kann dann innerhalb eines Intervalls frei gewählt werden.
+\end{definition}
 
 \subsection{Streumaße}
 \label{sec:streumasse}
 
+\begin{definition}[Empirische Varianz und Standardabweichung]
 Die \textbf{empirische Varianz} $\hat{\sigma}^2$ eines diskreten Signals $x[k]$ mit $N$ Abtastwerten ist durch
 
 $$
@@ -63,11 +68,15 @@ $$
 $$
 
 gegeben.
+\end{definition}
 
 \section{Die empirische Korrelationsfunktion}
 \label{sec:empirische-korrelation}
 
-Im Fall zufälliger Signale beschränken wir uns vorerst auf diskrete und zeitlich begrenzte Signale. Dazu behandeln wir das Zufallssignal (genauer: die Musterfunktion des Zufallsprozesses) wie ein determiniertes Signal. Die Kreuzkorrelationsfunktion zweier Signale $x[k]$ und $y[k]$, wobei $x[k]$ außerhalb des Bereichs $0 \ldots N$ zu Null gesetzt wird, ist dann durch
+Im Fall zufälliger Signale beschränken wir uns vorerst auf diskrete und zeitlich begrenzte Signale. Dazu behandeln wir das Zufallssignal (genauer: die Musterfunktion des Zufallsprozesses) wie ein determiniertes Signal (vgl.\ Abschnitte~\ref{sec:kreuzkorrelation} und~\ref{sec:autokorrelation}).
+
+\begin{definition}[Empirische Kreuz- und Autokorrelationsfunktion]
+Die Kreuzkorrelationsfunktion zweier Signale $x[k]$ und $y[k]$, wobei $x[k]$ außerhalb des Bereichs $0 \ldots N$ zu Null gesetzt wird, ist durch
 
 $$
 \hat{\varphi}_{xy}[\varkappa] = \sum_{k=0}^{N} x[k]\, y[k + \varkappa]
@@ -78,6 +87,7 @@ gegeben. Für die Autokorrelationsfunktion erhält man entsprechend
 $$
 \hat{\varphi}_{xx}[\varkappa] = \sum_{k=0}^{N} x[k]\, x[k + \varkappa].
 $$
+\end{definition}
 
 Man beachte, dass in der Literatur diese Funktionen mit (unterschiedlichen) Normierungen verwendet werden. Die empirische Autokorrelationsfunktion ist für ein Rauschsignal dargestellt.
 
@@ -105,7 +115,7 @@ $$
 x_2(t) = \frac{A}{3}\,\operatorname{rect}\!\left(\frac{t - t_2}{T_2}\right),
 $$
 
-wobei das Bezugsintervall $T$ z.\,B.\ zu $T = 1\,\text{ms}$ gewählt wird und beide Signale dieselbe Energie $E_1 = E_2 = A^2 \cdot 40T$ aufweisen. Zunächst lässt sich leicht überprüfen, dass beide Rechtecksignale die gleiche Energie aufweisen. Hierfür nutzen wir die Definition der Energie und finden
+wobei das Bezugsintervall $T$ z.\,B.\ zu $T = 1\,\text{ms}$ gewählt wird und beide Signale dieselbe Energie $E_1 = E_2 = A^2 \cdot 40T$ aufweisen. Zunächst lässt sich leicht überprüfen, dass beide Rechtecksignale die gleiche Energie aufweisen. Hierfür nutzen wir die Definition der Energie (Abschnitt~\ref{sec:norm-energie-leistung}) und finden
 
 $$
 E_1 = \int_{t_0}^{t_n} |x_1(t)|^2\,\mathrm{d}t = \int_{t_1}^{t_1+T_1} A^2\,\mathrm{d}t = A^2 T_1 = A^2 \cdot 40T
