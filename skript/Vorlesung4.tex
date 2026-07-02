@@ -33,11 +33,15 @@ Während die Abtastung unter bestimmten Bedingungen ohne Informationsverlust rea
 \section{Abtastung}
 \label{sec:abtastung}
 
-Die Abtastung eines analogen Signals führt zu einer Entnahme von ,,Signalproben'' in regelmäßigen Intervallen. In digitalen Telefonsystemen (ISDN, GSM, etc.) werden dem analogen Sprachsignal z.\,B.\ 8000 Abtastwerte pro Sekunde entnommen. Dementsprechend kann man eine \textit{Abtastfrequenz} oder \textit{Abtastrate} $f_A$ definieren:
+Die Abtastung eines analogen Signals führt zu einer Entnahme von ,,Signalproben'' in regelmäßigen Intervallen. In digitalen Telefonsystemen (ISDN, GSM, etc.) werden dem analogen Sprachsignal z.\,B.\ 8000 Abtastwerte pro Sekunde entnommen.
+
+\begin{definition}[Abtastrate]
+Die \textit{Abtastfrequenz} oder \textit{Abtastrate} $f_A$ ist definiert als
 
 $$
 f_A = \frac{\text{Zahl der Abtastwerte}}{\text{Zeiteinheit}}
 $$
+\end{definition}
 
 Die Abtastrate wird häufig in Hz angegeben. In der Sprach- und Audiosignalverarbeitung sind typische Abtastraten:
 \begin{itemize}
@@ -78,7 +82,7 @@ Bevor wir untersuchen, unter welchen Bedingungen eine Abtastung ohne Information
   $$
   x(t) = \sum_{k=-\infty}^{\infty} x[k]\, g_k(t)
   $$
-  mit $x[k] = x(kT_A)$ erfüllt ist. Die Funktionen $g_k(t)$ können z.\,B.\ mit Hilfe der Fouriertransformation (Vorlesung Systemtheorie~II) oder der Lagrange-Polynome gefunden werden. Es handelt sich dabei um die si-Funktion,
+  mit $x[k] = x(kT_A)$ erfüllt ist. Die Funktionen $g_k(t)$ können z.\,B.\ mit Hilfe der Fouriertransformation (Vorlesung Systemtheorie~II) oder der Lagrange-Polynome gefunden werden. Es handelt sich dabei um die si-Funktion (Abschnitt~\ref{sec:elementare-analoge-signale}),
   $$
   g_k(t) = \operatorname{si}\!\left(\frac{t - kT_A}{T_A}\right),
   $$
@@ -117,6 +121,7 @@ $$
 l_k(t) = \prod_{\substack{n=-\infty,\, n\neq 0}}^{\infty} \frac{(n+k)T_A - t}{nT_A}.
 $$
 
+\begin{beweis}[Ideale Rekonstruktion über Lagrange-Polynome]
 Wir zeigen nun, dass dies einer Reihenentwicklung der si-Funktion entspricht, denn es gilt
 
 $$
@@ -148,6 +153,7 @@ Somit erhalten wir
 $$
 \tilde{x}(t) = \sum_{k=-\infty}^{\infty} x[k] \cdot \operatorname{si}\!\left(\frac{t - kT_A}{T_A}\right) = x(t).
 $$
+\end{beweis}
 
 % Grafik: Abb. 2.70 – Interpolation mit si-Funktionen: Abtastwerte, eine si-Funktion pro Abtastwert, Summe aller si-Funktionen
 
@@ -183,6 +189,7 @@ wobei $\tilde{f}$ die sogenannte \textit{Spiegelfrequenz} darstellt. Der oben be
 \section{Quantisierung}
 \label{sec:quantisierung}
 
+\begin{definition}[Quantisierung und Quantisierungsfehler]
 Im Zuge der Quantisierung wird die Amplitude $x(kT_A)$ eines Signalabtastwertes zum Zeitpunkt $t = kT_A$, $k \in \mathbb{Z}$, auf eine Menge endlicher, meist fest vorgegebener Werte, den Quantisierungsniveaus, abgebildet. Damit geht in der Regel ein Informationsverlust einher. Wird der quantisierte Wert mit $x_q(kT_A)$ bezeichnet, so kann der \textit{Quantisierungsfehler} des $k$-ten Abtastwertes mit
 
 $$
@@ -190,6 +197,7 @@ e(kT_A) = x(kT_A) - x_q(kT_A)
 $$
 
 angegeben werden.
+\end{definition}
 
 % Grafik: Abb. 2.74 – Quantisierung des Intervalls [0,1] auf zwei (links) und vier (rechts) Werte
 
@@ -207,13 +215,14 @@ Der (gleichmäßige) Quantisierer ist durch den Aussteuerbereich $[x_{\min}, x_{
 
 Der Betrag $|e(t)|$ des Quantisierungsfehlers ist durch die halbe Quantisierungsstufenhöhe $\Delta x / 2$ beschränkt. Bei einer großen Zahl von Quantisierungsstufen hat der Quantisierungsfehler rauschartigen Charakter.
 
+\begin{beweis}[Leistung des Quantisierungsfehlers]
 Zur Berechnung der Quantisierungsfehlerleistung betrachten wir das speziell gewählte Eingangssignal (Rampe):
 
 $$
 x(t) = \frac{t}{T}, \qquad -T \leq t \leq T,
 $$
 
-das außerhalb des betrachteten Intervalls $[-T, T]$ periodisch fortgesetzt werden kann. Dieses Signal dient als Modell für ein gleichverteiltes Signal, in dem alle Amplituden $x(t)$ mit gleicher Häufigkeit auftreten. Mit der Substitution $u = t/T$ ergibt sich die Signalleistung $P_x$ zu:
+das außerhalb des betrachteten Intervalls $[-T, T]$ periodisch fortgesetzt werden kann. Dieses Signal dient als Modell für ein gleichverteiltes Signal (vgl.\ Abschnitt~\ref{sec:gleichverteilung}), in dem alle Amplituden $x(t)$ mit gleicher Häufigkeit auftreten. Mit der Substitution $u = t/T$ ergibt sich die Signalleistung $P_x$ zu:
 
 $$
 P_x = \frac{1}{2T} \int_{-T}^{T} \left(\frac{t}{T}\right)^2 \mathrm{d}t
@@ -236,6 +245,7 @@ P_e &= \frac{1}{\Delta x\, T} \int_0^{\Delta x\, T} \bigl(x(t) - x_q(t)\bigr)^2\
 wobei wieder $u = t/T$ substituiert wurde.
 
 Somit erhalten wir für dieses spezielle Signal $P_e = \dfrac{\Delta x^2}{12}$.
+\end{beweis}
 
 Durch weiterführende Rechnungen kann nun gezeigt werden, dass die Formel für die Leistung des Quantisierungsfehlers näherungsweise auch für andere als das gewählte, linear ansteigende Signal gilt. Das ist dann der Fall, wenn die Zahl der Quantisierungsstufen $2^w$ ,,hinreichend'' groß ist.
 
