@@ -3,6 +3,7 @@
 
 Die Auswirkung vorab bekannter Informationen auf die Wahrscheinlichkeit von Ereignissen wird durch die „bedingte" Wahrscheinlichkeit formalisiert.
 
+\begin{definition}[Bedingte Wahrscheinlichkeit]
 Die Wahrscheinlichkeit $P(A_i|B_j)$, dass ein Ereignis $A_i \in \mathcal{A}$ eintritt, wenn das Ergebnis $B_j \in \mathcal{B}$ eines anderen Experiments mit $P(B_j) > 0$ als bekannt vorausgesetzt wird, wird als bedingte Wahrscheinlichkeit bezeichnet und ist zu
 
 $$
@@ -10,8 +11,9 @@ P(A_i|B_j) = \frac{P(A_i, B_j)}{P(B_j)}
 $$
 
 definiert. Es gilt $0 \leq P(A_i|B_j) \leq 1$.
+\end{definition}
 
-Wenn die Ereignisse $A_i$ und $B_j$ statistisch unabhängig sind gilt
+Wenn die Ereignisse $A_i$ und $B_j$ statistisch unabhängig sind (Abschnitt~\ref{sec:unabhaengige-versuche}), gilt
 
 $$
 P(A_i|B_j) = \frac{P(A_i, B_j)}{P(B_j)} = \frac{P(A_i)P(B_j)}{P(B_j)} = P(A_i).
@@ -54,7 +56,7 @@ P(a_1|b_2) = \frac{P(a_1, b_2)}{P(b_2)} = \frac{0{,}2}{0{,}5} = 0{,}4 < P(a_1).
 $$
 \end{beispiel}
 
-\begin{beispiel}[Bedingte Wahrscheinlichkeit -- Gameshow]
+\begin{gedankenexperiment}[Monty-Hall-Problem (Ziegenproblem)]
 Das zweite Beispiel zeigt, dass das Rechnen mit bedingten Wahrscheinlichkeiten zu überraschenden Ergebnissen führen kann. Es handelt sich um das bekannte Ziegenproblem oder auch Monty-Hall Problem. Dabei wird eine Gameshow betrachtet, bei der es durch Raten ein Auto zu gewinnen gibt. Im ersten Teil erklärt der Showmaster: Hinter einer der drei Türen verbirgt sich ein Auto ($A$), hinter den anderen jeweils eine Ziege ($Z$). Wenn Sie die richtige Tür raten, gehört das Auto Ihnen. Welche Tür wählen Sie?
 
 % Grafik: 3 Türen – Ziege | ? | Auto
@@ -80,27 +82,31 @@ P(\overline{T_i}|\overline{T_o}) = \frac{P(\overline{T_i}, \overline{T_o})}{P(\o
 $$
 
 Für die Tür $T_w$, zu der man wechseln könnte, ergeben sich die Wahrscheinlichkeiten $P(T_w) = 1 - P(T_i|\overline{T_o}) = \frac{2}{3}$ und $P(\overline{T_w}) = 1 - P(\overline{T_i}|\overline{T_o}) = \frac{1}{3}$. Durch den Wechsel erhöhen sich also die Gewinnchancen.
-\end{beispiel}
+\end{gedankenexperiment}
 
 \subsection{Totale Wahrscheinlichkeit}
 \label{sec:totale-wahrscheinlichkeit}
 
-Für einen Wahrscheinlichkeitsraum $(\Omega, \mathcal{F}, \mathbb{P})$ mit der Partition $B_1, \ldots, B_N \in \mathcal{F}$ und $P(B_i) > 0$ für jedes $A_k \in \mathcal{F}$
+\begin{satz}[Totale Wahrscheinlichkeit]
+Für einen Wahrscheinlichkeitsraum $(\Omega, \mathcal{F}, \mathbb{P})$ mit der Partition $B_1, \ldots, B_N \in \mathcal{F}$ und $P(B_i) > 0$ gilt für jedes $A_k \in \mathcal{F}$
 
 $$
-P(A_k) = \sum_{i=1}^{N} P(A_k|B_i)\,P(B_i)
+P(A_k) = \sum_{i=1}^{N} P(A_k|B_i)\,P(B_i)\,.
 $$
+\end{satz}
 
 Das Theorem von der totalen Wahrscheinlichkeit erlaubt die Berechnung einer unbekannten Wahrscheinlichkeit $P(A_k)$ durch Entwicklung in eine Summe von oft einfacher zu ermittelnden bedingten Wahrscheinlichkeiten $P(A_k|B_i)$ und den \textit{a priori} Wahrscheinlichkeiten $P(B_i)$.
 
 \subsection{Der Satz von Bayes}
 \label{sec:satz-von-bayes}
 
+\begin{satz}[Satz von Bayes]
 Sei $(\Omega, \mathcal{F}, \mathbb{P})$ ein Wahrscheinlichkeitsraum und $B_1, \ldots, B_N \in \mathcal{F}$ eine Partition von $\Omega$ mit $P(B_i) > 0$ für alle $i = 1, \ldots, N$. Dann gilt für jedes $A_k \in \mathcal{F}$ mit $P(A_k) > 0$ und $B_j$
 
 $$
 P(B_j|A_k) = \frac{P(A_k|B_j)P(B_j)}{\displaystyle\sum_{i=1}^{N} P(A_k|B_i)P(B_i)} = \frac{P(A_k|B_j)P(B_j)}{\displaystyle\sum_{i=1}^{N} P(A_k, B_i)} = \frac{P(A_k|B_j)P(B_j)}{P(A_k)}
 $$
+\end{satz}
 
 Der Satz von Bayes verbindet somit die Wahrscheinlichkeiten zweier auf $\Omega$ definierter Experimente.
 
