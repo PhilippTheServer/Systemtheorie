@@ -1,22 +1,231 @@
 % ============================================================
-%  Formelsammlung
+%  Formelsammlung  –  Systemtheorie 1
+%  Querformat, 3-spaltig, thematisch gruppiert
 % ============================================================
-\chapter*{Formelsammlung}
+\clearpage
+\newgeometry{landscape, top=1.1cm, bottom=1.1cm, left=1.1cm, right=1.1cm}
+\pagestyle{empty}
 \addcontentsline{toc}{chapter}{Formelsammlung}
-\markboth{Formelsammlung}{Formelsammlung}
 
-% ── VL 1: Kombination und Permutation ────────────────────────
-\textbf{VL 1 -- Kombination und Permutation}
+% ── kompaktes Layout ─────────────────────────────────────────
+\setlength{\parindent}{0pt}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{1pt}
+\setlength{\columnsep}{1.4em}
+\setlength{\columnseprule}{0.4pt}
 
-\renewcommand{\arraystretch}{2.4}
-\begin{tabular}{@{}lll@{}}
+% Themen-Kopf: Titel + kleiner Skript-Verweis + Trennlinie
+\newcommand{\ft}[2]{%
+  \par\smallskip\penalty-200
+  {\bfseries\footnotesize #1}\nobreak\hfill{\tiny\hyperref[#2]{\S\,\ref*{#2}}}\par\nobreak
+  \vspace{-0.35em}{\color{accent}\hrule height 0.4pt}\nobreak\vspace{0.2em}\nobreak}
+
+\begin{center}
+  {\color{accent}\rule{\linewidth}{1pt}}\\[0.2em]
+  {\Large\bfseries Formelsammlung}\quad\small Systemtheorie\,1 -- Signale und Systeme\,I\\[0.1em]
+  {\color{accent}\rule{\linewidth}{1pt}}
+\end{center}
+\vspace{0.4em}
+
+\footnotesize
+\begin{multicols}{3}
+
+% ─────────────────────────────────────────────────────────────
+\ft{Elementare analoge Signale}{sec:elementare-analoge-signale}
+Gleichsignal $x(t)=A$.\quad Sinus:
+\[ x(t)=A\sin(\omega t+\varphi)=A\cos\!\big(\omega t+\varphi-\tfrac{\pi}{2}\big) \]
+\[ \omega=2\pi f=\tfrac{2\pi}{T},\quad f=\tfrac{1}{T} \]
+Sprung $\varepsilon(t)=\begin{cases}0&t<0\\1&t\ge0\end{cases}$\;
+Rechteck $\operatorname{rect}\!\big(\tfrac{t}{T}\big)$, Fläche $=T$.\\
+Exponential $x(t)=A\,e^{-t/\tau}\varepsilon(t)$, Steigung $|_{0^+}=-\tfrac{A}{\tau}$.\\
+$\operatorname{si}\!\big(\tfrac{t}{T}\big)=\dfrac{\sin(\pi t/T)}{\pi t/T}$.\quad
+Dirac (Siebeigenschaft):
+\[ \int_{-\infty}^{\infty}\! f(\xi)\,\delta(\xi-a)\,\mathrm d\xi=f(a),\ \int\delta\,\mathrm d\xi=1 \]
+
+% ─────────────────────────────────────────────────────────────
+\ft{Elementare diskrete Signale}{sec:elementare-diskrete-signale}
+$\delta[k]=\begin{cases}1&k=0\\0&\text{sonst}\end{cases}$\quad
+$\varepsilon[k]=\begin{cases}1&k\ge0\\0&k<0\end{cases}$\\
+Rechteck $x[k]=\varepsilon[k]-\varepsilon[k-M]$, Energie $E=MA^2$.\\
+Exp.-Folge $x[k]=a^k\varepsilon[k]$.\quad Sinus $x[k]=A\sin\!\big(2\pi k\tfrac{f}{f_A}\big)$.\\
+Geometrische Reihe:
+\[ \sum_{k=0}^{M-1}\! q^k=\frac{1-q^M}{1-q},\quad \sum_{k=0}^{\infty} q^k=\frac{1}{1-q}\ (|q|<1) \]
+
+% ─────────────────────────────────────────────────────────────
+\ft{Komplexe Signale \& Zeiger}{sec:komplexwertige-signale}
+\[ \underline{x}(t)=x_R+jx_I=|\underline{x}|\,e^{j\phi},\quad j=\sqrt{-1} \]
+\[ x_R=\operatorname{Re}\{\underline x\}=\tfrac12(\underline x+\underline x^{*}),\
+   x_I=\operatorname{Im}\{\underline x\}=\tfrac{1}{2j}(\underline x-\underline x^{*}) \]
+\[ |\underline x|=\sqrt{x_R^2+x_I^2},\quad \phi=\arg\{\underline x\} \]
+Komplexes Exp.: $\underline x(t)=A\,e^{j(\omega t+\varphi)}=\underline A\,e^{j\omega t}$, $\underline A=A e^{j\varphi}$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Symmetrie}{sec:symmetrie-signale}
+gerade $x(t)=x(-t)$;\quad ungerade $x(t)=-x(-t)$.\\
+konj.\ gerade $\underline x(t)=\underline x^{*}(-t)$;\ konj.\ ungerade $\underline x(t)=-\underline x^{*}(-t)$.\\
+Zerlegung $x=x_{\mathrm g}+x_{\mathrm u}$ mit
+\[ x_{\mathrm g}=\tfrac12\big(x(t)+x(-t)\big),\ x_{\mathrm u}=\tfrac12\big(x(t)-x(-t)\big) \]
+
+% ─────────────────────────────────────────────────────────────
+\ft{Mittelwert, Energie, Leistung, Norm}{sec:norm-energie-leistung}
+$\bar x=\dfrac{1}{t_2-t_1}\!\int_{t_1}^{t_2}\! x\,\mathrm dt=\dfrac{1}{k_2-k_1+1}\!\displaystyle\sum_{k=k_1}^{k_2}\! x[k]$;\\
+periodisch $\bar x=\tfrac1T\!\int_{-T/2}^{T/2}\! x\,\mathrm dt=\tfrac1N\!\sum_{k=0}^{N-1}\! x[k]$.\\
+$L_p$-Norm $\|\underline x\|_p=\big(\int|\underline x|^p\mathrm dt\big)^{1/p}$.\\
+Energie $E=\int|\underline x(t)|^2\mathrm dt=\sum|\underline x[k]|^2$ ($E<\infty$: Energiesignal).\\
+Leistung $P=\lim_{T\to\infty}\tfrac1T\!\int_{-T/2}^{T/2}\!|\underline x|^2\mathrm dt$;\;
+periodisch $P=\tfrac1T\!\int_T\!|\underline x|^2\mathrm dt$\\
+($0<P<\infty$: Leistungssignal).
+
+% ─────────────────────────────────────────────────────────────
+\ft{Inneres Produkt \& Korrelation}{chap:inneres-produkt}
+$\langle \underline x,\underline y\rangle=\int \underline x^{*}(t)\underline y(t)\,\mathrm dt=\sum \underline x^{*}[k]\underline y[k]$; \ orthogonal $\Leftrightarrow \langle\cdot\rangle=0$.\\
+Kreuzkorrelation (KKF):
+\[ \varphi_{xy}(\tau)=\!\int_{-\infty}^{\infty}\!\underline x^{*}(t)\,\underline y(t+\tau)\,\mathrm dt \]
+\[ \varphi_{xy}[\varkappa]=\sum_{k}\underline x^{*}[k]\,\underline y[k+\varkappa] \]
+Autokorrelation (AKF): $\varphi_{xx}$ (KKF mit $y=x$),
+$\varphi_{xx}(0)=E$, $\varphi_{xx}(\tau)=\varphi_{xx}^{*}(-\tau)$.\\
+Sinus: $\tilde\varphi_{xx}(\tau)=\tfrac{A^2}{2}\cos(\omega\tau)$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Empirische Kenngrößen}{sec:streumasse}
+$\hat{\bar x}=\dfrac1N\displaystyle\sum_{k=0}^{N-1}\! x[k]$;\quad
+$\hat\sigma^2=\dfrac{1}{N-1}\displaystyle\sum_{k=0}^{N-1}\!\big(x[k]-\hat{\bar x}\big)^2$;\\
+$\hat\sigma=\sqrt{\hat\sigma^2}$;\quad
+empir.\ KKF $\hat\varphi_{xy}[\varkappa]=\sum_{k=0}^{N} x[k]\,y[k+\varkappa]$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Fourier-Reihe \& DFT}{sec:fourierreihe}
+reell: $x(t)=\bar x+\sum_{n\ge1}X_a[n]\cos(n\omega_0t)+X_b[n]\sin(n\omega_0t)$.\\
+komplex: $x(t)=\sum_{n=-\infty}^{\infty}\! X[n]e^{jn\omega_0t}$, $\omega_0=\tfrac{2\pi}{T_0}$,
+\[ X[n]=\frac{1}{T_0}\!\int_{t_1}^{t_1+T_0}\! x(t)\,e^{-jn\omega_0t}\,\mathrm dt \]
+$X_a=\tfrac{2}{T_0}\!\int x\cos$, $X_b=\tfrac{2}{T_0}\!\int x\sin$.\\
+DFT:
+\[ x[k]=\sum_{m=0}^{M-1}\! X[m]\,e^{j\frac{2\pi}{M}mk} \]
+\[ X[m]=\tfrac1M\sum_{k=0}^{M-1}\! x[k]\,e^{-j\frac{2\pi}{M}mk} \]
+Bandbreite $B=f_{\max}-f_{\min}$; \ $f_m=\tfrac{m}{M}\tfrac{1}{T_A}$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Abtastung \& Quantisierung}{sec:abtasttheorem}
+$f_A=\tfrac{\text{Abtastwerte}}{\text{Zeit}}$, $T_A=\tfrac{1}{f_A}$.\\
+Abtasttheorem $f_A>2f_g$; \ Aliasing/Spiegelfreq.\ $\tilde f=f_A-f$.\\
+Ideale Rekonstruktion:
+\[ \tilde x(t)=\sum_k x[k]\,\operatorname{si}\!\big(\tfrac{t-kT_A}{T_A}\big) \]
+Halteglied $\tilde x(t)=x(kT_A)$, $kT_A\le t<(k{+}1)T_A$.\\
+Quant.-Fehler $e=x-x_q$, $|e|\le\tfrac{\Delta x}{2}$, Leistung $P_e=\dfrac{\Delta x^2}{12}$.\\
+Dezibel: $10\lg\!\tfrac{P_2}{P_1}$ [dB] $=20\lg\!\tfrac{A_2}{A_1}$ [dB].
+
+% ─────────────────────────────────────────────────────────────
+\ft{Systeme \& Zustandsraum}{sec:zustandsraum}
+System $\mathbb S=\{(x(t),y(t))\mid t_0\le t<t_1\}$.\\
+kontinuierlich:
+\[ \tfrac{\mathrm d\vec z}{\mathrm dt}=\mathbf A\vec z+\mathbf B\vec x,\quad \vec y=\mathbf C\vec z+\mathbf D\vec x \]
+diskret:
+\[ \vec z[k{+}1]=\mathbf A\vec z[k]+\mathbf B\vec x[k] \]
+\[ \vec y[k]=\mathbf C\vec z[k]+\mathbf D\vec x[k] \]
+\emph{LTI}: zeitinvariant $y(t-\tau_0)=\mathcal S[x(t-\tau_0)]$ und linear
+$a y_1+b y_2=\mathcal S[a x_1+b x_2]$.\\
+kausal: $y(t_0)$ nur von $t\le t_0$;\ BIBO: $|x|<\infty\Rightarrow|y|<\infty$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{LTI-Systeme \& Faltung}{sec:faltungsintegral}
+Impulsantwort $h=\mathcal S[\delta]$. Faltung:
+\[ y(t)=\!\int_{-\infty}^{\infty}\! x(\xi)\,h(t-\xi)\,\mathrm d\xi=x*h \]
+\[ y[k]=\sum_{l} x[l]\,h[k-l]=x[k]*h[k] \]
+$x*\delta=x$;\ $x*h=h*x$;\ assoziativ;\ distributiv.\\
+kausal $h(t)=0\ \forall t<0$;\ BIBO $\int|h|\mathrm dt<\infty$ ($\sum|h[l]|<\infty$).\\
+Frequenzgang $\underline H(j\omega)=\int h(\xi)e^{-j\omega\xi}\mathrm d\xi$ (Eigenfkt.\ $e^{j\omega t}$).\\
+Wiener--Lee: $\varphi_{yy}=\varphi_{hh}*\varphi_{xx}$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Parametrische Systeme (FIR/IIR)}{sec:parametrische-lsi}
+allg.\ LSI: $y[k]=\sum_{\nu=0}^{N} x[k{-}\nu]b_\nu+\sum_{\mu=1}^{M} y[k{-}\mu]a_\mu$.\\
+FIR: $y[k]=\sum_{\nu=0}^{N} x[k{-}\nu]b_\nu$.\\
+IIR: $y[k]=x[k]b_0+\sum_{\mu=1}^{M} y[k{-}\mu]a_\mu$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Wahrscheinlichkeit -- Grundlagen}{sec:axiome-wahrscheinlichkeit}
+Axiome: $P(A)\ge0$;\ $P(\Omega)=1$;\ $P(A{+}B)=P(A)+P(B)$ (disjunkt).\\
+Laplace: $P(\xi)=\tfrac{1}{|\Omega|}$.\quad
+unabh.\ Versuche: $P((\xi_i,\xi_j))=P(\xi_i)P(\xi_j)$.\\
+Rand aus Verbund: $P(A_i)=\sum_j P(A_i,B_j)$;\ unabh.\ $P(A,B)=P(A)P(B)$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Kombinatorik}{sec:kombinatorik}
+\renewcommand{\arraystretch}{1.9}
+\begin{tabular}{@{}p{1.5cm}cc@{}}
   \toprule
-  \textbf{Fall} & \textbf{ohne Zurücklegen} & \textbf{mit Zurücklegen} \\
+   & \scriptsize o.\ Zurückl. & \scriptsize m.\ Zurückl. \\
   \midrule
-  geordnet (Tupel)    & $\dfrac{n!}{(n-k)!}$       & $n^k$ \\
-  ungeordnet (Menge)  & $\dbinom{n}{k}$             & $\dbinom{n-1+k}{k}$ \\
+  \scriptsize geordnet   & $\dfrac{n!}{(n-k)!}$ & $n^k$ \\
+  \scriptsize ungeordnet & $\dbinom{n}{k}$      & $\dbinom{n{-}1{+}k}{k}$ \\
   \bottomrule
 \end{tabular}
-\renewcommand{\arraystretch}{1}
+\renewcommand{\arraystretch}{1}\\[0.2em]
+Permutationen (alle $n$): $n!$.
 
-\vspace{1em}
+% ─────────────────────────────────────────────────────────────
+\ft{Bedingte W.\ \& Satz von Bayes}{sec:satz-von-bayes}
+\[ P(A_i|B_j)=\frac{P(A_i,B_j)}{P(B_j)} \]
+totale W.: $P(A_k)=\sum_{i} P(A_k|B_i)\,P(B_i)$.
+\[ P(B_j|A_k)=\frac{P(A_k|B_j)P(B_j)}{\sum_{i} P(A_k|B_i)P(B_i)} \]
+
+% ─────────────────────────────────────────────────────────────
+\ft{Zufallsvariablen \& Momente}{sec:momente}
+diskret: $\mathrm E\{X\}=\sum_i x_i p_X(x_i)$, $\mathrm E\{X^2\}=\sum_i x_i^2 p_X(x_i)$.\\
+kontinuierlich: $\mathrm E\{g(X)\}=\int g(x)p_X(x)\,\mathrm dx$.
+\[ \operatorname{var}\{X\}=\mathrm E\{(X-\mu)^2\}=\mathrm E\{X^2\}-\mathrm E\{X\}^2=\sigma^2 \]
+$\sigma=\sqrt{\operatorname{var}\{X\}}$;\\
+$\mathrm E\{aX{+}bY\}=a\,\mathrm E\{X\}+b\,\mathrm E\{Y\}$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Diskrete Verteilungen}{sec:binomialverteilung}
+\emph{Binomial:} $P(k)=\dbinom{N}{k}P^k(1-P)^{N-k}$,
+\[ \mathrm E\{X\}=NP,\qquad \operatorname{var}\{X\}=NP(1-P) \]
+\emph{Poisson:} $p(k)=e^{-\lambda}\dfrac{\lambda^k}{k!}$,\;
+$\mathrm E\{X\}=\lambda$, $\mathrm E\{X^2\}=\lambda^2+\lambda$, $\operatorname{var}=\lambda$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Stetige Verteilungen}{sec:normalverteilung}
+{\scriptsize
+\renewcommand{\arraystretch}{2.1}
+\begin{tabular}{@{}p{1.15cm}ccc@{}}
+  \toprule
+  Vert. & $p_X(x)$ & $\mathrm E\{X\}$ & $\operatorname{var}\{X\}$ \\
+  \midrule
+  Gleich $[a,b]$ & $\tfrac{1}{b-a}$ & $\tfrac{a+b}{2}$ & $\tfrac{(b-a)^2}{12}$ \\
+  Normal & $\tfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$ & $\mu$ & $\sigma^2$ \\
+  Exp.\ ($x{\ge}0$) & $\lambda e^{-\lambda x}$ & $\tfrac{1}{\lambda}$ & $\tfrac{1}{\lambda^2}$ \\
+  Laplace & $\tfrac{1}{2\sigma}e^{-\frac{|x-\mu|}{\sigma}}$ & $\mu$ & $2\sigma^2$ \\
+  \bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}}
+
+% ─────────────────────────────────────────────────────────────
+\ft{Verteilungsfkt.\ \& Transformation}{sec:transformation-zv}
+$F_X(x)=P(X\le x)=\int_{-\infty}^{x} p_X(u)\,\mathrm du$,\ $p_X=\tfrac{\mathrm d}{\mathrm dx}F_X$.\\
+monoton $Y=g(X)$: $p_Y(y)=\dfrac{p_X(g^{-1}(y))}{|g'(g^{-1}(y))|}$.\\
+nichtmonoton: $p_Y(y)=\sum_i \dfrac{p_X(x_i)}{|g'(x_i)|}$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Zwei Zufallsvariablen}{sec:kovarianz-korrelation}
+$F_{XY}=P(X\le x,Y\le y)$,\ $p_{XY}=\dfrac{\partial^2 F_{XY}}{\partial x\,\partial y}$.\\
+Rand $p_X=\int p_{XY}\,\mathrm dy$;\ unabhängig $p_{XY}=p_X p_Y$.\\
+Kovarianz $C=\mathrm E\{(X-\mu_X)(Y-\mu_Y)\}$;\\
+$r_{XY}=\dfrac{C}{\sigma_X\sigma_Y}$, $|r_{XY}|\le1$;\ orthogonal $\mathrm E\{XY\}=0$.\\
+Summe unabh.\ ZV: $p_Z=p_X*p_Y$.
+
+% ─────────────────────────────────────────────────────────────
+\ft{Informationstheorie}{sec:entropie-redundanz}
+Entscheidungsgehalt $H_0=\log_2 N$.\quad
+Info-Gehalt $I(a_i)=-\log_2 P(a_i)$.
+\[ H=-\sum_{i} P(a_i)\log_2 P(a_i)\ \le H_0 \]
+rel.\ Entropie $\tfrac{H}{H_0}$;\ Redundanz $r_q=1-\tfrac{H}{H_0}$.\\
+Kanalkapazität $C=\lim_{\tau\to\infty}\tfrac{\log_2 N(\tau)}{\tau}$.\\
+Coderedundanz $r_c=\tfrac{\mathrm E\{L\}-H}{H}$;\
+KL $D=\sum_i P\log_2\tfrac{P}{\widehat P}$.
+
+\end{multicols}
+
+\restoregeometry
