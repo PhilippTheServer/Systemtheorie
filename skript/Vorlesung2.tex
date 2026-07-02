@@ -189,7 +189,7 @@ existiert, wird $\underline{x}$ als \textbf{Energiesignal} bezeichnet.
 
 Ferner halten wir fest, dass für reellwertige Signale $|\underline{x}(t)|^2 = x^2(t) = x(t)x(t)$
 und für komplexwertige Signale $|\underline{x}(t)|^2 = x(t)x^*(t)$ gilt, wobei $\underline{x}^*(t)$ das zu $\underline{x}(t)$
-konjugiert komplexe Signal bezeichnet.
+konjugiert komplexe Signal bezeichnet (Abschnitt~\ref{sec:komplexwertige-signale}).
 
 \begin{beispiel}[Energie des Rechteckimpulses]
 Gegeben sei ein Rechteckimpuls der Amplitude $A$ und der Dauer $T_2 - T_1$. Die Energie dieses Rechtecksignals ist offenbar endlich. Für das reellwertige Signal berechnet sie sich zu
@@ -204,7 +204,7 @@ $$
 \label{sec:leistung}
 
 
-Einige wichtige Elementarsignale (Sprungfunktion, Sinussignal) sind
+Einige wichtige Elementarsignale (Sprungfunktion, Sinussignal; Abschnitt~\ref{sec:elementare-analoge-signale}) sind
 keine Energiesignale. Daher wird die Leistung eingeführt.
 
 
@@ -594,7 +594,10 @@ $$
 \end{definition}
 
 
-Offensichtlich muss die Autokorrelationsfunktion $\varphi_{xx}$ bei $\tau = 0$ bzw. $\varkappa = 0$ maximal werden. Wir zeigen nun am Beispiel eines analogen, reellwertigen Signals, dass die AKF eine gerade symmetrische Funktion ist. Ausgehend von der Definition und der Substitution $t = u - \tau$ erhalten wir:
+Offensichtlich muss die Autokorrelationsfunktion $\varphi_{xx}$ bei $\tau = 0$ bzw. $\varkappa = 0$ maximal werden.
+
+\begin{beweis}[Die AKF reellwertiger Signale ist gerade symmetrisch]
+Wir zeigen nun am Beispiel eines analogen, reellwertigen Signals, dass die AKF eine gerade symmetrische Funktion ist. Ausgehend von der Definition und der Substitution $t = u - \tau$ erhalten wir:
 
 $$
 \varphi_{xx}(\tau) = \int_{-\infty}^{\infty} x(u-\tau)\,x(u)\,\mathrm{d}u.
@@ -607,6 +610,7 @@ $$
 $$
 
 Es gilt also $\varphi_{xx}(\tau) = \varphi_{xx}(-\tau)$. Die AKF reellwertiger Signale ist somit eine gerade symmetrische Funktion in $\tau$. Für komplexwertige Signale lässt sich zeigen, dass $\underline{\varphi}_{xx}(\tau) = \underline{\varphi}_{xx}^*(-\tau)$ gilt, d.\,h.\ der Realteil der komplexwertigen AKF ist eine gerade symmetrische Funktion und der Imaginärteil ist eine ungerade symmetrische Funktion.
+\end{beweis}
 
 Die AKF eines periodischen Signals ist selbst periodisch mit derselben Periode $T$
 bzw.\ $N$. Maxima treten bei $\tau = n \cdot T$ mit $n \in \mathbb{Z}$ auf.
@@ -711,6 +715,7 @@ Wie zu erwarten war, ist die AKF des Sinussignals eine periodische Funktion mit 
 \section{Orthogonalsysteme}
 \label{sec:orthogonalsysteme}
 
+\begin{definition}[Orthogonal- und Orthonormalsystem]
 $M$ zueinander orthogonale Funktionen $x_i(t)$ bilden ein Orthogonalsystem. Es gilt
 
 $$
@@ -718,6 +723,7 @@ $$
 $$
 
 Gilt zusätzlich $\langle x_i(t), x_i(t) \rangle = 1 \quad \forall\, i \in \{1, \ldots, M\}$, spricht man von einem Orthonormalsystem.
+\end{definition}
 
 Orthonormalsysteme eignen sich besonders zur Approximation komplizierter Signale durch orthogonale Elementarsignale.
 
@@ -841,6 +847,7 @@ Die folgende Abbildung veranschaulicht die schrittweise Synthese eines Signals. 
 \section{Bandbreite eines Signals}
 \label{sec:bandbreite}
 
+\begin{definition}[Signalbandbreite]
 Die Differenz von maximaler und minimaler Frequenz der im Signal enthaltenen Sinusfunktionen wird als \textit{Signalbandbreite $B$} des Signals bezeichnet, d.\,h.
 
 $$
@@ -848,6 +855,7 @@ B = f_{\max} - f_{\min}
 $$
 
 Wenn das Signal einen Gleichanteil enthält, gilt $f_{\min} = 0$ und $B = f_{\max}$. Die Bandbreite ist gleich der maximalen Frequenz.
+\end{definition}
 
 \subsection*{Begrenzung der Bandbreite}
 
@@ -868,6 +876,7 @@ $$
 \section{Diskrete Fourier-Transformation (DFT)}
 \label{sec:dft}
 
+\begin{definition}[Diskrete Fourier-Transformation (DFT)]
 \textbf{Signalsynthese mit DFT:}
 
 $$
@@ -881,12 +890,13 @@ X[m] = \frac{1}{M} \sum_{k=0}^{M-1} x[k]\, e^{-j\frac{2\pi}{M}mk}, \qquad m = 0,
 $$
 
 Diese Transformation berechnet aus $M$ (möglicherweise komplexwertigen) Signalwerten $M$ in der Regel komplexwertige Spektralkoeffizienten (Fourierkoeffizienten). Sie ist eindeutig umkehrbar.
+\end{definition}
 
 \subsection*{Physikalische Frequenz der Fourierkoeffizienten}
 
 Diese Transformation berechnet aus $M$ (möglicherweise komplexwertigen) Signalwerten $M$ in der Regel komplexwertige Spektralkoeffizienten (Fourierkoeffizienten). Sie ist eindeutig umkehrbar.
 
-Wenn das diskrete Zeitsignal durch Abtastung mit der Abtastperiode $T_A$ aus einem analogen Signal hervorgegangen ist, gilt für die physikalische Frequenz des $m$-ten Koeffizienten mit $m < M/2$ die Beziehung
+Wenn das diskrete Zeitsignal durch Abtastung (Abschnitt~\ref{sec:abtastung}) mit der Abtastperiode $T_A$ aus einem analogen Signal hervorgegangen ist, gilt für die physikalische Frequenz des $m$-ten Koeffizienten mit $m < M/2$ die Beziehung
 
 $$
 f_m = \frac{m}{M} \cdot \frac{1}{T_A}.
