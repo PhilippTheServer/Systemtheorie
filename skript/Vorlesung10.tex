@@ -3,6 +3,7 @@
 
 In diesem Abschnitt sollen nun einige Ergebnisse auf den bivariaten Fall erweitert werden.
 
+\begin{definition}[Verbundverteilungsfunktion und -dichte]
 Wenn zwei Zufallsvariablen $X$ und $Y$ gegeben sind, ist deren kumulative Verbundverteilungsfunktion durch
 
 $$
@@ -26,10 +27,12 @@ gegeben. Somit gilt auch
 $$
 F_{XY}(x,y) = \int_{-\infty}^{x} \int_{-\infty}^{y} p_{XY}(u,v)\,\mathrm{d}u\,\mathrm{d}v.
 $$
+\end{definition}
 
 \subsection{Randverteilungen}
 \label{sec:randverteilungen}
 
+\begin{definition}[Randverteilungen]
 Die univariaten Verteilungsdichtefunktionen der Zufallsvariablen $X$ und $Y$ lassen sich mit
 
 $$
@@ -41,10 +44,12 @@ bestimmen. Diese werden Randverteilungen genannt. Für die Verteilungsfunktion e
 $$
 F_X(x) = F_{XY}(x, \infty) \quad \text{und} \quad F_Y(y) = F_{XY}(\infty, y).
 $$
+\end{definition}
 
 \subsection{Statistische Unabhängigkeit}
 \label{sec:statistische-unabhaengigkeit}
 
+\begin{definition}[Statistische Unabhängigkeit zweier Zufallsvariablen]
 Für zwei statistisch unabhängige Zufallsvariablen $X$ und $Y$ gilt:
 
 $$
@@ -56,10 +61,12 @@ und
 $$
 p_{XY}(x,y) = p_X(x) \cdot p_Y(y).
 $$
+\end{definition}
 
 \subsection{Momente der bivariaten Verteilungsdichte}
 \label{sec:bivariate-momente}
 
+\begin{satz}[Momententheorem für zwei Zufallsvariablen]
 Die Momente zweier Zufallsvariablen $X$ und $Y$ mit der VDF $p_{XY}(x,y)$ lassen sich mit dem folgenden Theorem ermitteln:
 
 $$
@@ -73,12 +80,14 @@ Speziell gilt im Fall $Z = g(X,Y) = aX + bY$
 $$
 \mathrm{E}\{aX + bY\} = a\,\mathrm{E}\{X\} + b\,\mathrm{E}\{Y\}.
 $$
+\end{satz}
 
 Hieraus folgern wir, dass die Berechnung des Erwartungswertes eine lineare Operation ist.
 
 \subsection{Kovarianz, Korrelation und Orthogonalität}
 \label{sec:kovarianz-korrelation}
 
+\begin{definition}[Kovarianz, Korrelationskoeffizient und Orthogonalität]
 Die Kovarianz von zwei Zufallsvariablen $X$ und $Y$ ist zu
 
 $$
@@ -100,11 +109,14 @@ Zwei Zufallsvariablen werden orthogonal genannt, wenn
 $$
 \mathrm{E}\{XY\} = 0 \quad \text{gilt.}
 $$
+\end{definition}
 
-Man beachte die Parallelität zu der entsprechenden Definition für determinierte Signale. Der Erwartungswert übernimmt hier die Rolle des inneren Produkts.
+\begin{bemerkung}
+Man beachte die Parallelität zu der entsprechenden Definition für determinierte Signale (Kapitel~\ref{chap:inneres-produkt}). Der Erwartungswert übernimmt hier die Rolle des inneren Produkts.
+\end{bemerkung}
 
 \begin{beispiel}[Bivariate Normalverteilung]
-Zwei Zufallsvariablen $X$ und $Y$ sind gemeinsam normalverteilt, wenn ihre Verbundverteilungsdichtefunktion durch
+Zwei Zufallsvariablen $X$ und $Y$ sind gemeinsam normalverteilt (vgl.\ Abschnitt~\ref{sec:normalverteilung}), wenn ihre Verbundverteilungsdichtefunktion durch
 
 $$
 p_{XY}(x,y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-r_{XY}^2}} \exp\!\left(-\frac{1}{2(1-r_{XY}^2)}\left[\frac{(x-\mu_X)^2}{\sigma_X^2} - 2r_{XY}\frac{(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} + \frac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right)
@@ -127,6 +139,7 @@ der Zufallsvariablen $X$ und $Y$. Es gilt $|r_{XY}| \leq 1$.
 % Grafik: 3D-Oberfläche und Konturplot von p_XY(x,y) für μ_X=0, μ_Y=0, σ_X²=1, σ_Y²=1, r_XY=0{,}5
 \end{beispiel}
 
+\begin{beweis}[Unabhängigkeit impliziert Unkorreliertheit]
 Wir zeigen nun, dass zwei statistisch unabhängige Zufallsvariablen $X$ und $Y$ auch unkorreliert sind, d.\,h.
 
 $$
@@ -144,6 +157,7 @@ $$
 p_{XY}(x,y) = \frac{1}{2\pi\sigma_X\sigma_Y} \exp\!\left(-\frac{1}{2}\left[\frac{(x-\mu_X)^2}{\sigma_X^2} + \frac{(y-\mu_Y)^2}{\sigma_Y^2}\right]\right)
 = p_X(x) \cdot p_Y(y).
 $$
+\end{beweis}
 
 \subsection{Eine Funktion von zwei Zufallsvariablen}
 \label{sec:funktion-zwei-zv}
@@ -181,7 +195,7 @@ $$
 p_Z(z) = \int_{-\infty}^{\infty} p_X(x)\,p_Y(z-x)\,\mathrm{d}x.
 $$
 
-Offenbar führt die Addition zweier unabhängiger Zufallsvariablen auf die Faltung der zugehörigen Verteilungsdichtefunktionen!
+Offenbar führt die Addition zweier unabhängiger Zufallsvariablen auf die Faltung (Abschnitt~\ref{sec:faltungsintegral}) der zugehörigen Verteilungsdichtefunktionen!
 \end{beispiel}
 
 \subsection{Zwei Funktionen von zwei Zufallsvariablen}
@@ -210,7 +224,7 @@ bezeichnet. $\det(J(x_i, y_i))$ ist die Determinante dieser Matrix.
 \subsection{Ausblick: Zufallsprozesse}
 \label{sec:zufallsprozesse}
 
-Zufällige diskrete Signale lassen sich nun als Folge von Zufallsvariablen $X[k]$ definieren, wobei $k \in \mathbb{Z}$ zum Beispiel einen Zeitindex bezeichnet. Dabei können für jede Zufallsvariable $X[k]$ eine Verteilungsdichtefunktion und entsprechende statistische Mittelwerte angegeben werden. Zudem wird die statistische Abhängigkeit der Zufallsvariablen $X[k]$ und $X[l]$ mit Verbundverteilungsdichtefunktionen beschrieben. Für die Modellbildung sind besonders
+Zufällige diskrete Signale (Kapitel~\ref{chap:zufaellige-signale}) lassen sich nun als Folge von Zufallsvariablen $X[k]$ definieren, wobei $k \in \mathbb{Z}$ zum Beispiel einen Zeitindex bezeichnet. Dabei können für jede Zufallsvariable $X[k]$ eine Verteilungsdichtefunktion und entsprechende statistische Mittelwerte angegeben werden. Zudem wird die statistische Abhängigkeit der Zufallsvariablen $X[k]$ und $X[l]$ mit Verbundverteilungsdichtefunktionen beschrieben. Für die Modellbildung sind besonders
 
 \begin{itemize}
   \item stationäre Zufallsprozesse (alle $X[k]$ weisen die selbe Verteilungsdichtefunktion auf) und
