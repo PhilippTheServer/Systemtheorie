@@ -172,6 +172,7 @@ $$
 
 Werden nun alle Ereignisse eines Experiments betrachtet, so hat man es offensichtlich mit einer Menge von Mengen (jede Menge steht für ein Ereignis) zu tun. Dieses Konstrukt wird durch die Begriffe des Mengensystems und der Mengenalgebra formalisiert.
 
+\begin{definition}[Mengenkörper und Sigma-Algebra]
 \begin{itemize}
   \item Unter einem Mengensystem versteht man eine Menge, deren sämtliche Elemente selbst Mengen sind.
   \item Ein Mengensystem $\mathcal{F}$ heißt Mengenkörper, wenn die Vereinigungsmenge, die Schnittmenge und die Differenz $A - B$ von zwei Mengen $A$ und $B$ des Systems wieder dem Mengensystem angehören.
@@ -183,6 +184,7 @@ Werden nun alle Ereignisse eines Experiments betrachtet, so hat man es offensich
       \item $A_1, A_2, \ldots \in \mathcal{F} \Rightarrow \bigcup_{i=1}^{\infty} A_i \in \mathcal{F}$
     \end{enumerate}
 \end{itemize}
+\end{definition}
 
 \begin{beispiel}[Mengenkörper]
 Es wird eine Quelle betrachtet, die einen Strom binärer Zeichen liefert. Wenn die Ausgabe eines einzelnen Symbols als Ereignis angesehen wird, ist die Menge der Elementarereignisse durch $\Omega = \{\xi_1, \xi_2\} = \{0,1\}$ gegeben. Die Quelle sendet entweder $\xi_1 = 1$ oder $\xi_2 = 0$.
@@ -206,7 +208,9 @@ In diesem Fall ist die Konstruktion der $\sigma$-Algebra sehr einfach. Sie enth�
 
 Wenn die Menge der Elementarereignisse dem Intervall $[0,1] \in \mathbb{R}$ entspricht, erfordert die Definition eines Mengenkörpers zusätzliche Überlegungen. Man verwendet dann eine sogenannte Borel-Algebra:
 
+\begin{definition}[Borel-Algebra]
 Die Borel-Algebra $\mathcal{B}$ ist die kleinste $\sigma$-Algebra auf $[0,1]$, die alle Intervalle $(a,b)$ mit $0 \leq a < b \leq 1$ enthält.
+\end{definition}
 
 Im Fall \textit{kontinuierlicher Ereignisräume} (z.\,B.\ $\Omega = [0,1]$ oder $\Omega = \mathbb{R}$) werden Ereignisse also durch Intervalle repräsentiert.
 
@@ -234,6 +238,7 @@ Abschließend folgt eine Gegenüberstellung von Begriffen der Mengenlehre und de
 \section{Axiomatische Definition der Wahrscheinlichkeit}
 \label{sec:axiome-wahrscheinlichkeit}
 
+\begin{definition}[Axiome der Wahrscheinlichkeit (Kolmogorow)]
 Die Wahrscheinlichkeit eines Ereignisses $A_i$ aus einem Mengenkörper $\mathcal{F} = \{A_1, \ldots, A_i, \ldots, A_N\}$, wobei $A_i$ Teilmengen von $\Omega$ bezeichnen und in $\mathcal{F}$ enthalten sind, ist eine reelle Zahl $P(A_i)$ mit den folgenden Eigenschaften:
 
 \begin{itemize}
@@ -241,6 +246,7 @@ Die Wahrscheinlichkeit eines Ereignisses $A_i$ aus einem Mengenkörper $\mathcal
   \item Die Wahrscheinlichkeit $P(\Omega)$ des sicheren Ereignisses ist Eins, d.\,h.\ $P(\Omega) = 1$.
   \item Die Wahrscheinlichkeit, dass eines von zwei sich gegenseitig ausschließenden Ereignissen $A_i$ und $A_j$, $A_i \cap A_j = A_i \cdot A_j = \phi$ auftritt, ist $P(A_i + A_j) = P(A_i) + P(A_j)$.
 \end{itemize}
+\end{definition}
 
 Aus diesen drei Axiomen lassen sich alle weiteren Zusammenhänge der Wahrscheinlichkeitsrechnung widerspruchsfrei ableiten.
 
@@ -249,7 +255,9 @@ Aus diesen drei Axiomen lassen sich alle weiteren Zusammenhänge der Wahrscheinl
 
 Mit der Zuordnung von Wahrscheinlichkeiten zu Mengen wird ein Wahrscheinlichkeitsmaß $\mathbb{P}$ definiert.
 
+\begin{definition}[Wahrscheinlichkeitsraum]
 Das Triple $(\Omega, \mathcal{F}, \mathbb{P})$ wird Wahrscheinlichkeitsraum genannt. Dabei ist $\Omega \neq \phi$ eine Menge, $\mathcal{F}$ eine $\sigma$-Algebra über $\Omega$ und $\mathbb{P}$ ein Wahrscheinlichkeitsmaß auf $\Omega$.
+\end{definition}
 
 Diese Konstruktion stellt sicher, dass widerspruchsfrei mit Mengen und den zugehörigen Wahrscheinlichkeiten gerechnet werden kann.
 
@@ -264,6 +272,7 @@ Im Fall von Experimenten mit endlich vielen Elementarereignissen werden der Meng
 
 $\mathcal{F}$ wird dann aus der Gesamtheit aller Teilmengen von $\Omega$ gebildet, wobei man für ein Ereignis $A_i = \{\xi_{i_1}, \ldots, \xi_{i_k}\}$ die Wahrscheinlichkeit zu $P(A_i) = P(\xi_{i_1}) + \cdots + P(\xi_{i_k})$ setzt.
 
+\begin{definition}[Laplace-Experiment]
 Treten alle Ergebnisse eines Experiments gleichwahrscheinlich auf, so wird das Experiment Laplace-Experiment genannt. Es gilt dann
 
 $$
@@ -271,6 +280,7 @@ P(\xi) = \frac{1}{|\Omega|},
 $$
 
 wobei $|\Omega|$ die Mächtigkeit (Kardinalität, Anzahl der Elemente einer Menge) der Menge $\Omega$ bezeichnet.
+\end{definition}
 
 \begin{beispiel}[Laplace Experimente]
 Beim Wurf eines Würfels kann dieser auf einer seiner sechs Seiten liegen bleiben und zeigt oben eine der sechs Zahlen $\Omega = \{1,2,3,4,5,6\}$. Diese Elementarereignisse schließen sich gegenseitig aus. Der \textit{ideale} (oder faire) Würfel ist dadurch definiert, dass die sechs möglichen Elementarereignisse gleichwahrscheinlich auftreten.
@@ -325,11 +335,13 @@ $$
 \subsection{Kartesische Produktmengen}
 \label{sec:kartesische-produktmengen}
 
+\begin{definition}[Kartesisches Produkt]
 \begin{itemize}
   \item Gegeben sind zwei Mengen $\Omega_\Xi = \{\xi_1, \ldots, \xi_K\}$ und $\Omega_E = \{\eta_1, \ldots, \eta_L\}$.
   \item $(\xi_i, \eta_j)$ mit $\xi_i \in \Omega_\Xi$ und $\eta_j \in \Omega_E$ bezeichnet ein geordnetes Paar von Elementarereignissen.
   \item Unter dem kartesischen Produkt $\Omega_\Xi \times \Omega_E$ der Mengen $\Omega_\Xi$ und $\Omega_E$ versteht man die Menge aller geordneten Paare $(\xi_i, \eta_j)$ mit $\xi_i \in \Omega_\Xi$ und $\eta_j \in \Omega_E$.
 \end{itemize}
+\end{definition}
 
 Anmerkungen:
 
@@ -489,7 +501,7 @@ mögliche Ergebnisse.
 \begin{beispiel}[Stichprobe]
 Eine Quelle sendet ein binäres Codewort mit $n = 16$ Bit, wobei das Ereignis $\xi_1 = 0$ mit der Wahrscheinlichkeit $P(\xi_1) = 0{,}6$ im Codewort auftritt. Die Bits des Codeworts sind statistisch unabhängig.
 
-Wie groß ist die Wahrscheinlichkeit, dass genau $s = 6$ Bits mit $\xi_2 = 1$ im Codewort enthalten sind?
+Wie groß ist die Wahrscheinlichkeit, dass genau $s = 6$ Bits mit $\xi_2 = 1$ im Codewort enthalten sind? Es handelt sich um eine Binomialverteilung (Abschnitt~\ref{sec:binomialverteilung}):
 
 $$
 P(s \text{ mal } \xi_2) = \binom{n}{s} P(\xi_2)^s (1 - P(\xi_2))^{n-s}
@@ -505,20 +517,26 @@ $$
 
 Der Wahrscheinlichkeitsraum für elementare Ereignisse mehrfacher Versuche kann mit Hilfe des kartesischen Produkts konstruiert werden. Dabei ist von Bedeutung, dass sich die Elementarereignisse gegenseitig ausschließen und eine vollständige Abdeckung des Raums erreicht wird. Darüber hinaus ist aber auch die gemeinsame Betrachtung beliebiger Ereignisse von Interesse. Diese Ereignisse müssen sich nicht unbedingt gegenseitig ausschließen.
 
+\begin{definition}[Verbundwahrscheinlichkeit]
 Generell wird die Wahrscheinlichkeit, dass zwei Ereignisse $A_i \in \mathcal{A}$ und $B_j \in \mathcal{B}$ gemeinsam auftreten, als Verbundwahrscheinlichkeit bezeichnet und mit $P(A_i, B_j) = P(B_j, A_i)$ angegeben. Im Fall, dass diese Ereignisse statistisch unabhängig sind (und nur dann), wird die Verbundwahrscheinlichkeit zu
 
 $$
 P(A_i, B_j) = P(A_i) \cdot P(B_j)
 $$
 
-berechnet. Zum Beispiel kann mit $A_i$ das Ergebnis eines ersten Wurfs und mit $B_j$ das Ergebnis eines zweiten Wurfs eines Würfels angegeben werden.
+berechnet.
+\end{definition}
 
+Zum Beispiel kann mit $A_i$ das Ergebnis eines ersten Wurfs und mit $B_j$ das Ergebnis eines zweiten Wurfs eines Würfels angegeben werden.
+
+\begin{definition}[Partition]
 Ein Mengensystem $\mathcal{B} = \{B_1, B_2, \ldots\}$ von Teilmengen einer Menge $\Omega$ heißt Partition von $\Omega$, falls
 
 \begin{enumerate}
   \item $B_i B_j = \phi$ \quad (paarweise disjunkt)
   \item $\Omega = B_1 + B_2 + \ldots$ \quad gilt.
 \end{enumerate}
+\end{definition}
 
 Die Wahrscheinlichkeiten für das Auftreten der einzelnen sich gegenseitig ausschließenden Ereignisse $A_i \in \mathcal{A}$ oder $B_j \in \mathcal{B}$ kann wieder aus den Verbundwahrscheinlichkeiten berechnet werden, indem man die Wahrscheinlichkeiten sämtlicher möglicher Ereignisse des jeweils anderen Experiments summiert. Man erhält für $N$ Ereignisse $A_1 \ldots A_N$ und $N$ Ereignisse $B_1 \ldots B_N$
 
