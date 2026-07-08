@@ -334,3 +334,163 @@ verschiebt den Mittelwert nach $0$ und skaliert die Spannweite auf $1$
 $\sigma_X$ statt der Intervalllänge $b - a$).
 
 \end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Zusatzaufgabe – Faltung von Rechteckimpuls und Exponentialsystem}
+% ----------------------------------------------------------------
+
+Ein LTI-System besitzt die Impulsantwort
+
+$$
+h(t) = 3\, e^{-t/(4T)}\, \epsilon(t)
+= \begin{cases} 3\, e^{-t/(4T)} & , \quad t \geq 0 \\[2pt] 0 & , \quad t < 0, \end{cases}
+$$
+
+wobei $\epsilon(t)$ der Einheitssprung (Abschnitt~\ref{sec:elementare-analoge-signale})
+und $T > 0$ eine feste Zeitkonstante ist. Am Eingang liegt der Rechteckimpuls
+
+$$
+x(t) = 3\, \operatorname{rect}\!\left(\frac{t - 2T}{2T}\right)
+= \begin{cases} 3 & , \quad 2T \leq t < 4T \\[2pt] 0 & , \quad \text{sonst.} \end{cases}
+$$
+
+Dabei wurde die Skript-Definition
+$\operatorname{rect}(u) = 1$ für $0 \leq u < 1$ (sonst $0$) verwendet; das
+Argument $\tfrac{t-2T}{2T}$ liegt genau für $2T \leq t < 4T$ in diesem Bereich.
+Der Rechteckimpuls hat also die Breite $2T$, die Höhe $3$ und beginnt bei $2T$.
+
+% ---- a) --------------------------------------------------------
+\subsubsection*{a) BIBO-Stabilität des Systems}
+
+\begin{beispiel}[BIBO-Stabilität über die absolute Integrierbarkeit der Impulsantwort]
+
+\textbf{Gegeben:} Impulsantwort $h(t) = 3\, e^{-t/(4T)}\, \epsilon(t)$ mit
+$T > 0$.
+
+\textbf{Gesucht:} Ist das durch $h(t)$ beschriebene LTI-System BIBO-stabil?
+
+\textbf{Formel} (hinreichende und für LTI-Systeme notwendige Bedingung --
+absolute Integrierbarkeit der Impulsantwort,
+Abschnitt~\ref{sec:faltung-eigenschaften}):
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty
+$$
+
+\textbf{Rechnung:}
+
+Da $h(\xi) \geq 0$ für alle $\xi$ und $h(\xi) = 0$ für $\xi < 0$ gilt:
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi
+= \int_0^{\infty} 3\, e^{-\xi/(4T)}\,\mathrm{d}\xi
+= 3\left[-4T\, e^{-\xi/(4T)}\right]_0^{\infty}
+= 3 \cdot 4T \cdot (0 - (-1)) = 12\,T.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi = 12\,T < \infty
+\quad\Longrightarrow\quad \text{System ist BIBO-stabil.}\;}
+$$
+
+Die Impulsantwort ist für jedes endliche $T > 0$ absolut integrierbar, das
+System also BIBO-stabil. Anschaulich klingt die Exponentialfunktion schnell
+genug ab, so dass ein beschränktes Eingangssignal stets ein beschränktes
+Ausgangssignal erzeugt.
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) Faltung $y(t) = x(t) * h(t)$}
+
+\begin{beispiel}[Faltung eines Rechteckimpulses mit einer Exponential-Impulsantwort]
+
+\textbf{Gegeben:} $x(t) = 3$ für $2T \leq t < 4T$ (sonst $0$) sowie
+$h(t) = 3\, e^{-t/(4T)}\, \epsilon(t)$.
+
+\textbf{Gesucht:} Das Ausgangssignal $y(t) = x(t) * h(t)$.
+
+\textbf{Formel} (Faltungsintegral, Abschnitt~\ref{sec:faltungsintegral}):
+
+$$
+y(t) = \int_{-\infty}^{\infty} x(\tau)\, h(t - \tau)\,\mathrm{d}\tau
+$$
+
+\textbf{Rechnung:}
+
+Der Integrand ist nur dort von null verschieden, wo \emph{beide} Faktoren
+ungleich null sind. $x(\tau)$ verlangt $2T \leq \tau < 4T$, und
+$h(t - \tau)$ verlangt $t - \tau \geq 0$, also $\tau \leq t$. Der Integrand
+lautet dort $x(\tau)\,h(t-\tau) = 3 \cdot 3\, e^{-(t-\tau)/(4T)} = 9\, e^{-(t-\tau)/(4T)}$.
+Es sind drei Fälle zu unterscheiden.
+
+\emph{Fall 1 -- $t < 2T$ (noch keine Überlappung):} Die Bedingung $\tau \leq t$
+schließt das gesamte Rechteck aus, somit
+
+$$
+y(t) = 0.
+$$
+
+\emph{Fall 2 -- $2T \leq t < 4T$ (das System „lädt sich auf``):}
+Die Überlappung reicht von $\tau = 2T$ bis $\tau = t$:
+
+$$
+y(t) = 9 \int_{2T}^{t} e^{-(t-\tau)/(4T)}\,\mathrm{d}\tau
+     = 9 \left[4T\, e^{-(t-\tau)/(4T)}\right]_{\tau = 2T}^{\tau = t}
+     = 36\,T\left(1 - e^{-(t - 2T)/(4T)}\right).
+$$
+
+\emph{Fall 3 -- $t \geq 4T$ (das gesamte Rechteck ist überstrichen, „Abklingen``):}
+Die Überlappung umfasst das volle Rechteck von $\tau = 2T$ bis $\tau = 4T$:
+
+$$
+y(t) = 9 \int_{2T}^{4T} e^{-(t-\tau)/(4T)}\,\mathrm{d}\tau
+     = 36\,T\left(e^{-(t - 4T)/(4T)} - e^{-(t - 2T)/(4T)}\right)
+     = 36\,T\left(e - \sqrt{e}\,\right) e^{-t/(4T)}.
+$$
+
+Kontrolle der Stetigkeit an den Nahtstellen: Bei $t = 2T$ liefert Fall~2
+$y(2T) = 0$, bei $t = 4T$ liefern Fall~2 und Fall~3 übereinstimmend
+$y(4T) = 36\,T\,(1 - e^{-1/2}) \approx 14{,}17\,T$. \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;y(t) = \begin{cases}
+0 & , \quad t < 2T \\[4pt]
+36\,T\left(1 - e^{-(t - 2T)/(4T)}\right) & , \quad 2T \leq t < 4T \\[4pt]
+36\,T\left(e^{-(t - 4T)/(4T)} - e^{-(t - 2T)/(4T)}\right) & , \quad t \geq 4T
+\end{cases}\;}
+$$
+
+Das Ausgangssignal steigt im Intervall $[2T, 4T)$ von $0$ auf den Maximalwert
+$36\,T\,(1 - e^{-1/2}) \approx 14{,}17\,T$ an (aufladender Ast) und klingt
+danach exponentiell mit der Zeitkonstante $4T$ wieder ab. Die abrupten Flanken
+des Rechtecks werden durch die Exponential-Impulsantwort „verschliffen`` -- ein
+typisches Tiefpassverhalten.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=11cm, height=6cm,
+  xmin=0, xmax=16, ymin=-1, ymax=17,
+  axis lines=center,
+  xlabel={$t/T$}, ylabel={$y(t)/T$},
+  xtick={0,2,4,6,8,10,12,14,16},
+  ytick={0,5,10,15},
+  tick label style={font=\small},
+  domain=0:16, samples=200,
+  every axis plot/.append style={very thick},
+]
+\addplot[blue] coordinates {(0,0) (2,0)};
+\addplot[blue, domain=2:4]  {36*(1 - exp(-(x-2)/4))};
+\addplot[blue, domain=4:16] {36*(exp(-(x-4)/4) - exp(-(x-2)/4))};
+\draw[dashed, gray] (axis cs:4,0) -- (axis cs:4,14.17);
+\node[anchor=south, font=\small] at (axis cs:4,14.17) {$\approx 14{,}17\,T$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
