@@ -236,3 +236,101 @@ Standardisierung ist die Grundlage für die Nutzung tabellierter Werte der
 Standardnormalverteilung $\Phi(y)$ für beliebige normalverteilte Größen.
 
 \end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.1 – Transformation auf eine Standard-Gleichverteilung}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Gleichverteilung auf einem Intervall zur Standard-Gleichverteilung]
+
+\textbf{Gegeben:} Eine auf dem Intervall $[a, b]$ (mit $a < b$) gleichverteilte
+Zufallsvariable $X$ (Abschnitt~\ref{sec:gleichverteilung}):
+
+$$
+p_X(x) = \begin{cases} \dfrac{1}{b - a} & , \quad a \leq x \leq b \\[6pt]
+0 & , \quad \text{sonst.} \end{cases}
+$$
+
+\textbf{Gesucht:} Eine Transformation $Y = g(X)$, so dass $Y$ auf dem Intervall
+$\left[-\tfrac{1}{2}, \tfrac{1}{2}\right]$ gleichverteilt ist, sowie der
+Nachweis über die transformierte Dichte $p_Y(y)$.
+
+\textbf{Formel} (lineare Transformation $Y = cX + d$ und Transformationssatz,
+Abschnitt~\ref{sec:monotone-transformation}):
+
+$$
+p_Y(y) = \frac{p_X\!\left(g^{-1}(y)\right)}{\left|\, g'\!\left(g^{-1}(y)\right)\right|}
+$$
+
+\textbf{Rechnung:}
+
+\emph{Ansatz.} Da beide Intervalle die Endpunkte einer Gleichverteilung
+festlegen, genügt eine \emph{lineare} und streng monoton steigende
+Transformation $Y = cX + d$, welche die Intervallgrenzen aufeinander abbildet:
+
+$$
+g(a) = -\tfrac{1}{2}, \qquad g(b) = +\tfrac{1}{2}.
+$$
+
+Die Steigung ergibt sich aus dem Verhältnis der Intervalllängen:
+
+$$
+c = \frac{\tfrac{1}{2} - \left(-\tfrac{1}{2}\right)}{b - a} = \frac{1}{b - a}.
+$$
+
+Der Versatz $d$ folgt aus $g(a) = -\tfrac{1}{2}$:
+
+$$
+d = -\tfrac{1}{2} - \frac{a}{b - a} = -\frac{a + b}{2\,(b - a)}.
+$$
+
+Zusammengefasst lässt sich die Transformation kompakt als Zentrierung um den
+Mittelwert $\mu_X = \tfrac{a+b}{2}$ und Normierung auf die Intervalllänge
+schreiben:
+
+$$
+Y = g(X) = \frac{X - \dfrac{a + b}{2}}{b - a}.
+$$
+
+\emph{Kontrolle der Grenzen:}
+
+$$
+g(a) = \frac{a - \tfrac{a+b}{2}}{b - a} = \frac{-\tfrac{b-a}{2}}{b-a} = -\tfrac{1}{2},
+\qquad
+g(b) = \frac{b - \tfrac{a+b}{2}}{b - a} = \frac{\tfrac{b-a}{2}}{b-a} = +\tfrac{1}{2}.
+\quad\checkmark
+$$
+
+\emph{Dichte.} Die Funktion $g$ ist streng monoton steigend mit
+
+$$
+x = g^{-1}(y) = (b - a)\, y + \frac{a + b}{2}, \qquad
+g'(x) = \frac{1}{b - a}, \qquad |g'(x)| = \frac{1}{b - a}.
+$$
+
+Einsetzen in den Transformationssatz für $y \in \left[-\tfrac12, \tfrac12\right]$
+(dort ist $g^{-1}(y) \in [a, b]$, also $p_X = \tfrac{1}{b-a}$):
+
+$$
+p_Y(y) = \frac{p_X\!\left(g^{-1}(y)\right)}{|g'|}
+       = \frac{\dfrac{1}{b - a}}{\dfrac{1}{b - a}}
+       = 1.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;Y = \frac{X - \dfrac{a + b}{2}}{b - a}
+\quad\Longrightarrow\quad
+p_Y(y) = \begin{cases} 1 & , \quad -\tfrac{1}{2} \leq y \leq \tfrac{1}{2} \\[4pt]
+0 & , \quad \text{sonst.} \end{cases}\;}
+$$
+
+$Y$ ist also auf $\left[-\tfrac{1}{2}, \tfrac{1}{2}\right]$ gleichverteilt; die
+Dichte hat dort den Wert $1$, da das Zielintervall die Länge $1$ besitzt. Die
+Transformation entspricht einer Standardisierung der Gleichverteilung: Sie
+verschiebt den Mittelwert nach $0$ und skaliert die Spannweite auf $1$
+(analog zur Standardisierung der Normalverteilung in Teil~B, dort jedoch mit
+$\sigma_X$ statt der Intervalllänge $b - a$).
+
+\end{beispiel}
