@@ -1,0 +1,238 @@
+\section{Übung 10 – Funktion und Transformation von Zufallsvariablen}
+
+In dieser Übung wird die Vorrechenaufgabe~10 gelöst. Es geht darum, aus der
+bekannten Dichte einer Zufallsvariablen $X$ die Dichte einer transformierten
+Zufallsvariablen $Y = g(X)$ zu bestimmen. Teil~A behandelt Funktionen einer
+exponentialverteilten Zufallsvariablen (eine quadratische und eine lineare
+Transformation), Teil~B die Standardisierung einer normalverteilten
+Zufallsvariablen. Grundlage ist der Transformationssatz für streng monotone
+Funktionen aus Abschnitt~\ref{sec:monotone-transformation}.
+
+% ----------------------------------------------------------------
+\subsection*{Teil A – Funktion einer exponentialverteilten Zufallsvariablen}
+% ----------------------------------------------------------------
+
+Die Zufallsvariable $X$ ist exponentialverteilt
+(Abschnitt~\ref{sec:exponentialverteilung}) mit Parameter $\lambda > 0$:
+
+$$
+p_X(x) = \begin{cases} \lambda\, e^{-\lambda x} & , \quad x \geq 0 \\[2pt]
+0 & , \quad \text{sonst.} \end{cases}
+$$
+
+Der Träger von $X$ ist also $[0, \infty)$. Diese Einschränkung ist für die
+Wahl der Umkehrfunktion entscheidend.
+
+% ---- A1 --------------------------------------------------------
+\subsubsection*{A1 – Quadratische Transformation $Y = X^2$}
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- $Y = X^2$]
+
+\textbf{Gegeben:} Exponentialverteilte Zufallsvariable $X$ mit Dichte
+$p_X(x) = \lambda e^{-\lambda x}$ für $x \geq 0$ und Parameter $\lambda > 0$.
+Transformation $Y = g(X) = X^2$.
+
+\textbf{Gesucht:} Die Wahrscheinlichkeitsdichte $p_Y(y)$ der transformierten
+Zufallsvariablen $Y$.
+
+\textbf{Formel} (Transformationssatz für streng monotone Funktionen,
+Abschnitt~\ref{sec:monotone-transformation}):
+
+$$
+p_Y(y) = \frac{p_X\!\left(g^{-1}(y)\right)}{\left|\, g'\!\left(g^{-1}(y)\right)\right|}
+$$
+
+\textbf{Rechnung:}
+
+Zwar ist $g(x) = x^2$ auf ganz $\mathbb{R}$ \emph{nicht} streng monoton, auf dem
+Träger $x \geq 0$ von $X$ jedoch streng monoton steigend. Es kommt daher nur die
+\emph{positive} Wurzel als Umkehrfunktion in Frage:
+
+$$
+x = g^{-1}(y) = \sqrt{y}, \qquad y \geq 0.
+$$
+
+Die Ableitung von $g(x) = x^2$ ist $g'(x) = 2x$, an der Stelle $x = \sqrt{y}$
+also
+
+$$
+\left|\, g'\!\left(\sqrt{y}\right)\right| = 2\sqrt{y}.
+$$
+
+Einsetzen in den Transformationssatz liefert für $y \geq 0$:
+
+$$
+p_Y(y) = \frac{p_X\!\left(\sqrt{y}\right)}{2\sqrt{y}}
+       = \frac{\lambda\, e^{-\lambda \sqrt{y}}}{2\sqrt{y}}.
+$$
+
+Für $y < 0$ existiert kein reelles Urbild, also $p_Y(y) = 0$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \begin{cases}
+\dfrac{\lambda}{2\sqrt{y}}\, e^{-\lambda \sqrt{y}} & , \quad y > 0 \\[8pt]
+0 & , \quad \text{sonst.}
+\end{cases}\;}
+$$
+
+An der Stelle $y \to 0^+$ besitzt die Dichte wegen des Faktors
+$1/(2\sqrt{y})$ eine (integrierbare) Polstelle -- die Wahrscheinlichkeitsmasse
+wird durch das Quadrieren nahe null stark „gestaucht``. Zur Kontrolle gilt
+weiterhin $\int_0^\infty p_Y(y)\,\mathrm{d}y = 1$ (Substitution
+$y = x^2$ führt auf das Integral der Ausgangsdichte).
+
+\end{beispiel}
+
+% ---- A2 --------------------------------------------------------
+\subsubsection*{A2 – Lineare Transformation $Y = aX + b$}
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- $Y = aX + b$]
+
+\textbf{Gegeben:} Exponentialverteilte Zufallsvariable $X$ mit Dichte
+$p_X(x) = \lambda e^{-\lambda x}$ für $x \geq 0$. Lineare Transformation
+$Y = g(X) = aX + b$ mit Konstanten $a \neq 0$ und $b \in \mathbb{R}$.
+
+\textbf{Gesucht:} Die Wahrscheinlichkeitsdichte $p_Y(y)$ der transformierten
+Zufallsvariablen $Y$.
+
+\textbf{Formel} (Transformationssatz für streng monotone Funktionen,
+Abschnitt~\ref{sec:monotone-transformation}):
+
+$$
+p_Y(y) = \frac{p_X\!\left(g^{-1}(y)\right)}{\left|\, g'\!\left(g^{-1}(y)\right)\right|}
+$$
+
+\textbf{Rechnung:}
+
+Die lineare Funktion $g(x) = ax + b$ ist wegen $a \neq 0$ streng monoton und
+eindeutig umkehrbar:
+
+$$
+x = g^{-1}(y) = \frac{y - b}{a}, \qquad g'(x) = a, \qquad |g'(x)| = |a|.
+$$
+
+Einsetzen ergibt zunächst formal
+
+$$
+p_Y(y) = \frac{1}{|a|}\, p_X\!\left(\frac{y - b}{a}\right).
+$$
+
+Die Ausgangsdichte $p_X$ ist nur für ein nichtnegatives Argument von null
+verschieden, also für $\dfrac{y - b}{a} \geq 0$. Für den typischen Fall
+$a > 0$ bedeutet das $y \geq b$, und man erhält
+
+$$
+p_Y(y) = \frac{\lambda}{a}\,
+         \exp\!\left(-\lambda\,\frac{y - b}{a}\right), \qquad y \geq b.
+$$
+
+\textbf{Lösung} (Fall $a > 0$):
+
+$$
+\boxed{\;p_Y(y) = \begin{cases}
+\dfrac{\lambda}{a}\, \exp\!\left(-\dfrac{\lambda}{a}\,(y - b)\right)
+  & , \quad y \geq b \\[8pt]
+0 & , \quad y < b.
+\end{cases}\;}
+$$
+
+$Y$ ist damit wieder \emph{exponentialverteilt}, allerdings um $b$ nach rechts
+verschoben und mit dem neuen Parameter $\lambda' = \lambda/a$. Der Faktor $a$
+skaliert die Zufallsvariable und verkleinert entsprechend den Ratenparameter
+(im Fall $a < 0$ kehrt sich der Träger zu $y \leq b$ um; die kompakte
+Bedingung lautet allgemein $\tfrac{y-b}{a} \geq 0$, und der Vorfaktor ist
+$\lambda/|a|$).
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Teil B – Standardisierung einer normalverteilten Zufallsvariablen}
+% ----------------------------------------------------------------
+
+% ---- B1 --------------------------------------------------------
+\subsubsection*{B1 – Transformation auf die Standardnormalverteilung}
+
+\begin{beispiel}[Standardisierung $X \sim \mathcal{N}(\mu_X, \sigma_X^2) \to Y \sim \mathcal{N}(0,1)$]
+
+\textbf{Gegeben:} Normalverteilte Zufallsvariable $X$
+(Abschnitt~\ref{sec:normalverteilung}) mit Mittelwert $\mu_X$ und Varianz
+$\sigma_X^2 > 0$:
+
+$$
+p_X(x) = \frac{1}{\sqrt{2\pi}\,\sigma_X}\,
+         \exp\!\left(-\frac{(x - \mu_X)^2}{2\sigma_X^2}\right).
+$$
+
+\textbf{Gesucht:} Eine lineare Transformation $Y = g(X)$, so dass $Y$
+standardnormalverteilt ist ($\mu_Y = 0$, $\sigma_Y^2 = 1$), sowie der Nachweis
+über die transformierte Dichte $p_Y(y)$.
+
+\textbf{Formel} (Standardisierung sowie Transformationssatz,
+Abschnitt~\ref{sec:monotone-transformation}):
+
+$$
+Y = \frac{X - \mu_X}{\sigma_X}, \qquad
+p_Y(y) = \frac{p_X\!\left(g^{-1}(y)\right)}{\left|\, g'\!\left(g^{-1}(y)\right)\right|}
+$$
+
+\textbf{Rechnung:}
+
+\emph{Ansatz.} Die Standardisierung subtrahiert den Mittelwert und normiert auf
+die Standardabweichung:
+
+$$
+Y = g(X) = \frac{X - \mu_X}{\sigma_X}.
+$$
+
+Dass diese Wahl die geforderten Momente erzeugt, folgt direkt aus der
+Linearität von Erwartungswert (Abschnitt~\ref{sec:erwartungswert}) und Varianz:
+
+$$
+\mu_Y = \mathrm{E}\{Y\} = \frac{\mathrm{E}\{X\} - \mu_X}{\sigma_X} = 0,
+\qquad
+\sigma_Y^2 = \mathrm{var}\{Y\} = \frac{\mathrm{var}\{X\}}{\sigma_X^2}
+           = \frac{\sigma_X^2}{\sigma_X^2} = 1.
+$$
+
+\emph{Dichte.} Die Funktion $g(x) = (x - \mu_X)/\sigma_X$ ist streng monoton
+steigend mit Umkehrfunktion und Ableitung
+
+$$
+x = g^{-1}(y) = \sigma_X\, y + \mu_X, \qquad
+g'(x) = \frac{1}{\sigma_X}, \qquad |g'(x)| = \frac{1}{\sigma_X}.
+$$
+
+Einsetzen in den Transformationssatz:
+
+$$
+p_Y(y) = \frac{p_X\!\left(\sigma_X\, y + \mu_X\right)}{1/\sigma_X}
+       = \sigma_X\, p_X\!\left(\sigma_X\, y + \mu_X\right).
+$$
+
+Nun wird $x = \sigma_X y + \mu_X$ in die Normaldichte eingesetzt; im Exponenten
+gilt $(x - \mu_X)^2 = (\sigma_X y)^2 = \sigma_X^2\, y^2$:
+
+$$
+p_Y(y) = \sigma_X \cdot \frac{1}{\sqrt{2\pi}\,\sigma_X}\,
+         \exp\!\left(-\frac{\sigma_X^2\, y^2}{2\sigma_X^2}\right)
+       = \frac{1}{\sqrt{2\pi}}\, \exp\!\left(-\frac{y^2}{2}\right).
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;Y = \frac{X - \mu_X}{\sigma_X}
+\quad\Longrightarrow\quad
+p_Y(y) = \frac{1}{\sqrt{2\pi}}\, e^{-y^2/2}
+= \mathcal{N}(y;\, 0,\, 1)\;}
+$$
+
+$Y$ ist also standardnormalverteilt. Die Standardabweichung $\sigma_X$ aus dem
+Betrag der Ableitung kürzt sich exakt gegen den Vorfaktor der Ausgangsdichte,
+und die Verschiebung um $\mu_X$ verschwindet im Exponenten. Diese
+Standardisierung ist die Grundlage für die Nutzung tabellierter Werte der
+Standardnormalverteilung $\Phi(y)$ für beliebige normalverteilte Größen.
+
+\end{beispiel}
