@@ -1,4 +1,6 @@
-\section{Übung 7 – Zufallsereignisse und statistische Abhängigkeit}
+\section{Übung 7 – Wahrscheinlichkeitsräume}
+
+\subsection*{Vorrechenaufgabe 7 – Zufallsereignisse und statistische Abhängigkeit}
 
 Zwei bzw.\ sechs ideale Würfel werden geworfen. Alle Teilaufgaben folgen dem
 Laplace-Modell (vgl.\ Abschnitt~\ref{sec:axiome-wahrscheinlichkeit}).
@@ -479,5 +481,588 @@ Obwohl beide Randwahrscheinlichkeiten identisch zu Teil~C2 sind ($P = 0{,}5$), w
 die Verbundwahrscheinlichkeiten vom Produkt der Randwahrscheinlichkeiten ab. Benachbarte
 Bildpunkte in einem realen Bild sind typischerweise statistisch abhängig, da ähnliche
 Farben in räumlicher Nähe häufiger gemeinsam auftreten.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 7.1 – Mengenlehre}
+% ================================================================
+
+Gegeben ist der in Bild~1 des Aufgabenblatts dargestellte Ergebnisraum $\Omega$ mit
+den Elementarereignissen $\xi_1,\ldots,\xi_9$ und den beiden Ereignissen
+$A_1$ und $A_2$ (vgl.\ Abschnitte~\ref{sec:mengen-ereignisse}
+und~\ref{sec:mengenoperationen}).
+
+\begin{center}
+\begin{tikzpicture}[every node/.style={font=\small}]
+  % Grundmenge Omega
+  \draw[thick] (-0.4,-0.4) rectangle (8.4,4.4);
+  \node at (8.0,0.0) {$\Omega$};
+  % Ellipse A1 (links)
+  \draw[thick] (3.0,2.0) ellipse (2.2cm and 1.15cm);
+  \node at (1.4,1.3) {$A_1$};
+  % Ellipse A2 (rechts)
+  \draw[thick] (5.2,2.3) ellipse (2.0cm and 1.2cm);
+  \node at (6.6,2.9) {$A_2$};
+  % Elementarereignisse
+  \fill (0.6,3.7) circle (1.5pt); \node[above right] at (0.6,3.7) {$\xi_1$};
+  \fill (7.6,3.9) circle (1.5pt); \node[above right] at (7.6,3.9) {$\xi_6$};
+  \fill (2.4,2.4) circle (1.5pt); \node[above right] at (2.4,2.4) {$\xi_2$};
+  \fill (4.0,2.4) circle (1.5pt); \node[above right] at (4.0,2.4) {$\xi_3$};
+  \fill (5.4,3.0) circle (1.5pt); \node[above right] at (5.4,3.0) {$\xi_5$};
+  \fill (4.1,1.9) circle (1.5pt); \node[above right] at (4.1,1.9) {$\xi_7$};
+  \fill (5.0,1.7) circle (1.5pt); \node[above right] at (5.0,1.7) {$\xi_4$};
+  \fill (2.9,1.4) circle (1.5pt); \node[above right] at (2.9,1.4) {$\xi_8$};
+  \fill (7.4,0.7) circle (1.5pt); \node[above right] at (7.4,0.7) {$\xi_9$};
+\end{tikzpicture}
+
+{\small Bild~1: Mengen $A_1$, $A_2$ und $\Omega$}
+\end{center}
+
+\begin{beispiel}[Schnitt, Vereinigung und Komplemente]
+
+\textbf{Gegeben:} Aus Bild~1 liest man die Zuordnung der Elementarereignisse ab
+(Abschnitt~\ref{sec:ereignis-teilmenge}):
+
+$$
+\Omega = \{\xi_1,\xi_2,\xi_3,\xi_4,\xi_5,\xi_6,\xi_7,\xi_8,\xi_9\},\qquad
+A_1 = \{\xi_2,\xi_3,\xi_7,\xi_8\},\qquad
+A_2 = \{\xi_3,\xi_4,\xi_5,\xi_7\}
+$$
+
+Im Schnittbereich liegen $\xi_3$ und $\xi_7$; außerhalb beider Ereignisse liegen
+$\xi_1$, $\xi_6$ und $\xi_9$.
+
+\textbf{Gesucht:} a) $A_1\cap A_2$ und $A_1\cup A_2$;\quad b) $A_1\cap\Omega$ und
+$A_1\cup\Omega$;\quad c) $\overline{A_1}$, $\overline{A_2}$ und $\overline{\Omega}$.
+
+\textbf{Formel} (Mengenoperationen, Abschnitt~\ref{sec:mengenoperationen}):
+
+$$
+A\cap B = \{\xi : \xi\in A \wedge \xi\in B\},\qquad
+A\cup B = \{\xi : \xi\in A \vee \xi\in B\},\qquad
+\overline{A} = \Omega\setminus A
+$$
+
+\textbf{Rechnung:}
+
+\emph{a)} Gemeinsame Elemente bzw.\ Zusammenfassung aller Elemente:
+
+$$
+A_1\cap A_2 = \{\xi_3,\xi_7\},\qquad
+A_1\cup A_2 = \{\xi_2,\xi_3,\xi_4,\xi_5,\xi_7,\xi_8\}
+$$
+
+\emph{b)} Da $A_1\subseteq\Omega$ ist, gilt $A_1\cap\Omega = A_1$ und $A_1\cup\Omega=\Omega$:
+
+$$
+A_1\cap\Omega = \{\xi_2,\xi_3,\xi_7,\xi_8\},\qquad
+A_1\cup\Omega = \Omega = \{\xi_1,\ldots,\xi_9\}
+$$
+
+\emph{c)} Komplemente bezüglich $\Omega$ (alle nicht enthaltenen Elementarereignisse):
+
+$$
+\overline{A_1} = \{\xi_1,\xi_4,\xi_5,\xi_6,\xi_9\},\qquad
+\overline{A_2} = \{\xi_1,\xi_2,\xi_6,\xi_8,\xi_9\},\qquad
+\overline{\Omega} = \varnothing
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{
+\begin{aligned}
+A_1\cap A_2 &= \{\xi_3,\xi_7\}, & A_1\cup A_2 &= \{\xi_2,\xi_3,\xi_4,\xi_5,\xi_7,\xi_8\}\\
+A_1\cap\Omega &= A_1, & A_1\cup\Omega &= \Omega\\
+\overline{A_1} &= \{\xi_1,\xi_4,\xi_5,\xi_6,\xi_9\}, & \overline{A_2} &= \{\xi_1,\xi_2,\xi_6,\xi_8,\xi_9\},\quad \overline{\Omega} = \varnothing
+\end{aligned}
+}
+$$
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 7.2 – Würfel am runden Tisch}
+% ================================================================
+
+Sechs Spieler sitzen an einem runden Tisch und werfen reihum einen idealen Würfel.
+Wer zuerst eine 6 würfelt, gewinnt. Gesucht ist die Gewinnwahrscheinlichkeit von
+\emph{Spieler~2}.
+
+\begin{beispiel}[Gewinnwahrscheinlichkeit von Spieler 2]
+
+\textbf{Gegeben:} Idealer Würfel, unabhängige Würfe
+(Abschnitt~\ref{sec:unabhaengige-versuche}). Ein Wurf ist eine 6 mit
+$p = \tfrac{1}{6}$ und keine 6 mit $q = 1-p = \tfrac{5}{6}$. In jeder Runde würfeln
+die Spieler in der Reihenfolge $1,2,\ldots,6$. Spieler~2 kommt als zweiter an die Reihe.
+
+\textbf{Gesucht:} $P(\text{Spieler 2 gewinnt})$ a) in der 1.\ Runde, b) in der 2.\ Runde,
+c) in einer beliebigen Runde.
+
+\textbf{Formel} (Produktregel bei Unabhängigkeit, Abschnitt~\ref{sec:unabhaengige-versuche};
+geometrische Reihe für Teil c):
+
+$$
+P(\text{Sieg in Runde } n) = q^{\,6(n-1)+1}\cdot p,\qquad
+\sum_{n=1}^{\infty} q^{\,6(n-1)} = \frac{1}{1-q^{6}}
+$$
+
+\textbf{Rechnung:}
+
+\emph{a)} Damit Spieler~2 in Runde~1 gewinnt, muss Spieler~1 versagen ($q$) und
+Spieler~2 eine 6 werfen ($p$):
+
+$$
+P_1 = q\cdot p = \frac{5}{6}\cdot\frac{1}{6} = \frac{5}{36} \approx 0{,}1389
+$$
+
+\emph{b)} Für einen Sieg in Runde~2 müssen in Runde~1 alle sechs Spieler versagen
+($q^{6}$), dann Spieler~1 in Runde~2 versagen ($q$) und Spieler~2 eine 6 werfen ($p$),
+also $6+1 = 7$ Fehlversuche vor dem Treffer:
+
+$$
+P_2 = q^{7}\cdot p = \left(\frac{5}{6}\right)^{7}\cdot\frac{1}{6}
+= \frac{78\,125}{279\,936}\cdot\frac{1}{6}
+= \frac{78\,125}{1\,679\,616} \approx 0{,}0465
+$$
+
+\emph{c)} Über alle Runden ist die Gewinnwahrscheinlichkeit die Summe der geometrischen
+Reihe mit Quotient $q^{6}$:
+
+$$
+P = \sum_{n=1}^{\infty} q^{\,6(n-1)+1}\,p
+= q\,p\sum_{n=1}^{\infty}\bigl(q^{6}\bigr)^{n-1}
+= \frac{q\,p}{1-q^{6}}
+= \frac{\tfrac{5}{36}}{1-\left(\tfrac{5}{6}\right)^{6}}
+$$
+
+Mit $\left(\tfrac{5}{6}\right)^{6} = \tfrac{15\,625}{46\,656}$ folgt
+$1-\left(\tfrac{5}{6}\right)^{6} = \tfrac{31\,031}{46\,656}$ und damit
+
+$$
+P = \frac{5}{36}\cdot\frac{46\,656}{31\,031}
+= \frac{6\,480}{31\,031} \approx 0{,}2088
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{
+P_1 = \frac{5}{36} \approx 0{,}139,\qquad
+P_2 = \frac{78\,125}{1\,679\,616} \approx 0{,}0465,\qquad
+P = \frac{6\,480}{31\,031} \approx 0{,}209
+}
+$$
+
+Zum Vergleich gewinnt Spieler~1 mit $\tfrac{7\,776}{31\,031}\approx 0{,}251$; die
+Gewinnchance nimmt mit der Sitzposition ab, da frühere Spieler zuerst würfeln.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 7.3 – Binäre Quelle}
+% ================================================================
+
+Eine binäre Nachrichtenquelle liefert unabhängige Symbole ``0'' und ``1'' mit
+$P(0) = 0{,}4$, also $P(1) = 1 - P(0) = 0{,}6$.
+
+\begin{beispiel}[a) Einzelnes Symbol]
+
+\textbf{Gegeben:} Ein einzelnes Symbol der Quelle, $P(0)=0{,}4$, $P(1)=0{,}6$.
+
+\textbf{Gesucht:} Ergebnisraum $\Omega$ und Auftrittswahrscheinlichkeiten.
+
+\textbf{Formel} (Elementarereignisse, Abschnitt~\ref{sec:mengen-ereignisse}).
+
+\textbf{Rechnung:} Es gibt genau zwei mögliche Symbole:
+
+$$
+\Omega = \{0,\,1\},\qquad P(0) = 0{,}4,\qquad P(1) = 0{,}6
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\Omega = \{0,\,1\},\qquad P(0) = 0{,}4,\qquad P(1) = 0{,}6}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[b) $\sigma$-Algebra für zwei Symbole]
+
+\textbf{Gegeben:} Zwei aufeinanderfolgende, unabhängige Symbole; Ergebnisraum
+$\Omega_2 = \{00,01,10,11\}$. Ereignisse $A = \{\text{erstes Symbol}=1\} = \{10,11\}$
+und $B = \{\text{zweites Symbol}=1\} = \{01,11\}$.
+
+\textbf{Gesucht:} Elemente der von $A$ und $B$ erzeugten $\sigma$-Algebra mit
+Wahrscheinlichkeiten (Abschnitt~\ref{sec:mengenalgebra}).
+
+\textbf{Formel} (Verbundwahrscheinlichkeit bei Unabhängigkeit,
+Abschnitt~\ref{sec:verbundwahrscheinlichkeiten}): $P(xy) = P(x)\,P(y)$.
+
+\textbf{Rechnung:} Die Wahrscheinlichkeiten der Elementarereignisse sind
+
+$$
+P(00)=0{,}16,\quad P(01)=0{,}24,\quad P(10)=0{,}24,\quad P(11)=0{,}36.
+$$
+
+Aus $A$ und $B$ lassen sich durch Schnitt und Komplement alle vier Elementarereignisse
+erzeugen:
+
+$$
+A\cap B = \{11\},\quad A\cap\overline{B}=\{10\},\quad \overline{A}\cap B=\{01\},\quad
+\overline{A}\cap\overline{B}=\{00\}.
+$$
+
+Da alle vier Einermengen (Atome) enthalten sind, ist die erzeugte $\sigma$-Algebra die
+gesamte Potenzmenge $\mathcal{P}(\Omega_2)$ mit $2^{4} = 16$ Elementen:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ll|ll}
+Ereignis & $P$ & Ereignis & $P$ \\
+\hline
+$\varnothing$        & $0$      & $\{01,10\}$          & $0{,}48$ \\
+$\{00\}$             & $0{,}16$ & $\{01,11\}$          & $0{,}60$ \\
+$\{01\}$             & $0{,}24$ & $\{10,11\}$          & $0{,}60$ \\
+$\{10\}$             & $0{,}24$ & $\{00,01,10\}$       & $0{,}64$ \\
+$\{11\}$             & $0{,}36$ & $\{00,01,11\}$       & $0{,}76$ \\
+$\{00,01\}$          & $0{,}40$ & $\{00,10,11\}$       & $0{,}76$ \\
+$\{00,10\}$          & $0{,}40$ & $\{01,10,11\}$       & $0{,}84$ \\
+$\{00,11\}$          & $0{,}52$ & $\Omega_2$           & $1{,}00$ \\
+\end{tabular}
+\end{center}
+
+\textbf{Lösung:}
+
+$$
+\boxed{\mathcal{F} = \mathcal{P}(\Omega_2),\quad |\mathcal{F}| = 16;\quad
+P(A)=P(10,11)=0{,}60,\quad P(B)=P(01,11)=0{,}60}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[c) Drei Symbole – Elementarereignisse]
+
+\textbf{Gegeben:} Drei aufeinanderfolgende, unabhängige Symbole.
+
+\textbf{Gesucht:} Ergebnisraum $\Omega_3$ und Auftrittswahrscheinlichkeiten.
+
+\textbf{Formel} (Unabhängigkeit, Abschnitt~\ref{sec:unabhaengige-versuche}):
+$P = 0{,}6^{\,j}\cdot 0{,}4^{\,3-j}$ bei $j$ Einsen.
+
+\textbf{Rechnung:} $\Omega_3$ enthält $2^{3}=8$ Elementarereignisse:
+
+$$
+\Omega_3 = \{000,001,010,011,100,101,110,111\}
+$$
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|c|c}
+Anzahl Einsen $j$ & Elementarereignisse & Wahrscheinlichkeit \\
+\hline
+$0$ & $000$ & $0{,}4^{3} = 0{,}064$ \\
+$1$ & $001,\,010,\,100$ & $0{,}6\cdot 0{,}4^{2} = 0{,}096$ \\
+$2$ & $011,\,101,\,110$ & $0{,}6^{2}\cdot 0{,}4 = 0{,}144$ \\
+$3$ & $111$ & $0{,}6^{3} = 0{,}216$ \\
+\end{tabular}
+\end{center}
+
+Probe: $0{,}064 + 3\cdot 0{,}096 + 3\cdot 0{,}144 + 0{,}216 = 1$ \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{|\Omega_3| = 8;\quad P(j\text{ Einsen}) = 0{,}6^{\,j}\,0{,}4^{\,3-j}}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[d) Kleinste $\sigma$-Algebra für ``zweimal die 1'']
+
+\textbf{Gegeben:} Ereignis $C = \{\text{drei Symbole enthalten zweimal die 1}\}
+= \{011,101,110\}$.
+
+\textbf{Gesucht:} Kleinste $\sigma$-Algebra, die $C$ enthält
+(Abschnitt~\ref{sec:mengenalgebra}).
+
+\textbf{Formel:} Eine $\sigma$-Algebra ist abgeschlossen unter Komplement und
+Vereinigung und enthält $\varnothing$ und $\Omega_3$.
+
+\textbf{Rechnung:} Aus $C$ ergibt sich zwingend das Komplement
+
+$$
+\overline{C} = \{000,001,010,100,111\},
+$$
+
+sowie $\varnothing$ und $\Omega_3$. Diese vier Mengen sind bereits abgeschlossen:
+
+$$
+\mathcal{F}_{\min} = \{\varnothing,\; C,\; \overline{C},\; \Omega_3\}
+$$
+
+Wahrscheinlichkeiten:
+
+$$
+P(\varnothing)=0,\quad P(C)=3\cdot 0{,}144 = 0{,}432,\quad
+P(\overline{C}) = 1-0{,}432 = 0{,}568,\quad P(\Omega_3)=1.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\mathcal{F}_{\min} = \{\varnothing,\,C,\,\overline{C},\,\Omega_3\},\quad
+P(C)=0{,}432,\ P(\overline{C})=0{,}568}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[e) Genau zweimal die 1]
+
+\textbf{Gegeben:} Drei Symbole, $P(1)=0{,}6$.
+
+\textbf{Gesucht:} $P(\text{genau zweimal ``1''})$.
+
+\textbf{Formel} (Binomialformel, Abschnitt~\ref{sec:kombinatorik}):
+$P = \binom{n}{s}p^{s}(1-p)^{n-s}$.
+
+\textbf{Rechnung:}
+
+$$
+P = \binom{3}{2}\,0{,}6^{2}\,0{,}4^{1} = 3\cdot 0{,}36\cdot 0{,}4 = 0{,}432
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{genau zweimal ``1''}) = 0{,}432}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[f) Zweites Bit ist ``1'']
+
+\textbf{Gegeben:} Unabhängige Symbole, $P(1)=0{,}6$.
+
+\textbf{Gesucht:} $P(\text{zweites Bit}=1)$.
+
+\textbf{Formel} (Randwahrscheinlichkeit, Abschnitt~\ref{sec:verbundwahrscheinlichkeiten}).
+
+\textbf{Rechnung:} Wegen der Unabhängigkeit ist das zweite Bit von den übrigen
+unabhängig, also gleich der Einzelsymbol-Wahrscheinlichkeit:
+
+$$
+P(\text{zweites Bit}=1) = P(1) = 0{,}6
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{zweites Bit}=1) = 0{,}6}
+$$
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 7.4 – Mehrfache, unabhängige Versuche}
+% ================================================================
+
+Der E-Automobilhersteller \textsc{Gauss Motors Inc.} produziert pro Quartal an drei
+Standorten. Die Mängelrate Europas fehlt, ist aber um $25\,\%$ besser als die
+Nordamerikas ($8\,\%$), also $0{,}08\cdot(1-0{,}25) = 0{,}06 = 6\,\%$.
+
+\begin{beispiel}[a) Wahrscheinlichkeiten der Gesamtproduktion]
+
+\textbf{Gegeben:} Stückzahlen und Mängelraten (lokal bezogen):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l|c|c}
+Standort & Stückzahl & Mängelrate \\
+\hline
+Asien       & $27\,000$ & $5\,\%$ \\
+Europa      & $36\,000$ & $6\,\%$ \\
+Nordamerika & $27\,000$ & $8\,\%$ \\
+\hline
+Gesamt      & $90\,000$ & \\
+\end{tabular}
+\end{center}
+
+\textbf{Gesucht:} für ein zufällig gezogenes Fabrikat der Gesamtproduktion
+i) $P(\text{mangelhaft})$, ii) $P(\text{nicht mangelhaft})$,
+iii) $P(\text{nicht mangelhaft} \wedge \text{Nordamerika})$.
+
+\textbf{Formel} (Standort-Randwahrscheinlichkeit und Verbundwahrscheinlichkeit,
+Abschnitte~\ref{sec:verbundwahrscheinlichkeiten}
+und~\ref{sec:unabhaengige-versuche}):
+
+$$
+P(\text{Standort}) = \frac{\text{Stückzahl}}{90\,000},\qquad
+P(M,\text{Standort}) = P(\text{Standort})\cdot(\text{Mängelrate})
+$$
+
+\textbf{Rechnung:} Standort-Randwahrscheinlichkeiten:
+
+$$
+P(\text{As}) = \tfrac{27\,000}{90\,000} = 0{,}3,\qquad
+P(\text{Eu}) = \tfrac{36\,000}{90\,000} = 0{,}4,\qquad
+P(\text{NA}) = \tfrac{27\,000}{90\,000} = 0{,}3.
+$$
+
+Tabelle der Auftritts- (Verbund-) und Randwahrscheinlichkeiten, $M$ = mangelhaft,
+$\overline{M}$ = nicht mangelhaft:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|ccc|c}
+ & Asien & Europa & Nordamerika & Rand $P(\cdot)$ \\
+\hline
+$M$            & $0{,}015$ & $0{,}024$ & $0{,}024$ & $0{,}063$ \\
+$\overline{M}$ & $0{,}285$ & $0{,}376$ & $0{,}276$ & $0{,}937$ \\
+\hline
+Rand $P(\cdot)$ & $0{,}3$ & $0{,}4$ & $0{,}3$ & $1{,}0$ \\
+\end{tabular}
+\end{center}
+
+Damit:
+
+$$
+P(M) = 0{,}015+0{,}024+0{,}024 = 0{,}063,\qquad
+P(\overline{M}) = 1 - P(M) = 0{,}937,
+$$
+$$
+P(\overline{M}\wedge\text{NA}) = P(\text{NA})\cdot(1-0{,}08) = 0{,}3\cdot 0{,}92 = 0{,}276.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{
+P(M)=0{,}063,\qquad P(\overline{M})=0{,}937,\qquad
+P(\overline{M}\wedge\text{NA})=0{,}276
+}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[b) Ergebnisraum eines mangelhaften Fabrikats]
+
+\textbf{Gegeben:} Aus der Weltproduktion wird ein \emph{mangelhaftes} Fabrikat gezogen.
+Anzahl mangelhafter Stücke je Standort:
+As $27\,000\cdot 0{,}05 = 1\,350$, Eu $36\,000\cdot 0{,}06 = 2\,160$,
+NA $27\,000\cdot 0{,}08 = 2\,160$; gesamt $5\,670$.
+
+\textbf{Gesucht:} Menge $\Omega_M$ der Elementarereignisse und deren Wahrscheinlichkeiten.
+
+\textbf{Formel} (bedingte Wahrscheinlichkeit, Abschnitt~\ref{sec:bedingte-wahrscheinlichkeit}):
+$P(\text{Standort}\mid M) = \dfrac{P(M,\text{Standort})}{P(M)}$.
+
+\textbf{Rechnung:} Ein mangelhaftes Fabrikat stammt von genau einem der drei Standorte:
+
+$$
+\Omega_M = \{\text{As},\,\text{Eu},\,\text{NA}\}
+$$
+
+$$
+P(\text{As}\mid M) = \frac{1\,350}{5\,670} = \frac{5}{21} \approx 0{,}238,\quad
+P(\text{Eu}\mid M) = \frac{2\,160}{5\,670} = \frac{8}{21} \approx 0{,}381,\quad
+P(\text{NA}\mid M) = \frac{2\,160}{5\,670} = \frac{8}{21} \approx 0{,}381.
+$$
+
+Probe: $\tfrac{5}{21}+\tfrac{8}{21}+\tfrac{8}{21} = 1$ \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{
+\Omega_M = \{\text{As},\text{Eu},\text{NA}\},\quad
+P(\text{As})=\tfrac{5}{21},\ P(\text{Eu})=P(\text{NA})=\tfrac{8}{21}
+}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[c) Kartesisches Produkt zweier Stichproben]
+
+\textbf{Gegeben:} Zwei unabhängig gezogene mangelhafte Stichproben mit Ergebnisraum
+$\Omega_M$ je Ziehung.
+
+\textbf{Gesucht:} $\Omega = \Omega_M\times\Omega_M$
+(Abschnitt~\ref{sec:kartesische-produktmengen}).
+
+\textbf{Rechnung:} $\Omega$ enthält $3\cdot 3 = 9$ geordnete Paare:
+
+$$
+\Omega = \Omega_M\times\Omega_M = \left\{
+\begin{aligned}
+&(\text{As},\text{As}),\,(\text{As},\text{Eu}),\,(\text{As},\text{NA}),\\
+&(\text{Eu},\text{As}),\,(\text{Eu},\text{Eu}),\,(\text{Eu},\text{NA}),\\
+&(\text{NA},\text{As}),\,(\text{NA},\text{Eu}),\,(\text{NA},\text{NA})
+\end{aligned}
+\right\}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{|\Omega| = |\Omega_M|^{2} = 9}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[d) Beide Stichproben vom gleichen Standort]
+
+\textbf{Gegeben:} Unabhängige Ziehungen mit $P(\text{As})=\tfrac{5}{21}$,
+$P(\text{Eu})=P(\text{NA})=\tfrac{8}{21}$.
+
+\textbf{Gesucht:} $P(\text{gleicher Standort})$.
+
+\textbf{Formel} (Unabhängigkeit, Abschnitt~\ref{sec:unabhaengige-versuche}):
+
+$$
+P(\text{gleich}) = \sum_{s} P(s)^{2}
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(\text{gleich}) = \left(\frac{5}{21}\right)^{2} + \left(\frac{8}{21}\right)^{2}
++ \left(\frac{8}{21}\right)^{2}
+= \frac{25+64+64}{441} = \frac{153}{441} = \frac{17}{49} \approx 0{,}347
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{gleicher Standort}) = \frac{17}{49} \approx 0{,}347}
+$$
+
+\end{beispiel}
+
+\begin{beispiel}[e) Stichproben von unterschiedlichen Standorten]
+
+\textbf{Gegeben:} Ergebnis aus d).
+
+\textbf{Gesucht:} $P(\text{unterschiedliche Standorte})$.
+
+\textbf{Formel} (Komplementregel, Abschnitt~\ref{sec:axiome-wahrscheinlichkeit}):
+
+$$
+P(\text{unterschiedlich}) = 1 - P(\text{gleich})
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(\text{unterschiedlich}) = 1 - \frac{17}{49} = \frac{32}{49} \approx 0{,}653
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(\text{unterschiedliche Standorte}) = \frac{32}{49} \approx 0{,}653}
+$$
 
 \end{beispiel}
