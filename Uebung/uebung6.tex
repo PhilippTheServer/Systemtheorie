@@ -1,0 +1,1238 @@
+\section{Übung 6 – Parametrische zeitdiskrete Systeme}
+
+Diese Übung behandelt zeitdiskrete Systeme, ihre Beschreibung durch
+Blockdiagramme und Differenzengleichungen sowie ihre Eigenschaften
+(Gedächtnis, Verschiebungsinvarianz, BIBO-Stabilität, Linearität).
+Grundlagen: Systemeigenschaften (Abschnitt~\ref{sec:verschiebungsinvarianz}
+und~\ref{sec:weitere-systemeigenschaften}), diskrete Faltung und
+LSI-Systeme (Abschnitt~\ref{sec:diskrete-faltung}
+und~\ref{sec:lsi-eigenschaften}), parametrische Systeme
+(Abschnitt~\ref{sec:parametrische-systeme}) sowie diskrete
+Zustandsraummodelle (Abschnitt~\ref{sec:diskrete-zustandsraum}).
+
+% Gemeinsame TikZ-Stile für die Blockdiagramme
+\tikzset{
+  >=Latex,
+  sumk/.style={circle, draw, minimum size=6mm, inner sep=0pt},
+  multk/.style={circle, draw, minimum size=6mm, inner sep=0pt},
+  delayk/.style={draw, rectangle, minimum size=7mm, inner sep=2pt},
+}
+
+% ================================================================
+\subsection*{Vorrechenaufgabe 6 – Zeitdiskrete Systeme und Blockdiagramme}
+% ================================================================
+
+% ---- a) i) -----------------------------------------------------
+\subsubsection*{a) i) Elemente eines Blockdiagramms}
+
+\begin{beispiel}[Elemente eines Blockdiagramms]
+
+\textbf{Gegeben:} Beschreibung zeitdiskreter Systeme durch Blockdiagramme
+(vgl.\ Abschnitt~\ref{sec:parametrische-systeme}).
+
+\textbf{Gesucht:} Alle aus der Vorlesung bekannten Elemente eines Blockdiagramms.
+
+\textbf{Lösung:}
+
+\begin{itemize}
+  \item \textbf{Signallinie mit Pfeil} — legt die Signalflussrichtung fest.
+  \item \textbf{Verzweigung (Abzweig)} — ein Signal wird abgegriffen und
+        unverändert auf mehrere Pfade verteilt (als Punkt $\bullet$ dargestellt).
+  \item \textbf{Summierer / Addierer} ($+$ im Kreis) — bildet die Summe der
+        zulaufenden Signale; einzelne Eingänge können mit einem
+        Minuszeichen subtrahiert werden.
+  \item \textbf{Multiplizierer / Verstärker} ($\times$ im Kreis) — multipliziert
+        das Eingangssignal mit einem konstanten Faktor oder zwei Signale
+        miteinander.
+  \item \textbf{Verzögerungsglied} (Rechteck mit $T_A$) — verzögert das
+        zeitdiskrete Signal um einen Abtastschritt: $x[k] \mapsto x[k-1]$.
+\end{itemize}
+
+\end{beispiel}
+
+% ---- a) ii) ----------------------------------------------------
+\subsubsection*{a) ii) Berechnungsvorschriften der drei Blockdiagramme}
+
+\begin{beispiel}[System \textcircled{\footnotesize 1}: Differenzbildner]
+
+\textbf{Gegeben:} Blockdiagramm \textcircled{\footnotesize 1}.
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x) at (0,0) {$x[k]$};
+  \coordinate (b) at (1.6,0);
+  \node[sumk] (S) at (3.6,0) {$+$};
+  \node (y) at (5.2,0) {$y[k]$};
+  \node[delayk] (D) at (2.4,-1.3) {$T_A$};
+  \node at (3.7,-0.32) {\scriptsize$-$};
+  \draw[->] (x) -- (S);
+  \draw[->] (S) -- (y);
+  \fill (b) circle (1.5pt);
+  \draw (b) -- (1.6,-1.3) -- (D.west);
+  \draw[->] (D.east) -- (3.6,-1.3) -- (S.south);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Gesucht:} Berechnungsvorschrift $y[k]$.
+
+\textbf{Rechnung:} Das Eingangssignal wird verzweigt; ein Pfad wird um
+$T_A$ verzögert und am Summierer subtrahiert.
+
+\textbf{Lösung:}
+
+$$
+\boxed{y[k] = x[k] - x[k-1]}
+$$
+
+Ein nichtrekursiver Differenzbildner (FIR, vgl.\ Abschnitt~\ref{sec:fir}).
+
+\end{beispiel}
+
+\begin{beispiel}[System \textcircled{\footnotesize 2}: Akkumulator]
+
+\textbf{Gegeben:} Blockdiagramm \textcircled{\footnotesize 2}.
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x) at (0,0) {$x[k]$};
+  \node[sumk] (S) at (2,0) {$+$};
+  \coordinate (b) at (3.6,0);
+  \node (y) at (5.2,0) {$y[k]$};
+  \node[delayk] (D) at (2.8,-1.3) {$T_A$};
+  \draw[->] (x) -- (S);
+  \draw[->] (S) -- (y);
+  \fill (b) circle (1.5pt);
+  \draw (b) -- (3.6,-1.3) -- (D.east);
+  \draw[->] (D.west) -- (2,-1.3) -- (S.south);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Gesucht:} Berechnungsvorschrift $y[k]$.
+
+\textbf{Rechnung:} Das Ausgangssignal wird um $T_A$ verzögert und auf den
+Eingang zurückgeführt.
+
+\textbf{Lösung:}
+
+$$
+\boxed{y[k] = x[k] + y[k-1]}
+$$
+
+Ein rekursiver Akkumulator (IIR, vgl.\ Abschnitt~\ref{sec:iir}).
+
+\end{beispiel}
+
+\begin{beispiel}[System \textcircled{\footnotesize 3}: Produkt zweier Summensignale]
+
+\textbf{Gegeben:} Blockdiagramm \textcircled{\footnotesize 3} mit zwei Eingängen $x_1[k]$, $x_2[k]$.
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x1) at (0,0.6) {$x_1[k]$};
+  \node (x2) at (0,-0.6) {$x_2[k]$};
+  \node[sumk] (S) at (2.4,0) {$+$};
+  \coordinate (b) at (3.3,0);
+  \node[delayk] (D) at (3.3,1.2) {$T_A$};
+  \node[multk] (M) at (4.6,0) {$\times$};
+  \node (y) at (6.1,0) {$y[k]$};
+  \draw[->] (x1) -- (1.4,0.6) |- (S.150);
+  \draw[->] (x2) -- (1.4,-0.6) |- (S.210);
+  \draw[->] (S) -- (M);
+  \fill (b) circle (1.5pt);
+  \draw (b) -- (D.south);
+  \draw[->] (D.east) -| (M.north);
+  \draw[->] (M) -- (y);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Gesucht:} Berechnungsvorschrift $y[k]$.
+
+\textbf{Rechnung:} Mit der Zwischengröße $s[k] = x_1[k] + x_2[k]$ wird das
+undverzögerte Summensignal mit seiner um $T_A$ verzögerten Version
+multipliziert.
+
+\textbf{Lösung:}
+
+$$
+\boxed{y[k] = \bigl(x_1[k]+x_2[k]\bigr)\cdot\bigl(x_1[k-1]+x_2[k-1]\bigr)}
+$$
+
+\end{beispiel}
+
+% ---- a) iii) ---------------------------------------------------
+\subsubsection*{a) iii) Systemeigenschaften der drei Systeme}
+
+\begin{beispiel}[Eigenschaften der Systeme \textcircled{\footnotesize 1}–\textcircled{\footnotesize 3}]
+
+\textbf{Gegeben:} Die Berechnungsvorschriften aus a)~ii).
+
+\textbf{Gesucht:} gedächtnislos, verschiebungsinvariant, BIBO-stabil,
+linear? (Kriterien: Abschnitte~\ref{sec:verschiebungsinvarianz}
+und~\ref{sec:weitere-systemeigenschaften}.)
+
+\textbf{Lösung:}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+System & gedächtnislos & verschieb.-invariant & BIBO-stabil & linear \\
+\midrule
+\textcircled{\footnotesize 1} $y=x[k]-x[k-1]$          & nein & ja & ja   & ja   \\
+\textcircled{\footnotesize 2} $y=x[k]+y[k-1]$          & nein & ja & nein & ja   \\
+\textcircled{\footnotesize 3} $y=s[k]\,s[k-1]$          & nein & ja & ja   & nein \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Begründungen:}
+\begin{itemize}
+  \item \textbf{Gedächtnis:} Alle drei greifen auf um $T_A$ verzögerte Werte
+        zurück $\Rightarrow$ keines ist gedächtnislos.
+  \item \textbf{Verschiebungsinvarianz:} Alle Koeffizienten sind konstant
+        (keine explizite $k$-Abhängigkeit) $\Rightarrow$ alle verschiebungsinvariant.
+  \item \textbf{BIBO:} \textcircled{\footnotesize 1}~$|y[k]|\le 2\,x_{\max}$ (stabil). \textcircled{\footnotesize 2}~ist ein
+        Akkumulator: ein konstanter, beschränkter Eingang liefert einen
+        unbeschränkt anwachsenden Ausgang $\Rightarrow$ \emph{nicht} stabil.
+        \textcircled{\footnotesize 3}~$|y[k]|\le (2\,x_{\max})^2$ (stabil).
+  \item \textbf{Linearität:} \textcircled{\footnotesize 1} und \textcircled{\footnotesize 2} sind Linearkombinationen von
+        Signalwerten (linear). \textcircled{\footnotesize 3} enthält ein Produkt zweier Signale
+        $\Rightarrow$ \emph{nichtlinear}.
+\end{itemize}
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) System mit Impulsantwort $h[k]$ und Eingang $x[k]$}
+
+Aus den Plots werden folgende Werte abgelesen (Sprünge in Einheiten von $B$):
+
+$$
+h[0]=0,\quad h[1]=-B,\quad h[2]=-\tfrac{2}{3}B,\quad
+h[3]=-\tfrac{1}{3}B,\quad h[4]=0,
+$$
+$$
+x[k]=A\bigl(\delta[k]+\delta[k-1]\bigr),\qquad
+\text{d.\,h. } x[0]=x[1]=A .
+$$
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=7.5cm, height=4.2cm,
+  axis lines=middle, xlabel=$k$, ylabel={$h[k]/B$},
+  xmin=-0.5, xmax=4.6, ymin=-1.2, ymax=0.35,
+  xtick={0,1,2,3,4},
+  ytick={-1,-0.6667,-0.3333,0},
+  ymajorgrids, grid style={gray!30},
+  enlargelimits=false,
+]
+\addplot[ycomb, mark=*, thick, color=accent] coordinates
+  {(0,0) (1,-1) (2,-0.6667) (3,-0.3333) (4,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+% ---- b) i) -----------------------------------------------------
+\begin{beispiel}[b) i) Geschlossene Ausdrücke für x und h]
+
+\textbf{Gegeben:} Abgelesene Werte oben.
+
+\textbf{Gesucht:} $x[k]$ und $h[k]$ als geschlossene Ausdrücke.
+
+\textbf{Rechnung:} Für $k=1,2,3$ liegen die Werte auf der Geraden
+$-\tfrac{B}{3}(4-k)$; außerhalb ist $h[k]=0$. Die Fensterung erfolgt mit
+Sprungfolgen (vgl.\ Abschnitt~\ref{sec:fir}).
+
+\textbf{Lösung:}
+
+$$
+\boxed{\,x[k] = A\bigl(\delta[k]+\delta[k-1]\bigr)\,}
+$$
+$$
+\boxed{\,h[k] = -\frac{B}{3}\,(4-k)\,\bigl(\varepsilon[k-1]-\varepsilon[k-4]\bigr)\,}
+$$
+
+Probe: $h[1]=-\tfrac{B}{3}\cdot3=-B$, $h[2]=-\tfrac{2}{3}B$,
+$h[3]=-\tfrac{1}{3}B$, $h[4]=0$. \checkmark
+
+\end{beispiel}
+
+% ---- b) ii) ----------------------------------------------------
+\begin{beispiel}[b) ii) Faltung y = x * h]
+
+\textbf{Gegeben:} $x[k]=A(\delta[k]+\delta[k-1])$ und $h[k]$ aus b)~i).
+
+\textbf{Gesucht:} $y[k]=x[k]*h[k]$.
+
+\textbf{Formel} (diskrete Faltung, Abschnitt~\ref{sec:diskrete-faltung}):
+
+$$
+y[k] = \sum_{l=-\infty}^{\infty} x[l]\,h[k-l]
+     = A\bigl(h[k]+h[k-1]\bigr),
+$$
+
+denn die Faltung mit $\delta[k]+\delta[k-1]$ überlagert $h[k]$ mit seiner
+um einen Schritt verzögerten Kopie.
+
+\textbf{Rechnung:}
+
+$$
+\begin{array}{c|ccccccc}
+k        & 0 & 1  & 2            & 3   & 4            & 5 \\\hline
+h[k]     & 0 & -B & -\tfrac23 B  & -\tfrac13 B & 0 & 0 \\
+h[k-1]   & 0 & 0  & -B           & -\tfrac23 B & -\tfrac13 B & 0 \\\hline
+y[k]/A   & 0 & -B & -\tfrac53 B  & -B  & -\tfrac13 B  & 0
+\end{array}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;
+y[k] = A\cdot\Bigl(0,\,-B,\,-\tfrac{5}{3}B,\,-B,\,-\tfrac{1}{3}B,\,0\Bigr)
+\quad\text{für } k=0,\dots,5
+\;}
+$$
+
+\end{beispiel}
+
+% ---- b) iii) ---------------------------------------------------
+\begin{beispiel}[b) iii) Verlauf von y]
+
+\textbf{Gegeben:} $y[k]$ aus b)~ii).
+
+\textbf{Gesucht:} Skizze des Verlaufs.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=8cm, height=4.6cm,
+  axis lines=middle, xlabel=$k$, ylabel={$y[k]/(AB)$},
+  xmin=-0.5, xmax=5.6, ymin=-1.9, ymax=0.35,
+  xtick={0,1,2,3,4,5},
+  ytick={-1.6667,-1,-0.3333,0},
+  ymajorgrids, grid style={gray!30},
+  enlargelimits=false,
+]
+\addplot[ycomb, mark=*, thick, color=accent] coordinates
+  {(0,0) (1,-1) (2,-1.6667) (3,-1) (4,-0.3333) (5,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 6.1 – Nicht-rekursive Systeme}
+% ================================================================
+
+% ---- a) --------------------------------------------------------
+\begin{beispiel}[6.1a) Impulsantwort aus Dirac-Summe]
+
+\textbf{Gegeben:} $h[k]=\delta[k]+\delta[k-1]+\delta[k-2]+\delta[k-3]$.
+
+\textbf{Gesucht:} Differenzengleichung und Blockdiagramm.
+
+\textbf{Formel} (diskrete Faltung, Abschnitt~\ref{sec:diskrete-faltung}):
+$y[k]=\sum_l h[l]\,x[k-l]$.
+
+\textbf{Rechnung / Lösung:}
+
+$$
+\boxed{y[k] = x[k]+x[k-1]+x[k-2]+x[k-3]}
+$$
+
+Ein gleitender Summierer (FIR-Filter 3.~Ordnung).
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x)  at (0,0)   {$x[k]$};
+  \node[delayk] (D1) at (1.8,0) {$T_A$};
+  \node[delayk] (D2) at (3.6,0) {$T_A$};
+  \node[delayk] (D3) at (5.4,0) {$T_A$};
+  \draw[->] (x) -- (D1);
+  \draw[->] (D1) -- (D2);
+  \draw[->] (D2) -- (D3);
+  \draw[->] (D3) -- (6.6,0);
+  \node[sumk] (A1) at (2.7,-1.5) {$+$};
+  \node[sumk] (A2) at (4.5,-1.5) {$+$};
+  \node[sumk] (A3) at (6.3,-1.5) {$+$};
+  \node (y) at (7.5,-1.5) {$y[k]$};
+  % taps
+  \foreach \xt in {0.9,2.7,4.5,6.3} { \fill (\xt,0) circle (1.5pt); }
+  \draw (0.9,0) -- (0.9,-1.5) -- (A1.west);
+  \draw[->] (2.7,0) -- (A1.north);
+  \draw[->] (4.5,0) -- (A2.north);
+  \draw[->] (6.3,0) -- (A3.north);
+  \draw[->] (A1) -- (A2);
+  \draw[->] (A2) -- (A3);
+  \draw[->] (A3) -- (y);
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\begin{beispiel}[6.1b) Impulsantwort aus Sprungfolgen]
+
+\textbf{Gegeben:} $h[k]=\varepsilon[k]-2\varepsilon[k-2]+\varepsilon[k-4]$.
+
+\textbf{Gesucht:} Differenzengleichung und Blockdiagramm.
+
+\textbf{Rechnung:} Auswertung der Sprungfolgen ergibt die endliche
+Impulsantwort
+
+$$
+h[0]=1,\; h[1]=1,\; h[2]=-1,\; h[3]=-1,\quad h[k]=0 \text{ sonst.}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{y[k] = x[k]+x[k-1]-x[k-2]-x[k-3]}
+$$
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x)  at (0,0)   {$x[k]$};
+  \node[delayk] (D1) at (1.8,0) {$T_A$};
+  \node[delayk] (D2) at (3.6,0) {$T_A$};
+  \node[delayk] (D3) at (5.4,0) {$T_A$};
+  \draw[->] (x) -- (D1);
+  \draw[->] (D1) -- (D2);
+  \draw[->] (D2) -- (D3);
+  \draw[->] (D3) -- (6.6,0);
+  \node[sumk] (A1) at (2.7,-1.5) {$+$};
+  \node[sumk] (A2) at (4.5,-1.5) {$+$};
+  \node[sumk] (A3) at (6.3,-1.5) {$+$};
+  \node (y) at (7.5,-1.5) {$y[k]$};
+  \foreach \xt in {0.9,2.7,4.5,6.3} { \fill (\xt,0) circle (1.5pt); }
+  \draw (0.9,0) -- (0.9,-1.5) -- (A1.west);
+  \draw[->] (2.7,0) -- (A1.north);
+  \draw[->] (4.5,0) -- (A2.north);
+  \draw[->] (6.3,0) -- (A3.north);
+  \node at (2.95,-1.15) {\scriptsize$+$};
+  \node at (4.75,-1.15) {\scriptsize$-$};
+  \node at (6.55,-1.15) {\scriptsize$-$};
+  \draw[->] (A1) -- (A2);
+  \draw[->] (A2) -- (A3);
+  \draw[->] (A3) -- (y);
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\begin{beispiel}[6.1c) Differenzengleichung gegeben]
+
+\textbf{Gegeben:} Differenzengleichung
+$y[k]=x[k]-2x[k-1]+2x[k-2]-x[k-3]$.
+
+\textbf{Gesucht:} Blockdiagramm und Impulsantwort.
+
+\textbf{Rechnung:} Setzt man $x[k]=\delta[k]$ ein, folgt unmittelbar die
+Impulsantwort (vgl.\ Abschnitt~\ref{sec:impulsantwort}).
+
+\textbf{Lösung:}
+
+$$
+\boxed{h[k] = \delta[k]-2\delta[k-1]+2\delta[k-2]-\delta[k-3]}
+$$
+
+d.\,h. $h[0]=1,\; h[1]=-2,\; h[2]=2,\; h[3]=-1$.
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x)  at (0,0)   {$x[k]$};
+  \node[delayk] (D1) at (1.8,0) {$T_A$};
+  \node[delayk] (D2) at (3.6,0) {$T_A$};
+  \node[delayk] (D3) at (5.4,0) {$T_A$};
+  \draw[->] (x) -- (D1);
+  \draw[->] (D1) -- (D2);
+  \draw[->] (D2) -- (D3);
+  \draw[->] (D3) -- (6.6,0);
+  \foreach \xt in {0.9,2.7,4.5,6.3} { \fill (\xt,0) circle (1.5pt); }
+  % multipliers on taps
+  \node[multk] (M0) at (0.9,-1.0) {$\times$};
+  \node[multk] (M1) at (2.7,-1.0) {$\times$};
+  \node[multk] (M2) at (4.5,-1.0) {$\times$};
+  \node[multk] (M3) at (6.3,-1.0) {$\times$};
+  \node[right=1pt of M0] {\scriptsize$1$};
+  \node[right=1pt of M1] {\scriptsize$-2$};
+  \node[right=1pt of M2] {\scriptsize$2$};
+  \node[right=1pt of M3] {\scriptsize$-1$};
+  \draw[->] (0.9,0) -- (M0);
+  \draw[->] (2.7,0) -- (M1);
+  \draw[->] (4.5,0) -- (M2);
+  \draw[->] (6.3,0) -- (M3);
+  \node[sumk] (A1) at (2.7,-2.3) {$+$};
+  \node[sumk] (A2) at (4.5,-2.3) {$+$};
+  \node[sumk] (A3) at (6.3,-2.3) {$+$};
+  \node (y) at (7.5,-2.3) {$y[k]$};
+  \draw (M0) -- (0.9,-2.3) -- (A1.west);
+  \draw[->] (M1) -- (A1.north);
+  \draw[->] (M2) -- (A2.north);
+  \draw[->] (M3) -- (A3.north);
+  \draw[->] (A1) -- (A2);
+  \draw[->] (A2) -- (A3);
+  \draw[->] (A3) -- (y);
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 6.2 – Parametrisches System}
+% ================================================================
+
+Das gegebene Blockdiagramm (Zustandsspeicher zu Beginn Null):
+
+\begin{center}
+\begin{tikzpicture}
+  \node (x) at (0,0) {$x[k]$};
+  \node[sumk] (S1) at (2,0) {$+$};
+  \node[sumk] (S2) at (4,0) {$+$};
+  \coordinate (b) at (5.2,0);
+  \node (y) at (6.2,0) {$y[k]$};
+  \node[multk] (M1) at (2,-1.3) {$\times$};
+  \node[multk] (M2) at (4,-1.3) {$\times$};
+  \node at (2.75,-1.3) {$-1$};
+  \node at (4.72,-1.3) {$\sqrt{2}$};
+  \node[delayk] (DL) at (2.9,-2.5) {$T_A$};
+  \node[delayk] (DR) at (4.6,-2.5) {$T_A$};
+  \draw[->] (x) -- (S1);
+  \draw[->] (S1) -- (S2);
+  \draw[->] (S2) -- (y);
+  \fill (b) circle (1.5pt);
+  \draw (b) -- (5.2,-2.5) -- (DR.east);
+  \draw (DR.west) -- (4,-2.5);
+  \fill (4,-2.5) circle (1.5pt);
+  \draw[->] (4,-2.5) -- (M2.south);
+  \draw[->] (4,-2.5) -- (DL.east);
+  \draw[->] (M2.north) -- (S2.south);
+  \draw (DL.west) -- (2,-2.5);
+  \draw[->] (2,-2.5) -- (M1.south);
+  \draw[->] (M1.north) -- (S1.south);
+\end{tikzpicture}
+\end{center}
+
+% ---- a) --------------------------------------------------------
+\begin{beispiel}[6.2a) Differenzengleichung]
+
+\textbf{Gegeben:} Blockdiagramm oben. Der rechte Verzögerer liefert
+$y[k-1]$ (Faktor $\sqrt{2}$), der linke $y[k-2]$ (Faktor $-1$).
+
+\textbf{Gesucht:} Differenzengleichung.
+
+\textbf{Rechnung:}
+$$
+\text{S1: } x[k]-y[k-2],\qquad
+\text{S2: } \bigl(x[k]-y[k-2]\bigr)+\sqrt{2}\,y[k-1] = y[k].
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{y[k] = x[k] + \sqrt{2}\,y[k-1] - y[k-2]}
+\quad\Longleftrightarrow\quad
+y[k]-\sqrt{2}\,y[k-1]+y[k-2]=x[k]
+$$
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\begin{beispiel}[6.2b) Impulsantwort]
+
+\textbf{Gegeben:} $y[k]=\delta[k]+\sqrt{2}\,y[k-1]-y[k-2]$, Anfangszustände
+$y[-1]=y[-2]=0$.
+
+\textbf{Gesucht:} Impulsantwort $h[k]$ für $k=-1,\dots,10$ und Formel.
+
+\textbf{Rechnung:} Rekursion mit $x[k]=\delta[k]$:
+
+$$
+\begin{array}{c|ccccccccccc}
+k    & 0 & 1        & 2 & 3 & 4  & 5         & 6  & 7 & 8 & 9        & 10 \\\hline
+h[k] & 1 & \sqrt{2} & 1 & 0 & -1 & -\sqrt{2} & -1 & 0 & 1 & \sqrt{2} & 1
+\end{array}
+$$
+
+Die charakteristische Gleichung $z^2-\sqrt{2}\,z+1=0$ hat die Nullstellen
+$z_{1,2}=\tfrac{\sqrt2}{2}(1\pm j)=e^{\pm j\pi/4}$ (Betrag $1$). Daraus folgt
+die geschlossene Form
+
+$$
+\boxed{\,h[k] = \frac{\sin\!\bigl((k+1)\tfrac{\pi}{4}\bigr)}{\sin\tfrac{\pi}{4}}\;\varepsilon[k]
+             = \sqrt{2}\,\sin\!\Bigl((k+1)\frac{\pi}{4}\Bigr)\,\varepsilon[k]\,}
+$$
+
+Die Impulsantwort ist eine ungedämpfte, periodische Schwingung
+(Periode $8$).
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=11cm, height=4.8cm,
+  axis lines=middle, xlabel=$k$, ylabel={$h[k]$},
+  xmin=-1.5, xmax=10.7, ymin=-1.8, ymax=1.8,
+  xtick={-1,0,1,2,3,4,5,6,7,8,9,10},
+  ytick={-1.4142,-1,0,1,1.4142},
+  ymajorgrids, grid style={gray!25},
+  enlargelimits=false,
+]
+\addplot[ycomb, mark=*, thick, color=accent] coordinates
+  {(-1,0) (0,1) (1,1.4142) (2,1) (3,0) (4,-1) (5,-1.4142)
+   (6,-1) (7,0) (8,1) (9,1.4142) (10,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\begin{beispiel}[6.2c) Linearität und BIBO-Stabilität]
+
+\textbf{Gegeben:} System aus 6.2a) mit Polstellen $e^{\pm j\pi/4}$.
+
+\textbf{Gesucht:} linear? BIBO-stabil?
+
+\textbf{Lösung:}
+\begin{itemize}
+  \item \textbf{Linear:} \emph{Ja} — konstante Koeffizienten, reine
+        Linearkombination (LSI-System).
+  \item \textbf{BIBO-stabil:} \emph{Nein}. Die Pole liegen \emph{auf} dem
+        Einheitskreis ($|z|=1$). Die Impulsantwort klingt nicht ab, sondern
+        schwingt dauerhaft: $\sum_{k}|h[k]|=\infty$. Das System ist nur
+        grenzstabil (marginal stabil), nicht BIBO-stabil
+        (vgl.\ Abschnitt~\ref{sec:weitere-systemeigenschaften}).
+\end{itemize}
+
+$$
+\boxed{\text{linear: ja}\qquad\text{BIBO-stabil: nein (grenzstabil)}}
+$$
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 6.3 – Linearität, Zeitinvarianz}
+% ================================================================
+
+\begin{beispiel}[Abtaster und Quantisierer]
+
+\textbf{Gegeben:} Abtastung $x(t)\to x(kT_A)$
+(Abschnitt~\ref{sec:abtastung}) und Quantisierung
+$x(kT_A)\to x_{\mathrm q}(kT_A)$ (Abschnitt~\ref{sec:quantisierung}).
+
+\textbf{Gesucht:} Sind diese Systeme linear und/oder zeitinvariant?
+
+\textbf{Lösung:}
+
+\textbf{Abtaster:}
+\begin{itemize}
+  \item \textbf{Linear — ja:} $a\,x_1(t)+b\,x_2(t)$ wird zu
+        $a\,x_1(kT_A)+b\,x_2(kT_A)$; die Abtastung ist eine lineare Operation.
+  \item \textbf{Zeitinvariant — nein:} Eine beliebige Zeitverschiebung
+        $x(t-\tau)$ des kontinuierlichen Signals entspricht nur dann einer
+        Verschiebung der Folge, wenn $\tau$ ein Vielfaches von $T_A$ ist.
+        Der Abtaster ist (periodisch) zeitvariant.
+\end{itemize}
+
+\textbf{Quantisierer:}
+\begin{itemize}
+  \item \textbf{Linear — nein:} Die Quantisierungskennlinie ist eine
+        (nichtlineare) Treppenfunktion:
+        $Q(a\,x_1+b\,x_2)\neq a\,Q(x_1)+b\,Q(x_2)$.
+  \item \textbf{Zeitinvariant — ja:} Der Quantisierer ist gedächtnislos und
+        wendet dieselbe Kennlinie zu jedem Zeitpunkt an
+        $\Rightarrow$ verschiebungsinvariant.
+\end{itemize}
+
+$$
+\boxed{\text{Abtaster: linear, nicht zeitinvariant}\qquad
+        \text{Quantisierer: nichtlinear, zeitinvariant}}
+$$
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 6.4 – DPCM-System}
+% ================================================================
+
+Sender: $\Delta x(kT_A)=x(kT_A)-x(kT_A-T_A)$ (Differenzbildner nach dem
+Abtaster).
+
+% ---- a) --------------------------------------------------------
+\begin{beispiel}[6.4a) Ausgangssignal für den Einheitssprung]
+
+\textbf{Gegeben:} $x(t)=\varepsilon(t)$; abgetastet $x(kT_A)=\varepsilon[k]$.
+
+\textbf{Gesucht:} Ausgangssignal $\Delta x(kT_A)$ des Senders.
+
+\textbf{Rechnung:}
+$$
+\Delta x(kT_A)=\varepsilon[k]-\varepsilon[k-1]=\delta[k].
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\Delta x(kT_A)=\delta[k]}
+$$
+
+Der Sprung am Eingang erzeugt genau einen Impuls am Ausgang.
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\begin{beispiel}[6.4b) Linearität und Zeitinvarianz des Senders]
+
+\textbf{Gegeben:} Differenzbildner $\Delta x[k]=x[k]-x[k-1]$.
+
+\textbf{Gesucht:} linear und zeitinvariant?
+
+\textbf{Lösung:} Der Differenzbildner ist eine Linearkombination mit
+konstanten Koeffizienten, also \textbf{linear} und
+\textbf{verschiebungsinvariant} (LSI, vgl.\
+Abschnitt~\ref{sec:verschiebungsinvarianz}). Der vorgeschaltete Abtaster
+ist (wie in 6.3) linear, aber \emph{nicht} zeitinvariant; die eigentliche
+Differenzbildung selbst ist jedoch verschiebungsinvariant.
+
+$$
+\boxed{\text{Differenzbildner: linear und verschiebungsinvariant (LSI)}}
+$$
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\begin{beispiel}[6.4c) BIBO-Stabilität des Senders]
+
+\textbf{Gegeben:} $h[k]=\delta[k]-\delta[k-1]$.
+
+\textbf{Gesucht:} BIBO-stabil?
+
+\textbf{Formel} (BIBO-Kriterium, Abschnitt~\ref{sec:weitere-systemeigenschaften}):
+
+$$
+\sum_{k=-\infty}^{\infty}|h[k]| < \infty .
+$$
+
+\textbf{Rechnung:} $\sum_k |h[k]| = |1|+|-1| = 2 < \infty$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\text{Der Sender ist BIBO-stabil.}}
+$$
+
+\end{beispiel}
+
+% ---- d) --------------------------------------------------------
+\begin{beispiel}[6.4d) Blockdiagramm des Empfängers]
+
+\textbf{Gegeben:} Empfängergleichung $y(kT_A)=y(kT_A-T_A)+\Delta x(kT_A)$,
+d.\,h. $y[k]=y[k-1]+\Delta x[k]$ (Akkumulator).
+
+\textbf{Gesucht:} Blockdiagramm.
+
+\begin{center}
+\begin{tikzpicture}
+  \node (in) at (0,0) {$\Delta x(kT_A)$};
+  \node[sumk] (S) at (2.6,0) {$+$};
+  \coordinate (b) at (4.1,0);
+  \node (out) at (5.6,0) {$y(kT_A)$};
+  \node[delayk] (D) at (3.4,-1.3) {$T_A$};
+  \draw[->] (in) -- (S);
+  \draw[->] (S) -- (out);
+  \fill (b) circle (1.5pt);
+  \draw (b) -- (4.1,-1.3) -- (D.east);
+  \draw[->] (D.west) -- (2.6,-1.3) -- (S.south);
+\end{tikzpicture}
+\end{center}
+
+Der Empfänger ist der zum Sender inverse Akkumulator (Integrierer).
+
+\end{beispiel}
+
+% ---- e) --------------------------------------------------------
+\begin{beispiel}[6.4e) Empfängersignal für das Beispiel]
+
+\textbf{Gegeben:} $\Delta x[k]=\delta[k]$ (aus 6.4a), $y[-1]=0$.
+
+\textbf{Gesucht:} $y[k]$ für $k=0,\dots,10$.
+
+\textbf{Rechnung:}
+$$
+y[0]=0+1=1,\qquad y[k]=y[k-1]+0=1 \quad (k\ge 1).
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{y[k]=1 \ \text{für } k=0,\dots,10,\qquad\text{d.\,h. } y[k]=\varepsilon[k].}
+$$
+
+Der Akkumulator rekonstruiert exakt den ursprünglichen Sprung
+$x(kT_A)=\varepsilon[k]$.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=11cm, height=3.6cm,
+  axis lines=middle, xlabel=$k$, ylabel={$y[k]$},
+  xmin=-1.5, xmax=10.7, ymin=-0.2, ymax=1.4,
+  xtick={-1,0,1,2,3,4,5,6,7,8,9,10}, ytick={0,1},
+  enlargelimits=false,
+]
+\addplot[ycomb, mark=*, thick, color=accent] coordinates
+  {(-1,0) (0,1) (1,1) (2,1) (3,1) (4,1) (5,1) (6,1) (7,1) (8,1) (9,1) (10,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ---- f) --------------------------------------------------------
+\begin{beispiel}[6.4f) Bedingung für eindeutigen Zusammenhang]
+
+\textbf{Gegeben:} Sender $\Delta x[k]=x[k]-x[k-1]$, Empfänger
+$y[k]=y[k-1]+\Delta x[k]$.
+
+\textbf{Gesucht:} Bedingung für einen eindeutigen Zusammenhang zwischen
+Eingang des Senders und Ausgang des Empfängers.
+
+\textbf{Rechnung:} Die Empfängersumme teleskopiert:
+$$
+y[k]=y[-1]+\sum_{i=0}^{k}\Delta x[i]
+    =y[-1]+\sum_{i=0}^{k}\bigl(x[i]-x[i-1]\bigr)
+    =x[k]+\bigl(y[-1]-x[-1]\bigr).
+$$
+
+\textbf{Lösung:} Es gilt $y[k]=x[k]$ genau dann, wenn die Anfangszustände
+von Sender und Empfänger übereinstimmen:
+
+$$
+\boxed{y[-1]=x[-1]\quad(\text{z.\,B. beide }=0).}
+$$
+
+Ohne bekannte, übereinstimmende Anfangswerte bleibt $x[k]$ nur bis auf
+eine additive Konstante bestimmt.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 6.5 – LSI-System I}
+% ================================================================
+
+Gegeben: $h[k]=\varepsilon[k]-\varepsilon[k-K]$ (Rechteckfenster der Länge
+$K$: $h[k]=1$ für $0\le k\le K-1$, sonst $0$) und
+
+$$
+x[k]=A\cos\!\Bigl(2\pi k\,\tfrac{f_P}{f_A}\Bigr),\qquad
+f_P=\tfrac{1}{T_P},\; f_A=\tfrac{1}{T_A}.
+$$
+
+Zur Abkürzung sei $\Omega=2\pi\dfrac{f_P}{f_A}$.
+
+% ---- a) --------------------------------------------------------
+\begin{beispiel}[6.5a) Abtasttheorem]
+
+\textbf{Gegeben:} Cosinussignal der Frequenz $f_P$.
+
+\textbf{Gesucht:} Mindestwert von $f_A$.
+
+\textbf{Formel} (Abtasttheorem, Abschnitt~\ref{sec:abtasttheorem}):
+$f_A>2f_{\max}$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{f_A > 2 f_P \quad\Longleftrightarrow\quad \frac{f_A}{f_P}>2.}
+$$
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\begin{beispiel}[6.5b) Bedingung an das Frequenzverhältnis]
+
+\textbf{Gegeben:} $x[k]=A\cos(\Omega k)$, $\Omega=2\pi f_P/f_A$.
+
+\textbf{Gesucht:} Bedingung, damit genau eine Periode des kontinuierlichen
+Cosinus der Grundperiode $n\in\mathbb{N}$ von $x[k]$ entspricht.
+
+\textbf{Rechnung:} $x[k]$ ist periodisch mit Grundperiode $n$, wenn
+$\dfrac{f_P}{f_A}=\dfrac{m}{n}$ rational (vollständig gekürzt) ist. „Genau
+\emph{eine}“ Periode des kontinuierlichen Signals über $n$ Abtastwerte
+bedeutet $m=1$, also $n\cdot T_A=T_P$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\frac{f_A}{f_P}=n\in\mathbb{N}.}
+$$
+
+Zusammen mit dem Abtasttheorem muss $n>2$ gelten.
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\begin{beispiel}[6.5c) Vollständige Beschreibung durch die Impulsantwort]
+
+\textbf{Gegeben:} System mit Impulsantwort $h[k]$.
+
+\textbf{Gesucht:} Bedingungen, damit $h[k]$ das Systemverhalten vollständig
+beschreibt.
+
+\textbf{Lösung:} Die Impulsantwort charakterisiert ein System vollständig
+(über die Faltung $y=x*h$) genau dann, wenn das System \textbf{linear} und
+\textbf{verschiebungsinvariant} (LSI) ist und sich zu Beginn im
+\textbf{Ruhezustand} (Anfangszustände Null) befindet
+(vgl.\ Abschnitt~\ref{sec:lsi-eigenschaften}).
+
+$$
+\boxed{\text{linear} \ \wedge\ \text{verschiebungsinvariant} \ \wedge\ \text{Ruhezustand}}
+$$
+
+\end{beispiel}
+
+% ---- d) --------------------------------------------------------
+\begin{beispiel}[6.5d) BIBO-stabil und gedächtnislos?]
+
+\textbf{Gegeben:} $h[k]=\varepsilon[k]-\varepsilon[k-K]$ (FIR, Länge $K$).
+
+\textbf{Gesucht:} BIBO-stabil? gedächtnislos?
+
+\textbf{Rechnung:} $\sum_k|h[k]|=K<\infty$.
+
+\textbf{Lösung:}
+\begin{itemize}
+  \item \textbf{BIBO-stabil:} ja, da $\sum_k|h[k]|=K<\infty$.
+  \item \textbf{Gedächtnislos:} nein (für $K\ge 2$) — der Ausgang hängt von
+        $K$ zurückliegenden Eingangswerten ab. Nur für $K=1$ wäre das System
+        gedächtnislos.
+\end{itemize}
+
+$$
+\boxed{\text{BIBO-stabil: ja}\qquad\text{gedächtnislos: nein } (K\ge 2)}
+$$
+
+\end{beispiel}
+
+% ---- e) --------------------------------------------------------
+\begin{beispiel}[6.5e) Systemantwort]
+
+\textbf{Gegeben:} $x[k]=A\cos(\Omega k)$, $h[k]=\varepsilon[k]-\varepsilon[k-K]$.
+
+\textbf{Gesucht:} $y[k]=x[k]*h[k]$.
+
+\textbf{Formel} (diskrete Faltung, Abschnitt~\ref{sec:diskrete-faltung}):
+
+$$
+y[k]=\sum_{l=0}^{K-1} x[k-l]
+    =A\sum_{l=0}^{K-1}\cos\!\bigl(\Omega(k-l)\bigr).
+$$
+
+\textbf{Rechnung:} Mit der geometrischen Summe
+$\sum_{l=0}^{K-1}e^{-j\Omega l}=e^{-j\Omega(K-1)/2}\dfrac{\sin(K\Omega/2)}{\sin(\Omega/2)}$
+folgt
+
+$$
+y[k]=A\,\mathrm{Re}\!\left\{e^{j\Omega k}\,e^{-j\Omega\frac{K-1}{2}}
+     \frac{\sin(K\Omega/2)}{\sin(\Omega/2)}\right\}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\,y[k]=A\,\frac{\sin\!\bigl(K\Omega/2\bigr)}{\sin\!\bigl(\Omega/2\bigr)}\,
+        \cos\!\Bigl(\Omega k-\Omega\tfrac{K-1}{2}\Bigr),\qquad
+        \Omega=2\pi\frac{f_P}{f_A}\,}
+$$
+
+Ein Cosinus gleicher Frequenz, skaliert mit dem Betrag
+$\bigl|\sin(K\Omega/2)/\sin(\Omega/2)\bigr|$ und phasenverschoben um
+$-\Omega\tfrac{K-1}{2}$.
+
+\end{beispiel}
+
+% ---- f) --------------------------------------------------------
+\begin{beispiel}[6.5f) Kann der Ausgang verschwinden?]
+
+\textbf{Gegeben:} $y[k]$ aus 6.5e), mit $\Omega=2\pi/n$ (Fall aus 6.5b).
+
+\textbf{Gesucht:} Kann $K$ so gewählt werden, dass $y[k]=0$?
+
+\textbf{Rechnung:} $y[k]\equiv 0$, sobald der Amplitudenfaktor verschwindet,
+also $\sin(K\Omega/2)=0$ bei $\sin(\Omega/2)\neq 0$. Mit $\Omega=2\pi/n$:
+$$
+\frac{K\Omega}{2}=\frac{K\pi}{n}=m\pi \;\Longrightarrow\; K=m\,n,\quad m\in\mathbb{N}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\,y[k]=0 \ \text{für}\ K=m\,n,\ m\in\mathbb{N}\,}
+$$
+
+Ist die Fensterlänge $K$ ein ganzzahliges Vielfaches der Periode $n$, so
+wird über vollständige Perioden des Cosinus summiert — das Ergebnis ist Null.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 6.6 – LSI-System II}
+% ================================================================
+
+Gegeben: LSI-System mit $y[k]=\sum_{l=-\infty}^{\infty} h[l]\,x[k-l]$.
+Es werden die (Energie-)Korrelationsfolgen
+$\varphi_{xx}[\varkappa]=\sum_{n}x[n]\,x[n+\varkappa]$,
+$\varphi_{hh}[\varkappa]=\sum_{n}h[n]\,h[n+\varkappa]$ und
+$\varphi_{xy}[\varkappa]=\sum_{n}x[n]\,y[n+\varkappa]$ verwendet
+(vgl.\ Abschnitt~\ref{sec:kreuzkorrelation} und~\ref{sec:autokorrelation}).
+
+% ---- a) --------------------------------------------------------
+\begin{beweis}[6.6a) Autokorrelation des Ausgangs]
+
+\textbf{Zu zeigen:} $\varphi_{yy}[\varkappa]=\varphi_{xx}[\varkappa]*\varphi_{hh}[\varkappa]$.
+
+Einsetzen von $y[k]=\sum_l h[l]x[k-l]$ und $y[k+\varkappa]=\sum_m h[m]x[k+\varkappa-m]$:
+
+$$
+\varphi_{yy}[\varkappa]=\sum_k y[k]\,y[k+\varkappa]
+ =\sum_l\sum_m h[l]\,h[m]\sum_k x[k-l]\,x[k+\varkappa-m].
+$$
+
+Substitution $n=k-l$ in der inneren Summe:
+
+$$
+\sum_k x[k-l]\,x[k+\varkappa-m]=\sum_n x[n]\,x[n+\varkappa+l-m]
+ =\varphi_{xx}[\varkappa+l-m].
+$$
+
+Mit $\lambda=m-l$ und $\varphi_{hh}[\lambda]=\sum_l h[l]\,h[l+\lambda]$ folgt
+
+$$
+\varphi_{yy}[\varkappa]
+ =\sum_{\lambda}\varphi_{hh}[\lambda]\,\varphi_{xx}[\varkappa-\lambda]
+ =\varphi_{hh}[\varkappa]*\varphi_{xx}[\varkappa]
+ =\varphi_{xx}[\varkappa]*\varphi_{hh}[\varkappa].
+$$
+\qed
+
+\end{beweis}
+
+% ---- b) --------------------------------------------------------
+\begin{beweis}[6.6b) Kreuzkorrelation Eingang-Ausgang]
+
+\textbf{Zu zeigen:} $\varphi_{xy}[\varkappa]=h[\varkappa]*\varphi_{xx}[\varkappa]$.
+
+$$
+\varphi_{xy}[\varkappa]=\sum_k x[k]\,y[k+\varkappa]
+ =\sum_k x[k]\sum_l h[l]\,x[k+\varkappa-l]
+ =\sum_l h[l]\sum_k x[k]\,x[k+\varkappa-l].
+$$
+
+Die innere Summe ist $\varphi_{xx}[\varkappa-l]$, daher
+
+$$
+\varphi_{xy}[\varkappa]=\sum_l h[l]\,\varphi_{xx}[\varkappa-l]
+ =h[\varkappa]*\varphi_{xx}[\varkappa].
+$$
+\qed
+
+\end{beweis}
+
+% ================================================================
+\subsection*{Aufgabe 6.7 – Diskrete Faltung}
+% ================================================================
+
+\begin{beweis}[6.7) Distributivität und Linearität der Faltung]
+
+\textbf{Zu zeigen:}
+$x[k]*\bigl(a\,h[k]+b\,g[k]\bigr)=a\,x[k]*h[k]+b\,x[k]*g[k]$.
+
+Aus der Definition der diskreten Faltung
+(Abschnitt~\ref{sec:diskrete-faltung}):
+
+$$
+x[k]*\bigl(a\,h[k]+b\,g[k]\bigr)
+ =\sum_{l=-\infty}^{\infty} x[l]\,\bigl(a\,h[k-l]+b\,g[k-l]\bigr).
+$$
+
+Aufspalten der Summe (Linearität der Summation):
+
+$$
+=a\sum_{l} x[l]\,h[k-l]+b\sum_{l} x[l]\,g[k-l]
+ =a\,\bigl(x[k]*h[k]\bigr)+b\,\bigl(x[k]*g[k]\bigr).
+$$
+\qed
+
+\medskip
+\textbf{Bedingungen für die Anwendbarkeit der Faltung:} Die Systemantwort
+darf nur dann als Faltung $y[k]=x[k]*h[k]$ gebildet werden, wenn das System
+\textbf{linear} und \textbf{verschiebungsinvariant} (LSI) ist und sich im
+\textbf{Ruhezustand} befindet. Zusätzlich muss die Faltungssumme
+konvergieren (z.\,B.\ bei BIBO-stabilem System bzw.\ absolut summierbaren
+Folgen), vgl.\ Abschnitt~\ref{sec:lsi-eigenschaften}.
+
+\end{beweis}
+
+% ================================================================
+\subsection*{Aufgabe 6.8 – Zeitdiskretes Zustandsraummodell}
+% ================================================================
+
+Gegeben: Sektion zweiter Ordnung (SOS) nach Bild~2 (Direktform~II).
+Mit der Hilfsgröße $w[k]$ am Ausgang des ersten Summierers gilt
+$w[k]=a_0\bigl(x[k]-a_1 w[k-1]-a_2 w[k-2]\bigr)$ und
+$y[k]=b_0 w[k]+b_1 w[k-1]+b_2 w[k-2]$.
+
+% ---- a) --------------------------------------------------------
+\begin{beispiel}[6.8a) Zustandsvektor]
+
+\textbf{Gegeben:} SOS in Direktform~II.
+
+\textbf{Gesucht:} Zustandsvektor und Lage der Zustandsgrößen.
+
+\textbf{Lösung:} Die Zustandsgrößen sind die Inhalte der beiden
+Verzögerungsglieder $T$ (vgl.\ Abschnitt~\ref{sec:diskrete-zustandsraum}):
+
+$$
+\boxed{\;
+\mathbf{s}[k]=\begin{pmatrix} s_1[k]\\ s_2[k]\end{pmatrix}
+             =\begin{pmatrix} w[k-1]\\ w[k-2]\end{pmatrix}
+\;}
+$$
+
+$s_1[k]=w[k-1]$ ist der Ausgang des oberen Verzögerers, $s_2[k]=w[k-2]$ der
+des unteren.
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\begin{beispiel}[6.8b) Differenzengleichungen mit Hilfsgröße]
+
+\textbf{Gegeben:} SOS mit Hilfsgröße $w[k]$.
+
+\textbf{Gesucht:} Differenzengleichungen für $y[k]$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;
+\begin{aligned}
+w[k] &= a_0\bigl(x[k]-a_1\,w[k-1]-a_2\,w[k-2]\bigr),\\
+y[k] &= b_0\,w[k]+b_1\,w[k-1]+b_2\,w[k-2].
+\end{aligned}
+\;}
+$$
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\begin{beispiel}[6.8c) Zustandsraummodell]
+
+\textbf{Gegeben:} Differenzengleichungen aus 6.8b), Zustände
+$s_1[k]=w[k-1]$, $s_2[k]=w[k-2]$.
+
+\textbf{Gesucht:} Modellmatrizen $\mathbf{A},\mathbf{B},\mathbf{C},\mathbf{D}$
+mit Dimensionen.
+
+\textbf{Rechnung:} Mit $s_1[k+1]=w[k]$ und $s_2[k+1]=w[k-1]=s_1[k]$ sowie
+$w[k]=a_0 x[k]-a_0 a_1 s_1[k]-a_0 a_2 s_2[k]$:
+
+$$
+\begin{aligned}
+s_1[k+1]&=-a_0 a_1\,s_1[k]-a_0 a_2\,s_2[k]+a_0\,x[k],\\
+s_2[k+1]&=s_1[k].
+\end{aligned}
+$$
+
+Das Ausgangssignal wird durch Einsetzen von $w[k]$:
+$y[k]=(b_1-a_0 a_1 b_0)s_1[k]+(b_2-a_0 a_2 b_0)s_2[k]+a_0 b_0\,x[k]$.
+
+\textbf{Lösung} — Zustandsgleichung $\mathbf{s}[k+1]=\mathbf{A}\mathbf{s}[k]+\mathbf{B}\,x[k]$,
+Ausgangsgleichung $y[k]=\mathbf{C}\mathbf{s}[k]+\mathbf{D}\,x[k]$:
+
+$$
+\boxed{\;
+\mathbf{A}=\begin{pmatrix} -a_0 a_1 & -a_0 a_2\\[2pt] 1 & 0\end{pmatrix},\qquad
+\mathbf{B}=\begin{pmatrix} a_0\\[2pt] 0\end{pmatrix}
+\;}
+$$
+$$
+\boxed{\;
+\mathbf{C}=\begin{pmatrix} b_1-a_0 a_1 b_0 & b_2-a_0 a_2 b_0\end{pmatrix},\qquad
+\mathbf{D}=\begin{pmatrix} a_0 b_0\end{pmatrix}
+\;}
+$$
+
+\textbf{Dimensionen} (SISO-System 2.~Ordnung): $\mathbf{A}\in\mathbb{R}^{2\times2}$,
+$\mathbf{B}\in\mathbb{R}^{2\times1}$, $\mathbf{C}\in\mathbb{R}^{1\times2}$,
+$\mathbf{D}\in\mathbb{R}^{1\times1}$.
+
+\end{beispiel}
+
+% ---- d) --------------------------------------------------------
+\begin{beispiel}[6.8d) Impulsantwort für konkrete Koeffizienten]
+
+\textbf{Gegeben:} $a_0=1,\ a_1=-1{,}61,\ a_2=0{,}63,\
+b_0=0{,}91,\ b_1=-1{,}61,\ b_2=0{,}63$; $x[k]=\delta[k]$,
+$w[-1]=w[-2]=0$.
+
+\textbf{Gesucht:} Impulsantwort $h[k]$ für $k=0,\dots,4$.
+
+\textbf{Formel} (aus 6.8b, mit $a_0=1$):
+$$
+w[k]=\delta[k]+1{,}61\,w[k-1]-0{,}63\,w[k-2],\qquad
+y[k]=0{,}91\,w[k]-1{,}61\,w[k-1]+0{,}63\,w[k-2].
+$$
+
+\textbf{Rechnung:} Zunächst die Hilfsgröße $w[k]$:
+
+$$
+\begin{aligned}
+w[0]&=1,\\
+w[1]&=1{,}61\cdot1=1{,}61,\\
+w[2]&=1{,}61\cdot1{,}61-0{,}63\cdot1=1{,}9621,\\
+w[3]&=1{,}61\cdot1{,}9621-0{,}63\cdot1{,}61=2{,}14468,\\
+w[4]&=1{,}61\cdot2{,}14468-0{,}63\cdot1{,}9621=2{,}21681.
+\end{aligned}
+$$
+
+Dann die Impulsantwort $h[k]=y[k]$:
+
+$$
+\begin{aligned}
+h[0]&=0{,}91\cdot1=0{,}9100,\\
+h[1]&=0{,}91\cdot1{,}61-1{,}61\cdot1=-0{,}1449,\\
+h[2]&=0{,}91\cdot1{,}9621-1{,}61\cdot1{,}61+0{,}63\cdot1=-0{,}1766,\\
+h[3]&=0{,}91\cdot2{,}14468-1{,}61\cdot1{,}9621+0{,}63\cdot1{,}61=-0{,}1930,\\
+h[4]&=0{,}91\cdot2{,}21681-1{,}61\cdot2{,}14468+0{,}63\cdot1{,}9621=-0{,}1995.
+\end{aligned}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;
+h[0]=0{,}910,\quad h[1]=-0{,}145,\quad h[2]=-0{,}177,\quad
+h[3]=-0{,}193,\quad h[4]=-0{,}200
+\;}
+$$
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=8cm, height=4.4cm,
+  axis lines=middle, xlabel=$k$, ylabel={$h[k]$},
+  xmin=-0.5, xmax=4.6, ymin=-0.35, ymax=1.05,
+  xtick={0,1,2,3,4},
+  ymajorgrids, grid style={gray!25},
+  enlargelimits=false,
+]
+\addplot[ycomb, mark=*, thick, color=accent] coordinates
+  {(0,0.91) (1,-0.1449) (2,-0.1766) (3,-0.1930) (4,-0.1995)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
