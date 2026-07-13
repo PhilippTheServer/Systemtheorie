@@ -1,4 +1,775 @@
-\section{Übung 5 – Zustandsraummodell eines Masse-Feder-Systems}
+\section{Übung 5 – LTI- und LSI-Systeme}
+
+Dieses Blatt behandelt die zentralen Eigenschaften \emph{Linearität} und
+\emph{Zeitinvarianz} (Abschnitt~\ref{sec:zeitinvarianz-linearitaet}) sowie die
+vollständige Beschreibung von LTI-Systemen durch ihre Impulsantwort und das
+Faltungsintegral (Abschnitt~\ref{sec:lti-systeme}). Die Vorrechenaufgabe und die
+Aufgaben~5.1--5.4 üben die Prüftechniken und die abschnittsweise Berechnung von
+Faltungen; Aufgabe~5.5 (Zustandsraummodell) bildet den Abschluss.
+
+\begin{bemerkung}[Prüfkriterien für Linearität und Zeitinvarianz]
+
+Ein System mit Ein-/Ausgangsbeziehung $y(t) = \mathcal{S}\{x(t)\}$ heißt
+(vgl.\ Abschnitt~\ref{sec:zeitinvarianz-linearitaet}):
+
+\begin{itemize}
+  \item \textbf{linear}, wenn es \emph{Additivität und Homogenität} erfüllt,
+        d.\,h.\ für beliebige Eingänge $x_1, x_2$ und Konstanten $\alpha,\beta$
+        gilt das \emph{Superpositionsprinzip}
+        $\mathcal{S}\{\alpha\, x_1 + \beta\, x_2\} = \alpha\,\mathcal{S}\{x_1\} + \beta\,\mathcal{S}\{x_2\}$.
+        Eine schnelle notwendige Probe: Ein lineares System liefert für das
+        Nullsignal stets $y \equiv 0$.
+  \item \textbf{zeitinvariant}, wenn eine Verschiebung des Eingangs um $t_0$
+        allein zu einer gleich großen Verschiebung des Ausgangs führt:
+        Aus $y(t) = \mathcal{S}\{x(t)\}$ folgt
+        $\mathcal{S}\{x(t - t_0)\} = y(t - t_0)$.
+\end{itemize}
+
+Ein System, das beide Eigenschaften besitzt, ist ein \textbf{LTI-System} und
+wird durch seine Impulsantwort $h(t)$ vollständig beschrieben
+(Abschnitt~\ref{sec:impulsantwort}).
+
+\end{bemerkung}
+
+% ================================================================
+\subsection*{Vorrechenaufgabe 5 – Linearität, Zeitinvarianz und Faltung}
+% ================================================================
+
+% ---- a) --------------------------------------------------------
+\subsubsection*{a) Prüfung auf Linearität und Zeitinvarianz}
+
+\begin{beispiel}[System i -- additive Konstante]
+
+\textbf{Gegeben:} Das System $y(t) = x(t) + a$ mit $a \in \mathbb{R}$, $a \neq 0$.
+
+\textbf{Gesucht:} Ist das System linear und zeitinvariant?
+
+\textbf{Formel} (Superpositions- und Verschiebungstest,
+Abschnitt~\ref{sec:zeitinvarianz-linearitaet}):
+
+$$
+\mathcal{S}\{\alpha x_1 + \beta x_2\} \overset{!}{=} \alpha\,\mathcal{S}\{x_1\} + \beta\,\mathcal{S}\{x_2\},
+\qquad
+\mathcal{S}\{x(t - t_0)\} \overset{!}{=} y(t - t_0).
+$$
+
+\textbf{Rechnung:}
+
+\emph{Linearität.} Für den Eingang $\alpha x_1 + \beta x_2$ liefert das System
+
+$$
+\mathcal{S}\{\alpha x_1 + \beta x_2\} = \alpha x_1(t) + \beta x_2(t) + a,
+$$
+
+während die Superposition der Einzelantworten
+
+$$
+\alpha\,\mathcal{S}\{x_1\} + \beta\,\mathcal{S}\{x_2\}
+= \alpha\big(x_1(t) + a\big) + \beta\big(x_2(t) + a\big)
+= \alpha x_1(t) + \beta x_2(t) + (\alpha + \beta)\,a
+$$
+
+ergibt. Wegen $a \neq 0$ stimmen beide nur für $\alpha + \beta = 1$ überein, im
+Allgemeinen also \emph{nicht}. Die schnelle Probe bestätigt dies: Für $x \equiv 0$
+ist $y = a \neq 0$.
+
+\emph{Zeitinvarianz.} Verschiebt man den Eingang um $t_0$, so folgt
+$\mathcal{S}\{x(t - t_0)\} = x(t - t_0) + a = y(t - t_0)$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;\text{System i ist } \textbf{nicht linear}, \text{ aber } \textbf{zeitinvariant.}\;}
+$$
+
+Der konstante Summand $a$ verschiebt den Arbeitspunkt und zerstört die
+Homogenität -- ein typisches \emph{affines} (nicht lineares) System.
+
+\end{beispiel}
+
+\begin{beispiel}[System ii -- zeitabhängiger Faktor]
+
+\textbf{Gegeben:} Das System $y(t) = t \cdot x(t)$.
+
+\textbf{Gesucht:} Ist das System linear und zeitinvariant?
+
+\textbf{Formel} (Superpositions- und Verschiebungstest,
+Abschnitt~\ref{sec:zeitinvarianz-linearitaet}).
+
+\textbf{Rechnung:}
+
+\emph{Linearität.} Für den Eingang $\alpha x_1 + \beta x_2$:
+
+$$
+\mathcal{S}\{\alpha x_1 + \beta x_2\} = t\big(\alpha x_1(t) + \beta x_2(t)\big)
+= \alpha\, t\, x_1(t) + \beta\, t\, x_2(t)
+= \alpha\,\mathcal{S}\{x_1\} + \beta\,\mathcal{S}\{x_2\}.
+$$
+
+Das Superpositionsprinzip ist erfüllt $\Rightarrow$ \emph{linear}.
+
+\emph{Zeitinvarianz.} Der um $t_0$ verschobene Eingang liefert
+$\mathcal{S}\{x(t - t_0)\} = t\cdot x(t - t_0)$. Die verschobene Sollantwort ist
+dagegen $y(t - t_0) = (t - t_0)\, x(t - t_0)$. Wegen des expliziten Faktors $t$
+gilt $t\, x(t - t_0) \neq (t - t_0)\, x(t - t_0)$ für $t_0 \neq 0$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;\text{System ii ist } \textbf{linear}, \text{ aber } \textbf{nicht zeitinvariant.}\;}
+$$
+
+Der explizit von $t$ abhängige Verstärkungsfaktor macht das System
+zeitvariant -- das gleiche Eingangssignal wird zu unterschiedlichen Zeiten
+unterschiedlich stark gewichtet.
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) Faltung eines Rechteckimpulses mit einer Rampen-Impulsantwort}
+
+\begin{beispiel}[Faltung Rechteck mit linearer Rampe]
+
+\textbf{Gegeben:} Impulsantwort und Eingangssignal
+(Abschnitt~\ref{sec:elementare-analoge-signale}, Skript-Definition
+$\operatorname{rect}(u) = 1$ für $0 \leq u < 1$):
+
+$$
+h(t) = \begin{cases} \dfrac{B}{3T}\,(t - 4T) & , \quad T < t \leq 4T \\[6pt]
+0 & , \quad \text{sonst,} \end{cases}
+\qquad
+x(t) = A\,\operatorname{rect}\!\left(\frac{t}{2T}\right)
+= \begin{cases} A & , \quad 0 \leq t < 2T \\[2pt] 0 & , \quad \text{sonst,} \end{cases}
+$$
+
+mit $A, B, T > 0$. Die Impulsantwort ist eine ansteigende Gerade, die bei
+$t = T$ vom Wert $-B$ (Sprung) linear auf $0$ bei $t = 4T$ läuft.
+
+\textbf{Gesucht:} (i) Skizze von $x(t)$ und $h(t)$; (ii) das Ausgangssignal
+$y(t) = x(t) * h(t)$ abschnittsweise; (iii) Verifikation der Gültigkeit.
+
+\textbf{Formel} (Faltungsintegral, Abschnitt~\ref{sec:faltungsintegral}):
+
+$$
+y(t) = \int_{-\infty}^{\infty} x(\tau)\, h(t - \tau)\,\mathrm{d}\tau.
+$$
+
+\textbf{Rechnung:}
+
+\emph{(i) Skizze.} Der Rechteckimpuls $x(t)$ hat Höhe $A$ auf $[0, 2T)$; die
+Impulsantwort $h(t)$ ist die Rampe von $(T, -B)$ nach $(4T, 0)$
+(normierte Darstellung mit $A = B = T = 1$):
+
+\begin{center}
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 1, horizontal sep=2cm},
+  width=7cm, height=4.2cm,
+  axis lines=center,
+  xlabel={$t/T$},
+  tick label style={font=\small},
+  every axis plot/.append style={very thick},
+]
+\nextgroupplot[
+  xmin=-1, xmax=6, ymin=-0.3, ymax=1.4,
+  ylabel={$x(t)/A$}, xtick={0,2,4}, ytick={1},
+]
+\addplot[blue] coordinates {(-1,0) (0,0)};
+\addplot[blue] coordinates {(0,1) (2,1)};
+\addplot[blue] coordinates {(2,0) (6,0)};
+\draw[dashed, gray] (axis cs:0,0) -- (axis cs:0,1);
+\draw[dashed, gray] (axis cs:2,0) -- (axis cs:2,1);
+\nextgroupplot[
+  xmin=-1, xmax=6, ymin=-1.4, ymax=0.3,
+  ylabel={$h(t)/B$}, xtick={1,4}, ytick={-1},
+]
+\addplot[red] coordinates {(-1,0) (1,0)};
+\addplot[red] coordinates {(1,-1) (4,0)};
+\addplot[red] coordinates {(4,0) (6,0)};
+\draw[dashed, gray] (axis cs:1,0) -- (axis cs:1,-1);
+\end{groupplot}
+\end{tikzpicture}
+\end{center}
+
+\emph{(ii) Faltung.} Der Integrand ist nur dort ungleich null, wo $x(\tau) \neq 0$
+(also $0 \leq \tau < 2T$) \emph{und} $h(t - \tau) \neq 0$ (also
+$T < t - \tau \leq 4T$, d.\,h.\ $t - 4T \leq \tau < t - T$). Auf der Überlappung
+gilt
+
+$$
+x(\tau)\,h(t - \tau) = A\cdot\frac{B}{3T}\big((t - \tau) - 4T\big).
+$$
+
+Die Stammfunktion bzgl.\ $\tau$ lautet
+$F(\tau) = (t - 4T)\,\tau - \tfrac{1}{2}\tau^2$, so dass
+$\int h(t-\tau)\,\mathrm{d}\tau = \tfrac{B}{3T}F(\tau)$. Die Integrationsgrenzen
+sind $\tau_u = \max(0,\, t - 4T)$ und $\tau_o = \min(2T,\, t - T)$; die
+Nahtstellen liegen bei $t = T,\, 3T,\, 4T,\, 6T$.
+
+\medskip
+\textit{Fall 1 -- $t \leq T$ (keine Überlappung):}
+$\tau_o = t - T \leq 0 = \tau_u \Rightarrow y(t) = 0$.
+
+\medskip
+\textit{Fall 2 -- $T < t \leq 3T$ (Rampe schiebt sich ein):}
+Grenzen $\tau_u = 0$, $\tau_o = t - T$:
+
+$$
+y(t) = A\,\frac{B}{3T}\Big[F(t-T) - F(0)\Big]
+= \frac{AB}{3T}\left[\frac{(t-T)^2}{2} - 3T\,(t-T)\right]
+= \frac{AB}{6T}\,(t - T)(t - 7T).
+$$
+
+\medskip
+\textit{Fall 3 -- $3T < t \leq 4T$ (volle Rechteckbreite überstrichen):}
+Grenzen $\tau_u = 0$, $\tau_o = 2T$:
+
+$$
+y(t) = A\,\frac{B}{3T}\Big[F(2T) - F(0)\Big]
+= \frac{AB}{3T}\big(2Tt - 10T^2\big)
+= \frac{2AB}{3}\,(t - 5T).
+$$
+
+\medskip
+\textit{Fall 4 -- $4T < t \leq 6T$ (Rampe schiebt sich hinaus):}
+Grenzen $\tau_u = t - 4T$, $\tau_o = 2T$:
+
+$$
+y(t) = A\,\frac{B}{3T}\Big[F(2T) - F(t - 4T)\Big]
+= \frac{AB}{3T}\left(-\frac{t^2}{2} + 6Tt - 18T^2\right)
+= -\frac{AB}{6T}\,(t - 6T)^2.
+$$
+
+\medskip
+\textit{Fall 5 -- $t > 6T$:} $\tau_u = t - 4T > 2T = \tau_o \Rightarrow y(t) = 0$.
+
+\emph{(iii) Verifikation über die Stetigkeit.} Die Faltung eines beschränkten
+Signals ($h$) mit einem betragsintegrierbaren Signal endlicher Dauer ($x$) ist
+\emph{stetig} (Abschnitt~\ref{sec:faltung-eigenschaften}). Deshalb müssen die
+abschnittsweisen Teilergebnisse an allen Nahtstellen \emph{übereinstimmen} --
+genau das prüft die Gültigkeit:
+
+$$
+\begin{aligned}
+t = T:\ & y = 0 \ (\text{Fall 1 = Fall 2}); \qquad
+t = 3T:\ y = -\tfrac{4}{3}ABT \ (\text{Fall 2 = Fall 3}); \\
+t = 4T:\ & y = -\tfrac{2}{3}ABT \ (\text{Fall 3 = Fall 4}); \qquad
+t = 6T:\ y = 0 \ (\text{Fall 4 = Fall 5}). \quad\checkmark
+\end{aligned}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;y(t) = \begin{cases}
+0 & , \quad t \leq T \\[4pt]
+\dfrac{AB}{6T}\,(t - T)(t - 7T) & , \quad T < t \leq 3T \\[8pt]
+\dfrac{2AB}{3}\,(t - 5T) & , \quad 3T < t \leq 4T \\[8pt]
+-\dfrac{AB}{6T}\,(t - 6T)^2 & , \quad 4T < t \leq 6T \\[8pt]
+0 & , \quad t > 6T
+\end{cases}\;}
+$$
+
+Da $h(t) \leq 0$ ist, bleibt $y(t) \leq 0$; das Minimum $y = -\tfrac{4}{3}ABT$
+wird bei $t = 3T$ erreicht. Zur Illustration (mit $A = B = T = 1$):
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=11cm, height=5.5cm,
+  xmin=0, xmax=7, ymin=-1.6, ymax=0.3,
+  axis lines=center,
+  xlabel={$t/T$}, ylabel={$y(t)/(ABT)$},
+  xtick={0,1,2,3,4,5,6,7}, ytick={-1.333,-1,-0.667,0},
+  yticklabels={$-\tfrac{4}{3}$,$-1$,$-\tfrac{2}{3}$,$0$},
+  tick label style={font=\small},
+  samples=100,
+  every axis plot/.append style={very thick},
+]
+\addplot[blue] coordinates {(0,0) (1,0)};
+\addplot[blue, domain=1:3] {(1/6)*(x-1)*(x-7)};
+\addplot[blue, domain=3:4] {(2/3)*(x-5)};
+\addplot[blue, domain=4:6] {-(1/6)*(x-6)^2};
+\addplot[blue] coordinates {(6,0) (7,0)};
+\draw[dashed, gray] (axis cs:3,0) -- (axis cs:3,-1.333);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 5.1 – Linearität und Zeitinvarianz}
+% ================================================================
+
+\begin{beispiel}[Differenzierer, Quadrierer und Integrierer]
+
+\textbf{Gegeben:} Drei Systeme
+(a) $y(t) = \dfrac{\mathrm{d}}{\mathrm{d}t} x(t)$, \quad
+(b) $y(t) = a\cdot x^2(t)$ mit $a \in \mathbb{R}$, \quad
+(c) $y(t) = \displaystyle\int_{-\infty}^{t} x(\tau)\,\mathrm{d}\tau$.
+
+\textbf{Gesucht:} Jeweils Prüfung auf Linearität und Zeitinvarianz.
+
+\textbf{Formel} (Superpositions- und Verschiebungstest,
+Abschnitt~\ref{sec:zeitinvarianz-linearitaet}).
+
+\textbf{Rechnung:}
+
+\emph{(a) Differenzierer $y = \dot{x}$.}
+Linearität: $\dfrac{\mathrm{d}}{\mathrm{d}t}\big(\alpha x_1 + \beta x_2\big)
+= \alpha \dot{x}_1 + \beta \dot{x}_2$ -- die Ableitung ist ein linearer Operator.
+Zeitinvarianz: $\dfrac{\mathrm{d}}{\mathrm{d}t} x(t - t_0) = \dot{x}(t - t_0)
+= y(t - t_0)$. Beide Eigenschaften erfüllt.
+
+\emph{(b) Quadrierer $y = a x^2$.}
+Homogenität: $a\,(\alpha x)^2 = \alpha^2\, a x^2 = \alpha^2\,\mathcal{S}\{x\}
+\neq \alpha\,\mathcal{S}\{x\}$ für $\alpha \notin \{0,1\}$ -- \emph{nicht linear}.
+Zeitinvarianz: $a\, x^2(t - t_0) = y(t - t_0)$ -- \emph{zeitinvariant}.
+
+\emph{(c) Integrierer $y = \int_{-\infty}^{t} x\,\mathrm{d}\tau$.}
+Linearität: Das Integral ist linear,
+$\int_{-\infty}^{t}(\alpha x_1 + \beta x_2)\,\mathrm{d}\tau
+= \alpha\int_{-\infty}^{t} x_1\,\mathrm{d}\tau + \beta\int_{-\infty}^{t} x_2\,\mathrm{d}\tau$.
+Zeitinvarianz: Mit $x(t - t_0)$ und der Substitution $\sigma = \tau - t_0$
+
+$$
+\int_{-\infty}^{t} x(\tau - t_0)\,\mathrm{d}\tau
+= \int_{-\infty}^{t - t_0} x(\sigma)\,\mathrm{d}\sigma = y(t - t_0).
+$$
+
+Beide Eigenschaften erfüllt.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;
+\text{(a) LTI} \quad\big|\quad
+\text{(b) zeitinvariant, aber nicht linear} \quad\big|\quad
+\text{(c) LTI}
+\;}
+$$
+
+Differenzierer und Integrierer sind LTI-Systeme (und damit durch eine
+Impulsantwort beschreibbar), der Quadrierer ist wegen der nichtlinearen
+Kennlinie kein lineares System.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 5.2 – LTI-System I}
+% ================================================================
+
+Ein analoges System liefert auf den Dirac-Impuls $\delta(t)$
+(Abschnitt~\ref{sec:dirac-impuls}) die Antwort
+$h(t) = \operatorname{rect}(t/T)$, also $h(t) = 1$ für $0 \leq t < T$ und $0$
+sonst. Das Eingangssignal ist $x(t) = A\cos(\omega_P t)$ mit
+$\omega_P = 2\pi/T_P$.
+
+% ---- a) --------------------------------------------------------
+\subsubsection*{a) Bedingungen für die vollständige Beschreibung durch $h(t)$}
+
+\begin{beispiel}[Wann beschreibt die Impulsantwort das System vollständig?]
+
+\textbf{Gegeben:} Ein analoges System mit Antwort $h(t)$ auf $\delta(t)$.
+
+\textbf{Gesucht:} Welche Bedingungen muss das System erfüllen, damit $h(t)$ das
+Systemverhalten \emph{vollständig} beschreibt?
+
+\textbf{Formel / Begründung} (Abschnitt~\ref{sec:lti-systeme},
+\ref{sec:impulsantwort}):
+
+\textbf{Rechnung:} Nur wenn das System \textbf{linear} und \textbf{zeitinvariant}
+(LTI) ist, lässt sich ein beliebiges Eingangssignal über die Ausblendeigenschaft
+als $x(t) = \int x(\tau)\,\delta(t - \tau)\,\mathrm{d}\tau$ darstellen. Wegen der
+\emph{Linearität} überträgt sich die Superposition auf den Ausgang, wegen der
+\emph{Zeitinvarianz} ist die Antwort auf $\delta(t - \tau)$ gerade
+$h(t - \tau)$. Zusammen ergibt sich das Faltungsintegral
+
+$$
+y(t) = \int_{-\infty}^{\infty} x(\tau)\, h(t - \tau)\,\mathrm{d}\tau = x(t) * h(t).
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;\text{Das System muss } \textbf{linear und zeitinvariant (LTI)} \text{ sein.}\;}
+$$
+
+Nur dann genügt die \emph{eine} Impulsantwort $h(t)$, um die Reaktion auf jedes
+Eingangssignal per Faltung zu bestimmen.
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) BIBO-Stabilität}
+
+\begin{beispiel}[BIBO-Stabilität des Rechteckfensters]
+
+\textbf{Gegeben:} $h(t) = \operatorname{rect}(t/T)$, also $h(t) = 1$ für
+$0 \leq t < T$.
+
+\textbf{Gesucht:} Ist das System BIBO-stabil?
+
+\textbf{Formel} (absolute Integrierbarkeit der Impulsantwort,
+Abschnitt~\ref{sec:faltung-eigenschaften}):
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi < \infty.
+$$
+
+\textbf{Rechnung:}
+
+$$
+\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi
+= \int_{0}^{T} 1\,\mathrm{d}\xi = T.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;\int_{-\infty}^{\infty} |h(\xi)|\,\mathrm{d}\xi = T < \infty
+\quad\Longrightarrow\quad \text{BIBO-stabil.}\;}
+$$
+
+Die Impulsantwort hat endliche Dauer und endliche Amplitude, ist also für jedes
+$T > 0$ absolut integrierbar.
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\subsubsection*{c) Systemantwort $y(t)$ auf $x(t) = A\cos(\omega_P t)$}
+
+\begin{beispiel}[Antwort des Rechteckfensters auf eine Kosinusschwingung]
+
+\textbf{Gegeben:} $h(t) = 1$ für $0 \leq t < T$ und
+$x(t) = A\cos(\omega_P t)$.
+
+\textbf{Gesucht:} Die Systemantwort $y(t) = x(t) * h(t)$.
+
+\textbf{Formel} (Faltungsintegral, Abschnitt~\ref{sec:faltungsintegral}):
+
+$$
+y(t) = \int_{-\infty}^{\infty} h(\tau)\, x(t - \tau)\,\mathrm{d}\tau.
+$$
+
+\textbf{Rechnung:} Da $h(\tau) = 1$ nur für $0 \leq \tau < T$:
+
+$$
+y(t) = \int_{0}^{T} A\cos\!\big(\omega_P (t - \tau)\big)\,\mathrm{d}\tau
+= A\left[\frac{1}{\omega_P}\sin\!\big(\omega_P(t - \tau)\big)\cdot(-1)\cdot(-1)\right]_{\tau=0}^{\tau=T}.
+$$
+
+Auswerten der Stammfunktion
+$\int \cos(\omega_P t - \omega_P\tau)\,\mathrm{d}\tau
+= \tfrac{1}{\omega_P}\sin(\omega_P t - \omega_P\tau)$:
+
+$$
+y(t) = \frac{A}{\omega_P}\Big[\sin(\omega_P t) - \sin\!\big(\omega_P t - \omega_P T\big)\Big].
+$$
+
+Mit dem Additionstheorem
+$\sin P - \sin Q = 2\cos\!\big(\tfrac{P+Q}{2}\big)\sin\!\big(\tfrac{P-Q}{2}\big)$
+und $P = \omega_P t$, $Q = \omega_P t - \omega_P T$:
+
+$$
+y(t) = \frac{2A}{\omega_P}\,\sin\!\left(\frac{\omega_P T}{2}\right)
+\cos\!\left(\omega_P\!\left(t - \frac{T}{2}\right)\right).
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;y(t) = \frac{2A}{\omega_P}\,\sin\!\left(\frac{\omega_P T}{2}\right)
+\cos\!\left(\omega_P\!\left(t - \frac{T}{2}\right)\right)\;}
+$$
+
+Der Ausgang ist wieder eine Kosinusschwingung \emph{derselben} Frequenz
+$\omega_P$, jedoch mit der Amplitude
+$\tfrac{2A}{\omega_P}\sin(\omega_P T/2)$ und der Phasenverschiebung
+$-\omega_P T/2$. Genau das erwartet man für ein LTI-System (Eigenfunktion):
+Die Fensterlänge $T$ bestimmt Verstärkung und Verzögerung.
+
+\end{beispiel}
+
+% ---- d) --------------------------------------------------------
+\subsubsection*{d) Kann $y(t) = 0$ erreicht werden?}
+
+\begin{beispiel}[Nullstellenbedingung an die Fensterlänge]
+
+\textbf{Gegeben:} Die Systemantwort aus Teil~c).
+
+\textbf{Gesucht:} Kann $T$ so gewählt werden, dass $y(t) \equiv 0$?
+
+\textbf{Formel:} $y \equiv 0$ genau dann, wenn der (zeitunabhängige)
+Amplitudenfaktor verschwindet:
+
+$$
+\frac{2A}{\omega_P}\,\sin\!\left(\frac{\omega_P T}{2}\right) = 0.
+$$
+
+\textbf{Rechnung:} Wegen $A, \omega_P \neq 0$ ist dies gleichbedeutend mit
+
+$$
+\sin\!\left(\frac{\omega_P T}{2}\right) = 0
+\quad\Longleftrightarrow\quad
+\frac{\omega_P T}{2} = n\pi, \quad n \in \mathbb{N}.
+$$
+
+Mit $\omega_P = 2\pi/T_P$ folgt $\tfrac{\omega_P T}{2} = \tfrac{\pi T}{T_P}$ und
+damit $\tfrac{\pi T}{T_P} = n\pi$, also
+
+$$
+T = n\,T_P, \quad n = 1, 2, 3, \dots
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;y(t) \equiv 0 \iff T = n\,T_P,\quad n \in \mathbb{N}.\;}
+$$
+
+Umfasst das Fenster \emph{ganzzahlig viele} Perioden der Kosinusschwingung, so
+mittelt die Faltung (das gleitende Integral) exakt über volle Perioden und
+liefert null. Ja, $y(t) = 0$ ist erreichbar.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 5.3 – Reihenschaltung von LTI-Systemen}
+% ================================================================
+
+\begin{beispiel}[Impulsantwort der Reihenschaltung zweier Exponentialsysteme]
+
+\textbf{Gegeben:} Zwei identische LTI-Systeme mit Impulsantwort
+
+$$
+h(t) = \frac{1}{T}\, e^{-t/T}\,\epsilon(t)
+= \begin{cases} \tfrac{1}{T}\, e^{-t/T} & , \quad t \geq 0 \\[2pt] 0 & , \quad t < 0, \end{cases}
+$$
+
+in Reihe (kaskadiert) geschaltet.
+
+\textbf{Gesucht:} Die Impulsantwort $h_{\text{ges}}(t)$ der Reihenschaltung.
+
+\textbf{Formel} (Impulsantwort der Kaskade $=$ Faltung der Einzelantworten,
+Abschnitt~\ref{sec:faltung-eigenschaften}):
+
+$$
+h_{\text{ges}}(t) = h(t) * h(t)
+= \int_{-\infty}^{\infty} h(\tau)\, h(t - \tau)\,\mathrm{d}\tau.
+$$
+
+\textbf{Rechnung:} Der Integrand ist ungleich null für $\tau \geq 0$ \emph{und}
+$t - \tau \geq 0$, also $0 \leq \tau \leq t$ (setzt $t \geq 0$ voraus). Für
+$t \geq 0$:
+
+$$
+h_{\text{ges}}(t)
+= \int_{0}^{t} \frac{1}{T}e^{-\tau/T}\cdot\frac{1}{T}e^{-(t - \tau)/T}\,\mathrm{d}\tau
+= \frac{1}{T^2}\, e^{-t/T}\int_{0}^{t} e^{-\tau/T}\,e^{+\tau/T}\,\mathrm{d}\tau
+= \frac{1}{T^2}\, e^{-t/T}\int_{0}^{t} 1\,\mathrm{d}\tau.
+$$
+
+Das verbleibende Integral ist $\int_0^t 1\,\mathrm{d}\tau = t$, also
+
+$$
+h_{\text{ges}}(t) = \frac{t}{T^2}\, e^{-t/T}, \qquad t \geq 0.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;h_{\text{ges}}(t) = \frac{t}{T^2}\, e^{-t/T}\,\epsilon(t)\;}
+$$
+
+Aus dem einfachen Abklingen wird durch die Kaskade eine Impulsantwort mit
+Anstieg-und-Abfall (Erlang-/Gamma-Form 2.\ Ordnung): Sie startet bei $0$, hat
+ihr Maximum bei $t = T$ und klingt danach exponentiell ab. Dies illustriert das
+Assoziativ-/Kommutativgesetz der Faltung -- die Kaskade wird durch \emph{eine}
+resultierende Impulsantwort ersetzt.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 5.4 – LTI-System II}
+% ================================================================
+
+% ---- a) --------------------------------------------------------
+\subsubsection*{a) Faltung zweier Rechtecke}
+
+\begin{beispiel}[Faltung von Rechteck mit Rechteck -- Trapez]
+
+\textbf{Gegeben:} $h_1(t) = \operatorname{rect}(t/T)$ (Höhe $1$ auf $[0,T)$) und
+$x_1(t) = \operatorname{rect}(t/2T)$ (Höhe $1$ auf $[0, 2T)$).
+
+\textbf{Gesucht:} Das Ausgangssignal $y_1(t) = x_1(t) * h_1(t)$.
+
+\textbf{Formel} (Faltungsintegral, Abschnitt~\ref{sec:faltungsintegral}):
+
+$$
+y_1(t) = \int_{-\infty}^{\infty} x_1(\tau)\, h_1(t - \tau)\,\mathrm{d}\tau.
+$$
+
+\textbf{Rechnung:} Der Integrand ist $1$, wo $0 \leq \tau < 2T$ \emph{und}
+$0 \leq t - \tau < T$ (d.\,h.\ $t - T < \tau \leq t$); $y_1(t)$ ist also die
+\emph{Länge der Überlappung} $[\max(0, t-T),\, \min(2T, t))$. Die Nahtstellen
+liegen bei $t = 0, T, 2T, 3T$.
+
+$$
+\begin{aligned}
+0 \leq t < T:\ & \tau \in [0, t) &&\Rightarrow y_1(t) = t, \\
+T \leq t < 2T:\ & \tau \in [t - T, t) &&\Rightarrow y_1(t) = T, \\
+2T \leq t < 3T:\ & \tau \in [t - T, 2T) &&\Rightarrow y_1(t) = 3T - t, \\
+\text{sonst:}\ & &&\Rightarrow y_1(t) = 0.
+\end{aligned}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;y_1(t) = \begin{cases}
+t & , \quad 0 \leq t < T \\[2pt]
+T & , \quad T \leq t < 2T \\[2pt]
+3T - t & , \quad 2T \leq t < 3T \\[2pt]
+0 & , \quad \text{sonst.}
+\end{cases}\;}
+$$
+
+Die Faltung zweier Rechtecke unterschiedlicher Breite ergibt ein \emph{Trapez}:
+linear ansteigende Flanke, flaches Plateau der Höhe $T$ (Breite des kürzeren
+Fensters), linear abfallende Flanke. Skizze:
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=10cm, height=4.5cm,
+  xmin=-0.5, xmax=3.5, ymin=-0.2, ymax=1.4,
+  axis lines=center,
+  xlabel={$t/T$}, ylabel={$y_1(t)/T$},
+  xtick={0,1,2,3}, ytick={1},
+  tick label style={font=\small},
+  every axis plot/.append style={very thick},
+]
+\addplot[blue] coordinates {(-0.5,0) (0,0) (1,1) (2,1) (3,0) (3.5,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) Faltung Rampe mit Exponentialsignal}
+
+\begin{beispiel}[Faltung einer Rampe mit einem Exponentialsignal]
+
+\textbf{Gegeben:} $h_2(t) = \dfrac{t}{T}\operatorname{rect}(t/T)$, also
+$h_2(t) = t/T$ für $0 \leq t < T$ (sonst $0$), und
+$x_2(t) = e^{-t/2T}\,\epsilon(t)$.
+
+\textbf{Gesucht:} Das Ausgangssignal $y_2(t) = h_2(t) * x_2(t)$.
+
+\textbf{Formel} (Faltungsintegral, Abschnitt~\ref{sec:faltungsintegral}):
+
+$$
+y_2(t) = \int_{-\infty}^{\infty} h_2(\tau)\, x_2(t - \tau)\,\mathrm{d}\tau.
+$$
+
+\textbf{Rechnung:} $h_2(\tau) \neq 0$ nur für $0 \leq \tau < T$, und
+$x_2(t - \tau) \neq 0$ nur für $\tau \leq t$. Für $t \geq 0$ ist die obere Grenze
+$U = \min(T, t)$:
+
+$$
+y_2(t) = \int_{0}^{U} \frac{\tau}{T}\, e^{-(t - \tau)/(2T)}\,\mathrm{d}\tau
+= \frac{1}{T}\, e^{-t/(2T)}\int_{0}^{U} \tau\, e^{\tau/(2T)}\,\mathrm{d}\tau.
+$$
+
+Mit der partiellen Integration
+$\int \tau\, e^{k\tau}\,\mathrm{d}\tau = e^{k\tau}\big(\tfrac{\tau}{k} - \tfrac{1}{k^2}\big)$
+und $k = \tfrac{1}{2T}$ (also $\tfrac{1}{k} = 2T$, $\tfrac{1}{k^2} = 4T^2$):
+
+$$
+\int_{0}^{U} \tau\, e^{\tau/(2T)}\,\mathrm{d}\tau
+= e^{U/(2T)}\big(2T\,U - 4T^2\big) + 4T^2.
+$$
+
+\medskip
+\textit{Fall $0 \leq t < T$ (obere Grenze $U = t$):}
+
+$$
+y_2(t) = \frac{1}{T}\, e^{-t/(2T)}\Big[e^{t/(2T)}\big(2Tt - 4T^2\big) + 4T^2\Big]
+= 2t - 4T + 4T\, e^{-t/(2T)}.
+$$
+
+\medskip
+\textit{Fall $t \geq T$ (obere Grenze $U = T$):}
+
+$$
+y_2(t) = \frac{1}{T}\, e^{-t/(2T)}\Big[e^{1/2}\big(2T^2 - 4T^2\big) + 4T^2\Big]
+= 2T\big(2 - \sqrt{e}\,\big)\, e^{-t/(2T)}.
+$$
+
+Stetigkeitskontrolle bei $t = T$: Fall~1 liefert $-2T + 4T e^{-1/2}$, Fall~2
+liefert $2T(2 - \sqrt{e})e^{-1/2} = 4T e^{-1/2} - 2T$. \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;y_2(t) = \begin{cases}
+0 & , \quad t < 0 \\[4pt]
+2t - 4T + 4T\, e^{-t/(2T)} & , \quad 0 \leq t < T \\[4pt]
+2T\big(2 - \sqrt{e}\,\big)\, e^{-t/(2T)} & , \quad t \geq T
+\end{cases}\;}
+$$
+
+Für $0 \leq t < T$ „lädt`` sich das System entlang der Rampe auf, ab $t \geq T$
+klingt der Ausgang rein exponentiell mit der Zeitkonstante $2T$ ab (Amplitude
+$2T(2 - \sqrt{e}) \approx 0{,}70\,T$, positiv wegen $\sqrt{e} \approx 1{,}65 < 2$).
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\subsubsection*{c) Zeitkonstante $\tau$ bei gleichem Flächeninhalt}
+
+\begin{beispiel}[Zeitkonstante aus der Flächengleichheit]
+
+\textbf{Gegeben:} $x_3(t) = e^{-t/\tau}\,\epsilon(t)$ und
+$h_3(t) = \dfrac{t}{T}\operatorname{rect}(t/T)$.
+
+\textbf{Gesucht:} Die Zeitkonstante $\tau > 0$, so dass der Flächeninhalt beider
+Signale gleich groß ist.
+
+\textbf{Formel} (Flächeninhalt $=$ Integral über das Signal):
+
+$$
+\int_{-\infty}^{\infty} x_3(t)\,\mathrm{d}t
+\overset{!}{=} \int_{-\infty}^{\infty} h_3(t)\,\mathrm{d}t.
+$$
+
+\textbf{Rechnung:} Die Einzelflächen sind
+
+$$
+\int_{0}^{\infty} e^{-t/\tau}\,\mathrm{d}t = \tau,
+\qquad
+\int_{0}^{T} \frac{t}{T}\,\mathrm{d}t = \frac{1}{T}\cdot\frac{T^2}{2} = \frac{T}{2}.
+$$
+
+Gleichsetzen liefert $\tau = \dfrac{T}{2}$.
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;\tau = \frac{T}{2}\;}
+$$
+
+Bei $\tau = T/2$ besitzen die (unterschiedlich geformte) abklingende Exponentiale
+und die Dreiecksrampe denselben Flächeninhalt $T/2$.
+
+\end{beispiel}
+
+% ================================================================
+\subsection*{Aufgabe 5.5 – Zustandsraummodell eines Masse-Feder-Systems}
+% ================================================================
 
 Betrachtet wird ein gedämpfter Oszillator (Masse-Feder-System) mit der Masse
 $M$, der Federkonstante $k_F$ und der Dämpfungskonstante $b$. Die Auslenkung
