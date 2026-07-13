@@ -87,6 +87,27 @@
 % ── Multi-Column (Formelsammlung) ────────────────────────────
 \usepackage{multicol}
 
+% ── Code-Listings (Python) ───────────────────────────────────
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{accent}\bfseries,
+  commentstyle=\color{exercisegreen-fr}\itshape,
+  stringstyle=\color{satzred-fr},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=8pt,
+  frame=single,
+  rulecolor=\color{gray},
+  breaklines=true,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  tabsize=4,
+  literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1 {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1,
+}
+\lstdefinestyle{python}{language=Python}
+
 % ── Lists ────────────────────────────────────────────────────
 \usepackage{enumitem}
 \setlist[itemize]{itemsep=2pt, topsep=4pt}
