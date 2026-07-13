@@ -264,3 +264,524 @@ Der Erwartungswert liegt also weit über $1$, weshalb $P(X \le 1)$ verschwindend
 klein ausfällt.
 
 \end{beispiel}
+
+% ================================================================
+\subsection*{Aufgaben 8.1 – 8.8}
+% ================================================================
+
+Die folgenden Aufgaben vertiefen den Satz von Bayes, den Satz von der totalen
+Wahrscheinlichkeit sowie die Binomial- und die hypergeometrische Verteilung.
+
+% ----------------------------------------------------------------
+\subsubsection*{8.1 – Fahren ohne gültigen Fahrschein}
+
+\begin{beispiel}[Satz von Bayes -- Schwarzfahrer]
+
+\textbf{Gegeben:} In Bochum wird zu $7\,\%$ schwarzgefahren, also
+$P(S) = 0{,}07$ (Schwarzfahrer) und $P(E) = 0{,}93$ (ehrlicher Fahrgast).
+Von den Schwarzfahrern haben $80\,\%$ gar keine Fahrkarte, die übrigen
+$20\,\%$ besitzen eine gefälschte bzw.\ illegal besorgte Fahrkarte. Von den
+ehrlichen Fahrgästen haben $5\,\%$ ihren Fahrschein vergessen. Betrachtet wird
+das Ereignis $K$: „der kontrollierte Fahrgast kann keinen Fahrschein
+vorzeigen``. Ein Schwarzfahrer mit gefälschtem Schein kann diesen vorzeigen,
+sodass
+
+$$
+P(K \mid S) = 0{,}80, \qquad P(K \mid E) = 0{,}05 .
+$$
+
+\textbf{Gesucht:} a) $P(S \mid K)$ und b) $P(E \mid K)$.
+
+\textbf{Formel} (Satz von Bayes mit totaler Wahrscheinlichkeit im Nenner,
+Abschnitte~\ref{sec:satz-von-bayes} und~\ref{sec:totale-wahrscheinlichkeit}):
+
+$$
+P(S \mid K) = \frac{P(K \mid S)\, P(S)}{P(K \mid S)\, P(S) + P(K \mid E)\, P(E)}
+$$
+
+\textbf{Rechnung:}
+
+Zunächst die totale Wahrscheinlichkeit für „kein Fahrschein vorzeigbar``:
+
+$$
+P(K) = 0{,}80 \cdot 0{,}07 + 0{,}05 \cdot 0{,}93
+     = 0{,}056 + 0{,}0465 = 0{,}1025
+$$
+
+a) Rückschluss auf den Schwarzfahrer:
+
+$$
+P(S \mid K) = \frac{0{,}056}{0{,}1025} = \frac{112}{205} \approx 0{,}5463
+$$
+
+b) Rückschluss auf den ehrlichen Fahrgast:
+
+$$
+P(E \mid K) = \frac{0{,}0465}{0{,}1025} = \frac{93}{205} \approx 0{,}4537
+$$
+
+Probe: $\tfrac{112}{205} + \tfrac{93}{205} = \tfrac{205}{205} = 1$ \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(S \mid K) = \frac{112}{205} \approx 0{,}5463, \qquad
+P(E \mid K) = \frac{93}{205} \approx 0{,}4537}
+$$
+
+Wer keinen Fahrschein vorzeigen kann, ist mit knapp $55\,\%$ ein Schwarzfahrer,
+obwohl der Anteil der Schwarzfahrer insgesamt nur $7\,\%$ beträgt.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.2 – Bestehen einer Klausur}
+
+\begin{beispiel}[Totale Wahrscheinlichkeit und Bayes -- Klausur]
+
+\textbf{Gegeben:} $V$ = „Student ist vorbereitet`` mit $P(V) = 0{,}25$,
+$P(\bar V) = 0{,}75$. $B$ = „Prüfung bestanden`` mit den bedingten
+Wahrscheinlichkeiten
+
+$$
+P(B \mid V) = 0{,}98, \qquad P(B \mid \bar V) = 0{,}01 .
+$$
+
+\textbf{Gesucht:} a) $P(B)$, b) $P(\bar B \cap V)$, c) $P(V \mid \bar B)$.
+
+\textbf{Formel} (Satz von der totalen Wahrscheinlichkeit
+\ref{sec:totale-wahrscheinlichkeit}, Multiplikationssatz und Bayes
+\ref{sec:satz-von-bayes}):
+
+$$
+P(B) = P(B \mid V)\,P(V) + P(B \mid \bar V)\,P(\bar V), \qquad
+P(V \mid \bar B) = \frac{P(\bar B \cap V)}{P(\bar B)}
+$$
+
+\textbf{Rechnung:}
+
+a)
+$$
+P(B) = 0{,}98 \cdot 0{,}25 + 0{,}01 \cdot 0{,}75 = 0{,}245 + 0{,}0075 = 0{,}2525
+$$
+
+b) Ein vorbereiteter Student fällt mit $P(\bar B \mid V) = 0{,}02$ durch:
+
+$$
+P(\bar B \cap V) = P(\bar B \mid V)\, P(V) = 0{,}02 \cdot 0{,}25 = 0{,}005
+$$
+
+c) Mit $P(\bar B) = 1 - P(B) = 0{,}7475$:
+
+$$
+P(V \mid \bar B) = \frac{0{,}005}{0{,}7475} = \frac{2}{299} \approx 0{,}00669
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(B) = 0{,}2525, \qquad P(\bar B \cap V) = 0{,}005, \qquad
+P(V \mid \bar B) = \frac{2}{299} \approx 0{,}00669}
+$$
+
+Wer durchfällt, war nur mit rund $0{,}67\,\%$ Wahrscheinlichkeit vorbereitet --
+Durchfallen spricht sehr stark für mangelnde Vorbereitung.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.3 – Bitfehlerwahrscheinlichkeiten}
+
+\begin{beispiel}[Binomialverteilung -- Übertragungsfehler]
+
+\textbf{Gegeben:} Ein Übertragungskanal überträgt jedes Bit unabhängig mit der
+Bitfehlerwahrscheinlichkeit $P_e$. Ein Datenpaket besteht aus $n$ Bits. Die
+Anzahl $X$ der fehlerhaften Bits ist damit binomialverteilt (Bernoulli-Kette).
+
+\textbf{Gesucht:} Wahrscheinlichkeit für a) keinen Fehler, b) genau einen
+Fehler, c) genau $k$ Fehler, d) höchstens $3$ Fehler.
+
+\textbf{Formel} (Binomialverteilung, Abschnitt~\ref{sec:binomialverteilung}):
+
+$$
+P(X = k) = \binom{n}{k}\, P_e^{\,k}\,(1 - P_e)^{\,n-k}
+$$
+
+\textbf{Rechnung:}
+
+a) Kein Fehler ($k = 0$):
+
+$$
+P(X = 0) = \binom{n}{0}\, P_e^{0}\,(1 - P_e)^{n} = (1 - P_e)^{n}
+$$
+
+b) Genau ein Fehler ($k = 1$):
+
+$$
+P(X = 1) = \binom{n}{1}\, P_e^{1}\,(1 - P_e)^{n-1} = n\,P_e\,(1 - P_e)^{n-1}
+$$
+
+c) Genau $k$ Fehler:
+
+$$
+P(X = k) = \binom{n}{k}\, P_e^{\,k}\,(1 - P_e)^{\,n-k}
+$$
+
+d) Höchstens $3$ Fehler ($X \le 3$):
+
+$$
+P(X \le 3) = \sum_{k=0}^{3} \binom{n}{k}\, P_e^{\,k}\,(1 - P_e)^{\,n-k}
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{%
+\begin{aligned}
+P(X = 0) &= (1 - P_e)^{n}, \\
+P(X = 1) &= n\,P_e\,(1 - P_e)^{n-1}, \\
+P(X = k) &= \binom{n}{k}\, P_e^{\,k}\,(1 - P_e)^{\,n-k}, \\
+P(X \le 3) &= \sum_{k=0}^{3} \binom{n}{k}\, P_e^{\,k}\,(1 - P_e)^{\,n-k} .
+\end{aligned}}
+$$
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.4 – Restposten ICs}
+
+\begin{beispiel}[Hypergeometrische Verteilung -- defekte ICs]
+
+\textbf{Gegeben:} Ein Posten enthält $N = 10$ ICs, davon $D = 4$ defekt und
+$6$ intakt. Es werden \emph{ohne Zurücklegen} $n = 4$ ICs zufällig ausgewählt.
+Die Anzahl $X$ der defekten unter den gezogenen ICs ist hypergeometrisch
+verteilt.
+
+\textbf{Gesucht:} $P(X = 4)$, $P(X = 1)$, $P(X = 2)$.
+
+\textbf{Formel} (Laplace-Wahrscheinlichkeit über Kombinationen,
+Abschnitt~\ref{sec:kombinatorik}):
+
+$$
+P(X = m) = \frac{\dbinom{D}{m}\dbinom{N-D}{\,n-m\,}}{\dbinom{N}{n}}
+$$
+
+\textbf{Rechnung:}
+
+Anzahl aller Auswahlen: $\dbinom{10}{4} = 210$.
+
+a) Alle vier defekt ($m = 4$):
+
+$$
+P(X = 4) = \frac{\dbinom{4}{4}\dbinom{6}{0}}{\dbinom{10}{4}}
+         = \frac{1 \cdot 1}{210} = \frac{1}{210} \approx 0{,}00476
+$$
+
+b) Genau eins defekt ($m = 1$):
+
+$$
+P(X = 1) = \frac{\dbinom{4}{1}\dbinom{6}{3}}{\dbinom{10}{4}}
+         = \frac{4 \cdot 20}{210} = \frac{80}{210} = \frac{8}{21} \approx 0{,}3810
+$$
+
+c) Genau zwei defekt ($m = 2$):
+
+$$
+P(X = 2) = \frac{\dbinom{4}{2}\dbinom{6}{2}}{\dbinom{10}{4}}
+         = \frac{6 \cdot 15}{210} = \frac{90}{210} = \frac{3}{7} \approx 0{,}4286
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(X = 4) = \frac{1}{210} \approx 0{,}00476, \quad
+P(X = 1) = \frac{8}{21} \approx 0{,}3810, \quad
+P(X = 2) = \frac{3}{7} \approx 0{,}4286}
+$$
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.5 – Radarstation}
+
+\begin{beispiel}[Satz von Bayes -- Radarstation]
+
+\textbf{Gegeben:} $N$ = „störungsüberlagertes Nutzsignal`` mit $P(N) = 0{,}90$,
+$T$ = „reine Störung`` mit $P(T) = 0{,}10$. Die Anzeige $A$ = „Nutzsignal
+angezeigt`` tritt ein mit
+
+$$
+P(A \mid N) = 0{,}98, \qquad P(A \mid T) = 0{,}10 .
+$$
+
+\textbf{Gesucht:} $P(N \mid A)$ -- Wahrscheinlichkeit, dass ein als Nutzsignal
+angezeigtes Signal wirklich ein Nutzsignal ist.
+
+\textbf{Formel} (Satz von Bayes, Abschnitt~\ref{sec:satz-von-bayes}):
+
+$$
+P(N \mid A) = \frac{P(A \mid N)\,P(N)}{P(A \mid N)\,P(N) + P(A \mid T)\,P(T)}
+$$
+
+\textbf{Rechnung:}
+
+$$
+P(A) = 0{,}98 \cdot 0{,}90 + 0{,}10 \cdot 0{,}10 = 0{,}882 + 0{,}010 = 0{,}892
+$$
+
+$$
+P(N \mid A) = \frac{0{,}882}{0{,}892} = \frac{441}{446} \approx 0{,}9888
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(N \mid A) = \frac{441}{446} \approx 0{,}9888}
+$$
+
+Eine „Nutzsignal``-Anzeige ist mit rund $98{,}9\,\%$ zuverlässig, da echte
+Nutzsignale sowohl häufig als auch fast sicher korrekt angezeigt werden.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.6 – Kontrolle am Flughafen}
+
+\begin{beispiel}[Satz von Bayes -- Sicherheitskontrolle]
+
+\textbf{Gegeben:} $V$ = „verbotene Gegenstände im Handgepäck`` mit
+$P(V) = 0{,}20$, $P(\bar V) = 0{,}80$. Das Scan-Gerät löst Alarm $A$ aus mit
+
+$$
+P(A \mid V) = 0{,}98, \qquad P(A \mid \bar V) = 0{,}01 \quad (\text{Fehlalarm}).
+$$
+
+\textbf{Gesucht:} a) $P(A)$, b) $P(V \mid A)$, c) Anzahl der Fehlalarme bei
+$1\,000\,000$ Fluggästen, d) $P(\bar V \mid A)$ (ohne Ergebnis aus b).
+
+\textbf{Formel} (totale Wahrscheinlichkeit \ref{sec:totale-wahrscheinlichkeit}
+und Bayes \ref{sec:satz-von-bayes}):
+
+$$
+P(A) = P(A \mid V)\,P(V) + P(A \mid \bar V)\,P(\bar V), \qquad
+P(V \mid A) = \frac{P(A \mid V)\,P(V)}{P(A)}
+$$
+
+\textbf{Rechnung:}
+
+a)
+$$
+P(A) = 0{,}98 \cdot 0{,}20 + 0{,}01 \cdot 0{,}80 = 0{,}196 + 0{,}008 = 0{,}204
+$$
+
+b)
+$$
+P(V \mid A) = \frac{0{,}196}{0{,}204} = \frac{49}{51} \approx 0{,}9608
+$$
+
+c) Ein Fehlalarm ist das Ereignis $A \cap \bar V$ mit
+
+$$
+P(A \cap \bar V) = P(A \mid \bar V)\,P(\bar V) = 0{,}01 \cdot 0{,}80 = 0{,}008 .
+$$
+
+Bei $1\,000\,000$ Fluggästen also
+
+$$
+0{,}008 \cdot 10^{6} = 8\,000 \text{ Fehlalarme}.
+$$
+
+d) Direkt über Bayes (unabhängig von b):
+
+$$
+P(\bar V \mid A) = \frac{P(A \mid \bar V)\,P(\bar V)}{P(A)}
+                 = \frac{0{,}008}{0{,}204} = \frac{2}{51} \approx 0{,}0392
+$$
+
+Probe: $\tfrac{49}{51} + \tfrac{2}{51} = 1$ \checkmark
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(A) = 0{,}204, \quad P(V \mid A) = \frac{49}{51} \approx 0{,}9608, \quad
+8\,000 \text{ Fehlalarme}, \quad P(\bar V \mid A) = \frac{2}{51} \approx 0{,}0392}
+$$
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.7 – Diabetes-Test}
+
+\begin{beispiel}[Satz von Bayes -- Diabetes-Test]
+
+\textbf{Gegeben:} $K$ = „an Diabetes erkrankt`` mit $P(K) = 0{,}072$,
+$P(\bar K) = 0{,}928$. Der Test $T$ (positiv) erfüllt
+
+$$
+P(T \mid K) = 0{,}95, \qquad P(\bar K \cap T) = 0{,}10 .
+$$
+
+\textbf{Gesucht:} $P(K \mid T)$ -- Wahrscheinlichkeit, tatsächlich krank zu
+sein, wenn der Test positiv ausfällt.
+
+\textbf{Formel} (Satz von Bayes, Abschnitt~\ref{sec:satz-von-bayes}):
+
+$$
+P(K \mid T) = \frac{P(T \cap K)}{P(T)}, \qquad
+P(T) = P(T \mid K)\,P(K) + P(\bar K \cap T)
+$$
+
+\textbf{Rechnung:}
+
+Wahrscheinlichkeit für richtig-positiv:
+
+$$
+P(T \cap K) = P(T \mid K)\,P(K) = 0{,}95 \cdot 0{,}072 = 0{,}0684
+$$
+
+Totale Wahrscheinlichkeit eines positiven Tests (der falsch-positive Anteil ist
+mit $0{,}10$ direkt gegeben):
+
+$$
+P(T) = 0{,}0684 + 0{,}10 = 0{,}1684
+$$
+
+$$
+P(K \mid T) = \frac{0{,}0684}{0{,}1684} = \frac{171}{421} \approx 0{,}4062
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{P(K \mid T) = \frac{171}{421} \approx 0{,}4062}
+$$
+
+Trotz eines positiven Tests ist man nur mit rund $40{,}6\,\%$ tatsächlich krank,
+da die große gesunde Bevölkerungsgruppe viele falsch-positive Ergebnisse liefert
+(Basisraten-Effekt).
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsubsection*{8.8 – Relative Häufigkeiten}
+
+\begin{beispiel}[Relative Häufigkeiten im Schwarz-Weiß-Bild]
+
+\textbf{Gegeben:} Ein Schwarz-Weiß-Bild (Bild~1) besteht ausschließlich aus
+schwarzen und weißen Bildpunkten. Aus früheren Untersuchungen ist die
+Wahrscheinlichkeit für einen schwarzen Bildpunkt mit $P(S) = 0{,}3$ bekannt.
+
+\emph{Annahme (aus dem gerenderten Bild abgelesen):} Das Punktraster ist
+quadratisch mit $20$ Spalten und $20$ Zeilen. Ein exaktes pixelgenaues
+Auszählen ist aus der Vorlage nicht zuverlässig möglich; die im Folgenden mit
+\glqq{}angenommen\grqq{} gekennzeichneten Zahlen sind daher plausible,
+konsistent gewählte Werte, mit denen das methodische Vorgehen demonstriert
+wird.
+
+\textbf{Gesucht:} a) Anzahl aller Bildpunkte, b) relative Häufigkeiten
+schwarzer und weißer Bildpunkte, c) Prüfung der Binomial-Näherung für die
+Anzahl schwarzer Punkte pro Zeile, d) akkumulierte relative Häufigkeit über die
+Bildzeilen.
+
+\textbf{Formel} (relative Häufigkeit \ref{sec:wahrscheinlichkeit-einfuehrung};
+Erwartungswert und Varianz der Binomialverteilung
+\ref{sec:binomialverteilung},~\ref{sec:erwartungswert}):
+
+$$
+h(A) = \frac{n_A}{N}, \qquad \mu = n\,p, \qquad \sigma^2 = n\,p\,(1-p)
+$$
+
+\textbf{Rechnung:}
+
+\emph{a) Anzahl aller Bildpunkte.} Bei $20$ Spalten und $20$ Zeilen:
+
+$$
+N = 20 \cdot 20 = 400 \text{ Bildpunkte (Annahme quadratisches Raster).}
+$$
+
+\emph{b) Relative Häufigkeiten.} Aus $P(S) = 0{,}3$ folgt für die erwartete
+Anzahl schwarzer Punkte $n_S \approx P(S)\cdot N = 0{,}3 \cdot 400 = 120$ und
+somit
+
+$$
+h(S) = \frac{120}{400} = 0{,}3, \qquad
+h(W) = \frac{280}{400} = 0{,}7 = 1 - h(S).
+$$
+
+\emph{c) Binomial-Näherung pro Zeile.} Eine Bildzeile besteht aus $n = 20$
+Punkten; deutet man jeden Punkt als unabhängiges Bernoulli-Experiment mit
+$p = P(S) = 0{,}3$, so ist die Anzahl schwarzer Punkte pro Zeile
+binomialverteilt mit den theoretischen Kennwerten
+
+$$
+\mu = n\,p = 20 \cdot 0{,}3 = 6, \qquad
+\sigma^2 = n\,p\,(1-p) = 20 \cdot 0{,}3 \cdot 0{,}7 = 4{,}2 .
+$$
+
+Für die $20$ Zeilen werden die (angenommenen) schwarzen Punktzahlen
+
+$$
+x_i = 8,\,4,\,9,\,3,\,7,\,5,\,10,\,2,\,6,\,7,\,5,\,6,\,8,\,4,\,6,\,5,\,7,\,3,\,6,\,9
+$$
+
+herangezogen (Summe $\sum x_i = 120$). Damit ergibt sich der empirische
+Mittelwert
+
+$$
+\bar{x} = \frac{1}{20}\sum_{i=1}^{20} x_i = \frac{120}{20} = 6
+$$
+
+und die empirische Varianz
+
+$$
+s^2 = \frac{1}{20}\sum_{i=1}^{20} (x_i - \bar{x})^2 = \frac{90}{20} = 4{,}5 .
+$$
+
+Der Vergleich $\bar{x} = 6 = \mu$ und $s^2 = 4{,}5 \approx 4{,}2 = \sigma^2$ zeigt
+eine sehr gute Übereinstimmung. Die Anzahl schwarzer Bildpunkte pro Zeile lässt
+sich damit gut durch eine Binomialverteilung $\mathcal{B}(n = 20,\,p = 0{,}3)$
+annähern.
+
+\emph{d) Akkumulierte relative Häufigkeit.} Werden die schwarzen Bildpunkte von
+oben nach unten aufsummiert und durch die bis dahin betrachtete Punktzahl
+($\text{Zeile} \cdot 20$) geteilt, so ergibt sich die kumulierte relative
+Häufigkeit $h_m = \tfrac{1}{20\,m}\sum_{i=1}^{m} x_i$. Diese pendelt sich mit
+wachsender Zeilenzahl auf den Wert $P(S) = 0{,}3$ ein (empirisches Gesetz der
+großen Zahlen):
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.9\linewidth, height=6cm,
+  xlabel={Bildzeile $m$}, ylabel={akkum.\ rel.\ Häufigkeit $h_m$},
+  xmin=0, xmax=21, ymin=0.25, ymax=0.42,
+  xtick={2,4,6,8,10,12,14,16,18,20},
+  ytick={0.28,0.30,0.32,0.34,0.36,0.38,0.40},
+  grid=both, grid style={gray!25},
+  legend pos=north east, legend cell align=left,
+]
+% angenommene kumulierte relative Häufigkeit
+\addplot[thick, mark=*, mark size=1.2pt, color=accent] coordinates {
+  (1,0.400) (2,0.300) (3,0.350) (4,0.300) (5,0.310)
+  (6,0.300) (7,0.329) (8,0.300) (9,0.300) (10,0.305)
+  (11,0.300) (12,0.300) (13,0.308) (14,0.300) (15,0.300)
+  (16,0.297) (17,0.300) (18,0.292) (19,0.292) (20,0.300)
+};
+\addlegendentry{$h_m$ (angenommen)}
+\addplot[dashed, thick, color=satzred-fr, domain=0:21] {0.3};
+\addlegendentry{$P(S) = 0{,}3$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Lösung:}
+
+$$
+\boxed{N = 400, \quad h(S) = 0{,}3, \quad h(W) = 0{,}7, \quad
+\bar{x} = 6 \approx \mu, \quad s^2 = 4{,}5 \approx \sigma^2 = 4{,}2}
+$$
+
+Die Anzahl schwarzer Bildpunkte pro Zeile ist gut binomialverteilt, und die
+akkumulierte relative Häufigkeit konvergiert gegen $P(S) = 0{,}3$.
+
+\end{beispiel}
