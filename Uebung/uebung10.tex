@@ -336,6 +336,721 @@ $\sigma_X$ statt der Intervalllänge $b - a$).
 \end{beispiel}
 
 % ----------------------------------------------------------------
+\subsection*{Aufgabe 10.2 – Funktion einer exponentialverteilten Zufallsvariablen}
+% ----------------------------------------------------------------
+
+Die Zufallsvariable $X$ ist exponentialverteilt
+(Abschnitt~\ref{sec:exponentialverteilung}) mit Parameter $\lambda > 0$,
+$p_X(x) = \lambda e^{-\lambda x}$ für $x \geq 0$. Da der Träger von $X$
+nichtnegativ ist, gilt $|X| = X$; die Beträge in den Teilaufgaben b) und c)
+sind daher entbehrlich, sichern aber ein positives Argument von $\ln$ und
+$\log_{10}$.
+
+% ---- a) --------------------------------------------------------
+\subsubsection*{a) Wurzeltransformation $Y = \sqrt{X}$}
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- $Y = \sqrt{X}$]
+
+\textbf{Gegeben:} $p_X(x) = \lambda e^{-\lambda x}$ für $x \geq 0$,
+Transformation $Y = g(X) = \sqrt{X}$.
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$.
+
+\textbf{Formel} (Transformationssatz für streng monotone Funktionen,
+Abschnitt~\ref{sec:monotone-transformation}):
+
+$$
+p_Y(y) = \frac{p_X\!\left(g^{-1}(y)\right)}{\left|\, g'\!\left(g^{-1}(y)\right)\right|}
+$$
+
+\textbf{Rechnung:}
+
+Auf dem Träger $x \geq 0$ ist $g(x) = \sqrt{x}$ streng monoton steigend mit
+
+$$
+x = g^{-1}(y) = y^2, \qquad g'(x) = \frac{1}{2\sqrt{x}},
+\qquad \left|g'(y^2)\right| = \frac{1}{2\sqrt{y^2}} = \frac{1}{2y}, \quad y > 0.
+$$
+
+Einsetzen für $y \geq 0$:
+
+$$
+p_Y(y) = \frac{p_X(y^2)}{1/(2y)} = 2y\,\lambda\, e^{-\lambda y^2}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \begin{cases}
+2\lambda\, y\, e^{-\lambda y^2} & , \quad y \geq 0 \\[6pt]
+0 & , \quad y < 0.
+\end{cases}\;}
+$$
+
+$Y$ ist \emph{Rayleigh-verteilt}: Das Wurzelziehen streckt kleine Werte und
+erzeugt am Ursprung eine linear ansteigende Dichte statt des Sprungs der
+Exponentialverteilung.
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) Logarithmische Transformation $Y = \ln(|X|)$}
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- $Y = \ln(|X|)$]
+
+\textbf{Gegeben:} $p_X(x) = \lambda e^{-\lambda x}$ für $x \geq 0$,
+Transformation $Y = \ln(|X|) = \ln(X)$.
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$.
+
+\textbf{Formel} (Transformationssatz, Abschnitt~\ref{sec:monotone-transformation}):
+$p_Y(y) = p_X(g^{-1}(y)) / |g'(g^{-1}(y))|$.
+
+\textbf{Rechnung:}
+
+Für $x > 0$ ist $g(x) = \ln x$ streng monoton steigend mit
+
+$$
+x = g^{-1}(y) = e^{y}, \qquad g'(x) = \frac{1}{x},
+\qquad \left|g'(e^y)\right| = e^{-y}, \quad y \in \mathbb{R}.
+$$
+
+Da $g^{-1}(y) = e^y > 0$ für alle reellen $y$, liegt das Urbild stets im
+Träger, und man erhält für alle $y \in \mathbb{R}$:
+
+$$
+p_Y(y) = \frac{p_X(e^y)}{e^{-y}} = e^{y}\,\lambda\, e^{-\lambda e^{y}}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \lambda\, e^{\,y}\, \exp\!\left(-\lambda\, e^{\,y}\right),
+\qquad y \in \mathbb{R}.\;}
+$$
+
+Der Logarithmus dehnt den Träger auf ganz $\mathbb{R}$; die Dichte besitzt ein
+Maximum bei $y = -\ln\lambda$ und fällt für große $y$ doppelt-exponentiell ab
+(Verteilung vom Gumbel-Typ).
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\subsubsection*{c) Pegeltransformation $Y = 20\,\log_{10}(|X|)$}
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- $Y = 20\log_{10}(|X|)$]
+
+\textbf{Gegeben:} $p_X(x) = \lambda e^{-\lambda x}$ für $x \geq 0$,
+Transformation $Y = 20\,\log_{10}(|X|) = 20\,\log_{10}(X)$ (Umrechnung in dB).
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$.
+
+\textbf{Formel} (Transformationssatz, Abschnitt~\ref{sec:monotone-transformation}).
+
+\textbf{Rechnung:}
+
+Mit $\log_{10} x = \ln x / \ln 10$ ist $g(x) = \dfrac{20}{\ln 10}\,\ln x$ für
+$x > 0$ streng monoton steigend. Aus $y = 20\log_{10}x$ folgt
+
+$$
+x = g^{-1}(y) = 10^{\,y/20}, \qquad
+g'(x) = \frac{20}{x\,\ln 10}, \qquad
+\left|g'\!\left(10^{y/20}\right)\right| = \frac{20}{10^{\,y/20}\,\ln 10}.
+$$
+
+Einsetzen für alle $y \in \mathbb{R}$ (auch hier ist $10^{y/20} > 0$ stets im
+Träger):
+
+$$
+p_Y(y) = p_X\!\left(10^{y/20}\right) \cdot \frac{10^{\,y/20}\,\ln 10}{20}
+       = \frac{\ln 10}{20}\,\lambda\, 10^{\,y/20}\,
+         \exp\!\left(-\lambda\, 10^{\,y/20}\right).
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \frac{\ln 10}{20}\,\lambda\, 10^{\,y/20}\,
+\exp\!\left(-\lambda\, 10^{\,y/20}\right), \qquad y \in \mathbb{R}.\;}
+$$
+
+Die dB-Kennlinie ist bis auf den konstanten Faktor $20/\ln 10$ dieselbe
+logarithmische Stauchung wie in b); entsprechend hat $p_Y$ dieselbe
+doppelt-exponentielle Form, nur horizontal skaliert.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.3 – Funktion einer gleichverteilten Zufallsvariablen}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- $Y = -\tfrac{1}{\alpha}\ln(X)$]
+
+\textbf{Gegeben:} $X$ ist auf $(0,1)$ gleichverteilt
+(Abschnitt~\ref{sec:gleichverteilung}), also $p_X(x) = 1$ für $0 < x < 1$
+(sonst $0$). Transformation $Y = g(X) = -\dfrac{1}{\alpha}\ln(X)$ mit
+$\alpha > 0$.
+
+\textbf{Gesucht:} Erwartungswert $\mathrm{E}\{Y\}$, Varianz $\mathrm{var}\{Y\}$
+und Dichte $p_Y(y)$; welche bekannte Verteilung liegt für $\alpha = \tfrac12$
+vor?
+
+\textbf{Formel} (Transformationssatz, Abschnitt~\ref{sec:monotone-transformation};
+Momente, Abschnitt~\ref{sec:momente}).
+
+\textbf{Rechnung:}
+
+\emph{Dichte.} Für $x \in (0,1)$ ist $\ln x < 0$, also $y > 0$; $g$ ist streng
+monoton \emph{fallend} mit
+
+$$
+x = g^{-1}(y) = e^{-\alpha y}, \qquad
+g'(x) = -\frac{1}{\alpha x}, \qquad
+\left|g'\!\left(e^{-\alpha y}\right)\right| = \frac{1}{\alpha\, e^{-\alpha y}}
+= \frac{e^{\alpha y}}{\alpha}.
+$$
+
+Für $y > 0$ liegt $e^{-\alpha y} \in (0,1)$ im Träger, dort $p_X = 1$:
+
+$$
+p_Y(y) = \frac{p_X\!\left(e^{-\alpha y}\right)}{e^{\alpha y}/\alpha}
+       = \alpha\, e^{-\alpha y}.
+$$
+
+$Y$ ist also \emph{exponentialverteilt} mit Parameter $\alpha$
+(Abschnitt~\ref{sec:exponentialverteilung}).
+
+\emph{Momente.} Aus der Exponentialverteilung folgt unmittelbar
+
+$$
+\mathrm{E}\{Y\} = \int_0^\infty y\,\alpha e^{-\alpha y}\,\mathrm{d}y
+= \frac{1}{\alpha}, \qquad
+\mathrm{E}\{Y^2\} = \int_0^\infty y^2\,\alpha e^{-\alpha y}\,\mathrm{d}y
+= \frac{2}{\alpha^2},
+$$
+
+$$
+\mathrm{var}\{Y\} = \mathrm{E}\{Y^2\} - \left(\mathrm{E}\{Y\}\right)^2
+= \frac{2}{\alpha^2} - \frac{1}{\alpha^2} = \frac{1}{\alpha^2}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \begin{cases} \alpha\, e^{-\alpha y} & , \; y \geq 0 \\[4pt]
+0 & , \; y < 0 \end{cases}
+\qquad
+\mathrm{E}\{Y\} = \frac{1}{\alpha}, \qquad
+\mathrm{var}\{Y\} = \frac{1}{\alpha^2}.\;}
+$$
+
+Für $\alpha = \tfrac12$ wird $p_Y(y) = \tfrac12 e^{-y/2}$ ($y \geq 0$) -- das ist
+zugleich die Dichte der \emph{Chi-Quadrat-Verteilung mit zwei Freiheitsgraden}
+($\chi^2_2$). Dieses Verfahren (Invertieren der Verteilungsfunktion,
+Abschnitt~\ref{sec:verteilungsfunktion}) ist der \emph{Inversionsansatz} zur
+Erzeugung exponentialverteilter Zufallszahlen aus gleichverteilten.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.4 – Normalverteilung: Ausschussberechnung}
+% ----------------------------------------------------------------
+
+Die Kapazität $C \sim \mathcal{N}(\mu, \sigma^2)$ mit $\mu = 10\,\text{nF}$ und
+$\sigma = 0{,}02\,\text{nF}$ (Abschnitt~\ref{sec:normalverteilung}). Zur
+Auswertung wird auf die Standardnormalverteilung transformiert,
+$z = \dfrac{c - \mu}{\sigma}$, und die tabellierte Verteilungsfunktion
+$F_X(x) = \tfrac12\!\left[1 + \operatorname{erf}\!\left(x/\sqrt{2}\right)\right]$
+mit $F_X(-x) = 1 - F_X(x)$ verwendet.
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+$x_i$ & $1{,}46$ & $1{,}5$ & $1{,}96$ & $2{,}46$ & $2{,}5$ \\ \hline
+$F_X(x_i)$ & $0{,}92785$ & $0{,}93319$ & $0{,}975$ & $0{,}99305$ & $0{,}99379$ \\
+\end{tabular}
+\end{center}
+
+\begin{beispiel}[Ausschuss bei einseitigen und zweiseitigen Toleranzgrenzen]
+
+\textbf{Gegeben:} $C \sim \mathcal{N}(10\,\text{nF},\,(0{,}02\,\text{nF})^2)$
+sowie die obige Wertetabelle.
+
+\textbf{Gesucht:} Ausschussanteile in a)--c), Toleranzgrenzen in d) und der
+geänderte Ausschuss in e).
+
+\textbf{Formel:} Standardisierung und
+$P(C \leq c) = F_X\!\left(\tfrac{c-\mu}{\sigma}\right)$.
+
+\textbf{Rechnung:}
+
+\emph{a) Mindestwert $9{,}97\,\text{nF}$ (Ausschuss $= P(C < 9{,}97))$:}
+
+$$
+z = \frac{9{,}97 - 10}{0{,}02} = -1{,}5, \qquad
+P(C < 9{,}97) = F_X(-1{,}5) = 1 - F_X(1{,}5) = 1 - 0{,}93319 = 0{,}06681.
+$$
+
+\emph{b) Höchstwert $10{,}05\,\text{nF}$ (Ausschuss $= P(C > 10{,}05))$:}
+
+$$
+z = \frac{10{,}05 - 10}{0{,}02} = 2{,}5, \qquad
+P(C > 10{,}05) = 1 - F_X(2{,}5) = 1 - 0{,}99379 = 0{,}00621.
+$$
+
+\emph{c) Höchstens $0{,}03\,\text{nF}$ Abweichung
+(Ausschuss $= P(|C - 10| > 0{,}03))$:}
+
+$$
+z = \frac{0{,}03}{0{,}02} = 1{,}5, \qquad
+P(|C-10| \leq 0{,}03) = 2F_X(1{,}5) - 1 = 0{,}86638,
+$$
+$$
+\text{Ausschuss} = 1 - 0{,}86638 = 0{,}13362.
+$$
+
+\emph{d) Toleranzgrenzen für genau $5\%$ Ausschuss:} Symmetrisch verteilt auf
+beide Enden ($2{,}5\%$ je Seite), also $F_X(z) = 0{,}975 \Rightarrow z = 1{,}96$:
+
+$$
+c_{1,2} = \mu \pm 1{,}96\,\sigma = 10 \pm 1{,}96 \cdot 0{,}02
+= 10 \pm 0{,}0392 \;\text{nF}
+\;\Rightarrow\; [\,9{,}9608;\; 10{,}0392\,]\,\text{nF}.
+$$
+
+\emph{e) Verschiebung des Mittelwerts auf $\mu' = 10{,}01\,\text{nF}$} bei
+\emph{festen} Grenzen aus d):
+
+$$
+z_{\text{u}} = \frac{9{,}9608 - 10{,}01}{0{,}02} = -2{,}46, \qquad
+z_{\text{o}} = \frac{10{,}0392 - 10{,}01}{0{,}02} = 1{,}46,
+$$
+$$
+P(\text{gut}) = F_X(1{,}46) - F_X(-2{,}46) = 0{,}92785 - (1 - 0{,}99305)
+= 0{,}92090,
+$$
+$$
+\text{Ausschuss} = 1 - 0{,}92090 = 0{,}07910.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;
+\text{a)}\; 6{,}68\% \quad
+\text{b)}\; 0{,}62\% \quad
+\text{c)}\; 13{,}36\% \quad
+\text{d)}\; 10 \pm 0{,}0392\,\text{nF} \quad
+\text{e)}\; 7{,}91\%
+\;}
+$$
+
+Bereits eine Mittelwertverschiebung um $0{,}01\,\text{nF}$ ($=\tfrac12\sigma$)
+hebt den Ausschuss von $5\%$ auf $7{,}91\%$ -- die Ausschussquote reagiert
+empfindlich auf eine Dezentrierung des Prozesses.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.5 – Verteilung der Leitwerte}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Funktion einer Zufallsvariablen -- Leitwert $G = 1/R$]
+
+\textbf{Gegeben:} Der Widerstand $R$ ist auf $[900,\,1100]\,\Omega$
+gleichverteilt (Abschnitt~\ref{sec:gleichverteilung}),
+$p_R(r) = \dfrac{1}{200}$ für $900 \leq r \leq 1100$ (sonst $0$).
+Transformation auf den Leitwert $G = g(R) = 1/R$.
+
+\textbf{Gesucht:} Die Dichte $p_G(g)$ des Leitwerts.
+
+\textbf{Formel} (Transformationssatz, Abschnitt~\ref{sec:monotone-transformation}).
+
+\textbf{Rechnung:}
+
+$g(r) = 1/r$ ist auf $r > 0$ streng monoton fallend mit
+
+$$
+r = g^{-1}(g) = \frac{1}{g}, \qquad g'(r) = -\frac{1}{r^2}, \qquad
+\left|g'\!\left(\tfrac1g\right)\right| = \frac{1}{(1/g)^2} = g^2.
+$$
+
+Einsetzen, wobei $r = 1/g \in [900,1100]$ auf
+$g \in \left[\tfrac{1}{1100},\,\tfrac{1}{900}\right]\,\text{S}$ führt:
+
+$$
+p_G(g) = \frac{p_R(1/g)}{g^2} = \frac{1}{200\, g^2}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_G(g) = \begin{cases}
+\dfrac{1}{200\, g^2} & , \quad \dfrac{1}{1100} \leq g \leq \dfrac{1}{900}\;\text{S} \\[10pt]
+0 & , \quad \text{sonst.}
+\end{cases}\;}
+$$
+
+Zahlenwerte: $G \in [\,0{,}909;\, 1{,}111\,]\,\text{mS}$. Die Kehrwertbildung
+verzerrt die konstante Dichte zu einem mit $1/g^2$ fallenden Verlauf -- kleine
+Leitwerte (große Widerstände) treten dichter auf.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.6 – Faltung zweier Normalverteilungen}
+% ----------------------------------------------------------------
+
+\begin{beispiel}[Dichte der Summe zweier unabhängiger $\mathcal{N}(0,\sigma^2)$]
+
+\textbf{Gegeben:} $X$ und $Y$ sind statistisch unabhängig
+(Abschnitt~\ref{sec:statistische-unabhaengigkeit}) und
+$\mathcal{N}(0,\sigma^2)$-verteilt (Abschnitt~\ref{sec:normalverteilung}):
+$p_X(x) = \dfrac{1}{\sqrt{2\pi}\,\sigma} e^{-x^2/(2\sigma^2)}$, ebenso $p_Y$.
+
+\textbf{Gesucht:} Die Dichte $p_Z(z)$ der Summe $Z = X + Y$.
+
+\textbf{Formel} (Faltung der Dichten unabhängiger Zufallsvariablen,
+Abschnitt~\ref{sec:funktion-zwei-zv}):
+
+$$
+p_Z(z) = \int_{-\infty}^{\infty} p_X(x)\, p_Y(z - x)\,\mathrm{d}x
+$$
+
+\textbf{Rechnung:}
+
+$$
+p_Z(z) = \frac{1}{2\pi\sigma^2}\int_{-\infty}^{\infty}
+\exp\!\left(-\frac{x^2 + (z-x)^2}{2\sigma^2}\right)\mathrm{d}x.
+$$
+
+Der Zähler im Exponenten wird durch quadratische Ergänzung zerlegt:
+
+$$
+x^2 + (z-x)^2 = 2x^2 - 2xz + z^2
+= 2\left(x - \frac{z}{2}\right)^2 + \frac{z^2}{2}.
+$$
+
+Damit trennt sich das Integral vom $z$-abhängigen Term:
+
+$$
+p_Z(z) = \frac{1}{2\pi\sigma^2}\, e^{-z^2/(4\sigma^2)}
+\int_{-\infty}^{\infty} \exp\!\left(-\frac{(x - z/2)^2}{\sigma^2}\right)\mathrm{d}x.
+$$
+
+Das verbleibende Gauß-Integral hat den Wert
+$\int_{-\infty}^{\infty} e^{-u^2/\sigma^2}\,\mathrm{d}u = \sigma\sqrt{\pi}$, also
+
+$$
+p_Z(z) = \frac{\sigma\sqrt{\pi}}{2\pi\sigma^2}\, e^{-z^2/(4\sigma^2)}
+= \frac{1}{2\sigma\sqrt{\pi}}\, e^{-z^2/(4\sigma^2)}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Z(z) = \frac{1}{\sqrt{2\pi}\,\sqrt{2}\,\sigma}\,
+\exp\!\left(-\frac{z^2}{2\,(2\sigma^2)}\right)
+= \mathcal{N}(z;\, 0,\, 2\sigma^2).\;}
+$$
+
+Die Summe ist wieder normalverteilt mit verdoppelter Varianz
+($\sigma_Z^2 = 2\sigma^2$, $\sigma_Z = \sqrt{2}\,\sigma$). Die Faltung zweier
+Gauß-Glocken ergibt erneut eine Gauß-Glocke -- die Normalverteilung ist unter
+Faltung stabil.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.7 – Buffonsches Nadelproblem}
+% ----------------------------------------------------------------
+
+Eine Nadel der Länge $2a$ fällt auf eine Ebene mit parallelen Linien im Abstand
+$2b$, wobei $a < b$. $X$ bezeichnet den Abstand des Nadelmittelpunkts zur
+nächstgelegenen Linie, $\Theta$ den spitzen Winkel zwischen Nadel und der
+\emph{Senkrechten} zu den Linien.
+
+\begin{beispiel}[Buffon -- Rand- und Verbunddichten von Abstand und Winkel]
+
+\textbf{Gegeben:} Nadel $2a$, Linienabstand $2b$, $a < b$; $X$ = Abstand
+Mittelpunkt--nächste Linie, $\Theta$ = spitzer Winkel zur Liniensenkrechten.
+
+\textbf{Gesucht:} a) $p_X(x)$, b) $f_\Theta(\vartheta)$, c) Verbunddichte
+$p_{X,\Theta}(x,\vartheta)$, d) Trefferwahrscheinlichkeit $P$, e) Schätzer
+$\hat\pi$.
+
+\textbf{Formel:} Gleichverteilung als Modell für „keine bevorzugte Lage``,
+statistische Unabhängigkeit (Abschnitt~\ref{sec:statistische-unabhaengigkeit})
+sowie Integration der Verbunddichte über das Trefferereignis.
+
+\textbf{Rechnung:}
+
+\emph{a) Dichte des Abstands.} Der Mittelpunkt fällt ohne Vorzug irgendwo
+zwischen zwei Linien; der Abstand zur \emph{nächsten} Linie kann nur zwischen
+$0$ und der halben Spurweite $b$ liegen und ist dort gleichverteilt:
+
+$$
+p_X(x) = \begin{cases} \dfrac{1}{b} & , \quad 0 \leq x \leq b \\[6pt]
+0 & , \quad \text{sonst.} \end{cases}
+$$
+
+\emph{b) Dichte des Winkels.} Alle Orientierungen sind gleichwahrscheinlich;
+der spitze Winkel zur Senkrechten läuft von $0$ bis $\pi/2$ und ist dort
+gleichverteilt:
+
+$$
+f_\Theta(\vartheta) = \begin{cases} \dfrac{2}{\pi} & , \quad 0 \leq \vartheta \leq \dfrac{\pi}{2} \\[6pt]
+0 & , \quad \text{sonst.} \end{cases}
+$$
+
+\emph{c) Verbunddichte.} Bei Unabhängigkeit von $X$ und $\Theta$ ist die
+Verbunddichte das Produkt der Randdichten:
+
+$$
+p_{X,\Theta}(x,\vartheta) = p_X(x)\, f_\Theta(\vartheta) = \frac{2}{\pi b},
+\qquad 0 \leq x \leq b,\; 0 \leq \vartheta \leq \frac{\pi}{2}.
+$$
+
+\emph{d) Trefferwahrscheinlichkeit.} Die halbe Nadel hat in Richtung der
+Liniensenkrechten die Projektion $a\cos\vartheta$. Die Nadel berührt oder kreuzt
+die nächste Linie genau dann, wenn $X \leq a\cos\vartheta$. Integration:
+
+$$
+P = \int_0^{\pi/2}\!\!\int_0^{a\cos\vartheta} \frac{2}{\pi b}\,\mathrm{d}x\,\mathrm{d}\vartheta
+= \frac{2}{\pi b}\int_0^{\pi/2} a\cos\vartheta\,\mathrm{d}\vartheta
+= \frac{2a}{\pi b}\,\bigl[\sin\vartheta\bigr]_0^{\pi/2} = \frac{2a}{\pi b}.
+$$
+
+\emph{e) Schätzung von $\pi$.} Aus $P = \dfrac{2a}{\pi b}$ folgt
+$\pi = \dfrac{2a}{b\,P}$. Wirft man die Nadel $N$-mal und zählt $n_{\text{T}}$
+Treffer, so ist $\hat P = n_{\text{T}}/N$ und
+
+$$
+\hat\pi = \frac{2a}{b\,\hat P} = \frac{2\,a\,N}{b\,n_{\text{T}}}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_X(x) = \frac{1}{b}\;(0\le x\le b), \quad
+f_\Theta(\vartheta) = \frac{2}{\pi}\;\Bigl(0\le\vartheta\le\tfrac{\pi}{2}\Bigr),
+\quad P = \frac{2a}{\pi b}, \quad
+\hat\pi = \frac{2aN}{b\,n_{\text{T}}}.\;}
+$$
+
+Wegen $a < b$ ist $P = \tfrac{2a}{\pi b} < \tfrac{2}{\pi} < 1$. Nach dem Gesetz
+der großen Zahlen konvergiert $\hat P$ gegen $P$, also $\hat\pi$ gegen $\pi$ --
+das ist die Monte-Carlo-Idee der $\pi$-Schätzung.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+  % parallele Linien
+  \foreach \x in {0,2,4} { \draw[thick] (\x,-0.4) -- (\x,2.6); }
+  \draw[<->] (2,2.3) -- (4,2.3) node[midway,above,font=\small] {$2b$};
+  % Nadel, Mittelpunkt bei (2.6,1.0), Winkel zur Senkrechten
+  \coordinate (M) at (2.6,1.0);
+  \draw[very thick] ($(M)+(-0.85,-0.6)$) -- ($(M)+(0.85,0.6)$);
+  \node[right,font=\small] at ($(M)+(0.6,0.55)$) {$2a$};
+  % Abstand x zur naechsten Linie (x=2)
+  \draw[<->] (2,1.55) -- (2.6,1.55) node[midway,above,font=\small] {$x$};
+  % Senkrechte (Referenz) und Winkel
+  \draw[dashed] (1.6,1.0) -- (3.2,1.0);
+  \draw (M) ++(-0.55,0) arc (180:216:0.55);
+  \node[font=\small] at ($(M)+(-0.75,-0.18)$) {$\vartheta$};
+  \fill (M) circle (1pt);
+\end{tikzpicture}
+\end{center}
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
+\subsection*{Aufgabe 10.8 – Funktionen zweier exponentialverteilter Zufallsvariablen}
+% ----------------------------------------------------------------
+
+Gegeben sind zwei statistisch unabhängige
+(Abschnitt~\ref{sec:statistische-unabhaengigkeit}) exponentialverteilte
+Zufallsvariablen mit
+$p_{X_1}(x_1) = \alpha e^{-\alpha x_1}\,\epsilon(x_1)$ und
+$p_{X_2}(x_2) = \beta e^{-\beta x_2}\,\epsilon(x_2)$, $\alpha,\beta > 0$.
+
+% ---- a) --------------------------------------------------------
+\subsubsection*{a) Gewichtete Summe $Y = 2X_1 + X_2$}
+
+\begin{beispiel}[Funktion zweier Zufallsvariablen -- $Y = 2X_1 + X_2$]
+
+\textbf{Gegeben:} $X_1 \sim \text{Exp}(\alpha)$, $X_2 \sim \text{Exp}(\beta)$,
+unabhängig.
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$ von $Y = 2X_1 + X_2$.
+
+\textbf{Formel} (Skalierung nach Abschnitt~\ref{sec:monotone-transformation} und
+Faltung nach Abschnitt~\ref{sec:funktion-zwei-zv}).
+
+\textbf{Rechnung:}
+
+Zunächst die Dichte von $U = 2X_1$: mit $u = 2x_1$ ist
+$p_U(u) = \tfrac12 p_{X_1}(u/2) = \tfrac{\alpha}{2} e^{-(\alpha/2)u}$ für
+$u \geq 0$, also $U \sim \text{Exp}(\alpha/2)$. Nun $Y = U + X_2$ als Faltung
+zweier Exponentialdichten mit Raten $\alpha' = \alpha/2$ und $\beta$
+(Fall $\alpha \neq 2\beta$, d.\,h. $\alpha' \neq \beta$):
+
+$$
+p_Y(y) = \int_0^{y} \alpha' e^{-\alpha'\tau}\,\beta e^{-\beta(y-\tau)}\,\mathrm{d}\tau
+= \alpha'\beta\, e^{-\beta y}\,\frac{1 - e^{-(\alpha'-\beta)y}}{\alpha'-\beta}
+= \frac{\alpha'\beta}{\alpha'-\beta}\left(e^{-\beta y} - e^{-\alpha' y}\right).
+$$
+
+Mit $\alpha' = \alpha/2$ und Erweitern um den Faktor $2$:
+
+$$
+p_Y(y) = \frac{\alpha\beta}{\alpha - 2\beta}
+\left(e^{-\beta y} - e^{-\alpha y/2}\right), \qquad y \geq 0.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \frac{\alpha\beta}{\alpha - 2\beta}
+\left(e^{-\beta y} - e^{-\alpha y/2}\right)\,\epsilon(y)
+\quad (\alpha \neq 2\beta).\;}
+$$
+
+Im Sonderfall $\alpha = 2\beta$ ($\alpha' = \beta$) liefert das Integral
+$p_Y(y) = \beta^2\, y\, e^{-\beta y}\,\epsilon(y)$ (Erlang-/Gamma-Dichte der
+Ordnung $2$).
+
+\end{beispiel}
+
+% ---- b) --------------------------------------------------------
+\subsubsection*{b) Differenz $Y = X_1 - X_2$}
+
+\begin{beispiel}[Funktion zweier Zufallsvariablen -- $Y = X_1 - X_2$]
+
+\textbf{Gegeben:} $X_1 \sim \text{Exp}(\alpha)$, $X_2 \sim \text{Exp}(\beta)$,
+unabhängig.
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$ von $Y = X_1 - X_2$.
+
+\textbf{Formel} (Faltung für die Differenz,
+Abschnitt~\ref{sec:funktion-zwei-zv}):
+$p_Y(y) = \int_{-\infty}^{\infty} p_{X_1}(x)\, p_{X_2}(x - y)\,\mathrm{d}x$.
+
+\textbf{Rechnung:}
+
+Der Integrand verlangt $x \geq 0$ und $x - y \geq 0$, also
+$x \geq \max(0, y)$.
+
+\emph{Fall $y \geq 0$:}
+
+$$
+p_Y(y) = \int_{y}^{\infty} \alpha e^{-\alpha x}\,\beta e^{-\beta(x-y)}\,\mathrm{d}x
+= \alpha\beta\, e^{\beta y}\int_{y}^{\infty} e^{-(\alpha+\beta)x}\,\mathrm{d}x
+= \frac{\alpha\beta}{\alpha+\beta}\, e^{-\alpha y}.
+$$
+
+\emph{Fall $y < 0$:} (untere Grenze $x = 0$)
+
+$$
+p_Y(y) = \int_{0}^{\infty} \alpha e^{-\alpha x}\,\beta e^{-\beta(x-y)}\,\mathrm{d}x
+= \alpha\beta\, e^{\beta y}\int_{0}^{\infty} e^{-(\alpha+\beta)x}\,\mathrm{d}x
+= \frac{\alpha\beta}{\alpha+\beta}\, e^{\beta y}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \frac{\alpha\beta}{\alpha+\beta}
+\begin{cases} e^{-\alpha y} & , \quad y \geq 0 \\[4pt]
+e^{\beta y} & , \quad y < 0. \end{cases}\;}
+$$
+
+Das ist eine \emph{asymmetrische Laplace-Dichte}
+(Abschnitt~\ref{sec:laplaceverteilung}): rechts mit Rate $\alpha$, links mit
+Rate $\beta$ abfallend; für $\alpha = \beta$ ergibt sich die symmetrische
+Laplace-Verteilung.
+
+\end{beispiel}
+
+% ---- c) --------------------------------------------------------
+\subsubsection*{c) Maximum $Y = \max(X_1, X_2)$}
+
+\begin{beispiel}[Funktion zweier Zufallsvariablen -- $Y = \max(X_1, X_2)$]
+
+\textbf{Gegeben:} $X_1 \sim \text{Exp}(\alpha)$, $X_2 \sim \text{Exp}(\beta)$,
+unabhängig.
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$ von $Y = \max(X_1, X_2)$.
+
+\textbf{Formel} (Verteilungsfunktion des Maximums,
+Abschnitt~\ref{sec:verteilungsfunktion}):
+$F_Y(y) = F_{X_1}(y)\, F_{X_2}(y)$ bei Unabhängigkeit.
+
+\textbf{Rechnung:}
+
+Mit $F_{X_i}(y) = 1 - e^{-\alpha y}$ bzw. $1 - e^{-\beta y}$ für $y \geq 0$:
+
+$$
+F_Y(y) = \left(1 - e^{-\alpha y}\right)\left(1 - e^{-\beta y}\right), \qquad y \geq 0.
+$$
+
+Ableiten liefert die Dichte:
+
+$$
+p_Y(y) = \frac{\mathrm{d}F_Y}{\mathrm{d}y}
+= \alpha e^{-\alpha y}\left(1 - e^{-\beta y}\right)
++ \beta e^{-\beta y}\left(1 - e^{-\alpha y}\right).
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = \left[\alpha e^{-\alpha y} + \beta e^{-\beta y}
+- (\alpha+\beta)\, e^{-(\alpha+\beta) y}\right]\epsilon(y).\;}
+$$
+
+Das Maximum ist erst dann klein, wenn \emph{beide} Variablen klein sind; daher
+verschwindet die Dichte bei $y = 0$ ($p_Y(0) = 0$).
+
+\end{beispiel}
+
+% ---- d) --------------------------------------------------------
+\subsubsection*{d) Minimum $Y = \min(X_1, X_2)$}
+
+\begin{beispiel}[Funktion zweier Zufallsvariablen -- $Y = \min(X_1, X_2)$]
+
+\textbf{Gegeben:} $X_1 \sim \text{Exp}(\alpha)$, $X_2 \sim \text{Exp}(\beta)$,
+unabhängig.
+
+\textbf{Gesucht:} Die Dichte $p_Y(y)$ von $Y = \min(X_1, X_2)$.
+
+\textbf{Formel} (Verteilungsfunktion des Minimums über die Gegenwahrschein\-lichkeit,
+Abschnitt~\ref{sec:verteilungsfunktion}):
+$1 - F_Y(y) = \left(1 - F_{X_1}(y)\right)\left(1 - F_{X_2}(y)\right)$.
+
+\textbf{Rechnung:}
+
+$$
+1 - F_Y(y) = e^{-\alpha y}\, e^{-\beta y} = e^{-(\alpha+\beta)y}
+\;\Rightarrow\; F_Y(y) = 1 - e^{-(\alpha+\beta)y}, \qquad y \geq 0.
+$$
+
+$$
+p_Y(y) = \frac{\mathrm{d}F_Y}{\mathrm{d}y} = (\alpha+\beta)\, e^{-(\alpha+\beta)y}.
+$$
+
+\textbf{Lösung:}
+
+$$
+\boxed{\;p_Y(y) = (\alpha+\beta)\, e^{-(\alpha+\beta) y}\,\epsilon(y).\;}
+$$
+
+Das Minimum zweier unabhängiger Exponentialvariablen ist wieder
+exponentialverteilt (Abschnitt~\ref{sec:exponentialverteilung}), und zwar mit
+der \emph{Summe} der Raten $\alpha + \beta$ -- eine charakteristische
+Eigenschaft der Exponentialverteilung.
+
+\end{beispiel}
+
+% ----------------------------------------------------------------
 \subsection*{Zusatzaufgabe – Faltung von Rechteckimpuls und Exponentialsystem}
 % ----------------------------------------------------------------
 
