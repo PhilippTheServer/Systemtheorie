@@ -310,3 +310,9 @@ TSWLatexianTemp*
 vl/*.pdf
 vl/*/*.png
 vl/.venv/
+
+## Explizit versionierte Quell-PDFs (Ausnahme vom globalen *.pdf-Ignore):
+## Professor-Quellskript und die beiden Uebungsblatt-PDFs.
+!Gruppen_Aufgaben.pdf
+!Saal_Aufgaben.pdf
+!vl/skript_SystheoEins_2025.pdf
