@@ -200,9 +200,11 @@ Diese Struktur ist **obligatorisch** – keine Ausnahmen.
 
 **Linear ist die Source of Truth für Lernfortschritt, Aufgaben und Workload.** Nicht `PROGRESS.md`.
 
-- Workspace `philipp-ui`, Team **Uni** (`UNI`), Projekt **Systemtheorie**
+- Workspace `philipp-ui`, Team **Uni** (`UNI`) · `2466328e-372c-4ffd-9d9c-1133502e3792`
+- Projekt **Systemtheorie** · `699a20bf-c3a0-43d4-bebf-63d6dafb05cf`
 - **Klausur: Di, 18.08.2026**, 120 min, 100 P, 4 Aufgaben à 25 P
 - Hilfsmittel: nicht-programmierbarer TR + **handschriftliche Formelsammlung, max. 2 DIN-A4-Blätter beidseitig**
+
 
 ### Done-Definition (gilt für alle Themen-Issues)
 
@@ -230,9 +232,72 @@ Nicht als Fortschrittsquelle heranziehen.
 Dieses Repo ist **öffentlich**; die Klausuren sind Lehrstuhlmaterial inkl. Musterlösungen und
 enthalten eigene korrigierte Arbeiten. Nicht committen.
 
-Design-Spec: `docs/superpowers/specs/2026-07-14-linear-lernplan-design.md`
+### Struktur
+
+| Milestone | Zeitraum | Cycle |
+|---|---|---|
+| 1 · Diagnose | 14.–19.07. | *(vor Cycle 1)* |
+| 2 · Lücken schließen | 20.07.–02.08. | 1 + 2 |
+| 3 · Klausurtraining | 03.–14.08. | 3 + 4 |
+| 4 · Endspurt | 15.–17.08. | 4 |
+
+Cycles laufen Mo–So. Labels: `frequenz/{immer,oft,selten,nie}`, `konfidenz/{rot,gelb,gruen}`, `theorie`, `rechnen`, `altklausur`.
+
+Ohne Cycle bleiben bewusst: UNI-174 („NICHT lernen") und UNI-185 (Reserve) — Nachschlagewerke, keine Arbeit. Nie in einen Cycle ziehen, das verfälscht den Scope.
+
+Design-Spec mit allen Entscheidungen und ihren Begründungen:
+`docs/superpowers/specs/2026-07-14-linear-lernplan-design.md`
 
 ---
+
+## Betriebsanleitung: Workload in Linear managen
+
+Das ist ein **stehender Auftrag**, kein Angebot. Philipp muss nicht darum bitten.
+
+### Bei jedem Session-Start
+
+Ungefragt den Stand prüfen und in **zwei bis drei Sätzen** berichten — nicht als Tabellenschlacht:
+
+1. Was ist heute fällig? (`list_issues`, `assignee: "me"`, nach `dueDate` filtern)
+2. Was ist **überfällig**? Das ist das wichtigste Signal — es zeigt den Scheiterpunkt „Dranbleiben" in Echtzeit.
+3. Wie viele Tage bis zum 18.08.?
+
+Danach direkt zur Sache. Kein Statusbericht, wenn Philipp mit einer konkreten Frage kommt — dann erst die Frage beantworten.
+
+### Nach jeder Lerneinheit
+
+- Issue auf `Done` — **aber nur, wenn die Done-Definition erfüllt ist.** Im Zweifel nachfragen: „Ohne Lösungsblick gerechnet?" Ein zu früh grünes Board ist genau der Fehler, der drei Versuche gekostet hat.
+- `konfidenz/*`-Label nachziehen. Im Zweifel **rot** — die Kosten sind asymmetrisch: ein falsches Grün kostet Klausurpunkte, ein falsches Rot eine Stunde.
+
+### Nach jeder geschriebenen Altklausur
+
+1. Punktzahl **pro Aufgabe** als Kommentar ins Issue (nicht nur die Gesamtsumme — die Verteilung ist die Information).
+2. Fehlerthemen zurück auf `konfidenz/rot`, auch wenn sie vorher grün waren.
+3. Prioritäten und Fälligkeitsdaten der Restphase nachziehen.
+4. Auch den **Zeitverbrauch** festhalten. „Konnte ich, brauchte aber 50 min" ist ein anderes Problem als „konnte ich nicht" und braucht eine andere Behandlung.
+
+### Wöchentlich, montags zum Cycle-Start
+
+Projekt-Status-Update (`save_status_update`) mit Health-Ampel:
+
+- `onTrack` / `atRisk` / `offTrack` **ehrlich** setzen. Ein grünes Board vor einem vierten Fehlversuch ist wertlos.
+- Inhalt: geschriebene Klausuren + Punkte, verschobene Konfidenz, Restpensum vs. Restzeit, konkrete nächste Schritte.
+
+### Bei Verzug
+
+**Umpriorisieren, nicht aufholen.** Der Plan wird gekürzt, nicht der Schlaf. Konkret: zuerst `frequenz/selten` streichen, dann `oft`. `immer`-Themen und die Generalprobe (UNI-180) sind unverhandelbar.
+
+Nie Nachtschichten oder „das holen wir am Wochenende auf" vorschlagen. Einer der drei Scheiterpunkte ist Zeitdruck — den bewältigt man ausgeschlafen.
+
+### Fallstricke der Linear-Integration (teuer gelernt)
+
+- **Cycle-Zuweisung auf einen nicht existierenden Cycle ist ein stiller No-op.** Kein Fehler, kein `cycleId` in der Antwort, `updatedAt` unverändert. Nach `save_issue` mit `cycle` **immer** prüfen, ob `cycleId` gesetzt wurde.
+- **Linear ordnet Issues NICHT automatisch nach Due Date in Cycles ein.** Jedes Issue braucht eine explizite Zuweisung, sonst zeigt der Cycle `Scope 0`.
+- Team-Setting *Upcoming cycles* steht auf **6**. Cycles lassen sich per MCP **nur lesen** (`list_cycles`), nicht anlegen oder aktivieren — dafür muss Philipp in die Team-Settings.
+- `labels` **ersetzt das komplette Label-Set**. Beim Update immer alle gewünschten Labels mitgeben.
+- `list_issues` über das ganze Projekt sprengt den Kontext (Beschreibungen sind lang). Gezielt filtern oder das Ergebnis per Bash auswerten.
+- In Markdown-Tabellen zerreißen **Betragsstriche** (`|x|`) und **Faltungssterne** (`x(t)*h(t)`) die Spalten. In Tabellen umschreiben, sonst Fließtext.
+
 
 ## Wichtige Hinweise
 
