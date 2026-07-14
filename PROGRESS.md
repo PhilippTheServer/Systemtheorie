@@ -1,171 +1,45 @@
-# Skript-Fortschritt – Systemtheorie 1 (141170)
+# Fortschritt → Linear
 
-**Dozent:** Prof. Dr.-Ing. Rainer Martin · RUB · SoSe 2026
+**Diese Datei wird nicht mehr gepflegt.** Der Lernfortschritt liegt in Linear:
 
-**Legende:**
-- `[ ]` Noch nicht begonnen
-- `[~]` In Bearbeitung / Skizze vorhanden
-- `[x]` Vollständig ausgearbeitet
+**Team Uni · Projekt Systemtheorie** — https://linear.app/philipp-ui/project/systemtheorie-b592a834beba
 
 ---
 
-## Block 1 · Signale und Systeme
+## Warum
 
-### 1.1 Grundbegriffe und Klassifikation von Signalen
-- [x] Definition: Signal, Determinismus vs. Stochastik
-- [x] Klassifikation nach Wertebereich (kontinuierlich / diskret / digital)
-- [x] Klassifikation nach Zeitbereich (zeitkontinuierlich / zeitdiskret)
-- [ ] Energie und Leistung eines Signals
-  - [ ] Energie-Definition und Berechnung
-  - [ ] Leistungs-Definition und Berechnung
-  - [ ] Energie- vs. Leistungssignale
-- [ ] Periodizität
-  - [ ] Definition periodisches Signal
-  - [ ] Grundperiode $T_0$ bestimmen
-- [ ] Symmetrieeigenschaften
-  - [ ] Gerades Signal (Achsensymmetrie)
-  - [ ] Ungerades Signal (Punktsymmetrie)
-  - [ ] Zerlegung in geraden und ungeraden Anteil
+Die frühere Checkliste hier war irreführend. Sie zeigte drei Häkchen bei rund 100 Punkten, obwohl
+alle 11 Vorlesungen ausgearbeitet und gemerged sind — doppelte Buchführung führt zuverlässig dazu,
+dass beide Seiten falsch sind.
 
-### 1.2 Elementare Signale
-- [ ] Dirac-Impuls $\delta(t)$ und seine Eigenschaften
-- [ ] Sprungfunktion $\sigma(t)$ (Heaviside)
-- [ ] Rechteckimpuls und Dreieckimpuls
-- [ ] Komplexe Exponentialfunktion $e^{j\omega t}$
-- [ ] Si-Funktion / sinc-Funktion
+Zweitens war sie nach der **Stoffgliederung** sortiert, nicht nach Klausurrelevanz. Eine Auswertung
+aller 19 Altklausuren (2014–2025) zeigt, dass ein erheblicher Teil dieser Gliederung nie geprüft
+wurde — die Fourierreihe zum Beispiel in keiner einzigen Klausur. Eine Liste, die Fourierreihe und
+Faltung gleich gewichtet, ist als Lernplan schädlich.
 
-### 1.3 Elementare Operationen auf Signalen
-- [ ] Zeitverschiebung $x(t - t_0)$
-- [ ] Zeitspiegelung $x(-t)$
-- [ ] Zeitskalierung $x(at)$
-- [ ] Kombination der Operationen (Reihenfolge)
-- [ ] Überlagerung und Multiplikation von Signalen
+## Was stattdessen gilt
 
-### 1.4 Signalsynthese und -analyse periodischer Signale
-- [ ] Motivation: Zerlegung in Schwingungen
-- [ ] Fourierreihe (trigonometrische Form)
-  - [ ] Analyse: Koeffizienten $a_n$, $b_n$ berechnen
-  - [ ] Synthese: Rekonstruktion aus Koeffizienten
-- [ ] Fourierreihe (komplexe / exponentielle Form)
-  - [ ] Komplexe Koeffizienten $c_n$
-  - [ ] Zusammenhang trigonometrische ↔ komplexe Form
-- [ ] Amplituden- und Phasenspektrum
-- [ ] Gibbs'sches Phänomen
-- [ ] Parseval'sches Theorem (Leistung im Zeit- und Frequenzbereich)
+| | |
+|---|---|
+| **Klausur** | Di, 18.08.2026 · 120 min · 100 P · 4 Aufgaben à 25 P |
+| **Hilfsmittel** | Nicht-programmierbarer TR + handschriftliche Formelsammlung, max. 2 DIN-A4-Blätter beidseitig |
+| **Done heißt** | Aufgabe ohne Lösungsblick gerechnet — nicht: gelesen |
+| **Priorisierung** | `frequenz/*` × `konfidenz/*`, rot × immer zuerst |
 
-### 1.5 Analog-Digital- und Digital-Analog-Umsetzung
-- [ ] Abtastung zeitkontinuierlicher Signale
-  - [ ] Ideale Abtastung (Dirac-Kamm)
-  - [ ] Abtasttheorem nach Shannon–Nyquist
-  - [ ] Aliasing: Entstehung und Vermeidung
-- [ ] Rekonstruktion (Interpolation / Tiefpassfilterung)
-- [ ] Quantisierung
-  - [ ] Gleichförmige Quantisierung
-  - [ ] Quantisierungsfehler und Quantisierungsrauschen
-  - [ ] Signal-Rausch-Verhältnis (SNR) bei Quantisierung
+Klausuraufbau, in allen 19 ausgewerteten Altklausuren identisch:
 
-### 1.6 Systeme – Eigenschaften und Klassifikation
-- [ ] Definition System, Ein-/Ausgangsdarstellung
-- [ ] Linearität (Superpositionsprinzip)
-- [ ] Zeitinvarianz
-- [ ] LTI-Systeme (Linear Time-Invariant)
-- [ ] Kausalität
-- [ ] Stabilität (BIBO-Stabilität)
-- [ ] Gedächtnislosigkeit vs. dynamische Systeme
+| Aufgabe | Thema | Punkte |
+|---|---|---|
+| 1 | Zeitkontinuierliches LTI: Impulsantwort, Kausalität, BIBO, Faltung | 25 |
+| 2 | Zeitdiskret: Differenzengleichung, Blockdiagramm, BIBO | 25 |
+| 3 | Stetige Zufallsvariable: WDF/CDF, E{X}, var{X}, Transformation | 25 |
+| 4 | Informationstheorie: Entropie + Huffman/Fano + Beweis | 25 |
 
-### 1.7 Beschreibung von LTI-Systemen im Zeitbereich
-- [ ] Impulsantwort $h(t)$
-- [ ] Faltungsintegral $y(t) = x(t) * h(t)$
-  - [ ] Definition und Herleitung
-  - [ ] Rechenregeln (Kommutativität, Assoziativität, Distributivität)
-  - [ ] Grafische Faltung
-- [ ] Differentialgleichungen als Systembeschreibung
-- [ ] Stufensprungantwort $g(t)$ und Zusammenhang mit $h(t)$
+Vollständige Auszählung: Linear-Dokument „Frequenzanalyse: was kommt wirklich dran".
+Design-Entscheidungen: `docs/superpowers/specs/2026-07-14-linear-lernplan-design.md`.
 
----
+## Skript-Ausarbeitung
 
-## Block 2 · Wahrscheinlichkeitsrechnung
-
-### 2.1 Einführung und Grundbegriffe
-- [ ] Zufallsexperiment, Ergebnisraum $\Omega$, Ereignis
-- [ ] Axiome nach Kolmogorov
-- [ ] Laplace-Experiment (Gleichwahrscheinlichkeit)
-- [ ] Bedingte Wahrscheinlichkeit $P(A|B)$
-- [ ] Multiplikationssatz
-- [ ] Stochastische Unabhängigkeit
-- [ ] Totale Wahrscheinlichkeit und Bayes'sches Theorem
-
-### 2.2 Mehrstufige Zufallsexperimente
-- [ ] Baumdiagramme und Produkträume
-- [ ] Kombinatorik (Permutationen, Kombinationen)
-  - [ ] Mit / ohne Zurücklegen
-  - [ ] Mit / ohne Reihenfolge
-- [ ] Binomialkoeffizient und Anwendungen
-
-### 2.3 Diskrete Zufallsvariablen
-- [ ] Definition Zufallsvariable und Wahrscheinlichkeitsfunktion
-- [ ] Kumulative Verteilungsfunktion (CDF)
-- [ ] Wichtige diskrete Verteilungen
-  - [ ] Bernoulli-Verteilung
-  - [ ] Binomialverteilung
-  - [ ] Poisson-Verteilung
-  - [ ] Geometrische Verteilung
-- [ ] Kenngrößen
-  - [ ] Erwartungswert $E[X]$
-  - [ ] Varianz $\text{Var}(X)$ und Standardabweichung
-  - [ ] Momente und Momentenerzeugende Funktion
-
-### 2.4 Kontinuierliche Zufallsvariablen
-- [ ] Wahrscheinlichkeitsdichtefunktion (PDF)
-- [ ] Kumulative Verteilungsfunktion (CDF) und Zusammenhang mit PDF
-- [ ] Wichtige kontinuierliche Verteilungen
-  - [ ] Gleichverteilung (Uniform)
-  - [ ] Normalverteilung (Gauß) $\mathcal{N}(\mu, \sigma^2)$
-  - [ ] Exponentialverteilung
-- [ ] Kenngrößen
-  - [ ] Erwartungswert und Varianz
-  - [ ] Höhere Momente (Schiefe, Kurtosis)
-- [ ] Transformation von Zufallsvariablen
-
----
-
-## Block 3 · Grundbegriffe der Informationstheorie
-
-### 3.1 Grundlegende Fragestellungen
-- [ ] Motivation: Was ist Information?
-- [ ] Informationsgehalt eines Ereignisses $I(A) = -\log_2 P(A)$
-- [ ] Zusammenhang Wahrscheinlichkeit und Informationsgehalt
-
-### 3.2 Entropiebegriffe
-- [ ] Shannon-Entropie $H(X)$
-  - [ ] Definition und Einheit (Bit, Nat)
-  - [ ] Maximale und minimale Entropie
-  - [ ] Entropie der Binärquelle
-- [ ] Verbundentropie $H(X, Y)$
-- [ ] Bedingte Entropie $H(X|Y)$
-- [ ] Transinformation (Mutual Information) $I(X;Y)$
-  - [ ] Definition und geometrische Interpretation (Venn-Diagramm)
-  - [ ] Symmetrie der Transinformation
-- [ ] Kettenregel der Entropie
-
-### 3.3 Anwendungen
-- [ ] Quellencodierung
-  - [ ] Ziel: Redundanzreduktion
-  - [ ] Quellencodierungstheorem (Shannon)
-  - [ ] Huffman-Codierung (Prinzip)
-- [ ] Kanalkapazität
-  - [ ] Binärer symmetrischer Kanal (BSC)
-  - [ ] Kanalkapazität $C = \max_{P(X)} I(X;Y)$
-  - [ ] Kanalcodierungstheorem (Shannon)
-
----
-
-## Formelsammlung
-
-- [ ] Elementare Signale und Operationen
-- [ ] Fourierreihen-Koeffizienten
-- [ ] Faltungsintegral und LTI-Eigenschaften
-- [ ] Abtasttheorem
-- [ ] Wahrscheinlichkeitsformeln (Bayes, totale W.)
-- [ ] Verteilungen (diskret und kontinuierlich)
-- [ ] Entropie- und Informationsformeln
+Alle 11 Vorlesungen sind ausgearbeitet und in `main.tex` eingebunden, inklusive VL11
+(Informationstheorie). Offen sind nur noch TikZ-Grafiken, die in den `.tex`-Dateien als
+`% Grafik:`-Kommentare markiert sind — siehe „Bekannte Lücken" in `CLAUDE.md`.

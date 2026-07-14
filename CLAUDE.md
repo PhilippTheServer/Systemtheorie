@@ -29,8 +29,8 @@ Read(file_path="vl/skript_SystheoEins_2025.pdf", pages="21-40")
 | Kap. 2.3 (S. 73–86) | Analog-Digital-Umsetzung | VL4.tex |
 | Kap. 3 (S. 89–131) | Systeme und ihre Eigenschaften | VL5.tex + VL6.tex |
 | Kap. 4 (S. 133–191) | Wahrscheinlichkeitsrechnung | VL7.tex – VL10.tex |
-| Kap. 5 (S. 193–210) | Informationstheorie | *(nicht transkribiert)* |
-| Anhänge A–G | Übungsaufgaben, Tabellen | `uebungen/` |
+| Kap. 5 (S. 193–210) | Informationstheorie | VL11.tex |
+| Anhänge A–G | Übungsaufgaben, Tabellen | `Uebung/` |
 
 ---
 
@@ -48,14 +48,19 @@ Stern-Varianten (`\section*{}`, `\subsection*{}`) haben **kein** Label.
 
 ---
 
-## Bekannte Lücken (Stand: 2026-06-16)
+## Bekannte Lücken (Stand: 2026-07-14)
 
 Folgende Inhalte aus der PDF sind noch **nicht** in den Vorlesungsdateien enthalten:
 
 - **Kap. 1 (Einleitung)**: RC-Schaltkreis als Systembeispiel, Übertragungskette, technische Anwendungsgebiete, Literaturangaben → komplett fehlend
 - **Kap. 2.1** (VL1): TikZ-Grafiken für diskrete Elementarsignale (δ[k], ε[k], Rechteck, Exponential, Sinus) fehlen noch (als `% Grafik:`-Kommentare markiert)
-- **Kap. 5** (Informationstheorie, S. 193–210): Shannon-Entropie, Kanalkapazität, Huffman-Codierung → komplett fehlend
-- Diverse Abbildungen in VL3–VL10 mit `% Grafik:`-Kommentaren markiert
+- Diverse Abbildungen in VL3–VL11 mit `% Grafik:`-Kommentaren markiert
+
+**Nicht mehr offen:** Kap. 5 (Informationstheorie) galt hier lange als „komplett fehlend".
+Das stimmt seit VL11 nicht mehr — `skript/Vorlesung11.tex` deckt Informationsmaß, Entropie,
+Redundanz, Kanalkapazität, Shannon/Fano, Huffman, Lauflängencodierung und Kullback-Leibler ab
+und ist in `main.tex` eingebunden. Auch `formelsammlung.tex` und `Uebung/uebung11.tex` haben es.
+Das ist klausurrelevant: Aufgabe 4 jeder Klausur ist Informationstheorie, also 25 von 100 Punkten.
 
 ---
 
@@ -135,8 +140,10 @@ Fehlende Grafiken mit Kommentar kennzeichnen:
 .
 ├── main.tex                  # Einstiegspunkt
 ├── preamble.tex              # Pakete, Farben, Box-Umgebungen
+├── formelsammlung.tex        # Grundlage der handschriftlichen Klausur-Formelsammlung
 ├── CONTRIBUTING.md           # Box-Syntax-Referenz
-├── PROGRESS.md               # Fortschrittsverfolgung
+├── PROGRESS.md               # VERALTET – Fortschritt liegt in Linear (s. u.)
+├── Klausuren/                # 19 Altklausuren + 8 Miniklausuren – LOKAL, nicht versioniert
 ├── skript/
 │   ├── Vorlesung1.tex        # VL 1: Determinierte Signale (Kap. 2.1.1–2.1.5)
 │   ├── Vorlesung2.tex        # VL 2: Signaleigenschaften, KKF, Fourier (Kap. 2.1.6–2.1.8)
@@ -147,7 +154,10 @@ Fehlende Grafiken mit Kommentar kennzeichnen:
 │   ├── Vorlesung7.tex        # VL 7: Wahrscheinlichkeit, Axiome (Kap. 4.1–4.2)
 │   ├── Vorlesung8.tex        # VL 8: Bedingte W., Satz von Bayes (Kap. 4.3)
 │   ├── Vorlesung9.tex        # VL 9: Zufallsvariablen, Verteilungen (Kap. 4.4–4.6)
-│   └── Vorlesung10.tex       # VL 10: Zwei ZV, Bivariate Normalvert. (Kap. 4.7)
+│   ├── Vorlesung10.tex       # VL 10: Zwei ZV, Bivariate Normalvert. (Kap. 4.7)
+│   └── Vorlesung11.tex       # VL 11: Informationstheorie (Kap. 5)
+├── Uebung/
+│   └── uebung1.tex … uebung11.tex   # Übungsblätter, vollständig ausgearbeitet
 └── vl/
     ├── skript_SystheoEins_2025.pdf  # Professorskript (Source of Truth)
     └── pdf_to_images.py              # Hilfsskript: PDF → PNG
@@ -183,6 +193,44 @@ Jede Rechenaufgabe **muss** in folgender Struktur beantwortet werden:
 | **Lösung** | Ergebnis in Bruch und Dezimalform, ggf. kurze Interpretation |
 
 Diese Struktur ist **obligatorisch** – keine Ausnahmen.
+
+---
+
+## Lernplanung & Fortschritt → Linear
+
+**Linear ist die Source of Truth für Lernfortschritt, Aufgaben und Workload.** Nicht `PROGRESS.md`.
+
+- Workspace `philipp-ui`, Team **Uni** (`UNI`), Projekt **Systemtheorie**
+- **Klausur: Di, 18.08.2026**, 120 min, 100 P, 4 Aufgaben à 25 P
+- Hilfsmittel: nicht-programmierbarer TR + **handschriftliche Formelsammlung, max. 2 DIN-A4-Blätter beidseitig**
+
+### Done-Definition (gilt für alle Themen-Issues)
+
+> Ein Thema ist **Done**, wenn eine Aufgabe dazu **ohne Lösungsblick gerechnet** wurde — nicht, wenn es gelesen wurde.
+
+### Priorisierung
+
+Aus einer Frequenzanalyse aller 19 Altklausuren (Linear-Dokument „Frequenzanalyse: was kommt wirklich dran").
+Label `frequenz/*` zählt Vorkommen in den **12 Klausuren ab 2019**; die 7 älteren (2014–2018) prüfen ein
+anderes Format und zählen nicht. Label `konfidenz/*` kommt aus der Diagnose.
+Reihenfolge: **rot × immer** zuerst.
+
+**Kam seit 2019 in 0 von 12 Klausuren vor** — nicht dafür lernen, nicht dafür ausarbeiten:
+Fourierreihe, Amplituden-/Phasenspektrum, Parseval/Gibbs, Aliasing, Kombinatorik, Bayes.
+
+### `PROGRESS.md`
+
+Veraltet und wird **nicht** gepflegt. Die Datei behauptet, fast nichts sei fertig, obwohl alle 11
+Vorlesungen ausgearbeitet sind. Sie zählt außerdem Stoff auf, der klausurirrelevant ist.
+Nicht als Fortschrittsquelle heranziehen.
+
+### `Klausuren/`
+
+19 Altklausuren + 8 Miniklausuren, **lokal und bewusst nicht versioniert** (`.gitignore`).
+Dieses Repo ist **öffentlich**; die Klausuren sind Lehrstuhlmaterial inkl. Musterlösungen und
+enthalten eigene korrigierte Arbeiten. Nicht committen.
+
+Design-Spec: `docs/superpowers/specs/2026-07-14-linear-lernplan-design.md`
 
 ---
 
