@@ -311,6 +311,11 @@ vl/*.pdf
 vl/*/*.png
 vl/.venv/
 
+## Altklausuren: bleiben bewusst lokal.
+## Dieses Repo ist oeffentlich; die Klausuren sind Lehrstuhlmaterial und enthalten
+## teils Musterloesungen sowie eigene korrigierte Arbeiten mit Personendaten.
+Klausuren/
+
 ## Explizit versionierte Quell-PDFs (Ausnahme vom globalen *.pdf-Ignore):
 ## Professor-Quellskript und die beiden Uebungsblatt-PDFs.
 !Gruppen_Aufgaben.pdf
