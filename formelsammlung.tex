@@ -38,7 +38,11 @@ Gleichsignal $x(t)=A$.\quad Sinus:
 \[ x(t)=A\sin(\omega t+\varphi)=A\cos\!\big(\omega t+\varphi-\tfrac{\pi}{2}\big) \]
 \[ \omega=2\pi f=\tfrac{2\pi}{T},\quad f=\tfrac{1}{T} \]
 Sprung $\varepsilon(t)=\begin{cases}0&t<0\\1&t\ge0\end{cases}$\;
-Rechteck $\operatorname{rect}\!\big(\tfrac{t}{T}\big)$, Fläche $=T$.\\
+Rechteck (\textbf{kausal}, nicht zentriert!):
+\[ \operatorname{rect}\!\big(\tfrac{t}{T}\big)=\begin{cases}1&0\le t<T\\0&\text{sonst}\end{cases},\quad \text{Fläche}=T \]
+$\operatorname{rect}\!\big(\tfrac{t-a}{b}\big)=1$ auf $[a,\,a+b)$ — Argument nennt den \textbf{linken Rand}.
+\[ \varepsilon(t)-\varepsilon(t-T)=\operatorname{rect}\!\big(\tfrac{t}{T}\big),\quad
+   \varepsilon(t-a)-\varepsilon(t-b)=\operatorname{rect}\!\big(\tfrac{t-a}{b-a}\big) \]
 Exponential $x(t)=A\,e^{-t/\tau}\varepsilon(t)$, Steigung $|_{0^+}=-\tfrac{A}{\tau}$.\\
 $\operatorname{si}\!\big(\tfrac{t}{T}\big)=\dfrac{\sin(\pi t/T)}{\pi t/T}$.\quad
 Dirac (Siebeigenschaft):
