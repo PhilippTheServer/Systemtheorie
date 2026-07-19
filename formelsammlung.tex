@@ -134,19 +134,29 @@ kausal: $y(t_0)$ nur von $t\le t_0$;\ BIBO: $|x|<\infty\Rightarrow|y|<\infty$.
 
 % ─────────────────────────────────────────────────────────────
 \ft{LTI-Systeme \& Faltung}{sec:faltungsintegral}
-Impulsantwort $h=\mathcal S[\delta]$. Faltung:
+Impulsantwort $h=\mathcal S[\delta]$, System vorher in Ruhe ($\vec z=0$). Faltung:
 \[ y(t)=\!\int_{-\infty}^{\infty}\! x(\xi)\,h(t-\xi)\,\mathrm d\xi=x*h \]
 \[ y[k]=\sum_{l} x[l]\,h[k-l]=x[k]*h[k] \]
 $x*\delta=x$;\ $x*h=h*x$;\ assoziativ;\ distributiv.\\
 kausal $h(t)=0\ \forall t<0$;\ BIBO $\int|h|\mathrm dt<\infty$ ($\sum|h[l]|<\infty$).\\
+Sprungantwort $g=\mathcal S[\varepsilon]=\varepsilon*h$:
+\[ g(t)=\!\int_{-\infty}^{t}\! h(\tau)\,\mathrm d\tau,\qquad h(t)=\tfrac{\mathrm dg(t)}{\mathrm dt} \]
+\[ g[k]=\sum_{l=-\infty}^{k} h[l],\qquad h[k]=g[k]-g[k-1] \]
+Reihe: $h_{\text{ges}}=h_1*h_2$;\quad parallel: $h_{\text{ges}}=h_1+h_2$.\\
+Spiegeln: $h(t_0-t)\ne0$ auf $(t_0-T,\,t_0]$, falls $h\ne0$ auf $[0,T)$.\\
 Frequenzgang $\underline H(j\omega)=\int h(\xi)e^{-j\omega\xi}\mathrm d\xi$ (Eigenfkt.\ $e^{j\omega t}$).\\
 Wiener--Lee: $\varphi_{yy}=\varphi_{hh}*\varphi_{xx}$.
 
 % ─────────────────────────────────────────────────────────────
 \ft{Parametrische Systeme (FIR/IIR)}{sec:parametrische-lsi}
 allg.\ LSI: $y[k]=\sum_{\nu=0}^{N} x[k{-}\nu]b_\nu+\sum_{\mu=1}^{M} y[k{-}\mu]a_\mu$.\\
-FIR: $y[k]=\sum_{\nu=0}^{N} x[k{-}\nu]b_\nu$.\\
-IIR: $y[k]=x[k]b_0+\sum_{\mu=1}^{M} y[k{-}\mu]a_\mu$.
+FIR: $y[k]=\sum_{\nu=0}^{N} x[k{-}\nu]b_\nu$,\ $h[k]=\sum_{\nu} b_\nu\delta[k{-}\nu]$ (ablesen),
+stets BIBO-stabil.\\
+IIR: $y[k]=x[k]b_0+\sum_{\mu=1}^{M} y[k{-}\mu]a_\mu$.\\
+IIR 1.\,Ordn.: $y[k]=b_0x[k]+a_1y[k{-}1]\Rightarrow h[k]=b_0\,a_1^{\,k}\,\varepsilon[k]$,\\
+BIBO-stabil $\Leftrightarrow|a_1|<1$.\quad Rezept: $x=\delta$, $y[k{<}0]=0$, Werte, Muster.\\
+\emph{Vorzeichen von $a_\mu$ aus der Angabe bzw.\ dem Blockdiagramm ablesen} --
+Skript und Blockdiagramme nutzen unterschiedliche Konventionen.
 
 % ─────────────────────────────────────────────────────────────
 \ft{Wahrscheinlichkeit -- Grundlagen}{sec:axiome-wahrscheinlichkeit}
